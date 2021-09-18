@@ -15,7 +15,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/kangxun)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/kangxun.md)]
 
 * Role: Project Advisor
 
@@ -48,12 +48,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Mulanur Subramanian Saketh
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/loose-bus-change.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/loose-bus-change)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Developer 
+* Responsibilities: UI/Add function
