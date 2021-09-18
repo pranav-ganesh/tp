@@ -60,16 +60,6 @@ The index must be a positive integer 1, 2, 3, …
 ### Example:
 `delete 2`  -> deletes the 2nd person in the address book.
 
-
-### Viewing help : `help`
-
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
-
 ### Adding a person: `add`
 
 Adds a person to the address book.
