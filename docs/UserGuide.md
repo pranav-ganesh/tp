@@ -93,6 +93,19 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
+### Marking a person as called : `done`
+
+Marks the specified person from the address book as done
+
+Format: `done INDEX`
+
+**Things to take note:** 
+
+* Marks the person at the specified INDEX as completed (AKA person has already be called).
+* The index refers to the index number shown in the displayed person list.
+* The index must be a positive integer 1, 2, 3, …​
+
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
