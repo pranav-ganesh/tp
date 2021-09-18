@@ -31,7 +31,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Houten Teo
 
-<img src="images/team/houten.png" width="200px">
+<img src="images/houten.png" width="200px">
 
 [[github](https://github.com/houtenteo)] [[portfolio](team/johndoe.md)]
 
