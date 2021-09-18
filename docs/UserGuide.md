@@ -58,6 +58,33 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 </div>
 
+## **Feature 1: Add**
+### Description:
+Adds a person to the list of people to be callers.
+
+### Format:
+`add n/NAME p/PHONE_NUMBER e/EMAIL`
+
+### Examples:
+* `add n/John Doe p/98765432 e/johnd@example.com`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com`
+
+## **Feature 2: Delete**
+### Description: 
+Deletes the specified person from the address book.
+
+### Format:
+`delete INDEX`
+
+### Things to take note:
+Deletes the person at the specified INDEX.
+The index refers to the index number shown in the displayed person list.
+The index must be a positive integer 1, 2, 3, …
+
+### Example:
+`delete 2`  -> deletes the 2nd person in the address book.
+
+
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
