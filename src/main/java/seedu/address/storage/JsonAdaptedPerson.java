@@ -48,7 +48,7 @@ class JsonAdaptedPerson {
 //    }
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("Done") boolean isDone) {
+                             @JsonProperty("email") String email, @JsonProperty("done") boolean isDone) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -120,7 +120,7 @@ class JsonAdaptedPerson {
 //
 //        final Set<Tag> modelTags = new HashSet<>(personTags);
 //        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
-        return new Person(modelName, modelPhone, modelEmail, false);
+        return new Person(modelName, modelPhone, modelEmail, isDone);
     }
 
 }
