@@ -19,6 +19,9 @@ import seedu.address.model.tag.Tag;
 public class CsvAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field in Import file is missing!";
+    private static Map<String, Integer> map = Stream.of(new Object[][] {
+            { "Name", 0 }, { "Phone", 1 }, {"Email", 2}, {"Address", 3}, {"Tags", 4}
+    }).collect(Collectors.toMap(data -> (String) data[0], data -> (Integer) data[1]));
 
     private String name;
     private String phone;
@@ -26,16 +29,14 @@ public class CsvAdaptedPerson {
     private String address;
     private String[] tagged;
 
-    private static Map<String, Integer> map = Stream.of(new Object[][] {
-            { "Name", 0 }, { "Phone", 1 }, {"Email", 2}, {"Address", 3}, {"Tags", 4}
-            }).collect(Collectors.toMap(data -> (String) data[0], data -> (Integer) data[1]));
+
 
     public CsvAdaptedPerson(String personDetails) {
         setDetails(personDetails);
     }
 
-//https://ashwaniashwin.wordpress.com/2013/04/19/save-excel-file-as-a-csv-semicolon-delimited
-// -file-along-with-unicode-encoding/
+    //https://ashwaniashwin.wordpress.com/2013/04/19/save-excel-file-as-a-csv-semicolon-delimited
+    // -file-along-with-unicode-encoding/
     private void setDetails(String personDetails) {
         String[] details = personDetails.split(";", 5);
         this.name = details[map.get("Name")];
@@ -46,7 +47,7 @@ public class CsvAdaptedPerson {
     }
 
     private String[] setTags(String tags) {
-        return tags.replace("\"",("")).replace("\r", "").split(",");
+        return tags.replace("\"", ("")).replace("\r", "").split(",");
     }
 
     /**

@@ -13,16 +13,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CsvUtil;
-
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 public class CsvAddressBookImportExport implements ImportExport {
 
     private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
-
-    public static final String MESSAGE_DUPLICATE_PERSON = "Import list contains duplicate person(s). These person(s) " +
-            "will not be added: \n";
+    private static final String MESSAGE_DUPLICATE_PERSON = "Import list contains duplicate person(s). These person(s) "
+            + "will not be added: \n";
 
     private final Path filePath;
 
@@ -66,8 +64,8 @@ public class CsvAddressBookImportExport implements ImportExport {
                 model.addPerson(importPeople);
             }
         }
-        logger.info(people.size()-duplicatePeople.size() + " person(s) successfully added");
-        if (duplicatePeople.size()>0) {
+        logger.info(people.size() - duplicatePeople.size() + " person(s) successfully added");
+        if (duplicatePeople.size() > 0) {
             throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON + duplicatePeople.toString());
         }
 

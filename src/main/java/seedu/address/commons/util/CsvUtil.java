@@ -2,7 +2,6 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,6 +26,13 @@ public class CsvUtil {
         return fromCsvString(FileUtil.readFromFile(filePath));
     }
 
+    /**
+     * Reads from CSV file and converts into an optional list of people
+     *
+     * @param filePath filepath of the csv
+     * @return list optional, whether there is a list of people within the csv
+     * @throws DataConversionException
+     */
     public static Optional<List<Person>> readCsvFile(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
         if (!Files.exists(filePath)) {
@@ -51,7 +57,7 @@ public class CsvUtil {
     static List<Person> fromCsvString(String csv) {
         List<Person> persons = new ArrayList<>();
         String[] personRows = csv.split("\n");
-        for (int i = 1 ; i < personRows.length; i++) {
+        for (int i = 1; i < personRows.length; i++) {
             Person temp = createPerson(personRows[i]);
             if (temp == null) {
                 continue;
@@ -62,7 +68,7 @@ public class CsvUtil {
         return persons;
     }
 
-    static Person createPerson (String rowStringPerson)  {
+    static Person createPerson(String rowStringPerson) {
         try {
             return new CsvAdaptedPerson(rowStringPerson).toModelType();
         } catch (IllegalValueException e) {
