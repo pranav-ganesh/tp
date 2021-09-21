@@ -2,7 +2,12 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -16,8 +21,8 @@ public class Person {
     private final Email email;
 
     // Data fields
-    //private final Address address;
-    //private final Set<Tag> tags = new HashSet<>();
+    private final Address address = null;
+    private final Set<Tag> tags = new HashSet<>();
     private boolean isDone;
 
     /**
@@ -49,17 +54,17 @@ public class Person {
         return this.isDone;
     }
 
-    //public Address getAddress() {
-    //return address;
-    //}
+    public Address getAddress() {
+        return address;
+    }
 
-    //    /**
-    //     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-    //     * if modification is attempted.
-    //     */
-    //    public Set<Tag> getTags() {
-    //        return Collections.unmodifiableSet(tags);
-    //    }
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
 
     /**
      * Returns true if both persons have the same name.
