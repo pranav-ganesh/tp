@@ -90,7 +90,6 @@ public class CsvAdaptedPerson {
 
         final List<Tag> personTags = new ArrayList<>();
         for (String tag : tagged) {
-            System.out.println(tag);
             personTags.add(new Tag(tag));
         }
 
