@@ -21,19 +21,21 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    //private final Address address;
+    //private final Set<Tag> tags = new HashSet<>();
+    private boolean isDone;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, boolean isDone) {
+        requireAllNonNull(name, phone, email, isDone);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.isDone = isDone;
+        //this.address = address;
+        //this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -48,17 +50,21 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
+    //public Address getAddress() {
+        //return address;
+    //}
+
+//    /**
+//     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+//     * if modification is attempted.
+//     */
+//    public Set<Tag> getTags() {
+//        return Collections.unmodifiableSet(tags);
+//    }
 
     /**
      * Returns true if both persons have the same name.
@@ -90,15 +96,16 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getEmail().equals(getEmail());
+//                && otherPerson.getAddress().equals(getAddress())
+//                && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        //return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, isDone);
     }
 
     @Override
@@ -109,14 +116,16 @@ public class Person {
                 .append(getPhone())
                 .append("; Email: ")
                 .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress());
+                .append("; Done: ")
+                .append(getIsDone());
+//                .append("; Address: ")
+//                .append(getAddress());
 
-        Set<Tag> tags = getTags();
-        if (!tags.isEmpty()) {
-            builder.append("; Tags: ");
-            tags.forEach(builder::append);
-        }
+//        Set<Tag> tags = getTags();
+//        if (!tags.isEmpty()) {
+//            builder.append("; Tags: ");
+//            tags.forEach(builder::append);
+//        }
         return builder.toString();
     }
 
