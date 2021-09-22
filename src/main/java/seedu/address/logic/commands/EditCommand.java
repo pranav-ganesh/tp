@@ -121,7 +121,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Boolean isDone = null;
+        private Boolean isDone = false;
 
         public EditPersonDescriptor() {}
 
@@ -140,7 +140,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, isDone);
+            return CollectionUtil.isAnyNonNull(name, phone, email);
         }
 
         public void setName(Name name) {
@@ -193,7 +193,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && (getIsDone() == e.getIsDone());
+                    && (getIsDone().equals(e.getIsDone()));
         }
     }
 }
