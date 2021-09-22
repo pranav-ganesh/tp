@@ -57,7 +57,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code isDone} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withDone(boolean isDone) {
         descriptor.setIsDone(isDone);
