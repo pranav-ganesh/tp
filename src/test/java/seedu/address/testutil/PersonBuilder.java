@@ -97,7 +97,6 @@ public class PersonBuilder {
      * @return the person
      */
     public Person build() {
-        //return new Person(name, phone, email, address, tags);
         return new Person(name, phone, email, isDone);
     }
 

@@ -34,8 +34,6 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.isDone = isDone;
-        //this.address = address;
-        //this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -97,14 +95,11 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail());
-                //&& otherPerson.getAddress().equals(getAddress())
-                //&& otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        //return Objects.hash(name, phone, email, address, tags);
         return Objects.hash(name, phone, email, isDone);
     }
 
@@ -118,14 +113,6 @@ public class Person {
                 .append(getEmail())
                 .append("; Done: ")
                 .append(getIsDone());
-        //.append("; Address: ")
-        //.append(getAddress());
-
-        //Set<Tag> tags = getTags();
-        //if (!tags.isEmpty()) {
-        //    builder.append("; Tags: ");
-        //    tags.forEach(builder::append);
-        //}
         return builder.toString();
     }
 
