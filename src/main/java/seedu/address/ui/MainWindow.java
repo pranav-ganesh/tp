@@ -1,13 +1,9 @@
 package seedu.address.ui;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -152,7 +148,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
-        popupWindow();
         primaryStage.show();
     }
 
@@ -198,25 +193,4 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
-
-    /**
-     * getting the info for excel reading
-     *
-     */
-    private void popupWindow() {
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("Do you want to import contacts from csv?");
-        alert.setContentText("There are " + logic.getFilteredPersonList().size() + " people currently in the "
-                + "addressbook");
-        ButtonType yesButton = new ButtonType("Import", ButtonBar.ButtonData.YES);
-        ButtonType noButton = new ButtonType("Don't import", ButtonBar.ButtonData.NO);
-        alert.getButtonTypes().setAll(yesButton, noButton);
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.get() == yesButton) {
-            logic.importData();
-        }
-    }
-
 }
