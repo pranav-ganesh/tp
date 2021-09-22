@@ -21,19 +21,19 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Address address = null;
     private final Set<Tag> tags = new HashSet<>();
+    private boolean isDone;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, boolean isDone) {
+        requireAllNonNull(name, phone, email, isDone);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.isDone = isDone;
     }
 
     public Name getName() {
@@ -46,6 +46,10 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     public Address getAddress() {
@@ -90,15 +94,13 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getEmail().equals(getEmail());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, isDone);
     }
 
     @Override
@@ -109,14 +111,8 @@ public class Person {
                 .append(getPhone())
                 .append("; Email: ")
                 .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress());
-
-        Set<Tag> tags = getTags();
-        if (!tags.isEmpty()) {
-            builder.append("; Tags: ");
-            tags.forEach(builder::append);
-        }
+                .append("; Done: ")
+                .append(getIsDone());
         return builder.toString();
     }
 
