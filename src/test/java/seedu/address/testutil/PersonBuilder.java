@@ -38,6 +38,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
+        isDone = personToCopy.getIsDone();
     }
 
     /**
