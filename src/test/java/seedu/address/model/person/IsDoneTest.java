@@ -9,7 +9,7 @@ public class IsDoneTest {
 
     @Test
     public void equals() {
-        IsDone isDone = new IsDone("Hello");
+        IsDone isDone = new IsDone(false);
 
         // same object -> returns true
         assertTrue(isDone.equals(isDone));
@@ -25,7 +25,7 @@ public class IsDoneTest {
         assertFalse(isDone.equals(null));
 
         // different remark -> returns false
-        IsDone differentIsDone = new IsDone("Bye");
+        IsDone differentIsDone = new IsDone(true);
         assertFalse(isDone.equals(differentIsDone));
     }
 }
