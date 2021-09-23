@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.person.Email;
+import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -19,7 +20,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Email email;
-    private boolean isDone;
+    private IsDone isDone;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -28,7 +29,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        isDone = DEFAULT_DONE;
+        isDone = new IsDone(DEFAULT_DONE);
     }
 
     /**
@@ -68,7 +69,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code isDone} of the {@code Person} that we are building.
      */
-    public PersonBuilder withDone(boolean isDone) {
+    public PersonBuilder withDone(IsDone isDone) {
         this.isDone = isDone;
         return this;
     }
