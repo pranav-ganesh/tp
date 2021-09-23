@@ -6,27 +6,33 @@ import static java.util.Objects.requireNonNull;
  * Represents whether a Person is called in the address book.
  */
 public class IsDone {
-    public final String value;
+    public final boolean value;
 
-    public IsDone(String called) {
-        requireNonNull(called);
-        value = called;
+    public IsDone(boolean isDone) {
+        requireNonNull(isDone);
+        value = isDone;
     }
 
     @Override
     public String toString() {
-        return value;
+        if (value) {
+            return "True";
+        }
+        return "False";
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof IsDone // instanceof handles nulls
-                && value.equals(((IsDone) other).value)); // state check
+                && (value == ((IsDone) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        if (value) {
+            return 1;
+        }
+        return 0;
     }
 }
