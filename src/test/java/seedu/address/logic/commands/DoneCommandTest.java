@@ -10,7 +10,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for RemarkCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for DoneCommand.
  */
 public class DoneCommandTest {
 
