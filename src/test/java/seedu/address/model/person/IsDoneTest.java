@@ -5,27 +5,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class RemarkTest {
+public class IsDoneTest {
 
     @Test
     public void equals() {
-        Called remark = new Called("Hello");
+        IsDone isDone = new IsDone("Hello");
 
         // same object -> returns true
-        assertTrue(remark.equals(remark));
+        assertTrue(isDone.equals(isDone));
 
         // same values -> returns true
-        Called remarkCopy = new Called(remark.value);
-        assertTrue(remark.equals(remarkCopy));
+        IsDone remarkCopy = new IsDone(isDone.value);
+        assertTrue(isDone.equals(remarkCopy));
 
         // different types -> returns false
-        assertFalse(remark.equals(1));
+        assertFalse(isDone.equals(1));
 
         // null -> returns false
-        assertFalse(remark.equals(null));
+        assertFalse(isDone.equals(null));
 
         // different remark -> returns false
-        Called differentCalled = new Called("Bye");
-        assertFalse(remark.equals(differentCalled));
+        IsDone differentIsDone = new IsDone("Bye");
+        assertFalse(isDone.equals(differentIsDone));
     }
 }

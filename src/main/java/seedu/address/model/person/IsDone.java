@@ -5,10 +5,10 @@ import static java.util.Objects.requireNonNull;
 /**
  * Represents whether a Person is called in the address book.
  */
-public class Called {
+public class IsDone {
     public final String value;
 
-    public Called(String called) {
+    public IsDone(String called) {
         requireNonNull(called);
         value = called;
     }
@@ -21,8 +21,8 @@ public class Called {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Called // instanceof handles nulls
-                && value.equals(((Called) other).value)); // state check
+                || (other instanceof IsDone // instanceof handles nulls
+                && value.equals(((IsDone) other).value)); // state check
     }
 
     @Override
