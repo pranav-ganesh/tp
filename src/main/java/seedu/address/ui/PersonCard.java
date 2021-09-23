@@ -53,7 +53,7 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
 
         if (person.getIsDone()) {
-            isDone.setText("Done: True");
+            isDone.setText("Called: True");
         } else {
             isDone.setText("Called: False");
         }
