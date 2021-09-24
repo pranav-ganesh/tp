@@ -8,6 +8,11 @@ import static java.util.Objects.requireNonNull;
 public class IsDone {
     public final boolean value;
 
+    /**
+     * Constructs an {@code IsDone}.
+     *
+     * @param isDone Indication whether person is called.
+     */
     public IsDone(boolean isDone) {
         requireNonNull(isDone);
         value = isDone;
