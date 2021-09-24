@@ -44,6 +44,10 @@ public class Person {
     public boolean getIsDone() {
         return this.isDone;
     }
+    
+    public void markAsDone() {
+        this.isDone = true;
+    }
 
     /**
      * Returns true if both persons have the same name.
