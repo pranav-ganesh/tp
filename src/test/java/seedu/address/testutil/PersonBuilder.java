@@ -14,7 +14,6 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final boolean DEFAULT_DONE = false;
 
     private Name name;
@@ -69,12 +68,10 @@ public class PersonBuilder {
     /**
      * Sets the {@code isDone} of the {@code Person} that we are building.
      */
-    public PersonBuilder withDone(IsDone isDone) {
-        this.isDone = isDone;
+    public PersonBuilder withDone(boolean isDone) {
+        this.isDone = new IsDone(isDone);
         return this;
     }
-
-
 
     /**
      * Builds person
