@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -80,8 +81,8 @@ public class CsvAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        final boolean modelStatus = doneString.equals("TRUE");
+        final IsDone modelIsDone = new IsDone(doneString.equals("TRUE"));
 
-        return new Person(modelName, modelPhone, modelEmail, modelStatus);
+        return new Person(modelName, modelPhone, modelEmail, modelIsDone);
     }
 }
