@@ -10,16 +10,20 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.IsDone;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Name;
 
 import java.util.List;
 
 /**
- * Allows telemarketers to mark calls as done.
+ * Changes the done field of an existing person in the address book.
  */
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
-
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the 'Called' field of the address identified "
             + "by the index number of the address listing. "
@@ -47,15 +51,28 @@ public class DoneCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person person = lastShownList.get(index.getZeroBased());
-        if (person.getIsDone()) {
+        Person personToEdit = lastShownList.get(index.getZeroBased());
+        if (personToEdit.getIsDone().value) {
             return new CommandResult(MESSAGE_ALREADY_DONE_CALL);
         }
-        
-        model.markCallAsDone(person);
+
+        Person editedPerson = createCalledPerson(personToEdit);
+
+        model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_DONE_CALL_SUCCESS, person));
+        return new CommandResult(String.format(MESSAGE_DONE_CALL_SUCCESS, editedPerson));
+    }
+
+    private static Person createCalledPerson(Person personToEdit) {
+        assert personToEdit != null;
+
+        Name name = personToEdit.getName();
+        Phone phone = personToEdit.getPhone();
+        Email email = personToEdit.getEmail();
+        IsDone updatedIsDone = new IsDone(true);
+
+        return new Person(name, phone, email, updatedIsDone);
     }
 
     @Override
@@ -63,11 +80,11 @@ public class DoneCommand extends Command {
         if (other == this) {
             return true;
         }
-        
+
         if (!(other instanceof DoneCommand)) {
             return false;
         }
-        
+
         DoneCommand e = (DoneCommand) other;
         return index.equals(e.index);
     }

@@ -16,12 +16,12 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private boolean isDone;
+    private final IsDone isDone;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, boolean isDone) {
+    public Person(Name name, Phone phone, Email email, IsDone isDone) {
         requireAllNonNull(name, phone, email, isDone);
         this.name = name;
         this.phone = phone;
@@ -41,12 +41,8 @@ public class Person {
         return email;
     }
 
-    public boolean getIsDone() {
-        return this.isDone;
-    }
-    
-    public void markAsDone() {
-        this.isDone = true;
+    public IsDone getIsDone() {
+        return isDone;
     }
 
     /**

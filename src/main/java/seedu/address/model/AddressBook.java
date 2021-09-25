@@ -92,12 +92,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
     }
-    
-    public void markCallAsDone(Person person) {
-        requireNonNull(person);
-        
-        person.markAsDone();
-    }
 
     //// util methods
 

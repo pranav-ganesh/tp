@@ -17,6 +17,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -91,8 +92,9 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        IsDone updatedIsDone = editPersonDescriptor.getIsDone().orElse(personToEdit.getIsDone());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, false);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone);
     }
 
     @Override
@@ -121,7 +123,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Boolean isDone = false;
+        private IsDone isDone;
 
         public EditPersonDescriptor() {}
 
@@ -167,11 +169,11 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public Boolean getIsDone() {
-            return this.isDone;
+        public Optional<IsDone> getIsDone() {
+            return Optional.ofNullable(isDone);
         }
 
-        public void setIsDone(Boolean isDone) {
+        public void setIsDone(IsDone isDone) {
             this.isDone = isDone;
         }
 
