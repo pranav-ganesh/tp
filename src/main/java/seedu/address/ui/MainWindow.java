@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private String importStatus;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -125,6 +126,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        resultDisplay.setFeedbackToUser(importStatus);
     }
 
     /**
@@ -151,8 +154,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Runs popupwindow to get import settings and showing of primary stage
+     *
+     */
     void show() {
-        popupWindow();
+        importStatus = popupWindow();
         primaryStage.show();
     }
 
@@ -200,10 +207,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * getting the info for excel reading
+     * getting the user setting for excel import
      *
      */
-    private void popupWindow() {
+    private String popupWindow() {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Do you want to import contacts from csv?");
@@ -215,9 +222,9 @@ public class MainWindow extends UiPart<Stage> {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == yesButton) {
-            logic.importData();
-
+            return logic.importData();
         }
+        return "No additional import";
 
     }
 }

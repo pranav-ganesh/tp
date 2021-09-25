@@ -85,12 +85,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void importData() {
+    public String importData() {
         try {
             importExportManager.importIntoAddressBook(model);
             storage.saveAddressBook(model.getAddressBook());
         } catch (DataConversionException | IOException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
         }
+        return importExportManager.getImportStatus();
     }
 }

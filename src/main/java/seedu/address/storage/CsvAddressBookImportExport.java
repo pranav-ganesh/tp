@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -25,6 +24,10 @@ public class CsvAddressBookImportExport implements ImportExport {
             + "will not be added: \n";
 
     private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
+
+    private String unsuccessfulRowImport = "";
+    private String duplicateNameImport = "";
+    private int successfulImport = 0;
 
 
     private final Path filePath;
@@ -56,6 +59,11 @@ public class CsvAddressBookImportExport implements ImportExport {
         return importAddressBook(this.filePath, model);
     }
 
+    public String getImportStatus() {
+        return String.format("Successful Imports : " + successfulImport +" Unsuccessful rows : "
+                + unsuccessfulRowImport + "\nDuplicate names : " + duplicateNameImport);
+    }
+
     /**
      * Returns a list of person optional that are to be imported
      *   Returns {@code Optional.empty()} if the csvfile is not found
@@ -66,6 +74,7 @@ public class CsvAddressBookImportExport implements ImportExport {
      */
     private Optional<List<Person>> importAddressBook(Path filePath, Model model) throws DataConversionException {
         requireNonNull(filePath);
+        unsuccessfulRowImport = ""; // reset
 
         Optional<List<Person>> csvImportAddressBook = CsvUtil.readCsvFile(filePath);
         if (csvImportAddressBook.isEmpty()) {
@@ -74,11 +83,13 @@ public class CsvAddressBookImportExport implements ImportExport {
 
         try {
             addImportIntoAddressBook(csvImportAddressBook.get(), model);
-            return csvImportAddressBook;
+
+
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
         }
+        unsuccessfulRowImport = CsvUtil.getUnsuccessfulRow();
+        return csvImportAddressBook;
     }
 
     /**
@@ -89,19 +100,19 @@ public class CsvAddressBookImportExport implements ImportExport {
      * @throws IllegalValueException
      */
     private void addImportIntoAddressBook(List<Person> people, Model model) throws IllegalValueException {
-        List<String> duplicatePeople = new ArrayList<>();
+        duplicateNameImport = ""; // reset
+        successfulImport = 0; // reset
         for (Person importPeople : people) {
             if (model.hasPerson(importPeople)) {
-                duplicatePeople.add(importPeople.getName().fullName);
+                duplicateNameImport += importPeople.getName().fullName + ", ";
             } else {
                 model.addPerson(importPeople);
+                successfulImport++;
             }
         }
-        logger.info(people.size() - duplicatePeople.size() + " person(s) successfully added");
-        if (duplicatePeople.size() > 0) {
-            throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON + duplicatePeople.toString());
+        logger.info(successfulImport + " person(s) successfully added");
+        if (successfulImport != people.size()) {
+            throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON + duplicateNameImport);
         }
-
-
     }
 }
