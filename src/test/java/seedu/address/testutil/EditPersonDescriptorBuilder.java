@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -60,7 +61,7 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code isDone} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withDone(boolean isDone) {
-        descriptor.setIsDone(isDone);
+        descriptor.setIsDone(new IsDone(isDone));
         return this;
     }
 

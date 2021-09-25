@@ -12,22 +12,22 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ## Quick start
 1. Ensure you have Java 11 or above installed in your Computer.
-   
+
 1. Download the latest CallMeMaybe.jar from here. [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases).
-   
+
 1. Copy the file to the folder you want to use as the home folder for your AddressBook.
-   
+
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
    ![Ui](images/Ui.png)
-   
+
 1. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
    Commands that CallMeMaybe supports:
     - `list` : Lists all contacts.
     - `add n/John Doe p/98765432 e/johnd@example.com`: Adds a contact named John Doe to the Address Book.
     - `delete 3`: Deletes the 3rd contact shown in the current list.
     - `exit` : Exits the app.
-    - `done 2`: Marks the 2nd contact shown in the current list as completed 
-      
+    - `done 2`: Marks the 2nd contact shown in the current list as completed
+
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Adds a person to the list of people to be callers.
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com`
 
 ## **Feature 2: Delete**
-### Description: 
+### Description:
 Deletes the specified person from the address book.
 
 ### Format:
@@ -86,7 +86,7 @@ Marks the specified person from the address book as done
 
 Format: `done INDEX`
 
-**Things to take note:** 
+**Things to take note:**
 
 * Marks the person at the specified INDEX as completed (AKA person has already be called).
 * The index refers to the index number shown in the displayed person list.
