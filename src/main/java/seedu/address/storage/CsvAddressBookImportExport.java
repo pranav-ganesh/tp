@@ -60,7 +60,7 @@ public class CsvAddressBookImportExport implements ImportExport {
     }
 
     public String getImportStatus() {
-        return String.format("Successful Imports : " + successfulImport +" Unsuccessful rows : "
+        return String.format("Successful Imports : " + successfulImport + " Unsuccessful rows : "
                 + unsuccessfulRowImport + "\nDuplicate names : " + duplicateNameImport);
     }
 
