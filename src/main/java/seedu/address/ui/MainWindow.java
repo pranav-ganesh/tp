@@ -137,7 +137,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //Displays first person in the list by default
-        fullPersonCard = new FullPersonCard(this.logic.getFilteredPersonList(), 1);
+        fullPersonCard = new FullPersonCard(this.logic.getFilteredPersonList(), 1, this.windowWidth);
         fullPersonCardPlaceholder.getChildren().add(fullPersonCard.getRoot());
     }
 

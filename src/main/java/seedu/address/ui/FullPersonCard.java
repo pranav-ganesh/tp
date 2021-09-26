@@ -39,8 +39,10 @@ public class FullPersonCard extends UiPart<Region> {
     private Label interests;
 
 
-    public FullPersonCard(List<Person> persons, int displayedIndex) {
+    public FullPersonCard(List<Person> persons, int displayedIndex, double windowWidth) {
         super(FXML);
+
+        cardPane.setPrefWidth(windowWidth / 2);
 
         this.person = persons.get(displayedIndex - 1);
         id.setText(displayedIndex + ". ");
