@@ -38,6 +38,15 @@ public class FullPersonCard extends UiPart<Region> {
     @FXML
     private Label interests;
 
+    private final String PHONE_LABEL = "Phone: ";
+    private final String EMAIL_LABEL = "Email: ";
+    private final String DONE_LABEL = "Called: ";
+    private final String ADDRESS_LABEL = "Address: ";
+    private final String GENDER_LABEL = "Gender: ";
+    private final String AGE_LABEL = "Age: ";
+    private final String INTERESTS_LABEL = "Interests: ";
+    private final String DEFAULT_FIELD = "N.A";
+
 
     public FullPersonCard(List<Person> persons, int displayedIndex, double windowWidth) {
         super(FXML);
@@ -47,19 +56,19 @@ public class FullPersonCard extends UiPart<Region> {
         this.person = persons.get(displayedIndex - 1);
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        email.setText(person.getEmail().value);
+        phone.setText(PHONE_LABEL + person.getPhone().value);
+        email.setText(EMAIL_LABEL + person.getEmail().value);
 
         if (person.getIsDone().value) {
-            isDone.setText("Called: True");
+            isDone.setText(DONE_LABEL + "True");
         } else {
-            isDone.setText("Called: False");
+            isDone.setText(DONE_LABEL + "False");
         }
 
-        address.setText("N.A");
-        gender.setText("N.A");
-        age.setText("N.A");
-        interests.setText("N.A");
+        address.setText(ADDRESS_LABEL + DEFAULT_FIELD);
+        gender.setText(GENDER_LABEL + DEFAULT_FIELD);
+        age.setText(AGE_LABEL + DEFAULT_FIELD);
+        interests.setText(INTERESTS_LABEL + DEFAULT_FIELD);
 
     }
 

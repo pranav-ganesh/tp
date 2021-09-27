@@ -351,6 +351,14 @@
     -fx-font-size: 11;
 }
 
-#details {
-    -fx-background-color: yellow;
+#fullPersonDetails {
+    -fx-background-color: transparent;
+
 }
+
+#fullPersonDetails .label {
+    -fx-font-size: 20;
+    -fx-font-family: "Open Sans Semibold";
+    -fx-text-fill: white;
+}
+
