@@ -13,7 +13,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 ## Quick start
 1. Ensure you have Java 11 or above installed in your Computer.
 
-1. Download the latest CallMeMaybe.jar from here. [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases).
+1. Download the latest CallMeMaybe.jar from [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases).
 
 1. Copy the file to the folder you want to use as the home folder for your AddressBook.
 
@@ -25,8 +25,8 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
     - `list` : Lists all contacts.
     - `add n/John Doe p/98765432 e/johnd@example.com`: Adds a contact named John Doe to the Address Book.
     - `delete 3`: Deletes the 3rd contact shown in the current list.
-    - `exit` : Exits the app.
     - `done 2`: Marks the 2nd contact shown in the current list as completed
+    - `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -34,45 +34,15 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ## Features
 
-## **Feature 1: Add**
-### Description:
-Adds a person to the list of people to be callers.
-
-### Format:
-`add n/NAME p/PHONE_NUMBER e/EMAIL`
-
-### Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com`
-
-## **Feature 2: Delete**
-### Description:
-Deletes the specified person from the address book.
-
-### Format:
-`delete INDEX`
-
-### Things to take note:
-Deletes the person at the specified INDEX.
-The index refers to the index number shown in the displayed person list.
-The index must be a positive integer 1, 2, 3, …
-
-### Example:
-`delete 2`  -> deletes the 2nd person in the address book.
-
 ### Adding a person: `add`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL`
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com `
+* `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com `
 
 ### Listing all persons : `list`
 
@@ -88,7 +58,7 @@ Format: `done INDEX`
 
 **Things to take note:**
 
-* Marks the person at the specified INDEX as completed (AKA person has already be called).
+* Marks the person at the specified INDEX as completed (AKA person has already been called).
 * The index refers to the index number shown in the displayed person list.
 * The index must be a positive integer 1, 2, 3, …​
 
@@ -102,9 +72,8 @@ Format: `delete INDEX`
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+Example:
+* `delete 2` deletes the 2nd person in the address book.
 
 ### Exiting the program : `exit`
 
@@ -130,7 +99,6 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-
 ## FAQ
 
 No FAQ for now
@@ -142,5 +110,6 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL` <br> e.g., `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Done** | `done INDEX` <br> e.g., `done 2`
 **List** | `list`
 **Exit** | `exit`
