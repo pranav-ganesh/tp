@@ -81,7 +81,7 @@ public class FullPersonCard extends UiPart<Region> {
     }
 
     /**
-     * In the event that the list is empty, an empty card will be shown.
+     * Creates an empty card where all the fields are N.A.
      */
     private void createEmptyCard() {
         this.person = null;
