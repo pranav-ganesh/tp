@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.List;
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -7,15 +10,23 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
-import java.util.List;
-import java.util.logging.Logger;
-
 public class FullPersonCard extends UiPart<Region> {
 
     private static final String FXML = "FullPersonCard.fxml";
+
+    private static final String PHONE_LABEL = "Phone: ";
+    private static final String EMAIL_LABEL = "Email: ";
+    private static final String DONE_LABEL = "Called: ";
+    private static final String ADDRESS_LABEL = "Address: ";
+    private static final String GENDER_LABEL = "Gender: ";
+    private static final String AGE_LABEL = "Age: ";
+    private static final String INTERESTS_LABEL = "Interests: ";
+    private static final String DEFAULT_FIELD = "N.A";
+    private static final String NO_PERSON_TO_DISPLAY = "No person to display";
+
     private final Logger logger = LogsCenter.getLogger(FullPersonCard.class);
 
-    public Person person;
+    private Person person;
 
     @FXML
     private HBox cardPane;
@@ -37,16 +48,6 @@ public class FullPersonCard extends UiPart<Region> {
     private Label age;
     @FXML
     private Label interests;
-
-    private final String PHONE_LABEL = "Phone: ";
-    private final String EMAIL_LABEL = "Email: ";
-    private final String DONE_LABEL = "Called: ";
-    private final String ADDRESS_LABEL = "Address: ";
-    private final String GENDER_LABEL = "Gender: ";
-    private final String AGE_LABEL = "Age: ";
-    private final String INTERESTS_LABEL = "Interests: ";
-    private final String DEFAULT_FIELD = "N.A";
-    private final String NO_PERSON_TO_DISPLAY = "No person to display";
 
     /**
      * Constructor for the FullPersonCard
