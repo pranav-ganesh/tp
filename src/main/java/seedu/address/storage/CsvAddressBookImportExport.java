@@ -2,9 +2,7 @@ package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
