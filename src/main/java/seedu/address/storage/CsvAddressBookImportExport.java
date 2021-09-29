@@ -88,8 +88,8 @@ public class CsvAddressBookImportExport implements ImportExport {
         }
 
         try {
-            addImportIntoAddressBook(csvImportAddressBook.get(), model);
 
+            addImportIntoAddressBook(csvImportAddressBook.get(), model);
 
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
@@ -105,7 +105,7 @@ public class CsvAddressBookImportExport implements ImportExport {
      * @param model
      * @throws IllegalValueException
      */
-    private void addImportIntoAddressBook(List<Person> people, Model model) throws IllegalValueException {
+    public void addImportIntoAddressBook(List<Person> people, Model model) throws IllegalValueException {
         duplicateNameImport = ""; // reset
         successfulImport = 0; // reset
         for (Person importPeople : people) {
