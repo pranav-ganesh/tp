@@ -40,7 +40,7 @@ public class CsvUtil {
     public static Optional<List<Person>> readCsvFile(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
         if (!Files.exists(filePath)) {
-            logger.info("Json file " + filePath + " not found");
+            logger.info("CSV file " + filePath + " not found");
             return Optional.empty();
         }
 

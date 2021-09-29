@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ public class CsvAddressBookImportExport implements ImportExport {
 
     private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
 
+    private boolean fileFound = true;
     private String unsuccessfulRowImport = "";
     private String duplicateNameImport = "";
     private int successfulImport = 0;
@@ -35,15 +37,15 @@ public class CsvAddressBookImportExport implements ImportExport {
     /**
      * Constructor of the import export
      */
-    public CsvAddressBookImportExport() {
-        this.filePath = new File("./data/importAddressBook.csv").toPath();
+    public CsvAddressBookImportExport(Path filePath) {
+        this.filePath = filePath;
     }
 
     /**
      * The filepath the program expects the csv file to be
      * @return
      */
-    public Path getCsvImportExportFilePath() {
+    public Path getImportExportPath() {
         return filePath;
     }
 
@@ -60,8 +62,12 @@ public class CsvAddressBookImportExport implements ImportExport {
     }
 
     public String getImportStatus() {
-        return String.format("Successful Imports : " + successfulImport + " Unsuccessful rows : "
-                + unsuccessfulRowImport + "\nDuplicate names : " + duplicateNameImport);
+        if (fileFound) {
+            return String.format("Successful Imports : " + successfulImport + "\nUnsuccessful rows : "
+                    + unsuccessfulRowImport + " Check logs for detailed explaination.\nDuplicate names : "
+                    + duplicateNameImport);
+        }
+        return String.format("CSV file not found in " + filePath);
     }
 
     /**
@@ -75,9 +81,11 @@ public class CsvAddressBookImportExport implements ImportExport {
     private Optional<List<Person>> importAddressBook(Path filePath, Model model) throws DataConversionException {
         requireNonNull(filePath);
         unsuccessfulRowImport = ""; // reset
+        fileFound = true;
 
         Optional<List<Person>> csvImportAddressBook = CsvUtil.readCsvFile(filePath);
         if (csvImportAddressBook.isEmpty()) {
+            fileFound = false;
             return Optional.empty();
         }
 

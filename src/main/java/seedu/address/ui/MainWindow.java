@@ -159,7 +159,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      */
     void show() {
-        importStatus = popupWindow();
+        importStatus = importCsvUserPrompt();
         primaryStage.show();
     }
 
@@ -210,8 +210,7 @@ public class MainWindow extends UiPart<Stage> {
      * getting the user setting for excel import
      *
      */
-    private String popupWindow() {
-
+    private String importCsvUserPrompt() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Do you want to import contacts from csv?");
         alert.setContentText("There are " + logic.getFilteredPersonList().size() + " people currently in the "
@@ -225,6 +224,5 @@ public class MainWindow extends UiPart<Stage> {
             return logic.importData();
         }
         return "No additional import";
-
     }
 }
