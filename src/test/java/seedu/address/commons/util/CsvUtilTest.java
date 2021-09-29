@@ -40,5 +40,4 @@ class CsvUtilTest {
         assertEquals(Optional.empty(), CsvUtil.readCsvFile(SERIALIZATION_FILE));
     }
 
-
 }

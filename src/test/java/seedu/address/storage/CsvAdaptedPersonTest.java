@@ -88,6 +88,4 @@ class CsvAdaptedPersonTest {
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
-
-
 }
