@@ -97,4 +97,5 @@ public class CsvUtil {
     public static String getUnsuccessfulRow() {
         return unsuccessfulRow.toString();
     }
+
 }

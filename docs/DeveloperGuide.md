@@ -359,7 +359,7 @@ MSS:
     * 6a1. CMM will cancel the transer
     * 6a2. CMM informs the user of the cancelation
 
-* *a. At any time before import confirmation, User chooses to cancel the transfer.  
+* *a. At any time before import confirmation, User chooses to cancel the transfer.
     * *a1. CMM requests to confirm the import cancellation.
     * *a2. User confirms the cancellation.
     * *a3. No changes are made in CMM Database
@@ -377,7 +377,6 @@ MSS:
 1. User request CMM to export database into excel file
 2. CMM exports database into excel file to a CMM-specified location
    Use case ends.
-   
 *{More to be added}*
 
 ### Non-Functional Requirements
