@@ -4,7 +4,6 @@ package seedu.address.commons.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
-
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -14,9 +13,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.testutil.TestUtil;
 
 class CsvUtilTest {
-
-    @TempDir
-    Path tempDir;
 
     private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.csv");
 
