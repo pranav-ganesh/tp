@@ -353,7 +353,8 @@
 
 #fullPersonDetails {
     -fx-background-color: transparent;
-
+    -fx-border-width: 3 3 3 3;
+    -fx-border-color: white;
 }
 
 #fullPersonDetails .label {
