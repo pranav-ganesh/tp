@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -40,6 +42,8 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private Label isDone;
+    @FXML
+    private Label doneMarker;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -54,8 +58,12 @@ public class PersonCard extends UiPart<Region> {
 
         if (person.getIsDone().value) {
             isDone.setText("Called: True");
+            doneMarker.setText("✔");
+            doneMarker.setStyle("-fx-text-fill: springgreen");
         } else {
             isDone.setText("Called: False");
+            doneMarker.setText("❌");
+            doneMarker.setStyle("-fx-text-fill: red");
         }
 
     }
