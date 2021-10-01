@@ -364,10 +364,15 @@
     -fx-text-fill: white;
 }
 
-#phone, #email, #isDone, #address, #gender, #age, #interests {
+#phone, #email, #address, #gender, #age, #interests {
     -fx-font-size: 15;
     -fx-font-family: "Open Sans Semibold";
     -fx-text-fill: white;
+}
+
+#isDone {
+   -fx-font-size: 15;
+   -fx-font-family: "Open Sans Semibold";
 }
 
 

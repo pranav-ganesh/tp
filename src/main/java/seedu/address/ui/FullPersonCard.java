@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
@@ -68,8 +69,10 @@ public class FullPersonCard extends UiPart<Region> {
 
             if (person.getIsDone().value) {
                 isDone.setText("True");
+                isDone.setStyle("-fx-text-fill: springgreen");
             } else {
                 isDone.setText("False");
+                isDone.setStyle("-fx-text-fill: red");
             }
 
             address.setText(DEFAULT_FIELD);
