@@ -63,19 +63,19 @@ public class FullPersonCard extends UiPart<Region> {
             this.person = persons.get(displayedIndex - 1);
             id.setText(displayedIndex + ". ");
             name.setText(person.getName().fullName);
-            phone.setText(PHONE_LABEL + person.getPhone().value);
-            email.setText(EMAIL_LABEL + person.getEmail().value);
+            phone.setText(person.getPhone().value);
+            email.setText(person.getEmail().value);
 
             if (person.getIsDone().value) {
-                isDone.setText(DONE_LABEL + "True");
+                isDone.setText("True");
             } else {
-                isDone.setText(DONE_LABEL + "False");
+                isDone.setText("False");
             }
 
-            address.setText(ADDRESS_LABEL + DEFAULT_FIELD);
-            gender.setText(GENDER_LABEL + DEFAULT_FIELD);
-            age.setText(AGE_LABEL + DEFAULT_FIELD);
-            interests.setText(INTERESTS_LABEL + DEFAULT_FIELD);
+            address.setText(DEFAULT_FIELD);
+            gender.setText(DEFAULT_FIELD);
+            age.setText(DEFAULT_FIELD);
+            interests.setText(DEFAULT_FIELD);
         } catch (IndexOutOfBoundsException e) {
             createEmptyCard();
         }
@@ -88,14 +88,14 @@ public class FullPersonCard extends UiPart<Region> {
         this.person = null;
         id.setText(NO_PERSON_TO_DISPLAY);
         name.setText("");
-        phone.setText(PHONE_LABEL + DEFAULT_FIELD);
-        email.setText(EMAIL_LABEL + DEFAULT_FIELD);
-        isDone.setText(DONE_LABEL + DEFAULT_FIELD);
-        address.setText(ADDRESS_LABEL + DEFAULT_FIELD);
-        address.setText(ADDRESS_LABEL + DEFAULT_FIELD);
-        gender.setText(GENDER_LABEL + DEFAULT_FIELD);
-        age.setText(AGE_LABEL + DEFAULT_FIELD);
-        interests.setText(INTERESTS_LABEL + DEFAULT_FIELD);
+        phone.setText(DEFAULT_FIELD);
+        email.setText(DEFAULT_FIELD);
+        isDone.setText(DEFAULT_FIELD);
+        address.setText(DEFAULT_FIELD);
+        address.setText(DEFAULT_FIELD);
+        gender.setText(DEFAULT_FIELD);
+        age.setText(DEFAULT_FIELD);
+        interests.setText(DEFAULT_FIELD);
     }
 
 }
