@@ -21,7 +21,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Pranav Ganesh
 
-<img src="images/My_Image.png" width="200px">
+<img src="images/pranav-ganesh.png" width="200px">
 
 [[github](https://github.com/pranav-ganesh)]
 [[portfolio](team/johndoe.md)]
@@ -31,7 +31,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Houten Teo
 
-<img src="images/houten.png" width="200px">
+<img src="images/houtenteo.png" width="200px">
 
 [[github](https://github.com/houtenteo)] [[portfolio](team/johndoe.md)]
 
@@ -40,7 +40,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Irfan Danial
 
-<img src="images/AboutMeIrfan.png" width="200px">
+<img src="images/idgrr.png" width="200px">
 
 [[github](http://github.com/idgrr)]
 [[portfolio](team/johndoe.md)]
@@ -55,5 +55,5 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/loose-bus-change)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Developer 
+* Role: Developer
 * Responsibilities: UI/Add function

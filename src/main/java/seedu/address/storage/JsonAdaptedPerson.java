@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -44,7 +45,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        isDone = source.getIsDone();
+        isDone = source.getIsDone().value;
     }
 
     /**
@@ -79,7 +80,9 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        return new Person(modelName, modelPhone, modelEmail, isDone);
+        final IsDone modelIsDone = new IsDone(isDone);
+
+        return new Person(modelName, modelPhone, modelEmail, modelIsDone);
     }
 
 }
