@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
@@ -59,7 +58,7 @@ public class FullPersonCard extends UiPart<Region> {
     public FullPersonCard(List<Person> persons, int displayedIndex, double windowWidth) {
         super(FXML);
 
-        cardPane.setPrefWidth(windowWidth / 2);
+        cardPane.setPrefWidth(windowWidth / 3);
         try {
             this.person = persons.get(displayedIndex - 1);
             id.setText(displayedIndex + ". ");

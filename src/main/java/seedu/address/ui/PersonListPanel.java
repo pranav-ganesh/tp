@@ -27,7 +27,7 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        personListView.setPrefWidth(windowWidth / 2);
+        personListView.setPrefWidth(windowWidth * 2 / 3);
     }
 
     /**
