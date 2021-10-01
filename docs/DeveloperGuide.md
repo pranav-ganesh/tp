@@ -257,13 +257,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* Telemarketers
+* has the potential to receive a list of clients through an Excel file
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage potentially interested clients faster than a typical mouse/GUI driven app 
 
 
 ### User stories
@@ -286,28 +287,99 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use Case 1: Add a person**
+
+System : CallMeMaybe (CMM)
+Use Case : UC1 - Add a person
+Actor : User
+Guarantees: New person will be added to the address book
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add a person
+2. Person gets added into the address book
+    Use case ends.
+
+**Extensions**
+
+* 1a. User enters the command wrongly 
+
+  * 1a1. Command box displays error message
+  
+    Use case resumes at step 1
+
+**Use Case 2: List persons**
+
+System : CallMeMaybe (CMM)
+Use Case : UC2 - List persons
+Actor : User
+Guarantees: Persons in the address book will be listed
+
+**MSS**
+
+1. User requests to list persons
+2. All persons in the address book is listed
+
+    Use case ends
+
+**Extensions**
+
+* 1a. Address book is empty
+
+    Use case ends
+
+**Use Case 3: Delete a person**
+
+System : CallMeMaybe (CMM)
+Use Case : UC3 - Delete a person
+Actor : User
+Guarantees: Selected person will be deleted from the address book
+
+**MSS**
+
+1. User requests to list persons (UC2)
+2. User requests to delete a specific person in the list
+3. AddressBook deletes the person
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 2a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 2a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
+
+**Use Case 4: Mark a person as done**
+
+System : CallMeMaybe (CMM)
+Use Case : UC4 - Mark person as called
+Actor : User
+Guarantees: Selected person will be marked as called
+
+**MSS**
+
+1. User requests to list persons (UC2)
+2. User requests to mark a person as called
+3. Address book marks the selected person as called
+
+**Extensions**
+
+* 1a. List is empty
+
+  Use case ends
+
+* 2a. The given index is invalid
+
+  * 2a1. Address book shows an error message
+
+    Use case resumes at step 2
+
 
 **Use Case 5: Using an Excel file to import data of users**
 
@@ -316,7 +388,8 @@ Use Case : UC5 - Import Excel File
 Actor : User
 Guarantees: CMM Database will be set
 
-MSS:
+**MSS**
+
 1. CMM ask whether there are any new imports upon startup
 2. CMM request whether to start creation new Database or insert into existing database
 3. User determines import setting
