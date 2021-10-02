@@ -6,6 +6,8 @@ import static java.util.Objects.requireNonNull;
  * Represents whether a Person is called in the address book.
  */
 public class IsDone {
+
+    public static final String MESSAGE_CONSTRAINTS = "Done has to either be TRUE or FALSE";
     public final boolean value;
 
     /**
