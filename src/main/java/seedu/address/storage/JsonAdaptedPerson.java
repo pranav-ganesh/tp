@@ -87,6 +87,10 @@ class JsonAdaptedPerson {
 
         final IsDone modelIsDone = new IsDone(isDone);
 
+        if (address != null && !Address.isValidAddress(address)) {
+            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        }
+
         final Address modelAddress = new Address(address);
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress);
