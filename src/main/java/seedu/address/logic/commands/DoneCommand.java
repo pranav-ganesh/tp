@@ -32,12 +32,12 @@ public class DoneCommand extends Command {
     public static final String MESSAGE_DONE_CALL_SUCCESS = "Marked Call as Done: %1$s";
     public static final String MESSAGE_ALREADY_DONE_CALL = "The 'Called' field for the specified address listing is "
             + "already marked as true!";
-    
+
     private final Index index;
-    
+
     public DoneCommand(Index index) {
         requireAllNonNull(index);
-        
+
         this.index = index;
     }
 

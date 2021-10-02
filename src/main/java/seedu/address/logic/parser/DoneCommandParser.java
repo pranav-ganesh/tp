@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class DoneCommandParser implements Parser<DoneCommand> {
-    
+
     public DoneCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
@@ -21,7 +21,7 @@ public class DoneCommandParser implements Parser<DoneCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DoneCommand.MESSAGE_USAGE), ive);
         }
-        
+
         return new DoneCommand(index);
     }
 }

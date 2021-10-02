@@ -57,7 +57,7 @@ public class DoneCommandTest {
         String expectedMessage = String.format(DoneCommand.MESSAGE_ALREADY_DONE_CALL, person);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        
+
         assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
     }
 
