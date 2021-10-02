@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -22,7 +21,7 @@ public class Address {
 
     /**
      * Constructs an {@code Address}.
-     *
+     * If no address is provided(i.e. @param address = null), default value of 'N.A' will be given
      * @param address A valid address.
      */
     public Address(String address) {
