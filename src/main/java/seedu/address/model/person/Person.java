@@ -14,6 +14,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Address address;
 
     // Data fields
     private final IsDone isDone;
@@ -21,12 +22,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, IsDone isDone) {
-        requireAllNonNull(name, phone, email, isDone);
+    public Person(Name name, Phone phone, Email email, IsDone isDone, Address address) {
+        requireAllNonNull(name, phone, email, isDone, address);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.isDone = isDone;
+        this.address = address;
     }
 
     public Name getName() {
@@ -43,6 +45,10 @@ public class Person {
 
     public IsDone getIsDone() {
         return isDone;
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     /**

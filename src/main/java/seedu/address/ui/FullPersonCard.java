@@ -74,7 +74,7 @@ public class FullPersonCard extends UiPart<Region> {
                 isDone.setStyle("-fx-text-fill: red");
             }
 
-            address.setText(DEFAULT_FIELD);
+            address.setText(person.getAddress().value);
             gender.setText(DEFAULT_FIELD);
             age.setText(DEFAULT_FIELD);
             interests.setText(DEFAULT_FIELD);

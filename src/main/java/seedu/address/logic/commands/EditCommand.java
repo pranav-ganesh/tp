@@ -16,11 +16,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.IsDone;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -94,7 +90,7 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         IsDone updatedIsDone = editPersonDescriptor.getIsDone().orElse(personToEdit.getIsDone());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, new Address("PLACEHOLDER"));
     }
 
     @Override
