@@ -23,7 +23,6 @@ import java.util.List;
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
-    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the 'Called' field of the address identified "
             + "by the index number of the address listing. "
@@ -38,7 +37,7 @@ public class DoneCommand extends Command {
     
     public DoneCommand(Index index) {
         requireAllNonNull(index);
-
+        
         this.index = index;
     }
 
