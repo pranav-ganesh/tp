@@ -2,9 +2,7 @@ package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.File;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -26,21 +24,26 @@ public class CsvAddressBookImportExport implements ImportExport {
 
     private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
 
+    private boolean fileFound = true;
+    private String unsuccessfulRowImport = "";
+    private String duplicateNameImport = "";
+    private int successfulImport = 0;
+
 
     private final Path filePath;
 
     /**
      * Constructor of the import export
      */
-    public CsvAddressBookImportExport() {
-        this.filePath = new File("./data/importAddressBook.csv").toPath();
+    public CsvAddressBookImportExport(Path filePath) {
+        this.filePath = filePath;
     }
 
     /**
      * The filepath the program expects the csv file to be
      * @return
      */
-    public Path getCsvImportExportFilePath() {
+    public Path getImportExportPath() {
         return filePath;
     }
 
@@ -56,6 +59,15 @@ public class CsvAddressBookImportExport implements ImportExport {
         return importAddressBook(this.filePath, model);
     }
 
+    public String getImportStatus() {
+        if (fileFound) {
+            return String.format("Successful Imports : " + successfulImport + "\nUnsuccessful rows : "
+                    + unsuccessfulRowImport + " Check logs for detailed explaination.\nDuplicate names : "
+                    + duplicateNameImport);
+        }
+        return String.format("CSV file not found in " + filePath);
+    }
+
     /**
      * Returns a list of person optional that are to be imported
      *   Returns {@code Optional.empty()} if the csvfile is not found
@@ -66,19 +78,24 @@ public class CsvAddressBookImportExport implements ImportExport {
      */
     private Optional<List<Person>> importAddressBook(Path filePath, Model model) throws DataConversionException {
         requireNonNull(filePath);
+        unsuccessfulRowImport = ""; // reset
+        fileFound = true;
 
         Optional<List<Person>> csvImportAddressBook = CsvUtil.readCsvFile(filePath);
         if (csvImportAddressBook.isEmpty()) {
+            fileFound = false;
             return Optional.empty();
         }
 
         try {
+
             addImportIntoAddressBook(csvImportAddressBook.get(), model);
-            return csvImportAddressBook;
+
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
         }
+        unsuccessfulRowImport = CsvUtil.getUnsuccessfulRow();
+        return csvImportAddressBook;
     }
 
     /**
@@ -88,20 +105,21 @@ public class CsvAddressBookImportExport implements ImportExport {
      * @param model
      * @throws IllegalValueException
      */
-    private void addImportIntoAddressBook(List<Person> people, Model model) throws IllegalValueException {
-        List<String> duplicatePeople = new ArrayList<>();
+    public void addImportIntoAddressBook(List<Person> people, Model model) throws IllegalValueException {
+        duplicateNameImport = ""; // reset
+        successfulImport = 0; // reset
         for (Person importPeople : people) {
             if (model.hasPerson(importPeople)) {
-                duplicatePeople.add(importPeople.getName().fullName);
+                duplicateNameImport += importPeople.getName().fullName + ", ";
             } else {
                 model.addPerson(importPeople);
+                successfulImport++;
             }
         }
-        logger.info(people.size() - duplicatePeople.size() + " person(s) successfully added");
-        if (duplicatePeople.size() > 0) {
-            throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON + duplicatePeople.toString());
+        logger.info(successfulImport + " person(s) successfully added");
+        if (successfulImport != people.size()) {
+            throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON + duplicateNameImport);
         }
-
-
     }
+
 }

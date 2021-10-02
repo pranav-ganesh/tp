@@ -16,7 +16,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.storage.CsvAddressBookImportExport;
 import seedu.address.storage.ImportExport;
 import seedu.address.storage.Storage;
 
@@ -35,11 +34,11 @@ public class LogicManager implements Logic {
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, ImportExport importExportManager) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
-        importExportManager = new CsvAddressBookImportExport();
+        this.importExportManager = importExportManager;
+        this.addressBookParser = new AddressBookParser();
     }
 
     @Override
@@ -85,12 +84,14 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void importData() {
+    public String importData() {
         try {
             importExportManager.importIntoAddressBook(model);
             storage.saveAddressBook(model.getAddressBook());
         } catch (DataConversionException | IOException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
         }
+        return importExportManager.getImportStatus();
     }
+
 }

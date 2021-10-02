@@ -41,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private FullPersonCard fullPersonCard;
+    private String importStatus;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -137,6 +138,7 @@ public class MainWindow extends UiPart<Stage> {
         //Displays first person in the list by default
         fullPersonCard = new FullPersonCard(this.logic.getFilteredPersonList(), 1, this.windowWidth);
         fullPersonCardPlaceholder.getChildren().add(fullPersonCard.getRoot());
+        resultDisplay.setFeedbackToUser(importStatus);
     }
 
     /**
@@ -163,8 +165,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Runs popupwindow to get import settings and showing of primary stage
+     *
+     */
     void show() {
-        popupWindow();
+        importStatus = importCsvUserPrompt();
         primaryStage.show();
     }
 
@@ -212,11 +218,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * getting the info for excel reading
+     * getting the user setting for excel import
      *
      */
-    private void popupWindow() {
-
+    private String importCsvUserPrompt() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Do you want to import contacts from csv?");
         alert.setContentText("There are " + logic.getFilteredPersonList().size() + " people currently in the "
@@ -227,9 +232,9 @@ public class MainWindow extends UiPart<Stage> {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == yesButton) {
-            logic.importData();
-
+            return logic.importData();
         }
-
+        return "No additional import";
     }
+
 }

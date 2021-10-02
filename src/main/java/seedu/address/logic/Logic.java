@@ -51,5 +51,5 @@ public interface Logic {
     /**
      * Import data from CSV
      */
-    void importData();
+    String importData();
 }
