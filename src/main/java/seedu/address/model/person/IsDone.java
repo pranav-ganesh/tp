@@ -2,27 +2,37 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Locale;
+
 /**
  * Represents whether a Person is called in the address book.
  */
 public class IsDone {
 
     public static final String MESSAGE_CONSTRAINTS = "Done has to either be TRUE or FALSE";
-    public final boolean value;
+    public final String value;
 
     /**
      * Constructs an {@code IsDone}.
      *
      * @param isDone Indication whether person is called.
      */
-    public IsDone(boolean isDone) {
+    public IsDone(String isDone) {
         requireNonNull(isDone);
-        value = isDone;
+        value = isDone.toUpperCase(Locale.ROOT);
+    }
+
+    /**
+     * Returns if a given string is a valid IsDone.
+     */
+    public static boolean isValidIsDone(String test) {
+        String testValid = test.toUpperCase(Locale.ROOT);
+        return testValid.equals("TRUE") || testValid.equals("FALSE") || testValid.equals("");
     }
 
     @Override
     public String toString() {
-        if (value) {
+        if (value.equals("TRUE")) {
             return "True";
         }
         return "False";
@@ -37,7 +47,7 @@ public class IsDone {
 
     @Override
     public int hashCode() {
-        if (value) {
+        if (value.equals("TRUE")) {
             return 1;
         }
         return 0;

@@ -29,7 +29,7 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        if (person.getIsDone().value) {
+        if (person.getIsDone().value.equals("TRUE")) {
             sb.append(PREFIX_DONE + "true" + " ");
         } else {
             sb.append(PREFIX_DONE + "false" + " ");

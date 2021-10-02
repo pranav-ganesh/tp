@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,18 +25,18 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final String email;
-    private final boolean isDone;
+    private final String isDone;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("done") boolean isDone) {
+                             @JsonProperty("email") String email, @JsonProperty("isDone") String isDone) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.isDone = isDone;
+        this.isDone = isDone.toUpperCase(Locale.ROOT);
     }
 
     /**
@@ -45,7 +46,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        isDone = source.getIsDone().value;
+        isDone = source.getIsDone().value.toUpperCase(Locale.ROOT);
     }
 
     /**
@@ -80,6 +81,9 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+        if (!IsDone.isValidIsDone(isDone)) {
+            throw new IllegalValueException(IsDone.MESSAGE_CONSTRAINTS);
+        }
         final IsDone modelIsDone = new IsDone(isDone);
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone);

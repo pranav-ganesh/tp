@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -43,7 +44,7 @@ public class CsvAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        doneString = source.getIsDone().value ? "TRUE" : "FALSE";
+        doneString = source.getIsDone().value.toUpperCase(Locale.ROOT);
     }
 
     /**
@@ -93,11 +94,11 @@ public class CsvAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (!(doneString.equals("TRUE") || doneString.equals("FALSE") || doneString.equals(""))) {
+        if (!(IsDone.isValidIsDone(doneString))) {
             throw new IllegalValueException(IsDone.MESSAGE_CONSTRAINTS);
         }
 
-        final IsDone modelIsDone = new IsDone(doneString.equals("TRUE"));
+        final IsDone modelIsDone = new IsDone(doneString);
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone);
     }
