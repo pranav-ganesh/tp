@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Locale;
 
@@ -10,7 +11,7 @@ import java.util.Locale;
 public class IsDone {
 
     public static final String MESSAGE_CONSTRAINTS = "Done has to either be TRUE or FALSE";
-    public final String value;
+    public final boolean value;
 
     /**
      * Constructs an {@code IsDone}.
@@ -19,7 +20,8 @@ public class IsDone {
      */
     public IsDone(String isDone) {
         requireNonNull(isDone);
-        value = isDone.toUpperCase(Locale.ROOT);
+        checkArgument(isValidIsDone(isDone), MESSAGE_CONSTRAINTS);
+        value = isDone.toUpperCase(Locale.ROOT).equals("TRUE");
     }
 
     /**
@@ -32,7 +34,7 @@ public class IsDone {
 
     @Override
     public String toString() {
-        if (value.equals("TRUE")) {
+        if (value) {
             return "True";
         }
         return "False";
@@ -47,7 +49,7 @@ public class IsDone {
 
     @Override
     public int hashCode() {
-        if (value.equals("TRUE")) {
+        if (value) {
             return 1;
         }
         return 0;

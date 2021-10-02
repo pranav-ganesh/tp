@@ -52,7 +52,7 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
 
-        if (person.getIsDone().value.equals("TRUE")) {
+        if (person.getIsDone().value) {
             isDone.setText("Called: True");
         } else {
             isDone.setText("Called: False");

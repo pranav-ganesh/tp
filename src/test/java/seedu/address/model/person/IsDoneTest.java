@@ -15,7 +15,7 @@ public class IsDoneTest {
         assertTrue(isDone.equals(isDone));
 
         // same values -> returns true
-        IsDone remarkCopy = new IsDone(isDone.value);
+        IsDone remarkCopy = new IsDone(isDone.value ? "TRUE" : "FALSE");
         assertTrue(isDone.equals(remarkCopy));
 
         // different types -> returns false
