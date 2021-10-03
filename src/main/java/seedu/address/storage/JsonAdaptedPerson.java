@@ -1,9 +1,5 @@
 package seedu.address.storage;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.Locale;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
