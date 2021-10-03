@@ -35,7 +35,7 @@ class JsonAdaptedPerson {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.isDone = isDone.toUpperCase(Locale.ROOT);
+        this.isDone = isDone;
     }
 
     /**
@@ -45,7 +45,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        isDone = requireNonNull(source.getIsDone().value) ? "TRUE" : "FALSE";
+        isDone = source.getIsDone().value ? "TRUE" : "FALSE";
     }
 
     /**
@@ -79,9 +79,14 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+        if (isDone == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, IsDone.class.getSimpleName()));
+        }
+
         if (!(IsDone.isValidIsDone(isDone))) {
             throw new IllegalValueException(IsDone.MESSAGE_CONSTRAINTS);
         }
+
         final IsDone modelIsDone = new IsDone(isDone);
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone);
