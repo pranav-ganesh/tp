@@ -93,11 +93,10 @@ public class CsvAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (!(doneString.equals("TRUE") || doneString.equals("FALSE") || doneString.equals(""))) {
+        if (!(IsDone.isValidIsDone(doneString))) {
             throw new IllegalValueException(IsDone.MESSAGE_CONSTRAINTS);
         }
-
-        final IsDone modelIsDone = new IsDone(doneString.equals("TRUE"));
+        final IsDone modelIsDone = new IsDone(doneString);
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone);
     }

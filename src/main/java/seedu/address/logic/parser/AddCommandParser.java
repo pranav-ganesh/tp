@@ -38,7 +38,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
 
-        Person person = new Person(name, phone, email, new IsDone(false));
+        Person person = new Person(name, phone, email, new IsDone("FALSE"));
 
         return new AddCommand(person);
     }
