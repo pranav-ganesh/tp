@@ -36,8 +36,8 @@ public class DoneCommand extends Command {
 
     /**
      * Creates a DoneCommand to mark the specified {@code Person} as done
-     * 
-     * @param index of the person in the person list 
+     *
+     * @param index of the person in the person list
      */
     public DoneCommand(Index index) {
         requireAllNonNull(index);
@@ -73,7 +73,7 @@ public class DoneCommand extends Command {
         Name name = personToEdit.getName();
         Phone phone = personToEdit.getPhone();
         Email email = personToEdit.getEmail();
-        IsDone updatedIsDone = new IsDone(true);
+        IsDone updatedIsDone = new IsDone("TRUE");
 
         return new Person(name, phone, email, updatedIsDone);
     }
