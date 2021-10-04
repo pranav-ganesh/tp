@@ -28,10 +28,22 @@ public class CsvAdaptedPerson {
     private String doneString;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code CsvAdaptedPerson} with the given person details.
      */
     public CsvAdaptedPerson(String personDetails) {
         setDetails(personDetails);
+    }
+
+    /**
+     * Constructs a {@code CsvAdaptedPerson} from a {@code Person} object
+     *
+     * @param source
+     */
+    public CsvAdaptedPerson(Person source) {
+        name = source.getName().fullName;
+        phone = source.getPhone().value;
+        email = source.getEmail().value;
+        doneString = source.getIsDone().value ? "TRUE" : "FALSE";
     }
 
     /**
@@ -48,7 +60,7 @@ public class CsvAdaptedPerson {
         this.name = details[map.get("Name")].trim();
         this.phone = details[map.get("Phone")].trim();
         this.email = details[map.get("Email")].trim();
-        this.doneString = details[map.get("Done")].trim();
+        this.doneString = details[map.get("Done")].trim().toUpperCase();
     }
 
     /**
@@ -57,7 +69,7 @@ public class CsvAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        if (name == null) {
+        if (name.equals("")) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
@@ -65,7 +77,7 @@ public class CsvAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
+        if (phone.equals("")) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
         if (!Phone.isValidPhone(phone)) {
@@ -73,7 +85,7 @@ public class CsvAdaptedPerson {
         }
         final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
+        if (email.equals("")) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
         if (!Email.isValidEmail(email)) {
@@ -81,7 +93,10 @@ public class CsvAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        final IsDone modelIsDone = new IsDone(doneString.equals("TRUE"));
+        if (!(IsDone.isValidIsDone(doneString))) {
+            throw new IllegalValueException(IsDone.MESSAGE_CONSTRAINTS);
+        }
+        final IsDone modelIsDone = new IsDone(doneString);
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone);
     }
