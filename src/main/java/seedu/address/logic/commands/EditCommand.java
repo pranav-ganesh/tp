@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -95,8 +96,9 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         IsDone updatedIsDone = editPersonDescriptor.getIsDone().orElse(personToEdit.getIsDone());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress, updatedGender);
     }
 
     @Override
@@ -127,6 +129,7 @@ public class EditCommand extends Command {
         private Email email;
         private IsDone isDone;
         private Address address;
+        private Gender gender;
 
         public EditPersonDescriptor() {}
 
@@ -140,6 +143,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setIsDone(toCopy.isDone);
             setAddress(toCopy.address);
+            setGender(toCopy.gender);
         }
 
         /**
@@ -187,6 +191,14 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setGender(Gender gender) {
+            this.gender = gender;
+        }
+
+        public Optional<Gender> getGender() {
+            return Optional.ofNullable(gender);
         }
 
         @Override

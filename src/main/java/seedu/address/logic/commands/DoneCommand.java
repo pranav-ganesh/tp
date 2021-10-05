@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -77,7 +78,8 @@ public class DoneCommand extends Command {
         Email email = personToEdit.getEmail();
         IsDone updatedIsDone = new IsDone("TRUE");
         Address address = personToEdit.getAddress();
-        return new Person(name, phone, email, updatedIsDone, address);
+        Gender gender = personToEdit.getGender();
+        return new Person(name, phone, email, updatedIsDone, address, gender);
     }
 
     @Override

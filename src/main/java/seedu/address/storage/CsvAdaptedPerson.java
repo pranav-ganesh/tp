@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -27,7 +28,11 @@ public class CsvAdaptedPerson {
     private String phone;
     private String email;
     private String doneString;
+
+    //Fields that houten added. Pls add this to the csv portion as well.
+    // I only tweaks the toModelType part so the code doesn't break.
     private String address;
+    private String gender;
 
     /**
      * Constructs a {@code CsvAdaptedPerson} with the given person details.
@@ -47,6 +52,7 @@ public class CsvAdaptedPerson {
         email = source.getEmail().value;
         doneString = source.getIsDone().value ? "TRUE" : "FALSE";
         address = source.getAddress().value;
+        gender = source.getGender().value;
     }
 
     /**
@@ -101,7 +107,10 @@ public class CsvAdaptedPerson {
         }
         final IsDone modelIsDone = new IsDone(doneString);
 
-        //Irfan to edit this address part
-        return new Person(modelName, modelPhone, modelEmail, modelIsDone, new Address(address));
+        //Houten added this
+        final Address modelAddress = new Address(address);
+
+        final Gender modelGender = new Gender(gender);
+        return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress, modelGender);
     }
 }

@@ -25,10 +25,10 @@ public class Address {
      * @param address A valid address.
      */
     public Address(String address) {
+        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
         if (address == null) {
             value = NO_ADDRESS;
         } else {
-            checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
             value = address;
         }
     }
@@ -37,6 +37,9 @@ public class Address {
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {
+        if (test == null) {
+            return true;
+        }
         return test.matches(VALIDATION_REGEX);
     }
 

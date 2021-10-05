@@ -15,6 +15,7 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
+    private final Gender gender;
 
     // Data fields
     private final IsDone isDone;
@@ -22,13 +23,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, IsDone isDone, Address address) {
-        requireAllNonNull(name, phone, email, isDone, address);
+    public Person(Name name, Phone phone, Email email, IsDone isDone,
+                  Address address, Gender gender) {
+        requireAllNonNull(name, phone, email, isDone, address, gender);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.isDone = isDone;
         this.address = address;
+        this.gender = gender;
     }
 
     public Name getName() {
@@ -49,6 +52,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Gender getGender() {
+        return gender;
     }
 
     /**
@@ -82,7 +89,8 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress());
+                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getGender().equals(getGender());
     }
 
     @Override

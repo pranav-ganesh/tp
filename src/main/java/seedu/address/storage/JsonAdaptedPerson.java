@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -23,6 +24,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String isDone;
+    private final String gender;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -30,13 +32,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("isDone") String isDone,
-                             @JsonProperty("address") String address) {
+                             @JsonProperty("address") String address, @JsonProperty("gender") String gender) {
 
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.isDone = isDone;
         this.address = address;
+        this.gender = gender;
     }
 
     /**
@@ -48,6 +51,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         isDone = source.getIsDone().value ? "TRUE" : "FALSE";
         address = source.getAddress().value;
+        gender = source.getGender().value;
     }
 
     /**
@@ -91,13 +95,19 @@ class JsonAdaptedPerson {
 
         final IsDone modelIsDone = new IsDone(isDone);
 
-        if (address != null && !Address.isValidAddress(address)) {
+        if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
 
         final Address modelAddress = new Address(address);
 
-        return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress);
+        if (!Gender.isValidGender(gender)) {
+            throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
+        }
+
+        final Gender modelGender = new Gender(gender);
+
+        return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress, modelGender);
     }
 
 }

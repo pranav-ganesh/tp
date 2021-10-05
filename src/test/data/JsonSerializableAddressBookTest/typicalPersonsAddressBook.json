@@ -5,13 +5,15 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "isDone": false,
-    "address": "MY HOUSE"
+    "address": "MY HOUSE",
+    "gender": "F"
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "isDone": false,
-    "address": "HIS HOUSE"
+    "address": "HIS HOUSE",
+    "gender": "M"
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",

@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -17,12 +18,14 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_DONE = "false";
     public static final String DEFAULT_ADDRESS = null;
+    public static final String DEFAULT_GENDER = null;
 
     private Name name;
     private Phone phone;
     private Email email;
     private IsDone isDone;
     private Address address;
+    private Gender gender;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -33,6 +36,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         isDone = new IsDone(DEFAULT_DONE);
         address = new Address(DEFAULT_ADDRESS);
+        gender = new Gender(DEFAULT_GENDER);
     }
 
     /**
@@ -44,6 +48,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         isDone = personToCopy.getIsDone();
         address = personToCopy.getAddress();
+        gender = personToCopy.getGender();
     }
 
     /**
@@ -87,11 +92,19 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code gender} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGender(String gender) {
+        this.gender = new Gender(gender);
+        return this;
+    }
+
+    /**
      * Builds person
      * @return the person
      */
     public Person build() {
-        return new Person(name, phone, email, isDone, address);
+        return new Person(name, phone, email, isDone, address, gender);
     }
 
 }
