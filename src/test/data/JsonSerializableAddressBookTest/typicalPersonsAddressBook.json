@@ -4,12 +4,14 @@
     "name" : "Alice Pauline",
     "phone" : "94351253",
     "email" : "alice@example.com",
-    "isDone": false
+    "isDone": false,
+    "address": "MY HOUSE"
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
-    "isDone": false
+    "isDone": false,
+    "address": "HIS HOUSE"
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",

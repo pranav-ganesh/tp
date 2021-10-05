@@ -16,7 +16,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.IsDone;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -89,8 +94,9 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         IsDone updatedIsDone = editPersonDescriptor.getIsDone().orElse(personToEdit.getIsDone());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, new Address("PLACEHOLDER"));
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress);
     }
 
     @Override
@@ -120,6 +126,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private IsDone isDone;
+        private Address address;
 
         public EditPersonDescriptor() {}
 
@@ -132,13 +139,14 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setIsDone(toCopy.isDone);
+            setAddress(toCopy.address);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email);
+            return CollectionUtil.isAnyNonNull(name, phone, email, isDone, address);
         }
 
         public void setName(Name name) {
@@ -171,6 +179,14 @@ public class EditCommand extends Command {
 
         public void setIsDone(IsDone isDone) {
             this.isDone = isDone;
+        }
+
+        public void setAddress(Address address) {
+            this.address = address;
+        }
+
+        public Optional<Address> getAddress() {
+            return Optional.ofNullable(address);
         }
 
         @Override

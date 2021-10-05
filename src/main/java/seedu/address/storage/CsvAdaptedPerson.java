@@ -5,12 +5,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Address;
 
 /**
  * CSV-friendly version of {@link Person}.
@@ -27,6 +27,7 @@ public class CsvAdaptedPerson {
     private String phone;
     private String email;
     private String doneString;
+    private String address;
 
     /**
      * Constructs a {@code CsvAdaptedPerson} with the given person details.
@@ -45,6 +46,7 @@ public class CsvAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         doneString = source.getIsDone().value ? "TRUE" : "FALSE";
+        address = source.getAddress().value;
     }
 
     /**
@@ -94,12 +96,12 @@ public class CsvAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (!(doneString.equals("TRUE") || doneString.equals("FALSE") || doneString.equals(""))) {
+        if (!(IsDone.isValidIsDone(doneString))) {
             throw new IllegalValueException(IsDone.MESSAGE_CONSTRAINTS);
         }
+        final IsDone modelIsDone = new IsDone(doneString);
 
-        final IsDone modelIsDone = new IsDone(doneString.equals("TRUE"));
-
-        return new Person(modelName, modelPhone, modelEmail, modelIsDone, new Address(null)); //Irfan to edit this address part
+        //Irfan to edit this address part
+        return new Person(modelName, modelPhone, modelEmail, modelIsDone, new Address(address));
     }
 }

@@ -31,6 +31,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setIsDone(person.getIsDone());
+        descriptor.setAddress(person.getAddress());
     }
 
     /**
@@ -60,7 +61,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code isDone} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withDone(boolean isDone) {
+    public EditPersonDescriptorBuilder withDone(String isDone) {
         descriptor.setIsDone(new IsDone(isDone));
         return this;
     }

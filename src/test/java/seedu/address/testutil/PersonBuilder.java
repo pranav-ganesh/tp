@@ -1,6 +1,11 @@
 package seedu.address.testutil;
 
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.IsDone;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 
 /**
  * A utility class to help with building Person objects.
@@ -10,7 +15,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final boolean DEFAULT_DONE = false;
+    public static final String DEFAULT_DONE = "false";
     public static final String DEFAULT_ADDRESS = null;
 
     private Name name;
@@ -68,7 +73,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code isDone} of the {@code Person} that we are building.
      */
-    public PersonBuilder withDone(boolean isDone) {
+    public PersonBuilder withDone(String isDone) {
         this.isDone = new IsDone(isDone);
         return this;
     }

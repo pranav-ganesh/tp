@@ -8,7 +8,11 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.testutil.PersonBuilder;
 
 public class JsonAdaptedPersonTest {
@@ -20,7 +24,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final boolean VALID_ISDONE = BENSON.getIsDone().value;
+    private static final String VALID_ISDONE = BENSON.getIsDone().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
 
     @Test
@@ -85,8 +89,8 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_nullAddress_isValid() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ISDONE, null);
-        Person personWithNullAddress = new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE).withEmail(VALID_EMAIL)
-                .withDone(VALID_ISDONE).withAddress(null).build();
+        Person personWithNullAddress = new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE)
+                .withEmail(VALID_EMAIL).withDone(VALID_ISDONE).withAddress(null).build();
         assertEquals(person.toModelType(), personWithNullAddress);
     }
 }
