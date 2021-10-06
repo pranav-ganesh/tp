@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.IsDone;
@@ -18,8 +19,8 @@ public class CsvAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field in Import file is missing!";
     // This sets the ordering of which person object constructor takes in  data
-    private static Map<String, Integer> map = Stream.of(new Object[][] {
-            { "Name", 0 }, { "Phone", 1 }, {"Email", 2}, {"Done", 3}
+    public static final Map<String, Integer> map = Stream.of(new Object[][] {
+            {"Name", 0}, {"Done", 3}, {"Email", 2}, { "Phone", 1 }
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (Integer) data[1]));
 
     private String name;
@@ -30,7 +31,7 @@ public class CsvAdaptedPerson {
     /**
      * Constructs a {@code CsvAdaptedPerson} with the given person details.
      */
-    public CsvAdaptedPerson(String personDetails) {
+    public CsvAdaptedPerson(String personDetails) throws DataConversionException {
         setDetails(personDetails);
     }
 
@@ -55,8 +56,14 @@ public class CsvAdaptedPerson {
      *
      * @param personDetails
      */
-    private void setDetails(String personDetails) {
-        String[] details = personDetails.split(";", 4);
+    private void setDetails(String personDetails) throws DataConversionException {
+        String[] details = personDetails.split(";", CsvAdaptedPerson.map.keySet().size());
+
+        if (details.length  != 4) {
+            throw new DataConversionException(new Exception("Delimiter Missing" +
+                    "\nEach row should have "+ (CsvAdaptedPerson.map.keySet().size() - 1) + " ';' "));
+        }
+
         this.name = details[map.get("Name")].trim();
         this.phone = details[map.get("Phone")].trim();
         this.email = details[map.get("Email")].trim();
