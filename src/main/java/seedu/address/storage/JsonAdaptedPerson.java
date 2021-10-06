@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.IsDone;
@@ -25,6 +26,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final String isDone;
     private final String gender;
+    private final String age;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -32,7 +34,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("isDone") String isDone,
-                             @JsonProperty("address") String address, @JsonProperty("gender") String gender) {
+                             @JsonProperty("address") String address, @JsonProperty("gender") String gender,
+                             @JsonProperty("age") String age) {
 
         this.name = name;
         this.phone = phone;
@@ -40,6 +43,7 @@ class JsonAdaptedPerson {
         this.isDone = isDone;
         this.address = address;
         this.gender = gender;
+        this.age = age;
     }
 
     /**
@@ -52,6 +56,7 @@ class JsonAdaptedPerson {
         isDone = source.getIsDone().value ? "TRUE" : "FALSE";
         address = source.getAddress().value;
         gender = source.getGender().value;
+        age = source.getAge().value;
     }
 
     /**
@@ -107,7 +112,14 @@ class JsonAdaptedPerson {
 
         final Gender modelGender = new Gender(gender);
 
-        return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress, modelGender);
+        if (!Age.isValidAge(age)) {
+            throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
+        }
+
+        final Age modelAge = new Age(age);
+
+        return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,
+                modelGender, modelAge);
     }
 
 }

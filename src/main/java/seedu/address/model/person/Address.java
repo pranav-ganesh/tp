@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.util.Objects;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -26,11 +28,7 @@ public class Address {
      */
     public Address(String address) {
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        if (address == null) {
-            value = NO_ADDRESS;
-        } else {
-            value = address;
-        }
+        value = Objects.requireNonNullElse(address, NO_ADDRESS);
     }
 
     /**
