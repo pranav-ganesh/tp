@@ -32,9 +32,7 @@ public class Gender {
             return true;
         }
         String test = gender.toUpperCase(Locale.ROOT);
-        //System.out.println(test);
         return test.equals("M") || test.equals("F") || test.equals("N.A");
-        //return true;
     }
 
     @Override
