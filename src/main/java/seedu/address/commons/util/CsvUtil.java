@@ -116,12 +116,13 @@ public class CsvUtil {
 
     private static void checkValidHeader(String header)
             throws DataConversionException {
-        String[] headerCheck = header.split(";", CsvAdaptedPerson.map.keySet().size());
+        String[] headerCheck = header.split(";", CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size());
         String[] headerValid = headerOrder();
 
         if (headerCheck.length == 1) {
-            throw new DataConversionException(new Exception("Wrong delimiter, Refer to user guide to use correct " +
-                    "delimiter.\nEach row should have "+ (CsvAdaptedPerson.map.keySet().size() - 1) + " ';' "));
+            throw new DataConversionException(new Exception("Wrong delimiter, Refer to user guide to use correct "
+                    + "delimiter.\nEach row should have "
+                    + (CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size() - 1) + " ';' "));
         }
 
         if (headerCheck.length != 4) {
@@ -133,18 +134,18 @@ public class CsvUtil {
             String upperValidHeader = headerValid[i].toUpperCase(Locale.ROOT);
 
             if (!(upperHeader.contains(upperValidHeader))) {
-                throw new DataConversionException(new Exception("wrong header detected detected," +
-                        "please double check file\nfirst row of csv must contain valid headers " +
-                        Arrays.toString(headerValid) + " in that order."));
+                throw new DataConversionException(new Exception("wrong header detected detected,"
+                        + "please double check file\nfirst row of csv must contain valid headers "
+                        + Arrays.toString(headerValid) + " in that order."));
             }
         }
     }
 
     private static String[] headerOrder() {
-        String[] headerKeySet = CsvAdaptedPerson.map.keySet().toArray(new String[0]);
+        String[] headerKeySet = CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().toArray(new String[0]);
         String[] validOrder = new String[headerKeySet.length];
         for (String key : headerKeySet) {
-            int pos = CsvAdaptedPerson.map.get(key);
+            int pos = CsvAdaptedPerson.ATTRIBUTE_ORDERING.get(key);
             validOrder[pos] = key;
         }
         return validOrder;

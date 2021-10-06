@@ -73,7 +73,7 @@ class CsvAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_emptyEmail_throwsIllegalValueException() throws Exception  {
+    public void toModelType_emptyEmail_throwsIllegalValueException() throws Exception {
         String csvString = VALID_NAME + ";" + VALID_PHONE + ";;" + VALID_DONE;
         CsvAdaptedPerson person = new CsvAdaptedPerson(csvString);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());

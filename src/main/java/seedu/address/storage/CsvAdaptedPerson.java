@@ -19,7 +19,7 @@ public class CsvAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field in Import file is missing!";
     // This sets the ordering of which person object constructor takes in  data
-    public static final Map<String, Integer> map = Stream.of(new Object[][] {
+    public static final Map<String, Integer> ATTRIBUTE_ORDERING = Stream.of(new Object[][] {
             {"Name", 0}, {"Done", 3}, {"Email", 2}, { "Phone", 1 }
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (Integer) data[1]));
 
@@ -57,17 +57,18 @@ public class CsvAdaptedPerson {
      * @param personDetails
      */
     private void setDetails(String personDetails) throws DataConversionException {
-        String[] details = personDetails.split(";", CsvAdaptedPerson.map.keySet().size());
+        String[] details = personDetails.split(";", CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size());
 
-        if (details.length  != 4) {
-            throw new DataConversionException(new Exception("Delimiter Missing" +
-                    "\nEach row should have "+ (CsvAdaptedPerson.map.keySet().size() - 1) + " ';' "));
+        if (details.length != 4) {
+            throw new DataConversionException(new Exception("Delimiter Missing"
+                    + "\nEach row should have "
+                    + (CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size() - 1) + " ';' "));
         }
 
-        this.name = details[map.get("Name")].trim();
-        this.phone = details[map.get("Phone")].trim();
-        this.email = details[map.get("Email")].trim();
-        this.doneString = details[map.get("Done")].trim().toUpperCase();
+        this.name = details[ATTRIBUTE_ORDERING.get("Name")].trim();
+        this.phone = details[ATTRIBUTE_ORDERING.get("Phone")].trim();
+        this.email = details[ATTRIBUTE_ORDERING.get("Email")].trim();
+        this.doneString = details[ATTRIBUTE_ORDERING.get("Done")].trim().toUpperCase();
     }
 
     /**
