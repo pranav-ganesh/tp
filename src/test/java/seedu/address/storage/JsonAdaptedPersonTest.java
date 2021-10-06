@@ -5,6 +5,7 @@ import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORM
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.Interest;
 import seedu.address.testutil.PersonBuilder;
 
 public class JsonAdaptedPersonTest {
@@ -151,9 +153,31 @@ public class JsonAdaptedPersonTest {
     public void toModelType_nullAge_isValid() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ISDONE,
                 VALID_ADDRESS, VALID_GENDER, null, VALID_INTERESTS);
-        Person personWithNullGender = new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE)
+        Person personWithNullAge = new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE)
                 .withEmail(VALID_EMAIL).withDone(VALID_ISDONE).withAddress(VALID_ADDRESS).withGender(VALID_GENDER)
                 .withAge(null).withInterest(VALID_INTEREST_1, VALID_INTEREST_2).build();
-        assertEquals(person.toModelType(), personWithNullGender);
+        assertEquals(person.toModelType(), personWithNullAge);
+    }
+
+    @Test
+    public void toModelType_invalidInterest_throwsIllegalValueException() {
+        List<JsonAdaptedInterest> invalidInterests = new ArrayList<>(VALID_INTERESTS);
+        invalidInterests.add(new JsonAdaptedInterest(""));
+
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ISDONE,
+                        VALID_ADDRESS, VALID_GENDER, VALID_AGE, invalidInterests);
+        String expectedMessage = Interest.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullInterests_isValid() throws Exception {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ISDONE,
+                VALID_ADDRESS, VALID_GENDER, VALID_AGE, null);
+        Person personWithNullInterests = new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE)
+                .withEmail(VALID_EMAIL).withDone(VALID_ISDONE).withAddress(VALID_ADDRESS).withGender(VALID_GENDER)
+                .withAge(VALID_AGE).build();
+        assertEquals(person.toModelType(), personWithNullInterests);
     }
 }
