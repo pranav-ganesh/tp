@@ -7,7 +7,8 @@
     "isDone": false,
     "address": "MY HOUSE",
     "gender": "F",
-    "age": "22"
+    "age": "22",
+    "interests": [ "Running" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
@@ -15,7 +16,8 @@
     "isDone": false,
     "address": "HIS HOUSE",
     "gender": "M",
-    "age": "18"
+    "age": "18",
+    "interests": [ "Eating", "Sleeping" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",

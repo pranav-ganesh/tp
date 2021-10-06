@@ -8,6 +8,8 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.Interest;
+import seedu.address.model.person.interests.InterestsList;
 
 /**
  * A utility class to help with building Person objects.
@@ -29,6 +31,7 @@ public class PersonBuilder {
     private Address address;
     private Gender gender;
     private Age age;
+    private InterestsList interests;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -41,6 +44,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         gender = new Gender(DEFAULT_GENDER);
         age = new Age(DEFAULT_AGE);
+        interests = new InterestsList();
     }
 
     /**
@@ -54,6 +58,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         gender = personToCopy.getGender();
         age = personToCopy.getAge();
+        interests = personToCopy.getInterests();
     }
 
     /**
@@ -113,11 +118,22 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code interest} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withInterest(String ...interestList) {
+        for (String interest : interestList) {
+            Interest i = new Interest(interest);
+            interests.addInterest(i);
+        }
+        return this;
+    }
+
+    /**
      * Builds person
      * @return the person
      */
     public Person build() {
-        return new Person(name, phone, email, isDone, address, gender, age);
+        return new Person(name, phone, email, isDone, address, gender, age, interests);
     }
 
 }

@@ -1,5 +1,9 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,6 +16,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.InterestsList;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -27,6 +32,7 @@ class JsonAdaptedPerson {
     private final String isDone;
     private final String gender;
     private final String age;
+    private final List<JsonAdaptedInterest> interests = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -35,7 +41,8 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("isDone") String isDone,
                              @JsonProperty("address") String address, @JsonProperty("gender") String gender,
-                             @JsonProperty("age") String age) {
+                             @JsonProperty("age") String age,
+                             @JsonProperty("interests") List<JsonAdaptedInterest> interests) {
 
         this.name = name;
         this.phone = phone;
@@ -44,6 +51,9 @@ class JsonAdaptedPerson {
         this.address = address;
         this.gender = gender;
         this.age = age;
+        if (interests != null) {
+            this.interests.addAll(interests);
+        }
     }
 
     /**
@@ -57,6 +67,10 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         gender = source.getGender().value;
         age = source.getAge().value;
+        interests.addAll(source.getInterests().getAllInterests()
+                .stream()
+                .map(JsonAdaptedInterest::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -118,8 +132,13 @@ class JsonAdaptedPerson {
 
         final Age modelAge = new Age(age);
 
+        final InterestsList modelInterests = new InterestsList();
+        for (JsonAdaptedInterest interest : interests) {
+            modelInterests.addInterest(interest.toModelType());
+        }
+
         return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,
-                modelGender, modelAge);
+                modelGender, modelAge, modelInterests);
     }
 
 }

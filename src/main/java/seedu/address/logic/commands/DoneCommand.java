@@ -18,6 +18,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.InterestsList;
 
 
 /**
@@ -81,7 +82,9 @@ public class DoneCommand extends Command {
         Address address = personToEdit.getAddress();
         Gender gender = personToEdit.getGender();
         Age age = personToEdit.getAge();
-        return new Person(name, phone, email, updatedIsDone, address, gender, age);
+        InterestsList interests = personToEdit.getInterests();
+
+        return new Person(name, phone, email, updatedIsDone, address, gender, age, interests);
     }
 
     @Override

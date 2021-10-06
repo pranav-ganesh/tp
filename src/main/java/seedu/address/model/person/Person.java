@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.person.interests.InterestsList;
+
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -17,6 +19,7 @@ public class Person {
     private final Address address;
     private final Gender gender;
     private final Age age;
+    private final InterestsList interests;
 
     // Data fields
     private final IsDone isDone;
@@ -25,7 +28,7 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, IsDone isDone,
-                  Address address, Gender gender, Age age) {
+                  Address address, Gender gender, Age age, InterestsList interests) {
         requireAllNonNull(name, phone, email, isDone, address, gender, age);
         this.name = name;
         this.phone = phone;
@@ -34,6 +37,7 @@ public class Person {
         this.address = address;
         this.gender = gender;
         this.age = age;
+        this.interests = interests;
     }
 
     public Name getName() {
@@ -62,6 +66,10 @@ public class Person {
 
     public Age getAge() {
         return age;
+    }
+
+    public InterestsList getInterests() {
+        return interests;
     }
 
     /**
@@ -97,7 +105,8 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getGender().equals(getGender())
-                && otherPerson.getAge().equals(getAge());
+                && otherPerson.getAge().equals(getAge())
+                && otherPerson.getInterests().equals(getInterests());
     }
 
     @Override

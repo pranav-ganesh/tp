@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,6 +15,8 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.Interest;
+import seedu.address.model.person.interests.InterestsList;
 
 /**
  * CSV-friendly version of {@link Person}.
@@ -34,6 +38,7 @@ public class CsvAdaptedPerson {
     private String address;
     private String gender;
     private String age;
+    private final List<Interest> interests = new ArrayList<>();
 
     /**
      * Constructs a {@code CsvAdaptedPerson} with the given person details.
@@ -55,6 +60,11 @@ public class CsvAdaptedPerson {
         address = source.getAddress().value;
         gender = source.getGender().value;
         age = source.getAge().value;
+
+        //For this I somewhat followed the style of JsonAdapted person
+        //For the actual JsonAdaptedPerson, the interests portion is similar to how
+        //they originally implemented tag
+        interests.addAll(source.getInterests().getAllInterests());
     }
 
     /**
@@ -129,7 +139,12 @@ public class CsvAdaptedPerson {
 
         final Age modelAge = new Age(age);
 
+        final InterestsList modelInterests = new InterestsList();
+        for (Interest interest : interests) {
+            modelInterests.addInterest(interest);
+        }
+
         return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,
-                modelGender, modelAge);
+                modelGender, modelAge, modelInterests);
     }
 }

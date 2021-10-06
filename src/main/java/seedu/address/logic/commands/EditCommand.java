@@ -24,6 +24,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.InterestsList;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -99,9 +100,10 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
+        InterestsList updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress,
-                updatedGender, updatedAge);
+                updatedGender, updatedAge, updatedInterests);
     }
 
     @Override
@@ -134,6 +136,7 @@ public class EditCommand extends Command {
         private Address address;
         private Gender gender;
         private Age age;
+        private InterestsList interests;
 
         public EditPersonDescriptor() {}
 
@@ -149,13 +152,15 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setGender(toCopy.gender);
             setAge(toCopy.age);
+            setInterests(toCopy.interests);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, isDone, address, gender, age);
+            return CollectionUtil.isAnyNonNull(name, phone, email, isDone, address,
+                    gender, age, interests);
         }
 
         public void setName(Name name) {
@@ -212,6 +217,14 @@ public class EditCommand extends Command {
 
         public Optional<Age> getAge() {
             return Optional.ofNullable(age);
+        }
+
+        public void setInterests(InterestsList interests) {
+            this.interests = interests;
+        }
+
+        public Optional<InterestsList> getInterests() {
+            return Optional.ofNullable(interests);
         }
 
         @Override
