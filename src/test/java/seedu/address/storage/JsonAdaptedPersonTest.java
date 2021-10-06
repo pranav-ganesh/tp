@@ -30,7 +30,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_ADDRESS = "";
     private static final String INVALID_GENDER = "APACHE HELICOPTER";
     private static final String INVALID_AGE = "Eighteen";
-    private static final String INVALID_INTEREST = "Running!";
+    private static final String INVALID_INTEREST = "";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -162,7 +162,7 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_invalidInterest_throwsIllegalValueException() {
         List<JsonAdaptedInterest> invalidInterests = new ArrayList<>(VALID_INTERESTS);
-        invalidInterests.add(new JsonAdaptedInterest(""));
+        invalidInterests.add(new JsonAdaptedInterest(INVALID_INTEREST));
 
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ISDONE,
