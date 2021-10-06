@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.IsDone;
@@ -30,9 +31,9 @@ public class CsvAdaptedPerson {
     private String doneString;
 
     //Fields that houten added. Pls add this to the csv portion as well.
-    // I only tweaks the toModelType part so the code doesn't break.
     private String address;
     private String gender;
+    private String age;
 
     /**
      * Constructs a {@code CsvAdaptedPerson} with the given person details.
@@ -53,6 +54,7 @@ public class CsvAdaptedPerson {
         doneString = source.getIsDone().value ? "TRUE" : "FALSE";
         address = source.getAddress().value;
         gender = source.getGender().value;
+        age = source.getAge().value;
     }
 
     /**
@@ -108,9 +110,26 @@ public class CsvAdaptedPerson {
         final IsDone modelIsDone = new IsDone(doneString);
 
         //Houten added this
+
+        if (!Address.isValidAddress(address)) {
+            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        }
+
         final Address modelAddress = new Address(address);
 
+        if (!Gender.isValidGender(gender)) {
+            throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
+        }
+
         final Gender modelGender = new Gender(gender);
-        return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress, modelGender);
+
+        if (!Age.isValidAge(age)) {
+            throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
+        }
+
+        final Age modelAge = new Age(age);
+
+        return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,
+                modelGender, modelAge);
     }
 }

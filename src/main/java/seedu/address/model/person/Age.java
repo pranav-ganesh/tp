@@ -1,16 +1,15 @@
 package seedu.address.model.person;
 
-import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Objects;
+
 public class Age {
-    public static final String MESSAGE_CONSTRAINTS = "Age should only contain numbers";
+    public static final String MESSAGE_CONSTRAINTS = "Age should only contain numbers. Otherwise 'N.A'";
     public static final String NO_AGE = "N.A";
 
     // Age should only contain numbers
-    public static final String VALIDATION_REGEX = "\\d";
+    public static final String VALIDATION_REGEX = "[0-9]+";
 
     public final String value;
 
@@ -29,6 +28,9 @@ public class Age {
      */
     public static boolean isValidAge(String test) {
         if (test == null) {
+            return true;
+        }
+        if (test.equals(NO_AGE)) {
             return true;
         }
         return test.matches(VALIDATION_REGEX);

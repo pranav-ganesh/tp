@@ -35,6 +35,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setIsDone(person.getIsDone());
         descriptor.setAddress(person.getAddress());
         descriptor.setGender(person.getGender());
+        descriptor.setAge(person.getAge());
     }
 
     /**

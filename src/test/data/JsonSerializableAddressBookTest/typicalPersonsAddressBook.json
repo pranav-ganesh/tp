@@ -6,14 +6,16 @@
     "email" : "alice@example.com",
     "isDone": false,
     "address": "MY HOUSE",
-    "gender": "F"
+    "gender": "F",
+    "age": "22"
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "isDone": false,
     "address": "HIS HOUSE",
-    "gender": "M"
+    "gender": "M",
+    "age": "18"
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",

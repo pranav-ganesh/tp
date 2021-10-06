@@ -17,6 +17,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.IsDone;
@@ -97,8 +98,10 @@ public class EditCommand extends Command {
         IsDone updatedIsDone = editPersonDescriptor.getIsDone().orElse(personToEdit.getIsDone());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
+        Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress, updatedGender);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress,
+                updatedGender, updatedAge);
     }
 
     @Override
@@ -130,6 +133,7 @@ public class EditCommand extends Command {
         private IsDone isDone;
         private Address address;
         private Gender gender;
+        private Age age;
 
         public EditPersonDescriptor() {}
 
@@ -144,13 +148,14 @@ public class EditCommand extends Command {
             setIsDone(toCopy.isDone);
             setAddress(toCopy.address);
             setGender(toCopy.gender);
+            setAge(toCopy.age);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, isDone, address);
+            return CollectionUtil.isAnyNonNull(name, phone, email, isDone, address, gender, age);
         }
 
         public void setName(Name name) {
@@ -201,6 +206,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(gender);
         }
 
+        public void setAge(Age age) {
+            this.age = age;
+        }
+
+        public Optional<Age> getAge() {
+            return Optional.ofNullable(age);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -219,7 +232,10 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && (getIsDone().equals(e.getIsDone()));
+                    && getIsDone().equals(e.getIsDone())
+                    && getAddress().equals(e.getAddress())
+                    && getGender().equals(e.getGender())
+                    && getAge().equals(e.getAge());
         }
     }
 }
