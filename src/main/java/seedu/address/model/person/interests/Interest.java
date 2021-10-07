@@ -3,11 +3,8 @@ package seedu.address.model.person.interests;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.Objects;
-
 public class Interest {
     public static final String MESSAGE_CONSTRAINTS = "Interest can take any value, but should not be an empty string";
-    public static final String NO_INTEREST = "N.A";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -25,7 +22,7 @@ public class Interest {
     public Interest(String interest) {
         requireNonNull(interest);
         checkArgument(isValidInterest(interest), MESSAGE_CONSTRAINTS);
-        value = Objects.requireNonNullElse(interest, NO_INTEREST);
+        value = interest;
     }
 
     /**
