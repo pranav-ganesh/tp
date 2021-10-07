@@ -22,9 +22,18 @@ import seedu.address.storage.CsvAdaptedPerson;
 public class CsvUtil {
 
     private static final Logger logger = LogsCenter.getLogger(CsvUtil.class);
+    private static List<Integer> unsuccessfulRow = new ArrayList<>();
+    private static String header = "";
 
-    static List<Person> deserializeObjectFromCsvFile(Path filePath)
-            throws IOException, IllegalValueException {
+    /**
+     * Reads from file and returns a list of valid people to be imported in
+     *
+     * @param filePath path that contains the csv file to be imported
+     * @return list of valid people to be imported
+     * @throws IOException thrown when file util could not read the file
+     */
+    public static List<Person> deserializeObjectFromCsvFile(Path filePath)
+            throws IOException {
         requireNonNull(filePath);
         return fromCsvString(FileUtil.readFromFile(filePath));
     }
@@ -39,7 +48,7 @@ public class CsvUtil {
     public static Optional<List<Person>> readCsvFile(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
         if (!Files.exists(filePath)) {
-            logger.info("Json file " + filePath + " not found");
+            logger.info("CSV file " + filePath + " not found");
             return Optional.empty();
         }
 
@@ -47,7 +56,7 @@ public class CsvUtil {
 
         try {
             persons = deserializeObjectFromCsvFile(filePath);
-        } catch (IOException | IllegalValueException e) {
+        } catch (IOException e) {
             logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
             throw new DataConversionException(e);
         }
@@ -63,16 +72,19 @@ public class CsvUtil {
      * @return
      */
     static List<Person> fromCsvString(String csv) {
+        unsuccessfulRow = new ArrayList<>();
         List<Person> persons = new ArrayList<>();
         String[] personRows = csv.split("\n");
 
+        header = personRows[0];
         // Skips the header row and starts from the second row
         for (int i = 1; i < personRows.length; i++) {
-            Person temp = createPerson(personRows[i].trim());
-            if (temp == null) {
+            Optional<Person> temp = createPerson(personRows[i].trim(), i + 1);
+            if (temp.equals(Optional.empty())) {
+                unsuccessfulRow.add(i + 1);
                 continue;
             }
-            persons.add(temp);
+            persons.add(temp.get());
         }
         return persons;
     }
@@ -83,11 +95,16 @@ public class CsvUtil {
      * @param rowStringPerson
      * @return
      */
-    static Person createPerson(String rowStringPerson) {
+    static Optional<Person> createPerson(String rowStringPerson, int rowNumber) {
         try {
-            return new CsvAdaptedPerson(rowStringPerson).toModelType();
+            return Optional.of(new CsvAdaptedPerson(rowStringPerson).toModelType());
         } catch (IllegalValueException e) {
-            return null;
+            return Optional.empty();
         }
     }
+
+    public static String getUnsuccessfulRow() {
+        return unsuccessfulRow.toString();
+    }
+
 }
