@@ -8,6 +8,8 @@ public class Gender {
     public static final String MESSAGE_CONSTRAINTS = "Gender can only be 'M' or 'F'";
     public static final String NO_GENDER = "N.A";
 
+    public static final String VALIDATION_REGEX = "M|F|N.A";
+
     public final String value;
 
     /**
@@ -32,7 +34,7 @@ public class Gender {
             return true;
         }
         String test = gender.toUpperCase(Locale.ROOT);
-        return test.equals("M") || test.equals("F") || test.equals(NO_GENDER);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

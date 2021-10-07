@@ -26,6 +26,7 @@ public class GenderTest {
         assertFalse(Gender.isValidGender("")); // empty string
         assertFalse(Gender.isValidGender(" ")); // spaces only
         assertFalse(Gender.isValidGender("ME")); // Anything other than 'M', 'F' or 'N.A'
+        assertFalse(Gender.isValidGender("123")); // Anything other than 'M', 'F' or 'N.A'
 
         // valid genders
         assertTrue(Gender.isValidGender("M"));
