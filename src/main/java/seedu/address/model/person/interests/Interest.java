@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.Objects;
 
 public class Interest {
-    public static final String MESSAGE_CONSTRAINTS = "Interests should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Interest can take any value, but should not be an empty string";
     public static final String NO_INTEREST = "N.A";
 
     /*
