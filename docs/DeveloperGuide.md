@@ -285,19 +285,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `CallMeMaybe` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use Case 1: Add a person**
 
-System : CallMeMaybe (CMM)
-Use Case : UC1 - Add a person
-Actor : User
+System : CallMeMaybe (CMM) </br>
+Use Case : UC1 - Add a person </br>
+Actor : User </br>
 Guarantees: New person will be added to the address book
 
 **MSS**
 
 1. User requests to add a person
 2. Person gets added into the address book
+
     Use case ends.
 
 **Extensions**
@@ -310,9 +311,9 @@ Guarantees: New person will be added to the address book
 
 **Use Case 2: List persons**
 
-System : CallMeMaybe (CMM)
-Use Case : UC2 - List persons
-Actor : User
+System : CallMeMaybe (CMM) </br>
+Use Case : UC2 - List persons </br>
+Actor : User </br>
 Guarantees: Persons in the address book will be listed
 
 **MSS**
@@ -330,9 +331,9 @@ Guarantees: Persons in the address book will be listed
 
 **Use Case 3: Delete a person**
 
-System : CallMeMaybe (CMM)
-Use Case : UC3 - Delete a person
-Actor : User
+System : CallMeMaybe (CMM) </br>
+Use Case : UC3 - Delete a person </br>
+Actor : User </br>
 Guarantees: Selected person will be deleted from the address book
 
 **MSS**
@@ -357,9 +358,9 @@ Guarantees: Selected person will be deleted from the address book
 
 **Use Case 4: Mark a person as done**
 
-System : CallMeMaybe (CMM)
-Use Case : UC4 - Mark person as called
-Actor : User
+System : CallMeMaybe (CMM) </br>
+Use Case : UC4 - Mark person as called </br>
+Actor : User </br>
 Guarantees: Selected person will be marked as called
 
 **MSS**
@@ -383,9 +384,9 @@ Guarantees: Selected person will be marked as called
 
 **Use Case 5: Using an Excel file to import data of users**
 
-System : CallMeMaybe (CMM)
-Use Case : UC5 - Import Excel File
-Actor : User
+System : CallMeMaybe (CMM) </br>
+Use Case : UC5 - Import Excel File </br>
+Actor : User </br>
 Guarantees: CMM Database will be set
 
 **MSS**
@@ -441,9 +442,9 @@ Guarantees: CMM Database will be set
 
 **Use Case 6: Exporting current database into excel file**
 
-System : CallMeMaybe (CMM)
-Use Case : UC6 - Export database as Excel File
-Actor : User
+System : CallMeMaybe (CMM) </br>
+Use Case : UC6 - Export database as Excel File </br>
+Actor : User </br>
 Guarantees: Excel file export of current database
 
 MSS:
