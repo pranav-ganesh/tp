@@ -6,7 +6,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.ArrayList;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents the list of interests of the person
@@ -71,7 +70,7 @@ public class InterestsList {
             if (k == 0) {
                 value.append("1. ").append(list.get(k).value);
             } else {
-                value.append(" ").append(k+ 1).append(". ").append(list.get(k).value);
+                value.append(" ").append(k + 1).append(". ").append(list.get(k).value);
             }
         }
         return value.toString();
