@@ -22,6 +22,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.Category;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class AddressBookParserTest {
@@ -90,7 +91,14 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        assertTrue(parser.parseCommand(FilterCommand.COMMAND_WORD) instanceof FilterCommand);
+        final String categoryString = "email";
+        final String countString = "2";
+        final Category category = new Category("email");
+        final Integer count = 2;
+        FilterCommand command = (FilterCommand) parser.parseCommand(FilterCommand.COMMAND_WORD + " "
+                + categoryString + " " + countString);
+
+        assertEquals(new FilterCommand(category, count), command);
     }
 
     @Test
