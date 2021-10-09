@@ -16,6 +16,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 
 /**
@@ -133,8 +134,14 @@ class JsonAdaptedPerson {
         final Age modelAge = new Age(age);
 
         final InterestsList modelInterests = new InterestsList();
+
         for (JsonAdaptedInterest interest : interests) {
-            modelInterests.addInterest(interest.toModelType());
+            Interest i = interest.toModelType();
+            if (modelInterests.checkDuplicate(i)) {
+                throw new IllegalValueException(InterestsList.MESSAGE_CONSTRAINTS);
+            } else {
+                modelInterests.addInterest(i);
+            }
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,

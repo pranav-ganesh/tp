@@ -77,7 +77,7 @@ public class FullPersonCard extends UiPart<Region> {
             address.setText(person.getAddress().value);
             gender.setText(person.getGender().value);
             age.setText(DEFAULT_FIELD);
-            interests.setText(DEFAULT_FIELD);
+            interests.setText(person.getInterests().toString());
         } catch (IndexOutOfBoundsException e) {
             createEmptyCard();
         }
