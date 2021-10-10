@@ -75,15 +75,20 @@ public class CsvUtil {
         return Optional.of(persons);
     }
 
+
+    /**
+     * Gets the current state of the application databse and writes it into a CSV file
+     *
+     * @param currentState list of valid people currently in the database
+     */
     public static void writeCsvFile(List<Person> currentState) {
         requireNonNull(currentState);
-
         File dir = new File("./data");
         dir.mkdirs();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH-mm-ss");
         Date date = new Date();
-        String exportUniqueName = "export[" +  dateFormat.format(date) + "].csv";
+        String exportUniqueName = "export[" + dateFormat.format(date) + "].csv";
         Path exportFilePath = Paths.get("data" , exportUniqueName);
         try {
             FileUtil.createIfMissing(exportFilePath);
