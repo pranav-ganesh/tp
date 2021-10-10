@@ -165,10 +165,8 @@ public class CsvUtil {
             toCsv = toCsv + "\n" + csvString;
         }
 
-        return toCsv;
+        return toCsv + "\n";
     }
-
-
 
 
     public static String getUnsuccessfulRow() {
