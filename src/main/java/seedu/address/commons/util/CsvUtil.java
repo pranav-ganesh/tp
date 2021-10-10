@@ -40,6 +40,13 @@ public class CsvUtil {
         return fromCsvString(FileUtil.readFromFile(filePath));
     }
 
+    public static void serializeObjectToCsvFile(Path filePath, List<Person> currentState) throws IOException {
+        requireNonNull(filePath);
+        requireNonNull(currentState);
+        FileUtil.writeToFile(filePath, toCsvString(currentState));
+    }
+
+
     /**
      * Reads from CSV file and converts into an optional list of people
      *
@@ -108,6 +115,28 @@ public class CsvUtil {
             return Optional.empty();
         }
     }
+
+
+    static String toCsvString(List<Person> personList) {
+
+        String headerString = "";
+        for (String s : headerOrder()) {
+            headerString = headerString + ";" + s;
+        }
+
+        String toCsv = headerString;
+
+        for (Person p : personList) {
+            String csvString = p.getName().toString() + ';' + p.getPhone().toString() + ';' + p.getEmail().toString()
+                            + ';' + p.getIsDone().toString();
+            toCsv = toCsv + "\n" + csvString;
+        }
+
+        return toCsv;
+    }
+
+
+
 
     public static String getUnsuccessfulRow() {
         return unsuccessfulRow.toString();
