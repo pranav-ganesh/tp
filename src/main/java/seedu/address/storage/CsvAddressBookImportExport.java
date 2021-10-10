@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import com.sun.scenario.effect.Blend;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -59,15 +61,6 @@ public class CsvAddressBookImportExport implements ImportExport {
         return importAddressBook(this.filePath, model);
     }
 
-    public String getImportStatus() {
-        if (fileFound) {
-            return String.format("Successful Imports : " + successfulImport + "\nUnsuccessful rows : "
-                    + unsuccessfulRowImport + " Check logs for detailed explaination.\nDuplicate names : "
-                    + duplicateNameImport);
-        }
-        return String.format("CSV file not found in " + filePath);
-    }
-
     /**
      * Returns a list of person optional that are to be imported
      *   Returns {@code Optional.empty()} if the csvfile is not found
@@ -97,6 +90,26 @@ public class CsvAddressBookImportExport implements ImportExport {
         unsuccessfulRowImport = CsvUtil.getUnsuccessfulRow();
         return csvImportAddressBook;
     }
+
+
+    @Override
+    public void exportCurrentAddressBook(Model model) {
+        exportAddressBook(model);
+    }
+
+    private void exportAddressBook(Model model) {
+        CsvUtil.writeCsvFile(model.getFilteredPersonList());
+    }
+
+    public String getImportStatus() {
+        if (fileFound) {
+            return String.format("Successful Imports : " + successfulImport + "\nUnsuccessful rows : "
+                    + unsuccessfulRowImport + " Check logs for detailed explaination.\nDuplicate names : "
+                    + duplicateNameImport);
+        }
+        return String.format("CSV file not found in " + filePath);
+    }
+
 
     /**
      * Imports the list of valid people found in the CSV file
