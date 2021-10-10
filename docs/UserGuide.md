@@ -4,6 +4,10 @@ title: User Guide
 ---
 
 CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
+<<<<<<< HEAD
+=======
+
+>>>>>>> 92420795affde9465c7bd2db5a122b1c49b0a267
 CMM provides a solution to quickly catalog people based on who has/yet to be called.
 The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers
 Importing of existing customer database is also supported by CMM to facilitate team-based environments.
@@ -11,7 +15,6 @@ Importing of existing customer database is also supported by CMM to facilitate t
 CMM is optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 If you can type fast, CMM can get your contact management tasks done faster than traditional GUI apps.
-
 
 * Table of Contents
 {:toc}
@@ -87,11 +90,19 @@ Example:
 * `done 3` marks the 3rd person in the displayed list as Called.
 
 **Things to note:**
+<<<<<<< HEAD
 
 * Marks the person at the specified `INDEX` as completed (i.e. person has already been called).
 * `INDEX` refers to the index number shown in the displayed list.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 
+=======
+
+* Marks the person at the specified `INDEX` as completed (i.e. person has already been called).
+* `INDEX` refers to the index number shown in the displayed list.
+* `INDEX` **must be a positive integer** 1, 2, 3, …​
+
+>>>>>>> 92420795affde9465c7bd2db5a122b1c49b0a267
 **Common issues:**
 * _The person index provided is invalid_: Displayed list does not contain person at `INDEX`.
 
