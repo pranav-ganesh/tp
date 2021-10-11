@@ -22,7 +22,7 @@ class CsvUtilTest {
     }
 
     @Test
-    public void mixOfValidAndInvalidPeople_fromCsvString_peopleList() {
+    public void mixOfValidAndInvalidPeople_fromCsvString_peopleList() throws DataConversionException {
         String header = "Name;Phone;Email;Done\n";
         String validPerson = "name 3;123456789;email@email.com;TRUE\n";
         String invalidPerson = ";123111222;;\n";
