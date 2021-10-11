@@ -70,7 +70,7 @@ public class InterestsList {
             if (k == 0) {
                 value.append("1. ").append(list.get(k).value);
             } else {
-                value.append(" ").append(k + 1).append(". ").append(list.get(k).value);
+                value.append("\n").append(k + 1).append(". ").append(list.get(k).value);
             }
         }
         return value.toString();
