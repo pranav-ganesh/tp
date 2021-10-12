@@ -73,7 +73,7 @@ public class CsvUtil {
      * @param csv
      * @return
      */
-    static List<Person> fromCsvString(String csv) throws DataConversionException {
+    public static List<Person> fromCsvString(String csv) throws DataConversionException {
         unsuccessfulRow = new ArrayList<>();
         List<Person> persons = new ArrayList<>();
         String[] personRows = csv.split("\n");
@@ -97,7 +97,7 @@ public class CsvUtil {
      * @param rowStringPerson
      * @return
      */
-    static Optional<Person> createPerson(String rowStringPerson, int rowNumber) {
+    public static Optional<Person> createPerson(String rowStringPerson, int rowNumber) {
         try {
             return Optional.of(new CsvAdaptedPerson(rowStringPerson).toModelType());
         } catch (IllegalValueException e) {
@@ -114,7 +114,7 @@ public class CsvUtil {
     }
 
 
-    private static void checkValidHeader(String header)
+    public static void checkValidHeader(String header)
             throws DataConversionException {
         String[] headerCheck = header.split(";", CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size());
         String[] headerValid = headerOrder();
