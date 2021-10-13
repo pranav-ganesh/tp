@@ -24,10 +24,6 @@ class CsvUtilTest {
     private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.csv");
     private static final Path NON_EXISTENT_FILE = TestUtil.getFilePathInSandboxFolder("doesNotExist.csv");
 
-    @Test
-    public void getUnsuccessfulRow_emptyDatabase_string() {
-        assertEquals("[]", CsvUtil.getUnsuccessfulRow());
-    }
 
 
     @Test
@@ -73,7 +69,7 @@ class CsvUtilTest {
         String validStringPerson = "Leanne Beasley;833842049;leannebeasley@lunchpod.com;False";
         Person valid = new CsvAdaptedPerson(validStringPerson).toModelType();
         List<Person> validPersonList = Arrays.asList(valid);
-        assertEquals(validPersonList, CsvUtil.readCsvFile(SERIALIZATION_FILE).get());
+        assertEquals(Optional.of(validPersonList), CsvUtil.readCsvFile(SERIALIZATION_FILE));
     }
 
 
