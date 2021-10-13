@@ -16,7 +16,7 @@ import seedu.address.testutil.TestUtil;
 class CsvUtilTest {
 
     private static final Path NON_EXISTENT_FILE = TestUtil.getFilePathInSandboxFolder("doesNotExist.csv");
-    
+
     @Test
     public void createPerson_invalidCsvString_emptyOptional() {
         String invalidCsvString = "Name;;;";
