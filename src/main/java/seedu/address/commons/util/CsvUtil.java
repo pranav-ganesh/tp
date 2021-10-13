@@ -113,7 +113,12 @@ public class CsvUtil {
         return unsuccessfulRow.toString();
     }
 
-
+    /**
+     * Check header of CSV
+     *
+     * @param header first line of CSV that represents the header
+     * @throws DataConversionException thrown if header does not follow format
+     */
     public static void checkValidHeader(String header)
             throws DataConversionException {
         String[] headerCheck = header.split(";", CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size());
