@@ -6,7 +6,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -21,14 +20,13 @@ import seedu.address.testutil.TestUtil;
 
 class CsvUtilTest {
 
-    private static final Path MISSING_FILE = TestUtil.getFilePathInSandboxFolder("serialize.csv");
     private static final Path WRONG_HEADER_FILE = TestUtil.getFilePathInSandboxFolder("wrongHeader.csv");
     private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.csv");
-    private static final Path NON_EXISTANT_FILE = TestUtil.getFilePathInSandboxFolder("doesNotExist.csv");
+    private static final Path NON_EXISTENT_FILE = TestUtil.getFilePathInSandboxFolder("doesNotExist.csv");
 
     @Test
     public void getUnsuccessfulRow_emptyDatabase_string() {
-         assertEquals("[]", CsvUtil.getUnsuccessfulRow());
+        assertEquals("[]", CsvUtil.getUnsuccessfulRow());
     }
 
 
@@ -56,18 +54,18 @@ class CsvUtilTest {
 
     @Test
     public void readCsvFile_invalidFilePath_emptyOptional() throws DataConversionException {
-        assertEquals(Optional.empty(), CsvUtil.readCsvFile(NON_EXISTANT_FILE));
+        assertEquals(Optional.empty(), CsvUtil.readCsvFile(NON_EXISTENT_FILE));
     }
 
     @Test
-    public void readCsvFile_wrongHeader_DataConversionException() {
+    public void readCsvFile_wrongHeader_dataConversionException() {
         assertThrows(DataConversionException.class, () -> CsvUtil.readCsvFile(WRONG_HEADER_FILE));
     }
 
 
     @Test
-    public void deserializeObjectFromCsvFile_wrongFile_IOException() {
-        assertThrows(IOException.class, () -> CsvUtil.deserializeObjectFromCsvFile(NON_EXISTANT_FILE));
+    public void deserializeObjectFromCsvFile_wrongFile_ioException() {
+        assertThrows(IOException.class, () -> CsvUtil.deserializeObjectFromCsvFile(NON_EXISTENT_FILE));
     }
 
     @Test
