@@ -6,16 +6,25 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Person;
+import seedu.address.storage.CsvAdaptedPerson;
 import seedu.address.testutil.TestUtil;
 
 class CsvUtilTest {
 
+    private static final Path WRONG_HEADER_FILE = TestUtil.getFilePathInSandboxFolder("wrongHeader.csv");
+    private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.csv");
     private static final Path NON_EXISTENT_FILE = TestUtil.getFilePathInSandboxFolder("doesNotExist.csv");
+
+
 
     @Test
     public void createPerson_invalidCsvString_emptyOptional() {
@@ -45,9 +54,24 @@ class CsvUtilTest {
     }
 
     @Test
+    public void readCsvFile_wrongHeader_dataConversionException() {
+        assertThrows(DataConversionException.class, () -> CsvUtil.readCsvFile(WRONG_HEADER_FILE));
+    }
+
+
+    @Test
     public void deserializeObjectFromCsvFile_wrongFile_ioException() {
         assertThrows(IOException.class, () -> CsvUtil.deserializeObjectFromCsvFile(NON_EXISTENT_FILE));
     }
+
+    @Test
+    public void readCsvFile_validPerson_noExceptionThrown() throws DataConversionException, IllegalValueException {
+        String validStringPerson = "Leanne Beasley;833842049;leannebeasley@lunchpod.com;False";
+        Person valid = new CsvAdaptedPerson(validStringPerson).toModelType();
+        List<Person> validPersonList = Arrays.asList(valid);
+        assertEquals(Optional.of(validPersonList), CsvUtil.readCsvFile(SERIALIZATION_FILE));
+    }
+
 
     @Test
     public void checkValidHeader_wrongDelimiter_dataConversionExceptionThrown() {
@@ -66,5 +90,7 @@ class CsvUtilTest {
         String header = "Name;Phone;Email;Called";
         assertThrows(DataConversionException.class, () -> CsvUtil.checkValidHeader(header));
     }
+
+
 
 }
