@@ -22,9 +22,6 @@ class CsvUtilTest {
 
     private static final Path WRONG_HEADER_FILE = TestUtil.getFilePathInSandboxFolder("wrongHeader.csv");
     private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.csv");
-    private static final Path NON_EXISTENT_FILE = TestUtil.getFilePathInSandboxFolder("doesNotExist.csv");
-
-
 
     @Test
     public void createPerson_invalidCsvString_emptyOptional() {
@@ -50,18 +47,13 @@ class CsvUtilTest {
 
     @Test
     public void readCsvFile_invalidFilePath_emptyOptional() throws DataConversionException {
-        assertEquals(Optional.empty(), CsvUtil.readCsvFile(NON_EXISTENT_FILE));
+        assertEquals(Optional.empty(),
+                CsvUtil.readCsvFile(TestUtil.getFilePathInSandboxFolder("doesNotExist.csv")));
     }
 
     @Test
     public void readCsvFile_wrongHeader_dataConversionException() {
         assertThrows(DataConversionException.class, () -> CsvUtil.readCsvFile(WRONG_HEADER_FILE));
-    }
-
-
-    @Test
-    public void deserializeObjectFromCsvFile_wrongFile_ioException() {
-        assertThrows(IOException.class, () -> CsvUtil.deserializeObjectFromCsvFile(NON_EXISTENT_FILE));
     }
 
     @Test
@@ -72,6 +64,11 @@ class CsvUtilTest {
         assertEquals(Optional.of(validPersonList), CsvUtil.readCsvFile(SERIALIZATION_FILE));
     }
 
+    @Test
+    public void deserializeObjectFromCsvFile_wrongFile_ioException() {
+        assertThrows(IOException.class, () ->
+            CsvUtil.deserializeObjectFromCsvFile(TestUtil.getFilePathInSandboxFolder("doesNotExist.csv")));
+    }
 
     @Test
     public void checkValidHeader_wrongDelimiter_dataConversionExceptionThrown() {
@@ -90,7 +87,5 @@ class CsvUtilTest {
         String header = "Name;Phone;Email;Called";
         assertThrows(DataConversionException.class, () -> CsvUtil.checkValidHeader(header));
     }
-
-
 
 }
