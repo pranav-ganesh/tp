@@ -59,6 +59,14 @@ public class InterestsList {
         return this.list;
     }
 
+    /**
+     * Checks if there is a proper value.
+     * @return True if the list is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
     @Override
     public String toString() {
         if (list.isEmpty()) {
