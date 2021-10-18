@@ -95,4 +95,16 @@ public class LogicManager implements Logic {
         return importExportManager.getImportStatus();
     }
 
+    @Override
+    public String exportData() {
+        try {
+            importExportManager.exportCurrentAddressBook(model);
+            storage.saveAddressBook(model.getAddressBook());
+        } catch (DataConversionException | IOException e) {
+            logger.warning("Data file not in the correct format.\n" + e.toString()
+                    + "\nData will not be imported. Importing aborted");
+        }
+        return importExportManager.getImportStatus();
+    }
+
 }

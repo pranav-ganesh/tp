@@ -13,6 +13,8 @@ import seedu.address.model.person.Person;
 public interface ImportExport {
     Optional<List<Person>> importIntoAddressBook(Model model) throws DataConversionException;
 
+    void exportCurrentAddressBook(Model model) throws DataConversionException;
+
     String getImportStatus();
 
 }
