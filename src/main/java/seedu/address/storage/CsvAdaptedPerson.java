@@ -27,19 +27,18 @@ public class CsvAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field in Import file is missing!";
     // This sets the ordering of which person object constructor takes in  data
     public static final Map<String, Integer> ATTRIBUTE_ORDERING = Stream.of(new Object[][] {
-            {"Name", 0}, {"Done", 3}, {"Email", 2}, { "Phone", 1 }
+            {"Name", 0}, { "Phone", 1 }, {"Email", 2}, {"Address", 3}, {"Gender", 4}, {"Age", 5}, {"Interest", 6},
+            {"Done", 7},
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (Integer) data[1]));
 
     private String name;
     private String phone;
     private String email;
     private String doneString;
-
-    //Fields that houten added. Pls add this to the csv portion as well.
     private String address;
     private String gender;
     private String age;
-    private final List<Interest> interests = new ArrayList<>();
+    private List<CsvAdaptedInterest> interestList = new ArrayList<>();;
 
     /**
      * Constructs a {@code CsvAdaptedPerson} with the given person details.
@@ -57,15 +56,14 @@ public class CsvAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        doneString = source.getIsDone().value ? "TRUE" : "FALSE";
         address = source.getAddress().value;
         gender = source.getGender().value;
         age = source.getAge().value;
-
-        //For this I somewhat followed the style of JsonAdapted person
-        //For the actual JsonAdaptedPerson, the interests portion is similar to how
-        //they originally implemented tag
-        interests.addAll(source.getInterests().getAllInterests());
+        interestList.addAll(source.getAllInterests()
+                .stream()
+                .map(CsvAdaptedInterest::new)
+                .collect(Collectors.toList()));
+        doneString = source.getIsDone().value ? "TRUE" : "FALSE";
     }
 
     /**
@@ -80,7 +78,7 @@ public class CsvAdaptedPerson {
     private void setDetails(String personDetails) throws DataConversionException {
         String[] details = personDetails.split(";", CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size());
 
-        if (details.length != 4) {
+        if (details.length != ATTRIBUTE_ORDERING.size()) {
             throw new DataConversionException(new Exception("Delimiter Missing"
                     + "\nEach row should have "
                     + (CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size() - 1) + " ';' "));
@@ -89,7 +87,21 @@ public class CsvAdaptedPerson {
         this.name = details[ATTRIBUTE_ORDERING.get("Name")].trim();
         this.phone = details[ATTRIBUTE_ORDERING.get("Phone")].trim();
         this.email = details[ATTRIBUTE_ORDERING.get("Email")].trim();
+        this.address = details[ATTRIBUTE_ORDERING.get("Address")].trim();
+        this.gender = details[ATTRIBUTE_ORDERING.get("Gender")].trim();
+        this.age = details[ATTRIBUTE_ORDERING.get("Age")].trim();
+        setInterestList(details[ATTRIBUTE_ORDERING.get("Interest")].trim());
         this.doneString = details[ATTRIBUTE_ORDERING.get("Done")].trim().toUpperCase();
+    }
+
+    private void setInterestList (String csvInterestString) {
+        String[] interestStringList = csvInterestString.split(",");
+        for (String interestString : interestStringList){
+            if (!interestString.trim().equals(""))  {
+                CsvAdaptedInterest addInterest = new CsvAdaptedInterest(interestString.trim());
+                this.interestList.add(addInterest);
+            }
+        }
     }
 
     /**
@@ -127,32 +139,43 @@ public class CsvAdaptedPerson {
         }
         final IsDone modelIsDone = new IsDone(doneString);
 
-        //Houten added this
+        String checkAddress = address.equals("") ? null : address ;
 
-        if (!Address.isValidAddress(address)) {
+        if (!Address.isValidAddress(checkAddress)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
 
-        final Address modelAddress = new Address(address);
+        final Address modelAddress = new Address(checkAddress);
 
-        if (!Gender.isValidGender(gender)) {
+        String checkGender = gender.equals("") ? null : gender ;
+
+        if (!Gender.isValidGender(checkGender)) {
             throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
         }
 
-        final Gender modelGender = new Gender(gender);
+        final Gender modelGender = new Gender(checkGender);
 
-        if (!Age.isValidAge(age)) {
+        String checkAge = age.equals("") ? null : age;
+
+        if (!Age.isValidAge(checkAge)) {
             throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
         }
 
-        final Age modelAge = new Age(age);
+        final Age modelAge = new Age(checkAge);
 
         final InterestsList modelInterests = new InterestsList();
-        for (Interest interest : interests) {
-            modelInterests.addInterest(interest);
+
+        for (CsvAdaptedInterest interest : interestList) {
+            Interest i = interest.toModelType();
+            if (modelInterests.checkDuplicate(i)) {
+                throw new IllegalValueException(InterestsList.MESSAGE_CONSTRAINTS);
+            } else {
+                modelInterests.addInterest(i);
+            }
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,
                 modelGender, modelAge, modelInterests);
     }
+
 }

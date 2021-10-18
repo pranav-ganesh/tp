@@ -27,7 +27,9 @@ public class CsvAddressBookImportExport implements ImportExport {
     private boolean fileFound = true;
     private String unsuccessfulRowImport = "";
     private String duplicateNameImport = "";
-    private int successfulImport = 0;
+    private int successfulImportCount = 0;
+    private int duplicateImportCount = 0;
+    private int unsuccessfulImportCount = 0;
 
 
     private final Path filePath;
@@ -86,7 +88,9 @@ public class CsvAddressBookImportExport implements ImportExport {
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
         }
-        unsuccessfulRowImport = CsvUtil.getUnsuccessfulRow();
+        List<Integer> unsuccessful = CsvUtil.getUnsuccessfulRow();
+        unsuccessfulImportCount = unsuccessful.size();
+        unsuccessfulRowImport = unsuccessful.toString();
         return csvImportAddressBook;
     }
 
@@ -102,9 +106,10 @@ public class CsvAddressBookImportExport implements ImportExport {
 
     public String getImportStatus() {
         if (fileFound) {
-            return String.format("Successful Imports : " + successfulImport + "\nUnsuccessful rows : "
-                    + unsuccessfulRowImport + " Check logs for detailed explaination.\nDuplicate names : "
-                    + duplicateNameImport);
+            return String.format("Successful Imports : " + successfulImportCount + "          "
+                    + "Unsuccessful rows : "
+                    + unsuccessfulImportCount+ "\nDuplicate names : "
+                    + duplicateImportCount) + " \nCheck logs for detailed explaination.";
         }
         return String.format("CSV file not found in " + filePath);
     }
@@ -119,17 +124,18 @@ public class CsvAddressBookImportExport implements ImportExport {
      */
     public void addImportIntoAddressBook(List<Person> people, Model model) throws IllegalValueException {
         duplicateNameImport = ""; // reset
-        successfulImport = 0; // reset
+        successfulImportCount = 0; // reset
         for (Person importPeople : people) {
             if (model.hasPerson(importPeople)) {
-                duplicateNameImport += importPeople.getName().fullName + ", ";
+                duplicateNameImport += importPeople.getName().fullName + ", "; // check if
+                duplicateImportCount++;
             } else {
                 model.addPerson(importPeople);
-                successfulImport++;
+                successfulImportCount++;
             }
         }
-        logger.info(successfulImport + " person(s) successfully added");
-        if (successfulImport != people.size()) {
+        logger.info(successfulImportCount + " person(s) successfully added");
+        if (successfulImportCount != people.size()) {
             throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON + duplicateNameImport);
         }
     }

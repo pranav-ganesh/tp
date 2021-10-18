@@ -68,7 +68,7 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         gender = source.getGender().value;
         age = source.getAge().value;
-        interests.addAll(source.getInterests().getAllInterests()
+        interests.addAll(source.getAllInterests()
                 .stream()
                 .map(JsonAdaptedInterest::new)
                 .collect(Collectors.toList()));

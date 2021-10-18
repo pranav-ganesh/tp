@@ -160,8 +160,7 @@ public class CsvUtil {
         String toCsv = headerString;
 
         for (Person p : personList) {
-            String csvString = p.getName().toString() + ';' + p.getPhone().toString() + ';' + p.getEmail().toString()
-                            + ';' + p.getIsDone().toString();
+            String csvString = p.toCsvString();
             toCsv = toCsv + "\n" + csvString;
         }
 
@@ -169,8 +168,8 @@ public class CsvUtil {
     }
 
 
-    public static String getUnsuccessfulRow() {
-        return unsuccessfulRow.toString();
+    public static List<Integer> getUnsuccessfulRow() {
+        return unsuccessfulRow;
     }
 
     /**
@@ -190,7 +189,7 @@ public class CsvUtil {
                     + (CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size() - 1) + " ';' "));
         }
 
-        if (headerCheck.length != 4) {
+        if (headerCheck.length != headerValid.length) {
             throw new DataConversionException(new Exception("Missing/Extra Headers, Please check file"));
         }
 

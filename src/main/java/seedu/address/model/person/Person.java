@@ -2,8 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 
+import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 
 /**
@@ -72,6 +74,10 @@ public class Person {
         return interests;
     }
 
+    public List<Interest> getAllInterests() {
+        return interests.getAllInterests();
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -137,6 +143,33 @@ public class Person {
         if (!interests.isEmpty()) {
             builder.append("; Interests: ").append(getInterests());
         }
+        return builder.toString();
+    }
+
+    public String toCsvString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(";")
+                .append(getPhone())
+                .append(";")
+                .append(getEmail());
+        builder.append(";");
+        if (!address.isEmpty()) {
+            builder.append(getAddress());
+        }
+        builder.append(";");
+        if (!gender.isEmpty()) {
+            builder.append(getGender());
+        }
+        builder.append(";");
+        if (!age.isEmpty()) {
+            builder.append(getAge());
+        }
+        builder.append(";");
+        if (!interests.isEmpty()) {
+            builder.append(interests.toCsvString());
+        }
+        builder.append(";").append(getIsDone());
         return builder.toString();
     }
 
