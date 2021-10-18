@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERESTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -26,6 +26,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 
 /**
@@ -45,7 +46,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_AGE + "AGE] "
-            + "[" + PREFIX_INTERESTS + "INTERESTS]...\n"
+            + "[" + PREFIX_INTEREST + "INTERESTS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
@@ -157,7 +158,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setGender(toCopy.gender);
             setAge(toCopy.age);
-            setInterests(toCopy.interests);
+            setInterest(toCopy.interests);
         }
 
         /**
@@ -224,8 +225,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(age);
         }
 
-        public void setInterests(InterestsList interests) {
+        public void setInterest(InterestsList interests) {
             this.interests = interests;
+        }
+
+        public void setInterest(String interest) {
+            this.interests.addInterest(new Interest(interest));
         }
 
         public Optional<InterestsList> getInterests() {

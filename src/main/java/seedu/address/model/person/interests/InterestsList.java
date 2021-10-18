@@ -59,6 +59,14 @@ public class InterestsList {
         return this.list;
     }
 
+    /**
+     * Checks if there is a proper value.
+     * @return True if the list is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
     @Override
     public String toString() {
         if (list.isEmpty()) {
@@ -68,9 +76,9 @@ public class InterestsList {
         StringBuilder value = new StringBuilder();
         for (int k = 0; k < list.size(); k++) {
             if (k == 0) {
-                value.append(list.get(k).value);
+                value.append("1. ").append(list.get(k).value);
             } else {
-                value.append(", ").append(list.get(k).value);
+                value.append("\n").append(k + 1).append(". ").append(list.get(k).value);
             }
         }
         return value.toString();

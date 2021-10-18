@@ -36,7 +36,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setAddress(person.getAddress());
         descriptor.setGender(person.getGender());
         descriptor.setAge(person.getAge());
-        descriptor.setInterests(person.getInterests());
+        descriptor.setInterest(person.getInterests());
     }
 
     /**

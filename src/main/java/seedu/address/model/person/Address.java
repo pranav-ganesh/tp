@@ -41,6 +41,14 @@ public class Address {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Checks if there is a proper value.
+     * @return True if value equals to "N.A", false otherwise.
+     */
+    public boolean isEmpty() {
+        return value.equals(NO_ADDRESS);
+    }
+
     @Override
     public String toString() {
         return value;

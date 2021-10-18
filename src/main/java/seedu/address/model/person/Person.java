@@ -125,6 +125,18 @@ public class Person {
                 .append(getEmail())
                 .append("; Done: ")
                 .append(getIsDone());
+        if (!address.isEmpty()) {
+            builder.append("; Address: ").append(getAddress());
+        }
+        if (!gender.isEmpty()) {
+            builder.append("; Gender: ").append(getGender());
+        }
+        if (!age.isEmpty()) {
+            builder.append("; Age: ").append(getAge());
+        }
+        if (!interests.isEmpty()) {
+            builder.append("; Interests: ").append(getInterests());
+        }
         return builder.toString();
     }
 

@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.Objects;
 
 public class Age {
-    public static final String MESSAGE_CONSTRAINTS = "Age should only contain numbers. Otherwise 'N.A'";
+    public static final String MESSAGE_CONSTRAINTS = "Age should only contain numbers.";
     public static final String NO_AGE = "N.A";
 
     // Age should only contain numbers
@@ -34,6 +34,14 @@ public class Age {
             return true;
         }
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Checks if there is a proper value.
+     * @return True if value equals to "N.A", false otherwise.
+     */
+    public boolean isEmpty() {
+        return value.equals(NO_AGE);
     }
 
     @Override
