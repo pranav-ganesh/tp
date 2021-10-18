@@ -183,12 +183,12 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
     * Pros: Easier to implement.
     * Cons: Having to enter every field can be time-consuming for the user.
 
-Initially, the alternative of all fields being compulsory was considered. However, having too many compulsory fields proved to be too excessive and time-consuming.
-Therefore, we settled on the current spilt of compulsory and non-compulsory fields.
-
 As the app is catered towards telemarketers, the `name`, `email` and `phone` fields were kept as compulsory as they are important contact information for telemarketers.
 
 On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complementary fields. Hence, they are non-compulsory.
+
+The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while 
+at the same time, improve user experience by reducing time required for users to type the command.
 
 ### \[Proposed\] Undo/redo feature
 
