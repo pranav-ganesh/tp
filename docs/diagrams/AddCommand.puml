@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant LogicManager LOGIC_COLOR
+participant AddressBookParser LOGIC_COLOR
+participant AddCommandParser LOGIC_COLOR
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
+participant "p:Person" as Person LOGIC_COLOR
+participant CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant Model MODEL_COLOR
+end box
+
+-> LogicManager : execute("add n/bob e/email@email.com p/999")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("add n/bob e/email@email.com p/999")
+activate AddressBookParser
+
+create AddCommandParser
+AddressBookParser -> AddCommandParser
+activate AddCommandParser
+return
+
+AddressBookParser -> AddCommandParser : parse("n/bob e/email@email.com p/999")
+activate AddCommandParser
+
+create AddCommand
+AddCommandParser -> AddCommand
+activate AddCommand
+
+create Person
+AddCommand -> Person : new Person("Bob", "email@email.com", "999")
+activate Person
+
+return p
+
+return a
+
+AddCommandParser --> AddressBookParser : d
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> AddressBookParser
+destroy AddCommandParser
+
+
+
+LogicManager -> AddCommand : execute()
+activate AddCommand
+
+AddCommand -> Model : addPerson(p)
+activate Model
+return
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+return
+
+return result
+@enduml
