@@ -183,6 +183,12 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
     * Pros: Easier to implement.
     * Cons: Having to enter every field can be time-consuming for the user.
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers to add a person 
+who has already been called into the address book. All new persons added will have their isDone field set to false by default. Hence there
+is no need for the user to specify the isDone attribute.
+
+</div>
+
 As the app is catered towards telemarketers, the `name`, `email` and `phone` fields were kept as compulsory as they are important contact information for telemarketers.
 
 On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complementary fields. Hence, they are non-compulsory.
