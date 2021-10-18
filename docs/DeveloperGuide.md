@@ -173,13 +173,13 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
 
 **Aspect: Compulsory fields:**
 
-* **Alternative 1 (current choice):** 
+* **Alternative 1 (current choice):** 3 compulsory fields 
     * Compulsory fields: `name`, `email`, `phone`.
     * Non-Compulsory fields: `Address`, `Gender`, `Age`, `Interest`.
-    * Pros: Improves User Experience.
+    * Pros: Improves User Experience by minimising the number of fields the user is required to fill.
     * Cons: Slightly more complicated implementation.
 
-* **Alternative 2:** All fields are compulsory
+* **Alternative 2:** All 7 fields are compulsory
     * Pros: Easier to implement.
     * Cons: Having to enter every field can be time-consuming for the user.
 
