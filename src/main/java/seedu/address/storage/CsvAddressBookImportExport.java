@@ -36,6 +36,7 @@ public class CsvAddressBookImportExport implements ImportExport {
      * Constructor of the import export
      */
     public CsvAddressBookImportExport(Path filePath) {
+        requireNonNull(filePath);
         this.filePath = filePath;
     }
 
@@ -57,15 +58,6 @@ public class CsvAddressBookImportExport implements ImportExport {
     @Override
     public Optional<List<Person>>importIntoAddressBook(Model model) throws DataConversionException {
         return importAddressBook(this.filePath, model);
-    }
-
-    public String getImportStatus() {
-        if (fileFound) {
-            return String.format("Successful Imports : " + successfulImport + "\nUnsuccessful rows : "
-                    + unsuccessfulRowImport + " Check logs for detailed explaination.\nDuplicate names : "
-                    + duplicateNameImport);
-        }
-        return String.format("CSV file not found in " + filePath);
     }
 
     /**
@@ -98,11 +90,31 @@ public class CsvAddressBookImportExport implements ImportExport {
         return csvImportAddressBook;
     }
 
+
+    @Override
+    public void exportCurrentAddressBook(Model model) {
+        exportAddressBook(model);
+    }
+
+    private void exportAddressBook(Model model) {
+        CsvUtil.writeCsvFile(model.getFilteredPersonList());
+    }
+
+    public String getImportStatus() {
+        if (fileFound) {
+            return String.format("Successful Imports : " + successfulImport + "\nUnsuccessful rows : "
+                    + unsuccessfulRowImport + " Check logs for detailed explaination.\nDuplicate names : "
+                    + duplicateNameImport);
+        }
+        return String.format("CSV file not found in " + filePath);
+    }
+
+
     /**
      * Imports the list of valid people found in the CSV file
      *   Will not include duplicate people
-     * @param people
-     * @param model
+     * @param people list of valid people
+     * @param model model to import into
      * @throws IllegalValueException
      */
     public void addImportIntoAddressBook(List<Person> people, Model model) throws IllegalValueException {
