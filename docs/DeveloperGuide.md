@@ -154,6 +154,47 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Add feature
+
+The add command is facilitated by the LogicManager.
+
+**How the add command is executed:**
+
+1. Command entered by user is passed into the LogicManager
+2. AddressBookParser parses the command
+3. AddressBookParser creates an AddCommand and a new Person with the fields specified by the user
+4. LogicManager executes the AddCommand and the new Person is added into the address nook 
+
+The Sequence Diagram below illustrates the interactions within the Logic component for the execute("add n/bob e/email@email.com p/999") API call.
+
+![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
+
+#### Design considerations:
+
+**Aspect: Compulsory fields:**
+
+* **Alternative 1 (current choice):** 3 compulsory fields 
+    * Compulsory fields: `name`, `email`, `phone`.
+    * Non-Compulsory fields: `Address`, `Gender`, `Age`, `Interest`.
+    * Pros: Improves User Experience by minimising the number of fields the user is required to fill.
+    * Cons: Slightly more complicated implementation.
+
+* **Alternative 2:** All 7 fields are compulsory
+    * Pros: Easier to implement.
+    * Cons: Having to enter every field can be time-consuming for the user.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers to add a person 
+who has already been called into the address book, all new persons added will have their isDone field set to false by default. Hence there
+is no need for the user to specify the isDone field.
+</div>
+
+As the app is catered towards telemarketers, the `name`, `email` and `phone` fields were kept as compulsory as they are important contact information for telemarketers.
+
+On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complementary fields. Hence, they are non-compulsory.
+
+The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while 
+at the same time, improve user experience by reducing time required for users to type the command.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -264,7 +305,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage potentially interested clients faster than a typical mouse/GUI driven app 
+**Value proposition**: manage potentially interested clients faster than a typical mouse/GUI driven app
 
 
 ### User stories
@@ -303,10 +344,10 @@ Guarantees: New person will be added to the address book
 
 **Extensions**
 
-* 1a. User enters the command wrongly 
+* 1a. User enters the command wrongly
 
   * 1a1. Command box displays error message
-  
+
     Use case resumes at step 1
 
 **Use Case 2: List persons**

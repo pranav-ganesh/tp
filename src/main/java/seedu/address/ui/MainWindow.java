@@ -182,6 +182,7 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
+        exportCsvUserPrompt();
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -193,7 +194,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
@@ -235,6 +236,26 @@ public class MainWindow extends UiPart<Stage> {
             return logic.importData();
         }
         return "No additional import";
+    }
+
+    /**
+     * getting the user setting for excel import
+     *
+     */
+    private String exportCsvUserPrompt() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Do you want to export contacts from csv?");
+        alert.setContentText("There are " + logic.getFilteredPersonList().size() + " people currently in the "
+                + "addressbook");
+        ButtonType yesButton = new ButtonType("Export", ButtonBar.ButtonData.YES);
+        ButtonType noButton = new ButtonType("Don't export", ButtonBar.ButtonData.NO);
+        alert.getButtonTypes().setAll(yesButton, noButton);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == yesButton) {
+            return logic.exportData();
+        }
+        return "Exiting application";
     }
 
 }
