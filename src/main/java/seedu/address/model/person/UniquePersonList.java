@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +38,18 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Returns index of duplicate. If duplicate exists, return value >= 0. If no duplicate return -1.
+     */
+    public int indexOfDuplicate(Person toCheck) {
+        requireNonNull(toCheck);
+        int pos = IntStream.range(0, internalList.size())
+                .filter(x -> (internalList.get(x).hashCode() == toCheck.hashCode())
+                        && internalList.get(x).equals(toCheck))
+                .findFirst().orElse(-1);
+        return pos;
+    }
+
+    /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
@@ -65,6 +78,16 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
 
+        internalList.set(index, editedPerson);
+    }
+
+    /**
+     * Replaces the person at index in the list with {@code editedPerson}.
+     * index must be more than -1 and smaller than size of list.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     */
+    public void updatePerson(int index, Person editedPerson) {
+        assert(index > -1 && index < internalList.size());
         internalList.set(index, editedPerson);
     }
 
@@ -127,7 +150,7 @@ public class UniquePersonList implements Iterable<Person> {
     private boolean personsAreUnique(List<Person> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+                if (persons.get(i).equals(persons.get(j))) {
                     return false;
                 }
             }

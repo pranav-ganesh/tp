@@ -84,7 +84,10 @@ public class InterestsList {
         return value.toString();
     }
 
-    public String toCsvString() {
+    /**
+     * interests toString separate by ',' without numbering
+     */
+    public String toStringNoNumbering() {
         if (list.isEmpty()) {
             return "";
         }

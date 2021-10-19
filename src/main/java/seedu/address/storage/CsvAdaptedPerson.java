@@ -38,7 +38,7 @@ public class CsvAdaptedPerson {
     private String address;
     private String gender;
     private String age;
-    private List<CsvAdaptedInterest> interestList = new ArrayList<>();;
+    private List<CsvAdaptedInterest> interestList = new ArrayList<>();
 
     /**
      * Constructs a {@code CsvAdaptedPerson} with the given person details.
@@ -96,12 +96,25 @@ public class CsvAdaptedPerson {
 
     private void setInterestList (String csvInterestString) {
         String[] interestStringList = csvInterestString.split(",");
-        for (String interestString : interestStringList){
-            if (!interestString.trim().equals(""))  {
+        for (String interestString : interestStringList) {
+            if (!interestString.trim().equals("")) {
                 CsvAdaptedInterest addInterest = new CsvAdaptedInterest(interestString.trim());
                 this.interestList.add(addInterest);
             }
         }
+    }
+
+    /**
+     * String array with headers in the correct order
+     */
+    public static String[] headerOrder() {
+        String[] headerKeySet = ATTRIBUTE_ORDERING.keySet().toArray(new String[0]);
+        String[] validOrder = new String[headerKeySet.length];
+        for (String key : headerKeySet) {
+            int pos = ATTRIBUTE_ORDERING.get(key);
+            validOrder[pos] = key;
+        }
+        return validOrder;
     }
 
     /**
@@ -139,7 +152,7 @@ public class CsvAdaptedPerson {
         }
         final IsDone modelIsDone = new IsDone(doneString);
 
-        String checkAddress = address.equals("") ? null : address ;
+        String checkAddress = address.equals("") ? null : address;
 
         if (!Address.isValidAddress(checkAddress)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
@@ -147,7 +160,7 @@ public class CsvAdaptedPerson {
 
         final Address modelAddress = new Address(checkAddress);
 
-        String checkGender = gender.equals("") ? null : gender ;
+        String checkGender = gender.equals("") ? null : gender;
 
         if (!Gender.isValidGender(checkGender)) {
             throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);

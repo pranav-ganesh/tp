@@ -109,12 +109,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updatePerson(int index, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int duplicateIndex(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 

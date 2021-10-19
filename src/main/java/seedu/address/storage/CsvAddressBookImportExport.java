@@ -108,7 +108,7 @@ public class CsvAddressBookImportExport implements ImportExport {
         if (fileFound) {
             return String.format("Successful Imports : " + successfulImportCount + "          "
                     + "Unsuccessful rows : "
-                    + unsuccessfulImportCount+ "\nDuplicate names : "
+                    + unsuccessfulImportCount + "\nDuplicate names : "
                     + duplicateImportCount) + " \nCheck logs for detailed explaination.";
         }
         return String.format("CSV file not found in " + filePath);
@@ -126,13 +126,19 @@ public class CsvAddressBookImportExport implements ImportExport {
         duplicateNameImport = ""; // reset
         successfulImportCount = 0; // reset
         for (Person importPeople : people) {
-            if (model.hasPerson(importPeople)) {
-                duplicateNameImport += importPeople.getName().fullName + ", "; // check if
+            int index = model.duplicateIndex(importPeople);
+
+            if (index != -1) {
+                if (importPeople.getIsDone().value) {
+                    model.updatePerson(index, importPeople);
+                    continue;
+                }
+                duplicateNameImport += importPeople.getName().fullName + ", ";
                 duplicateImportCount++;
-            } else {
-                model.addPerson(importPeople);
-                successfulImportCount++;
+                continue;
             }
+            model.addPerson(importPeople);
+            successfulImportCount++;
         }
         logger.info(successfulImportCount + " person(s) successfully added");
         if (successfulImportCount != people.size()) {

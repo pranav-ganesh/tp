@@ -58,6 +58,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns index of duplicate. Returns -1 if does not exists
+     */
+    int duplicateIndex(Person person);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -75,6 +80,13 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /**
+     * Replaces the person at index in the list with {@code editedPerson}.
+     * index must be more than -1 and smaller than size of list.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     */
+    void updatePerson(int index, Person editedPerson);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

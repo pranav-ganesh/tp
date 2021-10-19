@@ -118,7 +118,8 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, isDone);
+        // return Objects.hash(name, phone, email, isDone);
+        return Objects.hash(name, phone, email, address, gender, age);
     }
 
     @Override
@@ -146,7 +147,10 @@ public class Person {
         return builder.toString();
     }
 
-    public String toCsvString() {
+    /**
+     * Display details without headers. If field is empty, field will be an empty string
+     */
+    public String toStringNoHeaders() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(";")
@@ -167,7 +171,7 @@ public class Person {
         }
         builder.append(";");
         if (!interests.isEmpty()) {
-            builder.append(interests.toCsvString());
+            builder.append(interests.toStringNoNumbering());
         }
         builder.append(";").append(getIsDone());
         return builder.toString();

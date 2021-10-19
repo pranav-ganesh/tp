@@ -67,6 +67,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    public int duplicateIndex(Person person) {
+        requireNonNull(person);
+        return persons.indexOfDuplicate(person);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
@@ -83,6 +91,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void updatePerson(int index, Person editedPerson) {
+        requireNonNull(editedPerson);
+        persons.updatePerson(index, editedPerson);
     }
 
     /**
