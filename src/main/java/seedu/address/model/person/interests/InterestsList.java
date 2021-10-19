@@ -31,6 +31,15 @@ public class InterestsList {
     }
 
     /**
+     * Edits an interest in the list.
+     * @param interest
+     * @param index
+     */
+    public void setInterest(Interest interest, int index) {
+        this.list.set(index, interest);
+    }
+
+    /**
      * Checks for duplicates in the list
      * @param i
      * @return True if a duplicate exists, false otherwise.

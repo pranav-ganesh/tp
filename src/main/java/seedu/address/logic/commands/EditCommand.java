@@ -2,10 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
@@ -24,6 +27,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 
 /**
@@ -41,10 +45,14 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_AGE + "AGE] "
+            + "[" + PREFIX_INTEREST + "[index] INTEREST]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_GENDER + "M "
+            + PREFIX_INTEREST + "[1] software engineering";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -100,7 +108,9 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
-        InterestsList updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
+        InterestsList newInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
+        editPersonDescriptor.editInterestList(newInterests, personToEdit.getInterests());
+        InterestsList updatedInterests = personToEdit.getInterests();
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress,
                 updatedGender, updatedAge, updatedInterests);
@@ -225,6 +235,19 @@ public class EditCommand extends Command {
 
         public Optional<InterestsList> getInterests() {
             return Optional.ofNullable(interests);
+        }
+        
+        public void editInterestList(InterestsList newInterestList, InterestsList currentInterestList) {
+            for (Interest i : newInterestList.getAllInterests()) {
+                String s = i.toString();
+                if (s.substring(0,1).equals("[")) {
+                    String pos = s.substring(s.indexOf("[") + 1, s.indexOf("]"));
+                    int index = Integer.parseInt(pos) - 1;
+                    currentInterestList.setInterest(new Interest(s.substring(s.indexOf("]") + 2).trim()), index);
+                } else {
+                    currentInterestList.addInterest(new Interest(s));
+                }
+            }
         }
 
         @Override
