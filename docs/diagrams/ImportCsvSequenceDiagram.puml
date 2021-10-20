@@ -12,14 +12,15 @@ CsvUtil -> FileUtil: readFromFile(filepath)
 CsvUtil <- FileUtil: all row string details
 CsvUtil -> CsvUtil: fromCsvString()
 
-loop (rowString split by ;).size
+loop number of  rows in import - 1
     CsvUtil -> CsvUtil: createPerson(String, rowNumber)
-    CsvUtil -> CsvAdaptedPerson
+    CsvUtil -> CsvAdaptedPerson: <<create>>
 
     CsvAdaptedPerson -> CsvAdaptedPerson: setDetails(String)
     CsvAdaptedPerson -> CsvAdaptedPerson: setInterestList(String)
+    CsvUtil <- CsvAdaptedPerson: valid person
     end
-CsvUtil <- CsvAdaptedPerson: list of valid people
+
 CsvAddressBookImportExport <- CsvUtil: optional(list of valid people)
 CsvAddressBookImportExport -> CsvAddressBookImportExport: addImportIntoAddressBook(list, model)
 
@@ -28,9 +29,14 @@ loop no. of valid people
 	Model -> AddressBook: duplicateIndex(person)
 	AddressBook -> UniquePersonList : indexOfDuplicate(person)
 	AddressBook <- UniquePersonList : int of duplicate in list
-	Model <- AddressBook
-    CsvAddressBookImportExport <- Model
-    CsvAddressBookImportExport ->  Model: add(person)
+	Model <- AddressBook : int of duplicate in list
+    CsvAddressBookImportExport <- Model : int of duplicate in list
+    alt int duplicate = -1
+        CsvAddressBookImportExport ->  Model: add(person)
+    else int duplicate != -1
+        alt importPerson has been called
+            CsvAddressBookImportExport ->  Model: update(person)
+        end
     end
 
 Logic <- CsvAddressBookImportExport
