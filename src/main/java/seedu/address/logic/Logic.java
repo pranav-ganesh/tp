@@ -52,4 +52,9 @@ public interface Logic {
      * Import data from CSV
      */
     String importData();
+
+    /**
+     * Export data to CSV
+     */
+    String exportData();
 }

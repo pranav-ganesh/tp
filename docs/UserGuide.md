@@ -138,8 +138,15 @@ Steps to Import from CSV file
 1. Ensure that the Excel file is a CSV file with semicolon delimited.
    Instructions on how to import to this file type can be found [here](https://ashwaniashwin.wordpress.com/2013/04/19/save-excel-file-as-a-csv-semicolon-delimited-file-along-with-unicode-encoding/)
 2. Ensure that the import file is named `import.csv` under the "data" folder found in the same directory as the CMM jar file
+<<<<<<< HEAD
+
 3. Upon CMM application startup, a prompt will popup asking whether you want to import or not. If yes, the import will add on to the
 existing CMM database. Else, nothing would be done
+
+=======
+3. Upon CMM application startup, a prompt will popup asking whether you want to import or not. If yes, the import will add on to the
+existing CMM database. Else, nothing would be done
+>>>>>>> master
 **Do note that**
 1. Currently, import is **irreversible**. Please double check before importing
 2. CMM will not import data rows with:
@@ -157,9 +164,17 @@ existing CMM database. Else, nothing would be done
 1. `CSV file not found in data\import.csv` message was shown.
    * This could either mean that
    the file does not exist at the specified location, or the file was incorrectly named
+<<<<<<< HEAD
+
 2. Data not imported despite correct import file placement and naming
    * File may not be in the correct CSV type. Please refer to [Import Setup Procedures](#importing-the-data) step 1
    to correctly format your file.
+
+=======
+2. Data not imported despite correct import file placement and naming
+   * File may not be in the correct CSV type. Please refer to [Import Setup Procedures](#importing-the-data) step 1
+   to correctly format your file.
+>>>>>>> master
 3. Unable to understand why a specific row was not able to be imported
    * Detailed reasons for any import error can be found in the logs of the CMM
 

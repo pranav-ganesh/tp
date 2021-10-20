@@ -7,7 +7,7 @@
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
-    "email": "pauline@example.com",
-    "isDone": false
+    "email": "alice@example.com",
+    "isDone": true
   } ]
 }
