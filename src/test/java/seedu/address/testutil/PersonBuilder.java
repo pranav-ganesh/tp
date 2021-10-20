@@ -121,10 +121,19 @@ public class PersonBuilder {
      * Sets the {@code interest} of the {@code Person} that we are building.
      */
     public PersonBuilder withInterest(String ...interestList) {
+
+        if (interestList == null) {
+            return this;
+        }
+
+        InterestsList newInterestList = new InterestsList();
+
         for (String interest : interestList) {
             Interest i = new Interest(interest);
-            interests.addInterest(i);
+            newInterestList.addInterest(i);
         }
+        interests = newInterestList;
+
         return this;
     }
 
