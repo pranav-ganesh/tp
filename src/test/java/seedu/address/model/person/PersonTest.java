@@ -11,7 +11,6 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.person.interests.Interest;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {

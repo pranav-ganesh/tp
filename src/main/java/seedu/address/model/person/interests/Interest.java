@@ -1,9 +1,9 @@
 package seedu.address.model.person.interests;
 
-import java.util.Locale;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.Locale;
 
 public class Interest {
     public static final String MESSAGE_CONSTRAINTS = "Interest can take any value, but should not be an empty string";
