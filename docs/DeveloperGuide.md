@@ -195,6 +195,77 @@ On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complem
 The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while 
 at the same time, improve user experience by reducing time required for users to type the command.
 
+
+### Edit feature
+
+The edit mechanism is facilitated by `LogicManager` and `EditCommandParser`. `LogicManager#execute()` is used to execute the edit command
+while the `EditCommandParser#parse()` is used to parse the command arguments in the context of EditCommand and returns an EditCommand object for execution. 
+This feature allows telemarketers to edit data fields at any point in time if they need to.
+
+Given below is an example usage scenario and how the edit mechanism behaves at each step.
+
+Step 1. The user launches the application and realizes that person 1 needs to be edited. He/she executes the command `edit 1 name/Will age/20` in order to edit the first person in the address book.
+
+ℹ️ **Note:** If the user enters the command in an incorrect format, then an invalid command format message is displayed along with the correct format to use.
+
+ℹ️ **Note:** Since the application strives to enhance a telemarketer's daily job, the `Name`, `Email` and `Phone` attributes are designed to be compulsory fields. These data
+fields are essential contact information required by the telemarketers. The additional fields `Age`, `Gender`, `Address` and `InterestsList` are complimentary fields which enhance user
+experience and accentuate the quality of the application.
+
+Step 2. This command is passed on to the `LogicManager` which directs the command to the `AddressBookParser`.
+
+Step 3. The `AddressBookParser` parses the command to extract all the arguments supplied by the telemarketer. It
+returns an EditCommand along with a new person object (`new Person("Will", 20)`) containing all the data field values entered by the telemarketer.
+
+Step 4. The `LogicManager` then executes the `EditCommand` which replaces the person at the specified index (1) with a new person object containing all the updated data fields.
+
+ℹ️ **Note:** Editing of the `InterestsList` data field works slightly different from the rest of the fields. Telemarketers can specify an optional index to indicate which
+item in the list they want to edit. `EditPersonDescriptor#editInterestList(InterestsList newInterestList, InterestsList currentInterestList)` parses
+this index value. The item in that index is replaced with the newly edited item. If user doesn't specify any index, then the specified item is simply added to the `InterestsList`.
+
+The following sequence diagram shows how the edit operation works when the telemarketer enters `edit 1 n/Peter e/peter@email.com g/M age/M`:
+
+![Interactions Inside the Logic Component for the `edit' Command](images/EditSequenceDiagram.png)
+
+ℹ️ **Note:** The lifeline for `EditCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram summarizes what happens when a user executes an edit command:
+
+![EditActivityDiagram](images/EditActivityDiagram.png)
+
+### Design considerations:
+
+**Aspect: Compulsory fields:**
+
+* **Alternative 1 (current choice):** 3 compulsory fields (`Name`, `Email` and `Phone`)
+
+    * Pros: Enhance user experience since they don't need to waste time entering many data field values.
+
+    * Cons: Implementation is convoluted.
+
+
+* **Alternative 2:** All 7 fields compulsory (`Name`, `Email`, `Phone`, `Address`, `Age`, `Gender` and `Interestslist`)
+
+    * Pros: Ensures consistency - All data fields of every contact is recorded, relatively simpler implementation.
+
+    * Cons: Bad user experience as user will need to spend a lot of time filling every data field for all the contacts in the address book.
+
+**Aspect: Edit command functionality:**
+
+* **Alternative 1 (current choice):** Person to be edited is replaced by a new person object containing updated data field values
+
+    * Pros: Easier to implement, more readable code and less prone to errors.
+
+    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which is not the most efficient mechanism for editing a person, 
+      potential overhead.
+
+
+* **Alternative 2:** Person attributes are edited rather than the entire person object being replaced by a new object
+
+    * Pros: Logically more apt and intuitive.
+
+    * Cons: Implementation gets messy, violates the law of abstraction, and more prone to errors.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
