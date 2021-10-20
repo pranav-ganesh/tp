@@ -227,12 +227,16 @@ public class MainWindow extends UiPart<Stage> {
         alert.setHeaderText("Do you want to import contacts from csv?");
         alert.setContentText("There are " + logic.getFilteredPersonList().size() + " people currently in the "
                 + "addressbook");
-        ButtonType yesButton = new ButtonType("Import", ButtonBar.ButtonData.YES);
-        ButtonType noButton = new ButtonType("Don't import", ButtonBar.ButtonData.NO);
-        alert.getButtonTypes().setAll(yesButton, noButton);
+        ButtonType startNewUsingImport = new ButtonType("Start New Using Import", ButtonBar.ButtonData.NO);
+        ButtonType addOnImports = new ButtonType("Add on imports", ButtonBar.ButtonData.YES);
+        ButtonType dontImport = new ButtonType("Don't  Import", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(addOnImports, startNewUsingImport, dontImport);
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == yesButton) {
+        if (result.get() == addOnImports) {
+            return logic.importData();
+        }else if (result.get() == startNewUsingImport) {
+            logic.exportResetData();
             return logic.importData();
         }
         return "No additional import";

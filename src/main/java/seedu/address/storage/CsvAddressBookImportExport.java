@@ -106,11 +106,14 @@ public class CsvAddressBookImportExport implements ImportExport {
 
     public String getImportStatus() {
         if (fileFound) {
-            return String.format("New Imports : " + successfulNewImportCount
+            return String.format("New Imports : " + String.format("%-19.30s" , successfulNewImportCount)
                     + "          Unsuccessful imports : " + unsuccessfulImportCount
-                    + "\nCalled Duplicate Imports : " + calledDuplicateImportCount
-                    + "          Not Called Duplicate imports : " + notCalledDuplicateImportCount)
-                    + " \nCheck logs for detailed explanation.";
+                    + "\nTotal Duplicates : "
+                    + String.format("%-10.30s" , (calledDuplicateImportCount + notCalledDuplicateImportCount))
+                    + "          Called Duplicate(s): " + calledDuplicateImportCount
+                    + "          Not Called Duplicate(s) : " + notCalledDuplicateImportCount)
+                    + "\n" + String.format("%" + 4 + "." + 15 + "s", "theBackend");
+//                    + "\nCheck logs for detailed explanation.";
         }
         return String.format("CSV file not found in " + filePath);
     }
