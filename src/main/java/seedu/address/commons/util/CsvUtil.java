@@ -2,11 +2,15 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -40,6 +44,11 @@ public class CsvUtil {
         return fromCsvString(FileUtil.readFromFile(filePath));
     }
 
+    public static void serializeObjectToCsvFile(Path filePath, List<Person> currentState) throws IOException {
+        FileUtil.writeToFile(filePath, toCsvString(currentState));
+    }
+
+
     /**
      * Reads from CSV file and converts into an optional list of people
      *
@@ -64,6 +73,35 @@ public class CsvUtil {
         }
 
         return Optional.of(persons);
+    }
+
+
+    /**
+     * Gets the current state of the application databse and writes it into a CSV file
+     *
+     * @param currentState list of valid people currently in the database
+     */
+    public static void writeCsvFile(List<Person> currentState) {
+        requireNonNull(currentState);
+        File dir = new File("./data");
+        dir.mkdirs();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH-mm-ss");
+        Date date = new Date();
+        String exportUniqueName = "export[" + dateFormat.format(date) + "].csv";
+        Path exportFilePath = Paths.get("data" , exportUniqueName);
+        try {
+            FileUtil.createIfMissing(exportFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            serializeObjectToCsvFile(exportFilePath, currentState);
+        } catch (IOException e) {
+            logger.warning("Error writing from CsvFile file " + exportFilePath);
+        }
     }
 
     /**
@@ -108,6 +146,28 @@ public class CsvUtil {
             return Optional.empty();
         }
     }
+
+
+    static String toCsvString(List<Person> personList) {
+
+
+        String[] headingOrder = headerOrder();
+        String headerString = headingOrder[0];
+        for (int i = 1; i < headingOrder.length; i++) {
+            headerString = headerString + ";" + headingOrder[i];
+        }
+
+        String toCsv = headerString;
+
+        for (Person p : personList) {
+            String csvString = p.getName().toString() + ';' + p.getPhone().toString() + ';' + p.getEmail().toString()
+                            + ';' + p.getIsDone().toString();
+            toCsv = toCsv + "\n" + csvString;
+        }
+
+        return toCsv + "\n";
+    }
+
 
     public static String getUnsuccessfulRow() {
         return unsuccessfulRow.toString();
