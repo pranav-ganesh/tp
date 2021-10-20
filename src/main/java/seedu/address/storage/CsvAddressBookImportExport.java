@@ -128,18 +128,18 @@ public class CsvAddressBookImportExport implements ImportExport {
         updateRowImport = new ArrayList<>(); // reset
         successfulNewImportCount = 0; // reset
         calledDuplicateImportCount = 0; //reset
-        for(int pos = 0; pos < people.size(); pos++) {
+        for (int pos = 0; pos < people.size(); pos++) {
             Person importPeople = people.get(pos);
             int listIndex = model.duplicateIndex(importPeople);
 
             if (listIndex != -1) {
                 if (importPeople.getIsDone().value) {
                     model.updatePerson(listIndex, importPeople);
-                    updateRowImport.add(listIndex+1);
+                    updateRowImport.add(listIndex + 1);
                     calledDuplicateImportCount++;
                     continue;
                 }
-                duplicateRowImport.add(listIndex+1);
+                duplicateRowImport.add(listIndex + 1);
                 notCalledDuplicateImportCount++;
                 continue;
             }
