@@ -156,7 +156,7 @@ Format: `exit`
 
 CMM data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-## Importing the data
+## Importing the data into database
 
 CMM is able to import csv files into the existing database. The files have to be semicolon delimited.
 
@@ -192,8 +192,17 @@ existing CMM database. Else, nothing would be done
 3. Unable to understand why a specific row was not able to be imported
    * Detailed reasons for any import error can be found in the logs of the CMM
 
-**Future implementations**
-1. Exporting current state of the database into a CSV file
+
+
+### Exporting state of database
+CMM is able to export the current database into csv files. The files will to be semicolon delimited Csv file.
+
+Steps to Import from CSV file
+1. Closing the application in any way would prompt user to export the current database
+2. The CMM will export the database to the data file location
+3. Export file will 
+
+
 ### Editing the data file (JSON)
 
 AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
