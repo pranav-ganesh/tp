@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.interests.Interest;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -69,5 +70,25 @@ public class PersonTest {
         // different email -> returns false
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different Address -> return false
+        editedAlice = new PersonBuilder(ALICE).withAddress("This is a different address").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different gender -> return false
+        editedAlice = new PersonBuilder(ALICE).withGender("M").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different age -> return false
+        editedAlice = new PersonBuilder(ALICE).withAge("999").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different interests -> return false
+        editedAlice = new PersonBuilder(ALICE).withInterest("this is a different interest").build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // same interests -> return true
+        editedAlice = new PersonBuilder(ALICE).withInterest("Running").build();
+        assertTrue(ALICE.equals(editedAlice));
     }
 }
