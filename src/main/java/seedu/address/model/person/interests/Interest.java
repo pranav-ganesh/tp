@@ -1,5 +1,7 @@
 package seedu.address.model.person.interests;
 
+import java.util.Locale;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -42,7 +44,8 @@ public class Interest {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Interest // instanceof handles nulls
-                && value.equals(((Interest) other).value)); // state check
+                && value.toLowerCase(Locale.ROOT)
+                .equals(((Interest) other).value.toLowerCase(Locale.ROOT))); // state check
     }
 
     @Override
