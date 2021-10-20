@@ -5,20 +5,33 @@ autonumber
 
 MainWindow -> Logic: importData()
 Logic -> CsvAddressBookImportExport: importIntoAddressBook(model)
+activate CsvAddressBookImportExport
 CsvAddressBookImportExport -> CsvAddressBookImportExport: importAddressBook(filepath,model)
+activate CsvAddressBookImportExport
 CsvAddressBookImportExport -> CsvUtil: readCsvFile(filepath)
+activate CsvUtil
 CsvUtil -> CsvUtil: deserializeObjectFromCsvFile(filepath)
+activate CsvUtil
 CsvUtil -> FileUtil: readFromFile(filepath)
+activate FileUtil
 CsvUtil <- FileUtil: all row string details
+deactivate FileUtil
 CsvUtil -> CsvUtil: fromCsvString()
+activate CsvUtil
 
 loop number of  rows in import - 1
     CsvUtil -> CsvUtil: createPerson(String, rowNumber)
+    activate CsvUtil
     CsvUtil -> CsvAdaptedPerson: <<create>>
+    
 
     CsvAdaptedPerson -> CsvAdaptedPerson: setDetails(String)
+    activate CsvAdaptedPerson
     CsvAdaptedPerson -> CsvAdaptedPerson: setInterestList(String)
     CsvUtil <- CsvAdaptedPerson: valid person
+    deactivate CsvAdaptedPerson
+    deactivate CsvAdaptedPerson
+    deactivate CsvUtil
     end
 
 CsvAddressBookImportExport <- CsvUtil: optional(list of valid people)
@@ -31,15 +44,20 @@ loop no. of valid people
 	AddressBook <- UniquePersonList : int of duplicate in list
 	Model <- AddressBook : int of duplicate in list
     CsvAddressBookImportExport <- Model : int of duplicate in list
-    alt int duplicate = -1
-        CsvAddressBookImportExport ->  Model: add(person)
-    else int duplicate != -1
-        alt importPerson has been called
-            CsvAddressBookImportExport ->  Model: update(person)
+    alt no duplicates found in current list
+        CsvAddressBookImportExport ->  Model: addPerson(person)
+        Model -> AddressBook : addPerson(person)
+        AddressBook -> UniquePersonList : addPerson(person)
+    else duplicates found
+        alt import duplicate has been called
+                    CsvAddressBookImportExport ->  Model: updatePerson(index, person)
+                    Model -> AddressBook : updatePerson(index, person)
+                    AddressBook -> UniquePersonList : updatePerson(index, person)
         end
     end
 
 Logic <- CsvAddressBookImportExport
+deactivate CsvAddressBookImportExport
 Logic -> Model: getAddressbook()
 Logic -> Storage: saveAddressbook(model)
 Logic -> CsvAddressBookImportExport: getImportStatus()
