@@ -235,7 +235,7 @@ public class MainWindow extends UiPart<Stage> {
 
         if (result.get() == addOnImports) {
             return logic.importData();
-        }else if (result.get() == startNewUsingImport) {
+        } else if (result.get() == startNewUsingImport) {
             logic.exportResetData();
             return logic.importData();
         }

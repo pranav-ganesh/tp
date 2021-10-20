@@ -112,8 +112,7 @@ public class CsvAddressBookImportExport implements ImportExport {
                     + String.format("%-10.30s" , (calledDuplicateImportCount + notCalledDuplicateImportCount))
                     + "          Called Duplicate(s): " + calledDuplicateImportCount
                     + "          Not Called Duplicate(s) : " + notCalledDuplicateImportCount)
-                    + "\n" + String.format("%" + 4 + "." + 15 + "s", "theBackend");
-//                    + "\nCheck logs for detailed explanation.";
+                    + "\nCheck logs for detailed explanation.";
         }
         return String.format("CSV file not found in " + filePath);
     }
