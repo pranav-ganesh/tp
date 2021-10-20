@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.jupiter.api.Test;
 
@@ -71,17 +72,29 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different Address -> returns false
+        // different address -> returns false
         editedAlice = new PersonBuilder(ALICE).withAddress("This is a different address").build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // both no address -> returns true
+        Person editedCarl = new PersonBuilder(CARL).withAddress(null).build();
+        assertTrue(CARL.equals(editedCarl));
 
         // different gender -> returns false
         editedAlice = new PersonBuilder(ALICE).withGender("M").build();
         assertFalse(ALICE.equals(editedAlice));
 
+        // both no gender -> returns true
+        editedCarl = new PersonBuilder(CARL).withGender(null).build();
+        assertTrue(CARL.equals(editedCarl));
+
         // different age -> returns false
         editedAlice = new PersonBuilder(ALICE).withAge("999").build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // both no age -> returns true
+        editedCarl = new PersonBuilder(CARL).withAge(null).build();
+        assertTrue(CARL.equals(editedCarl));
 
         // different interests -> returns false
         editedAlice = new PersonBuilder(ALICE).withInterest("this is a different interest").build();
@@ -94,5 +107,9 @@ public class PersonTest {
         // same interests with different capitalisation -> returns true
         editedAlice = new PersonBuilder(ALICE).withInterest("RuNnIng").build();
         assertTrue(ALICE.equals(editedAlice));
+
+        // both no interests -> return true
+        editedCarl = new PersonBuilder(CARL).withInterest((String[]) null).build();
+        assertTrue(CARL.equals(editedCarl));
     }
 }

@@ -123,7 +123,7 @@ public class PersonBuilder {
     public PersonBuilder withInterest(String ...interestList) {
 
         if (interestList == null) {
-            return  this;
+            return this;
         }
 
         InterestsList newInterestList = new InterestsList();
