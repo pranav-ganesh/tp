@@ -444,27 +444,26 @@ Guarantees: CMM Database will be set
 
 * 2a. User request to create a new Database when CMM has no existing database
     * 2a1 CMM will convert the excel file to the correct datatype to be stored inside CMM
-    
 
-* 2c. User request to create a new Database when CMM has existing database
+* 2b. User request to create a new Database when CMM has existing database
     * 2c1 CMM exports the current database (UC6)
     * 2c2 CMM clears the current database
     * 2c3 CMM will convert the excel file to the correct datatype to be stored inside CMM
 
-* 2d. User request to add on to current Database when CMM has existing database
+* 2c. User request to add on to current Database when CMM has existing database
     * 2d1 CMM will convert the excel file to the correct datatype to be stored inside CMM
     * 2d2 CMM adds on to current database
 
-* 2e. User request to add on to current Database when CMM has no existing database
+* 2d. User request to add on to current Database when CMM has no existing database
     * 2e1 CMM will convert the excel file to the correct datatype to be stored inside CMM
     * 2e2 CMM creates new database
     * 2e3 CMM adds on to current database
 
-* 5a. During import, User uses a file that does not exist
+* 4a. During import, User uses a file that does not exist
     * 5a1. CMM will cancel the transfer
     * 5a2. CMM informs the user of the cancellation
 
-* 6a. During import, User uses a file that does not follow the set format
+* 4a. During import, User uses a file that does not follow the set format
     * 6a1. CMM will cancel the transfer
     * 6a2. CMM informs the user of the cancellation
 
