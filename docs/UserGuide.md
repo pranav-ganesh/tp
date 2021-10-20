@@ -45,6 +45,30 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 ## Features
 
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Notes about the command format:**<br>
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+
+* Items in square brackets are optional.<br>
+  e.g `n/NAME [g/GENDER]` can be used as `n/John Doe g/M` or as `n/John Doe`.
+
+* Items with `…`​ after them can be used multiple times including zero times.<br>
+  e.g. `[i/INTEREST]…​` can be used as ` ` (i.e. 0 times), `i/running`, `i/running i/watching tv` etc.
+
+* Parameters can be in any order.<br>
+  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
+* If a parameter is expected only once in the command is specified multiple times, only the last occurrence of the parameter will be taken.<br>
+  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
+
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+</div>
+
 ### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -57,14 +81,15 @@ Format: `help`
 
 Adds a person to the CMM database.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​`
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com `
-* `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com `
+* `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/her house i/running i/swimming `
 
 **Things to note:**
 * Name, Phone_number and Email fields are mandatory
+* Address, Gender, Age, Interest fields are optional
 
 **Common issues:**
 * _Invalid command format!_: </br>
