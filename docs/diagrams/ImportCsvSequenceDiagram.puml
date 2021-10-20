@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+MainWindow -> Logic: importData()
+Logic -> CsvAddressBookImportExport: importIntoAddressBook(model)
+CsvAddressBookImportExport -> CsvAddressBookImportExport: importAddressBook(filepath,model)
+CsvAddressBookImportExport -> CsvUtil: readCsvFile(filepath)
+CsvUtil -> CsvUtil: deserializeObjectFromCsvFile(filepath)
+CsvUtil -> FileUtil: readFromFile(filepath)
+CsvUtil <- FileUtil: all row string details
+CsvUtil -> CsvUtil: fromCsvString()
+
+loop (rowString split by ;).size
+    CsvUtil -> CsvUtil: createPerson(String, rowNumber)
+    CsvUtil -> CsvAdaptedPerson
+
+    CsvAdaptedPerson -> CsvAdaptedPerson: setDetails(String)
+    CsvAdaptedPerson -> CsvAdaptedPerson: setInterestList(String)
+    end
+CsvUtil <- CsvAdaptedPerson: list of valid people
+CsvAddressBookImportExport <- CsvUtil: optional(list of valid people)
+CsvAddressBookImportExport -> CsvAddressBookImportExport: addImportIntoAddressBook(list, model)
+
+loop no. of valid people
+    CsvAddressBookImportExport  -> model
+	Model -> AddressBook: duplicateIndex(person)
+	AddressBook -> UniquePersonList : indexOfDuplicate(person)
+	AddressBook <- UniquePersonList : int of duplicate in list
+	Model <- AddressBook
+    CsvAddressBookImportExport <- Model
+    CsvAddressBookImportExport ->  Model: add(person)
+    end
+
+Logic <- CsvAddressBookImportExport
+Logic -> Model: getAddressbook()
+Logic -> Storage: saveAddressbook(model)
+Logic -> CsvAddressBookImportExport: getImportStatus()
+Logic <- CsvAddressBookImportExport: status details
+MainWindow <- Logic: status details
+
+@enduml
