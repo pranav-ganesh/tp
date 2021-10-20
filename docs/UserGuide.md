@@ -164,21 +164,20 @@ Steps to Import from CSV file
 1. Ensure that the Excel file is a CSV file with semicolon delimited.
    Instructions on how to import to this file type can be found [here](https://ashwaniashwin.wordpress.com/2013/04/19/save-excel-file-as-a-csv-semicolon-delimited-file-along-with-unicode-encoding/)
 2. Ensure that the import file is named `import.csv` under the "data" folder found in the same directory as the CMM jar file
-
 3. Upon CMM application startup, a prompt will popup asking whether you want to import or not. If yes, the import will add on to the
-existing CMM database. Else, nothing would be done
+existing CMM database. Else, nothing would be imported and CMM runs as per normal
 
 **Things to note**
 1. Currently, import is **irreversible**. Please double check before importing
 2. CMM will not import data rows with:
    1. Duplicates (Data with the exact name,phone, email, address, gender, age, Interest already exist in the database)
-   2. Missing details (Compulsory for data to have name/phone/address filled)
+   2. Missing details (Compulsory for data to have name/phone/email filled)
 3. CMM will abort import if :
    1. Files has missing headers
       * First row of Excel file is reserved for datatype headers.
       * Headers must include Name, Phone, Email, Address, Gender, Age, Interest and isDone from the left to right, Starting from the cell 'A1'
       * Headers are not case-sensitive
-4. Import is only allowed during application startup. To import after startup, simply reopen application to get the import prompt
+4. Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
 
 **Common Issues**
 
@@ -193,14 +192,13 @@ existing CMM database. Else, nothing would be done
    * Detailed reasons for any import error can be found in the logs of the CMM
 
 
-
 ### Exporting state of database
 CMM is able to export the current database into csv files. The files will to be semicolon delimited Csv file.
 
 Steps to Import from CSV file
 1. Closing the application in any way would prompt user to export the current database
 2. The CMM will export the database to the data file location
-3. Export file will 
+3. Export file will follow have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow the system settings
 
 
 ### Editing the data file (JSON)
