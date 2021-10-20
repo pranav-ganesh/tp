@@ -23,7 +23,7 @@ loop number of  rows in import - 1
     CsvUtil -> CsvUtil: createPerson(String, rowNumber)
     activate CsvUtil
     CsvUtil -> CsvAdaptedPerson: <<create>>
-    
+
 
     CsvAdaptedPerson -> CsvAdaptedPerson: setDetails(String)
     activate CsvAdaptedPerson
