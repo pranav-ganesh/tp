@@ -15,5 +15,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_AGE = new Prefix("age/");
     public static final Prefix PREFIX_INTEREST = new Prefix("i/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_REMARK = new Prefix("r/");
 
 }

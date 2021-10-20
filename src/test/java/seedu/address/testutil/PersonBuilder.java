@@ -8,6 +8,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 
@@ -23,6 +24,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = null;
     public static final String DEFAULT_GENDER = null;
     public static final String DEFAULT_AGE = null;
+    public static final String DEFAULT_REMARK = "";
 
     private Name name;
     private Phone phone;
@@ -30,6 +32,7 @@ public class PersonBuilder {
     private IsDone isDone;
     private Address address;
     private Gender gender;
+    private Remark remark;
     private Age age;
     private InterestsList interests;
 
@@ -43,6 +46,7 @@ public class PersonBuilder {
         isDone = new IsDone(DEFAULT_DONE);
         address = new Address(DEFAULT_ADDRESS);
         gender = new Gender(DEFAULT_GENDER);
+        remark = new Remark(DEFAULT_REMARK);
         age = new Age(DEFAULT_AGE);
         interests = new InterestsList();
     }
@@ -57,6 +61,7 @@ public class PersonBuilder {
         isDone = personToCopy.getIsDone();
         address = personToCopy.getAddress();
         gender = personToCopy.getGender();
+        remark = personToCopy.getRemark();
         age = personToCopy.getAge();
         interests = personToCopy.getInterests();
     }
@@ -82,6 +87,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRemark(String remark) {
+        this.remark = new Remark(remark);
         return this;
     }
 
@@ -133,7 +146,7 @@ public class PersonBuilder {
      * @return the person
      */
     public Person build() {
-        return new Person(name, phone, email, isDone, address, gender, age, interests);
+        return new Person(name, phone, email, isDone, address, gender, age, interests, remark);
     }
 
 }

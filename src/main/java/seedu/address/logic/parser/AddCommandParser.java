@@ -1,13 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.stream.Stream;
 
@@ -21,6 +15,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.interests.InterestsList;
 
 /**
@@ -47,12 +42,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(null));
+        Remark remark = new Remark(""); // add command does not allow adding remarks straight away
         Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).orElse(null));
         Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).orElse(null));
         InterestsList interestList = ParserUtil.parseInterests(argMultimap.getAllValues(PREFIX_INTEREST));
 
         Person person = new Person(name, phone, email, new IsDone("FALSE"), address,
-                gender, age, interestList);
+                gender, age, interestList, remark);
 
         return new AddCommand(person);
     }

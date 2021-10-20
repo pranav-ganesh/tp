@@ -153,6 +153,6 @@ public class CsvAdaptedPerson {
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,
-                modelGender, modelAge, modelInterests);
+                modelGender, modelAge, modelInterests, toModelType().getRemark());
     }
 }

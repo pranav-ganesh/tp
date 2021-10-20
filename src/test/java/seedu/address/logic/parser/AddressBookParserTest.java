@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -22,6 +23,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.model.person.Remark;
 
 public class AddressBookParserTest {
 
@@ -86,6 +89,14 @@ public class AddressBookParserTest {
     public void parseCommand_done() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(DoneCommand.COMMAND_WORD));
+    }
+
+    @Test
+    public void parseCommand_remark() throws Exception {
+        final String remark = "Some remark.";
+        RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_REMARK + remark);
+        assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, new Remark(remark)), command);
     }
 
     @Test

@@ -8,8 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -24,6 +27,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.interests.InterestsList;
 
 /**
@@ -100,10 +104,11 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
+        Remark updatedRemark = personToEdit.getRemark(); // edit command does not allow editing remarks
         InterestsList updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress,
-                updatedGender, updatedAge, updatedInterests);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress, updatedGender,
+                updatedAge, updatedInterests, updatedRemark);
     }
 
     @Override
@@ -226,7 +231,7 @@ public class EditCommand extends Command {
         public Optional<InterestsList> getInterests() {
             return Optional.ofNullable(interests);
         }
-
+        
         @Override
         public boolean equals(Object other) {
             // short circuit if same object

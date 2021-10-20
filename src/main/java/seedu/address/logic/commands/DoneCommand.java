@@ -10,14 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Age;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.IsDone;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.person.interests.InterestsList;
 
 
@@ -83,8 +76,9 @@ public class DoneCommand extends Command {
         Gender gender = personToEdit.getGender();
         Age age = personToEdit.getAge();
         InterestsList interests = personToEdit.getInterests();
+        Remark remark = personToEdit.getRemark();
 
-        return new Person(name, phone, email, updatedIsDone, address, gender, age, interests);
+        return new Person(name, phone, email, updatedIsDone, address, gender, age, interests, remark);
     }
 
     @Override

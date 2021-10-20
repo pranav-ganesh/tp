@@ -2,9 +2,14 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
+import java.util.HashSet;
 
 import seedu.address.model.person.interests.InterestsList;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -17,9 +22,11 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
+    private final Remark remark;
     private final Gender gender;
     private final Age age;
     private final InterestsList interests;
+    private final Set<Tag> tags = new HashSet<>();
 
     // Data fields
     private final IsDone isDone;
@@ -28,8 +35,8 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, IsDone isDone,
-                  Address address, Gender gender, Age age, InterestsList interests) {
-        requireAllNonNull(name, phone, email, isDone, address, gender, age);
+                  Address address, Gender gender, Age age, InterestsList interests, Remark remark) {
+        requireAllNonNull(name, phone, email, isDone, address, gender, age, remark);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -38,6 +45,7 @@ public class Person {
         this.gender = gender;
         this.age = age;
         this.interests = interests;
+        this.remark = remark;
     }
 
     public Name getName() {
@@ -70,6 +78,10 @@ public class Person {
 
     public InterestsList getInterests() {
         return interests;
+    }
+
+    public Remark getRemark() {
+        return remark;
     }
 
     /**
@@ -124,7 +136,9 @@ public class Person {
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Done: ")
-                .append(getIsDone());
+                .append(getIsDone())
+                .append(" Remark: ")
+                .append(getRemark());
         if (!address.isEmpty()) {
             builder.append("; Address: ").append(getAddress());
         }

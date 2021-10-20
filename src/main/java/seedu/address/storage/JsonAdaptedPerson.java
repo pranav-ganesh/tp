@@ -16,6 +16,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 
@@ -135,6 +136,8 @@ class JsonAdaptedPerson {
 
         final InterestsList modelInterests = new InterestsList();
 
+        final Remark modelRemark = new Remark(""); 
+
         for (JsonAdaptedInterest interest : interests) {
             Interest i = interest.toModelType();
             if (modelInterests.checkDuplicate(i)) {
@@ -145,7 +148,7 @@ class JsonAdaptedPerson {
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,
-                modelGender, modelAge, modelInterests);
+                modelGender, modelAge, modelInterests, modelRemark);
     }
 
 }
