@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -19,17 +20,18 @@ import seedu.address.model.person.Person;
  */
 public class CsvAddressBookImportExport implements ImportExport {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Import list contains duplicate person(s). These person(s) "
-            + "will not be added: \n";
+    public static final String MESSAGE_DUPLICATE_NOT_DONE_PERSON = "Import contains duplicate person(s) that has yet "
+            + "to be called. " + "These person(s) with list index will not be added: \n";
 
     private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
 
     private boolean fileFound = true;
-    private String unsuccessfulRowImport = "";
-    private String duplicateNameImport = "";
-    private int successfulImportCount = 0;
-    private int duplicateImportCount = 0;
+    private List<Integer> duplicateRowImport = new ArrayList<>();
+    private List<Integer> updateRowImport = new ArrayList<>();
+    private int successfulNewImportCount = 0;
+    private int notCalledDuplicateImportCount = 0;
     private int unsuccessfulImportCount = 0;
+    private int calledDuplicateImportCount = 0;
 
 
     private final Path filePath;
@@ -72,7 +74,6 @@ public class CsvAddressBookImportExport implements ImportExport {
      */
     private Optional<List<Person>> importAddressBook(Path filePath, Model model) throws DataConversionException {
         requireNonNull(filePath);
-        unsuccessfulRowImport = ""; // reset
         fileFound = true;
 
         Optional<List<Person>> csvImportAddressBook = CsvUtil.readCsvFile(filePath);
@@ -90,7 +91,6 @@ public class CsvAddressBookImportExport implements ImportExport {
         }
         List<Integer> unsuccessful = CsvUtil.getUnsuccessfulRow();
         unsuccessfulImportCount = unsuccessful.size();
-        unsuccessfulRowImport = unsuccessful.toString();
         return csvImportAddressBook;
     }
 
@@ -106,10 +106,11 @@ public class CsvAddressBookImportExport implements ImportExport {
 
     public String getImportStatus() {
         if (fileFound) {
-            return String.format("Successful Imports : " + successfulImportCount + "          "
-                    + "Unsuccessful rows : "
-                    + unsuccessfulImportCount + "\nDuplicate names : "
-                    + duplicateImportCount) + " \nCheck logs for detailed explaination.";
+            return String.format("New Imports : " + successfulNewImportCount
+                    + "          Unsuccessful imports : " + unsuccessfulImportCount
+                    + "\nCalled Duplicate Imports : " + calledDuplicateImportCount
+                    + "          Not Called Duplicate imports : " + notCalledDuplicateImportCount)
+                    + " \nCheck logs for detailed explanation.";
         }
         return String.format("CSV file not found in " + filePath);
     }
@@ -123,26 +124,32 @@ public class CsvAddressBookImportExport implements ImportExport {
      * @throws IllegalValueException
      */
     public void addImportIntoAddressBook(List<Person> people, Model model) throws IllegalValueException {
-        duplicateNameImport = ""; // reset
-        successfulImportCount = 0; // reset
-        for (Person importPeople : people) {
-            int index = model.duplicateIndex(importPeople);
+        duplicateRowImport = new ArrayList<>(); // reset
+        updateRowImport = new ArrayList<>(); // reset
+        successfulNewImportCount = 0; // reset
+        calledDuplicateImportCount = 0; //reset
+        for(int pos = 0; pos < people.size(); pos++) {
+            Person importPeople = people.get(pos);
+            int listIndex = model.duplicateIndex(importPeople);
 
-            if (index != -1) {
+            if (listIndex != -1) {
                 if (importPeople.getIsDone().value) {
-                    model.updatePerson(index, importPeople);
+                    model.updatePerson(listIndex, importPeople);
+                    updateRowImport.add(listIndex+1);
+                    calledDuplicateImportCount++;
                     continue;
                 }
-                duplicateNameImport += importPeople.getName().fullName + ", ";
-                duplicateImportCount++;
+                duplicateRowImport.add(listIndex+1);
+                notCalledDuplicateImportCount++;
                 continue;
             }
             model.addPerson(importPeople);
-            successfulImportCount++;
+            successfulNewImportCount++;
         }
-        logger.info(successfulImportCount + " person(s) successfully added");
-        if (successfulImportCount != people.size()) {
-            throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON + duplicateNameImport);
+        logger.info(successfulNewImportCount + " new person(s) successfully imported");
+        logger.info("Person with list index : " + updateRowImport + " has been updated");
+        if (successfulNewImportCount != people.size()) {
+            throw new IllegalValueException(MESSAGE_DUPLICATE_NOT_DONE_PERSON + duplicateRowImport);
         }
     }
 
