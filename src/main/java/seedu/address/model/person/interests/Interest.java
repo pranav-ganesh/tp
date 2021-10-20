@@ -3,6 +3,8 @@ package seedu.address.model.person.interests;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Locale;
+
 public class Interest {
     public static final String MESSAGE_CONSTRAINTS = "Interest can take any value, but should not be an empty string";
 
@@ -42,7 +44,8 @@ public class Interest {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Interest // instanceof handles nulls
-                && value.equals(((Interest) other).value)); // state check
+                && value.toLowerCase(Locale.ROOT)
+                .equals(((Interest) other).value.toLowerCase(Locale.ROOT))); // state check
     }
 
     @Override
