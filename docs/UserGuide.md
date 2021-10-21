@@ -93,9 +93,9 @@ Examples:
 * Address, Gender, Age, Interest fields are optional
 
 **Common issues:**
-* _Invalid command format!_: </br>
-  a. Omitted one or more of the mandatory fields. </br>
-  b. Used the wrong prefix. (e.g., '/n' instead of 'n/') </br>
+* _Invalid command format!_: <br />
+  a. Omitted one or more of the mandatory fields. <br />
+  b. Used the wrong prefix. (e.g., '/n' instead of 'n/') <br />
 
 ### Listing all persons : `list`
 
@@ -230,6 +230,6 @@ Action | Format, Examples
 **Exit** | `exit`
 **Help** | `help`
 
-</br>
---------------------------------------------------------------------------------------------------------------------
+
+
 Thank you for reading the User Guide. Hope you have a pleasant experience with CallMeMaybe.
