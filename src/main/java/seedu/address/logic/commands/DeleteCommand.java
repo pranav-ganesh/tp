@@ -48,7 +48,7 @@ public class DeleteCommand extends Command {
             FullPersonCard.setDisplayedIndex(FullPersonCard.getDisplayedIndex() - 1);
             UiManager.displayFunction();
         } else if (targetIndex.getOneBased() == FullPersonCard.getDisplayedIndex()) {
-            if (targetIndex.getOneBased() == lastShownList.size()+1) {
+            if (targetIndex.getOneBased() == lastShownList.size() + 1) {
                 FullPersonCard.setDisplayedIndex(FullPersonCard.getDisplayedIndex() - 1);
                 UiManager.displayFunction();
             }

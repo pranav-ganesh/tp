@@ -1,22 +1,25 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.ui.*;
+import seedu.address.ui.FullPersonCard;
+import seedu.address.ui.UiManager;
 
-import static java.util.Objects.requireNonNull;
 
-public class DisplayCommand extends Command{
+
+public class DisplayCommand extends Command {
 
     public static final String COMMAND_WORD = "display";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays additional details about a particular person" +
-            " in the address book. Person is chosen based on index.\n" +
-            "Format: " + COMMAND_WORD + " INDEX";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays additional details about a "
+            + "particular person in the address book. Person is chosen based on index.\n"
+            + "Format: " + COMMAND_WORD + " INDEX";
 
     public static final String MESSAGE_DISPLAY_SUCCESS = "Displayed selected person!";
     public static final String MESSAGE_ALREADY_DISPLAYED_CALL = "The particular person is already being displayed";

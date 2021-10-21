@@ -1,9 +1,7 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -56,14 +54,6 @@ public class FullPersonCard extends UiPart<Region> {
     @FXML
     private Label interests;
 
-    public static void setDisplayedIndex(int index) {
-        displayedIndex = index;
-    }
-
-    public static int getDisplayedIndex() {
-        return displayedIndex;
-    }
-
     /**
      * Constructor for the FullPersonCard
      * @param persons The current list displayed
@@ -96,6 +86,14 @@ public class FullPersonCard extends UiPart<Region> {
         } catch (IndexOutOfBoundsException e) {
             createEmptyCard();
         }
+    }
+
+    public static void setDisplayedIndex(int index) {
+        displayedIndex = index;
+    }
+
+    public static int getDisplayedIndex() {
+        return displayedIndex;
     }
 
     /**
