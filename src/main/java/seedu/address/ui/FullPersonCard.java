@@ -3,6 +3,8 @@ package seedu.address.ui;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -24,6 +26,8 @@ public class FullPersonCard extends UiPart<Region> {
     private static final String INTERESTS_LABEL = "Interests: ";
     private static final String DEFAULT_FIELD = "N.A";
     private static final String NO_PERSON_TO_DISPLAY = "No person to display";
+
+    private static int displayedIndex = 1;
 
     private final Logger logger = LogsCenter.getLogger(FullPersonCard.class);
 
@@ -52,13 +56,20 @@ public class FullPersonCard extends UiPart<Region> {
     @FXML
     private Label interests;
 
+    public static void setDisplayedIndex(int index) {
+        displayedIndex = index;
+    }
+
+    public static int getDisplayedIndex() {
+        return displayedIndex;
+    }
+
     /**
      * Constructor for the FullPersonCard
      * @param persons The current list displayed
-     * @param displayedIndex The index of the person to display on the card
      * @param windowWidth The size of the card
      */
-    public FullPersonCard(List<Person> persons, int displayedIndex, double windowWidth) {
+    public FullPersonCard(ObservableList<Person> persons, double windowWidth) {
         super(FXML);
 
         fullPersonDetails.setPrefWidth(windowWidth / 3);
@@ -80,7 +91,7 @@ public class FullPersonCard extends UiPart<Region> {
 
             address.setText(person.getAddress().value);
             gender.setText(person.getGender().value);
-            age.setText(DEFAULT_FIELD);
+            age.setText(person.getAge().value);
             interests.setText(person.getInterests().toString());
         } catch (IndexOutOfBoundsException e) {
             createEmptyCard();

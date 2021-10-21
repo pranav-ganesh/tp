@@ -9,6 +9,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.ui.FullPersonCard;
+import seedu.address.ui.UiManager;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -41,6 +43,18 @@ public class DeleteCommand extends Command {
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
+
+        if (targetIndex.getOneBased() < FullPersonCard.getDisplayedIndex()) {
+            FullPersonCard.setDisplayedIndex(FullPersonCard.getDisplayedIndex() - 1);
+            UiManager.displayFunction();
+        } else if (targetIndex.getOneBased() == FullPersonCard.getDisplayedIndex()) {
+            if (targetIndex.getOneBased() == lastShownList.size()+1) {
+                FullPersonCard.setDisplayedIndex(FullPersonCard.getDisplayedIndex() - 1);
+                UiManager.displayFunction();
+            }
+            UiManager.displayFunction();
+        }
+
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
