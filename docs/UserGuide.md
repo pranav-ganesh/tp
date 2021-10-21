@@ -67,9 +67,9 @@ Examples:
 * Name, Phone_number and Email fields are mandatory
 
 **Common issues:**
-* _Invalid command format!_: </br>
-  a. Omitted one or more of the mandatory fields. </br>
-  b. Used the wrong prefix. (e.g., '/n' instead of 'n/') </br>
+* _Invalid command format!_: <br />
+  a. Omitted one or more of the mandatory fields. <br />
+  b. Used the wrong prefix. (e.g., '/n' instead of 'n/') <br />
 
 ### Listing all persons : `list`
 
