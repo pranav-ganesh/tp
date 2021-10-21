@@ -212,6 +212,6 @@ Action | Format, Examples
 **Exit** | `exit`
 **Help** | `help`
 
-</br>
---------------------------------------------------------------------------------------------------------------------
+
+
 Thank you for reading the User Guide. Hope you have a pleasant experience with CallMeMaybe.
