@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -9,13 +10,10 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.index.Index;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CsvUtil;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -25,7 +23,10 @@ import seedu.address.model.person.Person;
 public class CsvAddressBookImportExport implements ImportExport {
 
     public static final String MESSAGE_DUPLICATE_NOT_DONE_PERSON = "Import contains duplicate person(s) that has yet "
-            + "to be called. " + "These person(s) with list index will not be added: \n";
+            + "to be called. These duplicate person(s) with these list index will NOT be updated:" + "\n";
+
+    public static final String MESSAGE_DUPLICATE_DONE_PERSON = "These duplicate person(s) with "
+            + "these list index will be updated: " + "\n";
 
     private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
 
@@ -86,13 +87,7 @@ public class CsvAddressBookImportExport implements ImportExport {
             return Optional.empty();
         }
 
-        try {
-
-            addImportIntoAddressBook(csvImportAddressBook.get(), model);
-
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-        }
+        addImportIntoAddressBook(csvImportAddressBook.get(), model);
         List<Integer> unsuccessful = CsvUtil.getUnsuccessfulRow();
         unsuccessfulImportCount = unsuccessful.size();
         return csvImportAddressBook;
@@ -127,26 +122,19 @@ public class CsvAddressBookImportExport implements ImportExport {
      *   Will not include duplicate people
      * @param people list of valid people
      * @param model model to import into
-     * @throws IllegalValueException
      */
-    public void addImportIntoAddressBook(List<Person> people, Model model) throws IllegalValueException {
+    public void addImportIntoAddressBook(List<Person> people, Model model) {
         duplicateRowImport = new ArrayList<>(); // reset
         updateRowImport = new ArrayList<>(); // reset
         successfulNewImportCount = 0; // reset
         calledDuplicateImportCount = 0; //reset
         for (int pos = 0; pos < people.size(); pos++) {
-            Person importPeople = people.get(pos);
-            int listPos = model.duplicateIndex(importPeople);
+            Person importPerson = people.get(pos);
+            int listPos = model.duplicateIndex(importPerson);
 
             if (listPos != -1) {
-                if (importPeople.getIsDone().value) {
-                    Index listIndex = Index.fromZeroBased(listPos);
-                    Command doneCommand = new DoneCommand(listIndex);
-                    try {
-                        doneCommand.execute(model);
-                    } catch (CommandException e) { // throws exception if person not found
-                        e.printStackTrace(); // should never reach here as listIndex and person exists
-                    }
+                if (importPerson.getIsDone().value) {
+                    updatePerson(listPos, importPerson, model);
                     updateRowImport.add(listPos + 1);
                     calledDuplicateImportCount++;
                     continue;
@@ -155,14 +143,19 @@ public class CsvAddressBookImportExport implements ImportExport {
                 notCalledDuplicateImportCount++;
                 continue;
             }
-            model.addPerson(importPeople);
+            model.addPerson(importPerson);
             successfulNewImportCount++;
         }
         logger.info(successfulNewImportCount + " new person(s) successfully imported");
-        logger.info("Person with list index : " + updateRowImport + " has been updated");
-        if (successfulNewImportCount != people.size()) {
-            throw new IllegalValueException(MESSAGE_DUPLICATE_NOT_DONE_PERSON + duplicateRowImport);
-        }
+        logger.info( MESSAGE_DUPLICATE_DONE_PERSON + updateRowImport);
+        logger.info(MESSAGE_DUPLICATE_NOT_DONE_PERSON + duplicateRowImport);
+    }
+
+    private void updatePerson(int listPos, Person importPerson, Model model) {
+        List<Person> lastShownList = model.getFilteredPersonList();
+        Person personToEdit = lastShownList.get(listPos);
+        model.setPerson(personToEdit, importPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
 }
