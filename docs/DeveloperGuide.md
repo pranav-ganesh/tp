@@ -126,7 +126,7 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has an `Interest` list in the `AddressBook`, which `InterestsList` references. This allows `AddressBook` to only require one `Interest` object per unique interest, instead of each `InterestsList` needing their own `Interest` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -163,7 +163,7 @@ The add command is facilitated by the LogicManager.
 1. Command entered by user is passed into the LogicManager
 2. AddressBookParser parses the command
 3. AddressBookParser creates an AddCommand and a new Person with the fields specified by the user
-4. LogicManager executes the AddCommand and the new Person is added into the address nook 
+4. LogicManager executes the AddCommand and the new Person is added into the address book
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the execute("add n/bob e/email@email.com p/999") API call.
 
@@ -173,7 +173,7 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
 
 **Aspect: Compulsory fields:**
 
-* **Alternative 1 (current choice):** 3 compulsory fields 
+* **Alternative 1 (current choice):** 3 compulsory fields
     * Compulsory fields: `name`, `email`, `phone`.
     * Non-Compulsory fields: `Address`, `Gender`, `Age`, `Interest`.
     * Pros: Improves User Experience by minimising the number of fields the user is required to fill.
@@ -183,7 +183,7 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
     * Pros: Easier to implement.
     * Cons: Having to enter every field can be time-consuming for the user.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers to add a person 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers to add a person
 who has already been called into the address book, all new persons added will have their isDone field set to false by default. Hence there
 is no need for the user to specify the isDone field.
 </div>
@@ -192,7 +192,7 @@ As the app is catered towards telemarketers, the `name`, `email` and `phone` fie
 
 On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complementary fields. Hence, they are non-compulsory.
 
-The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while 
+The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while
 at the same time, improve user experience by reducing time required for users to type the command.
 
 ### \[Proposed\] Undo/redo feature
@@ -432,12 +432,9 @@ Guarantees: CMM Database will be set
 
 **MSS**
 
-1. CMM ask whether there are any new imports upon startup
-2. CMM request whether to start creation new Database or insert into existing database
+2. CMM ask whether to start creation new Database using import data or insert into existing database, upon startup
 3. User determines import setting
-4. CMM request file location
-5. User specifies the file location
-6. CMM imports the file
+4. CMM imports the file  
    Use case ends.
 
 **Extensions**
@@ -448,35 +445,30 @@ Guarantees: CMM Database will be set
 * 2a. User request to create a new Database when CMM has no existing database
     * 2a1 CMM will convert the excel file to the correct datatype to be stored inside CMM
 
-* 2b. User request to create a new Database when CMM has existing database and does not want to export existing database
-    * 2b1 CMM clears the current database
-    * 2b2 CMM will convert the excel file to the correct datatype to be stored inside CMM
-
-* 2c. User request to create a new Database when CMM has existing database and wants to export existing database
-    * 2c1 CMM exports the current database to a CMM defined file location (UC6)
+* 2b. User request to create a new Database when CMM has existing database
+    * 2c1 CMM exports the current database (UC6)
     * 2c2 CMM clears the current database
     * 2c3 CMM will convert the excel file to the correct datatype to be stored inside CMM
 
-* 2d. User request to add on to current Database when CMM has existing database
+* 2c. User request to add on to current Database when CMM has existing database
     * 2d1 CMM will convert the excel file to the correct datatype to be stored inside CMM
     * 2d2 CMM adds on to current database
 
-* 2e. User request to add on to current Database when CMM has no existing database
+* 2d. User request to add on to current Database when CMM has no existing database
     * 2e1 CMM will convert the excel file to the correct datatype to be stored inside CMM
     * 2e2 CMM creates new database
     * 2e3 CMM adds on to current database
 
-* 5a. During import, User uses a file that does not exist
-    * 5a1. CMM will cancel the transer
-    * 5a2. CMM informs the user of the cancelation
+* 4a. During import, User uses a file that does not exist
+    * 5a1. CMM will cancel the transfer
+    * 5a2. CMM informs the user of the cancellation
 
-* 6a. During import, User uses a file that does not follow the set format
-    * 6a1. CMM will cancel the transer
-    * 6a2. CMM informs the user of the cancelation
+* 4a. During import, User uses a file that does not follow the set format
+    * 6a1. CMM will cancel the transfer
+    * 6a2. CMM informs the user of the cancellation
 
 * *a. At any time before import confirmation, User chooses to cancel the transfer.
-    * *a1. CMM requests to confirm the import cancellation.
-    * *a2. User confirms the cancellation.
+    * *a1. CMM will stop all import operation
     * *a3. No changes are made in CMM Database
     * *a4. CMM starts as per normal
 
