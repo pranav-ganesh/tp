@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -12,15 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.IsDone;
-import seedu.address.model.person.Person;
-
 /**
- * Contains integration tests (interaction with the Model) and unit tests for DoneCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for DisplayCommand.
  */
 public class DisplayCommandTest {
 
@@ -32,21 +27,6 @@ public class DisplayCommandTest {
         DisplayCommand displayCommand = new DisplayCommand(outOfBoundIndex);
 
         assertCommandFailure(displayCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_personAlreadyDisplayed_showAppropriateMessage() {
-        Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person displayedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                new IsDone("TRUE"), person.getAddress(), person.getGender(), person.getAge(), person.getInterests());
-        model.setPerson(person, displayedPerson);
-        DisplayCommand displayCommand = new DisplayCommand(INDEX_FIRST_PERSON);
-
-        String expectedMessage = String.format(DisplayCommand.MESSAGE_ALREADY_DISPLAYED_CALL, person);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-
-        assertCommandSuccess(displayCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
