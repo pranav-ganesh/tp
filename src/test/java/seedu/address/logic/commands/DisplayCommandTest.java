@@ -27,21 +27,6 @@ public class DisplayCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_personAcceptedByModel_displaySuccessful() {
-        Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person displayedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                new IsDone("TRUE"), person.getAddress(), person.getGender(), person.getAge(), person.getInterests());
-        DisplayCommand displayCommand = new DisplayCommand(INDEX_FIRST_PERSON);
-
-        String expectedMessage = String.format(DisplayCommand.MESSAGE_DISPLAY_SUCCESS, displayedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), displayedPerson);
-
-        assertCommandSuccess(displayCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void execute_invalidPersonIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DisplayCommand displayCommand = new DisplayCommand(outOfBoundIndex);
