@@ -9,9 +9,15 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CsvUtil;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -132,16 +138,22 @@ public class CsvAddressBookImportExport implements ImportExport {
         calledDuplicateImportCount = 0; //reset
         for (int pos = 0; pos < people.size(); pos++) {
             Person importPeople = people.get(pos);
-            int listIndex = model.duplicateIndex(importPeople);
+            int listPos = model.duplicateIndex(importPeople);
 
-            if (listIndex != -1) {
+            if (listPos != -1) {
                 if (importPeople.getIsDone().value) {
-                    model.updatePerson(listIndex, importPeople);
-                    updateRowImport.add(listIndex + 1);
+                    Index listIndex = Index.fromZeroBased(listPos);
+                    Command doneCommand = new DoneCommand(listIndex);
+                    try {
+                        doneCommand.execute(model);
+                    } catch (CommandException e) { // throws exception if person not found
+                        e.printStackTrace(); // should never reach here as listIndex and person exists
+                    }
+                    updateRowImport.add(listPos + 1);
                     calledDuplicateImportCount++;
                     continue;
                 }
-                duplicateRowImport.add(listIndex + 1);
+                duplicateRowImport.add(listPos + 1);
                 notCalledDuplicateImportCount++;
                 continue;
             }

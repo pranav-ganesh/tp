@@ -93,15 +93,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(target, editedPerson);
     }
 
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void updatePerson(int index, Person editedPerson) {
-        requireNonNull(editedPerson);
-        persons.updatePerson(index, editedPerson);
-    }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.

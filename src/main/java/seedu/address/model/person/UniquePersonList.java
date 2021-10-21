@@ -81,15 +81,6 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.set(index, editedPerson);
     }
 
-    /**
-     * Replaces the person at index in the list with {@code editedPerson}.
-     * index must be more than -1 and smaller than size of list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
-     */
-    public void updatePerson(int index, Person editedPerson) {
-        assert(index > -1 && index < internalList.size());
-        internalList.set(index, editedPerson);
-    }
 
     /**
      * Removes the equivalent person from the list.
