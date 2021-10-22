@@ -163,7 +163,7 @@ The add command is facilitated by the LogicManager.
 1. Command entered by user is passed into the LogicManager
 2. AddressBookParser parses the command
 3. AddressBookParser creates an AddCommand and a new Person with the fields specified by the user
-4. LogicManager executes the AddCommand and the new Person is added into the address nook
+4. LogicManager executes the AddCommand and the new Person is added into the address book
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the execute("add n/bob e/email@email.com p/999") API call.
 
@@ -432,12 +432,9 @@ Guarantees: CMM Database will be set
 
 **MSS**
 
-1. CMM ask whether there are any new imports upon startup
-2. CMM request whether to start creation new Database or insert into existing database
-3. User determines import setting
-4. CMM request file location
-5. User specifies the file location
-6. CMM imports the file
+1. CMM ask whether to start creation new Database using import data or insert into existing database, upon startup
+2. User determines import setting
+3. CMM imports the file  
    Use case ends.
 
 **Extensions**
@@ -448,35 +445,30 @@ Guarantees: CMM Database will be set
 * 2a. User request to create a new Database when CMM has no existing database
     * 2a1 CMM will convert the excel file to the correct datatype to be stored inside CMM
 
-* 2b. User request to create a new Database when CMM has existing database and does not want to export existing database
-    * 2b1 CMM clears the current database
-    * 2b2 CMM will convert the excel file to the correct datatype to be stored inside CMM
-
-* 2c. User request to create a new Database when CMM has existing database and wants to export existing database
-    * 2c1 CMM exports the current database to a CMM defined file location (UC6)
+* 2b. User request to create a new Database when CMM has existing database
+    * 2c1 CMM exports the current database (UC6)
     * 2c2 CMM clears the current database
     * 2c3 CMM will convert the excel file to the correct datatype to be stored inside CMM
 
-* 2d. User request to add on to current Database when CMM has existing database
+* 2c. User request to add on to current Database when CMM has existing database
     * 2d1 CMM will convert the excel file to the correct datatype to be stored inside CMM
     * 2d2 CMM adds on to current database
 
-* 2e. User request to add on to current Database when CMM has no existing database
+* 2d. User request to add on to current Database when CMM has no existing database
     * 2e1 CMM will convert the excel file to the correct datatype to be stored inside CMM
     * 2e2 CMM creates new database
     * 2e3 CMM adds on to current database
 
-* 5a. During import, User uses a file that does not exist
-    * 5a1. CMM will cancel the transer
-    * 5a2. CMM informs the user of the cancelation
+* 4a. During import, User uses a file that does not exist
+    * 5a1. CMM will cancel the transfer
+    * 5a2. CMM informs the user of the cancellation
 
-* 6a. During import, User uses a file that does not follow the set format
-    * 6a1. CMM will cancel the transer
-    * 6a2. CMM informs the user of the cancelation
+* 4a. During import, User uses a file that does not follow the set format
+    * 6a1. CMM will cancel the transfer
+    * 6a2. CMM informs the user of the cancellation
 
 * *a. At any time before import confirmation, User chooses to cancel the transfer.
-    * *a1. CMM requests to confirm the import cancellation.
-    * *a2. User confirms the cancellation.
+    * *a1. CMM will stop all import operation
     * *a3. No changes are made in CMM Database
     * *a4. CMM starts as per normal
 
