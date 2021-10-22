@@ -17,7 +17,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
@@ -57,6 +56,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_INVALID_INTERESTS_INDEX = "The specified interestsList index is invalid.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -98,7 +98,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) 
+            throws CommandException {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
@@ -108,14 +109,43 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
-        InterestsList newInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
-        editPersonDescriptor.editInterestList(newInterests, personToEdit.getInterests());
+        
+        InterestsList newInterests = editPersonDescriptor.getInterests().orElse(null);
+        if (newInterests != null) {
+            this.editInterestList(newInterests, personToEdit.getInterests()); 
+        }
         InterestsList updatedInterests = personToEdit.getInterests();
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress,
                 updatedGender, updatedAge, updatedInterests);
     }
 
+    /**
+     * Edits the {@code InterestsList} attribute of {@code personToEdit} based on user input command.
+     */
+    public void editInterestList(InterestsList newList, InterestsList currentList) throws CommandException {
+        for (Interest i : newList.getAllInterests()) {
+            String s = i.toString();
+            this.helper(s, currentList);
+        }
+    }
+    
+    private void helper(String s, InterestsList currentList) throws CommandException {
+        if (s.substring(0,1).equals("[")) {
+            String pos = s.substring(s.indexOf("[") + 1, s.indexOf("]"));
+            int index = Integer.parseInt(pos) - 1;
+
+            if (index < currentList.size()) {
+                currentList.setInterest(new Interest(s.substring(s.indexOf("]") + 2).trim()), index);
+            } else {
+                throw new CommandException(MESSAGE_INVALID_INTERESTS_INDEX);
+            }
+            
+        } else {
+            currentList.addInterest(new Interest(s));
+        }
+    }
+    
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -235,19 +265,6 @@ public class EditCommand extends Command {
 
         public Optional<InterestsList> getInterests() {
             return Optional.ofNullable(interests);
-        }
-        
-        public void editInterestList(InterestsList newInterestList, InterestsList currentInterestList) {
-            for (Interest i : newInterestList.getAllInterests()) {
-                String s = i.toString();
-                if (s.substring(0,1).equals("[")) {
-                    String pos = s.substring(s.indexOf("[") + 1, s.indexOf("]"));
-                    int index = Integer.parseInt(pos) - 1;
-                    currentInterestList.setInterest(new Interest(s.substring(s.indexOf("]") + 2).trim()), index);
-                } else {
-                    currentInterestList.addInterest(new Interest(s));
-                }
-            }
         }
 
         @Override

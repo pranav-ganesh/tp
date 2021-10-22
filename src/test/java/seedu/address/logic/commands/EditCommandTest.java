@@ -36,14 +36,32 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
-                .withGender("M").withAge("102").build();
+                .withGender("M").withAge("102").withInterest("Blockchain", "Swimming").build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-
+        
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+    
+    @Test
+    public void execute_interestsListField_success() {
+        Person expectedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
+                .withGender("M").withAge("102").withInterest("Mining", "Window shopping").build();
+        
+        Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
+                .withGender("M").withAge("102").withInterest("[1] Mining", "[2] Window shopping").build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, expectedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(1), expectedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -125,6 +143,15 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidInterestsListIndex_failure() {
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withInterests("[4] Music").build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        String MESSAGE_INVALID_INTERESTS_INDEX = "The specified interestsList index is invalid.";
+
+        assertCommandFailure(editCommand, model, MESSAGE_INVALID_INTERESTS_INDEX);
     }
 
     /**

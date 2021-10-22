@@ -15,6 +15,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.IsDone;
 import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 import seedu.address.model.tag.Tag;
@@ -136,6 +137,24 @@ public class ParserUtil {
             throw new ParseException(Age.MESSAGE_CONSTRAINTS);
         }
         return new Age(trimmedAge);
+    }
+
+    /**
+     * Parses a {@code String isDone} into an {@code isDone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code isDone} is invalid.
+     */
+    public static IsDone parseIsDone(String isDone) throws ParseException {
+        if (isDone == null) {
+            return new IsDone(null);
+        }
+
+        String trimmedDone = isDone.trim();
+        if (!IsDone.isValidIsDone(trimmedDone)) {
+            throw new ParseException(IsDone.MESSAGE_CONSTRAINTS);
+        }
+        return new IsDone(trimmedDone);
     }
 
     /**

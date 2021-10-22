@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DONE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class CommandTestUtil {
     public static final String VALID_GENDER_BOB = "M";
     public static final String VALID_AGE_AMY = "22";
     public static final String VALID_AGE_BOB = "33";
+    public static final String VALID_DONE_AMY = "true";
+    public static final String VALID_DONE_BOB = "false";
     public static final String VALID_INTEREST_AMY = "Shopping";
     public static final String VALID_INTEREST_BOB = "Watching football";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -58,6 +61,8 @@ public class CommandTestUtil {
     public static final String GENDER_DESC_BOB = " " + PREFIX_GENDER + VALID_GENDER_BOB;
     public static final String AGE_DESC_AMY = " " + PREFIX_AGE + VALID_AGE_AMY;
     public static final String AGE_DESC_BOB = " " + PREFIX_AGE + VALID_AGE_BOB;
+    public static final String DONE_DESC_AMY = " " + PREFIX_DONE + VALID_DONE_AMY;
+    public static final String DONE_DESC_BOB = " " + PREFIX_DONE + VALID_DONE_BOB;
     public static final String INTEREST_DESC_AMY = " " + PREFIX_INTEREST + VALID_INTEREST_AMY;
     public static final String INTEREST_DESC_BOB = " " + PREFIX_INTEREST + VALID_INTEREST_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
@@ -71,6 +76,7 @@ public class CommandTestUtil {
     public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "HELLO"; // Age should only consist of numbers
     public static final String INVALID_INTEREST_DESC = " " + PREFIX_INTEREST; // empty string not allowed for interest
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_DONE_DESC = " " + PREFIX_DONE + "lucas"; // only boolean values are allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
