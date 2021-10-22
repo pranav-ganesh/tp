@@ -153,8 +153,6 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Updates the FullPersonCard window with the details of the person chosen for display
-     * @param lastShownList The list that contains details of all the people present in
-     * the address book
      */
     public void fillFullPersonCard() {
         fullPersonCardPlaceholder.getChildren().remove(fullPersonCard.getRoot());
