@@ -147,6 +147,9 @@ Format: `display INDEX`
 
 Example: `display 3` displays the 3rd person from the address book
 
+**Common issues:**
+* _The person index provided is invalid_: Displayed list does not contain person at `INDEX`.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -177,7 +180,7 @@ Steps to Import from CSV file
 **Things to note**
 1. Currently, import is **irreversible**. Please double check before importing
 2. CMM will not import data rows with:
-   1. Duplicates (Data with the exact name,phone, email, address, gender, age, Interest already exist in the database)
+   1. Duplicates (Data with the exact name, phone, email, address, gender, age, Interest already exist in the database)
    2. Missing details (Compulsory for data to have name/phone/email filled)
 3. CMM will abort import if :
    1. Files has missing headers

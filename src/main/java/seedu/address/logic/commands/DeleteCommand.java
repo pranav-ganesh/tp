@@ -44,6 +44,23 @@ public class DeleteCommand extends Command {
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
 
+        checkDisplayAfterDelete(lastShownList);
+
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+    }
+
+    /**
+     * Updates the display window once a particular person is deleted
+     * @param lastShownList The list of people in the address book
+     */
+    public void checkDisplayAfterDelete(List<Person> lastShownList) {
         if (targetIndex.getOneBased() < FullPersonCard.getDisplayedIndex()) {
             FullPersonCard.setDisplayedIndex(FullPersonCard.getDisplayedIndex() - 1);
             UiManager.displayFunction();
@@ -54,14 +71,5 @@ public class DeleteCommand extends Command {
             }
             UiManager.displayFunction();
         }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 }

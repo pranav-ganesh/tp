@@ -11,8 +11,6 @@ import seedu.address.model.person.Person;
 import seedu.address.ui.FullPersonCard;
 import seedu.address.ui.UiManager;
 
-
-
 public class DisplayCommand extends Command {
 
     public static final String COMMAND_WORD = "display";
@@ -27,7 +25,7 @@ public class DisplayCommand extends Command {
     private final Index displayIndex;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates a DisplayCommand to display the specified {@code Person}
      */
     public DisplayCommand(Index index) {
         requireNonNull(index);
