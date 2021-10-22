@@ -5,33 +5,30 @@ autonumber
 
 MainWindow -> Logic: importData()
 Logic -> CsvAddressBookImportExport: importIntoAddressBook(model)
-activate CsvAddressBookImportExport
+
 CsvAddressBookImportExport -> CsvAddressBookImportExport: importAddressBook(filepath,model)
-activate CsvAddressBookImportExport
+
 CsvAddressBookImportExport -> CsvUtil: readCsvFile(filepath)
-activate CsvUtil
+
 CsvUtil -> CsvUtil: deserializeObjectFromCsvFile(filepath)
-activate CsvUtil
+
 CsvUtil -> FileUtil: readFromFile(filepath)
-activate FileUtil
+
 CsvUtil <- FileUtil: all row string details
-deactivate FileUtil
+
 CsvUtil -> CsvUtil: fromCsvString()
-activate CsvUtil
+
 
 loop number of  rows in import - 1
     CsvUtil -> CsvUtil: createPerson(String, rowNumber)
-    activate CsvUtil
+
     CsvUtil -> CsvAdaptedPerson: <<create>>
 
 
     CsvAdaptedPerson -> CsvAdaptedPerson: setDetails(String)
-    activate CsvAdaptedPerson
+
     CsvAdaptedPerson -> CsvAdaptedPerson: setInterestList(String)
     CsvUtil <- CsvAdaptedPerson: valid person
-    deactivate CsvAdaptedPerson
-    deactivate CsvAdaptedPerson
-    deactivate CsvUtil
     end
 
 CsvAddressBookImportExport <- CsvUtil: optional(list of valid people)
