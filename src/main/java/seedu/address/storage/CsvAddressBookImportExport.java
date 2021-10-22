@@ -21,8 +21,8 @@ import seedu.address.model.person.Person;
  */
 public class CsvAddressBookImportExport implements ImportExport {
 
-    public static final String MESSAGE_DUPLICATE_NOT_DONE_PERSON = "Import contains duplicate person(s)." +
-            " These duplicate person(s) are  list index:" + "\n";
+    public static final String MESSAGE_DUPLICATE_NOT_DONE_PERSON = "Import contains duplicate person(s)."
+            + " These duplicate person(s) are  list index:" + "\n";
 
     public static final String MESSAGE_DUPLICATE_DONE_PERSON = "These duplicate person(s) with "
             + "these list index will be updated to 'called' : \n";
