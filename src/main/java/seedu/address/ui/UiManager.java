@@ -57,7 +57,7 @@ public class UiManager implements Ui {
      */
     public static void displayFunction() {
         if (mainWindow != null) {
-            mainWindow.fillFullPersonCard(mainWindow.getPersonList());
+            mainWindow.fillFullPersonCard();
         }
     }
 
