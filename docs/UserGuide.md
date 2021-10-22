@@ -242,7 +242,6 @@ Action | Format, Examples
 **Help** | `help`
 
 
-
 Thank you for reading the User Guide. Hope you have a pleasant experience with CallMeMaybe.
 
 
