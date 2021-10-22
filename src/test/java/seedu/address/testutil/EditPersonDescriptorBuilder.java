@@ -104,10 +104,8 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withInterests(String ...interestList) {
         InterestsList listOfInterests = new InterestsList();
         for (String interest : interestList) {
-            if (interest != "") {
-                Interest i = new Interest(interest);
-                listOfInterests.addInterest(i);
-            }
+            Interest i = new Interest(interest);
+            listOfInterests.addInterest(i);
         }
         descriptor.setInterests(listOfInterests);
         return this;

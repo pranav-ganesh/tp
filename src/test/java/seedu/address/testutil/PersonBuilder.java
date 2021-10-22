@@ -122,10 +122,8 @@ public class PersonBuilder {
      */
     public PersonBuilder withInterest(String ...interestList) {
         for (String interest : interestList) {
-            if (interest != "") {
-                Interest i = new Interest(interest);
-                interests.addInterest(i);
-            }
+            Interest i = new Interest(interest);
+            interests.addInterest(i);
         }
         return this;
     }
