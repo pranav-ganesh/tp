@@ -156,9 +156,9 @@ public class MainWindow extends UiPart<Stage> {
      * @param lastShownList The list that contains details of all the people present in
      * the address book
      */
-    public void fillFullPersonCard(ObservableList<Person> lastShownList) {
+    public void fillFullPersonCard() {
         fullPersonCardPlaceholder.getChildren().remove(fullPersonCard.getRoot());
-        fullPersonCard = new FullPersonCard(lastShownList, this.windowWidth);
+        fullPersonCard = new FullPersonCard(getPersonList(), this.windowWidth);
         fullPersonCardPlaceholder.getChildren().add(fullPersonCard.getRoot());
         resultDisplay.setFeedbackToUser(importStatus);
     }
