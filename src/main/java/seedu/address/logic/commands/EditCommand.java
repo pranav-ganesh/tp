@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -98,7 +98,7 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) 
+    private Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor)
             throws CommandException {
         assert personToEdit != null;
 
@@ -109,10 +109,10 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
-        
+
         InterestsList newInterests = editPersonDescriptor.getInterests().orElse(null);
         if (newInterests != null) {
-            this.editInterestList(newInterests, personToEdit.getInterests()); 
+            this.editInterestList(newInterests, personToEdit.getInterests());
         }
         InterestsList updatedInterests = personToEdit.getInterests();
 
@@ -129,9 +129,9 @@ public class EditCommand extends Command {
             this.helper(s, currentList);
         }
     }
-    
+
     private void helper(String s, InterestsList currentList) throws CommandException {
-        if (s.substring(0,1).equals("[")) {
+        if (s.substring(0, 1).equals("[")) {
             String pos = s.substring(s.indexOf("[") + 1, s.indexOf("]"));
             int index = Integer.parseInt(pos) - 1;
 
@@ -140,12 +140,12 @@ public class EditCommand extends Command {
             } else {
                 throw new CommandException(MESSAGE_INVALID_INTERESTS_INDEX);
             }
-            
+
         } else {
             currentList.addInterest(new Interest(s));
         }
     }
-    
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

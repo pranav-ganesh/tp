@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -38,21 +39,21 @@ public class EditCommandTest {
         Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
                 .withGender("M").withAge("102").withInterest("Blockchain", "Swimming").build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        
+        EditCommand editCommand = new EditCommand(INDEX_THIRD_PERSON, descriptor);
+
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.setPerson(model.getFilteredPersonList().get(2), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
-    
+
     @Test
     public void execute_interestsListField_success() {
         Person expectedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
                 .withGender("M").withAge("102").withInterest("Mining", "Window shopping").build();
-        
+
         Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
                 .withGender("M").withAge("102").withInterest("[1] Mining", "[2] Window shopping").build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
@@ -65,6 +66,7 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
+
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
@@ -117,9 +119,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
@@ -129,7 +131,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Person personInList = model.getAddressBook().getPersonList().get(INDEX_THIRD_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
@@ -149,9 +151,9 @@ public class EditCommandTest {
     public void execute_invalidInterestsListIndex_failure() {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withInterests("[4] Music").build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        String MESSAGE_INVALID_INTERESTS_INDEX = "The specified interestsList index is invalid.";
+        String message = "The specified interestsList index is invalid.";
 
-        assertCommandFailure(editCommand, model, MESSAGE_INVALID_INTERESTS_INDEX);
+        assertCommandFailure(editCommand, model, message);
     }
 
     /**
