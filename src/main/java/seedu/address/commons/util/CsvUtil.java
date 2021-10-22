@@ -151,7 +151,7 @@ public class CsvUtil {
     static String toCsvString(List<Person> personList) {
 
 
-        String[] headingOrder = headerOrder();
+        String[] headingOrder = CsvAdaptedPerson.headerOrder();
         String headerString = headingOrder[0];
         for (int i = 1; i < headingOrder.length; i++) {
             headerString = headerString + ";" + headingOrder[i];
@@ -160,8 +160,7 @@ public class CsvUtil {
         String toCsv = headerString;
 
         for (Person p : personList) {
-            String csvString = p.getName().toString() + ';' + p.getPhone().toString() + ';' + p.getEmail().toString()
-                            + ';' + p.getIsDone().toString();
+            String csvString = p.toStringNoHeaders();
             toCsv = toCsv + "\n" + csvString;
         }
 
@@ -169,8 +168,8 @@ public class CsvUtil {
     }
 
 
-    public static String getUnsuccessfulRow() {
-        return unsuccessfulRow.toString();
+    public static List<Integer> getUnsuccessfulRow() {
+        return unsuccessfulRow;
     }
 
     /**
@@ -182,7 +181,7 @@ public class CsvUtil {
     public static void checkValidHeader(String header)
             throws DataConversionException {
         String[] headerCheck = header.split(";", CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size());
-        String[] headerValid = headerOrder();
+        String[] headerValid = CsvAdaptedPerson.headerOrder();
 
         if (headerCheck.length == 1) {
             throw new DataConversionException(new Exception("Wrong delimiter, Refer to user guide to use correct "
@@ -190,7 +189,7 @@ public class CsvUtil {
                     + (CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size() - 1) + " ';' "));
         }
 
-        if (headerCheck.length != 4) {
+        if (headerCheck.length != headerValid.length) {
             throw new DataConversionException(new Exception("Missing/Extra Headers, Please check file"));
         }
 
@@ -204,16 +203,6 @@ public class CsvUtil {
                         + Arrays.toString(headerValid) + " in that order."));
             }
         }
-    }
-
-    private static String[] headerOrder() {
-        String[] headerKeySet = CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().toArray(new String[0]);
-        String[] validOrder = new String[headerKeySet.length];
-        for (String key : headerKeySet) {
-            int pos = CsvAdaptedPerson.ATTRIBUTE_ORDERING.get(key);
-            validOrder[pos] = key;
-        }
-        return validOrder;
     }
 
 }

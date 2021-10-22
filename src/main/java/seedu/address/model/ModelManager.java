@@ -95,6 +95,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int duplicateIndex(Person person) {
+        requireNonNull(person);
+        return addressBook.duplicateIndex(person);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -111,6 +117,7 @@ public class ModelManager implements Model {
 
         addressBook.setPerson(target, editedPerson);
     }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
