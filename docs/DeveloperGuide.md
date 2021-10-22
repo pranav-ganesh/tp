@@ -195,6 +195,32 @@ On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complem
 The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while
 at the same time, improve user experience by reducing time required for users to type the command.
 
+### Import feature
+
+The import export feature primarily facilitated by the Logic Manager
+
+**When is the import command executed:**
+
+Application will always ask user whether to User has any new imports upon **every** application startup.
+Import prompt will popup **AFTER** storage has been created within the MainWindow
+
+--to include the prompt in mainwindow--
+
+User will be prompt with 3 options : Add on Imports, Start new with imports, No Imports. CMM react as according to
+the diagram below, based on which button the user selects.
+
+-- decision for the creating new import
+
+Next few sections will go deeper on what 
+
+#### Add On Imports
+
+#### Start New Imports
+
+#### No imports
+
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
