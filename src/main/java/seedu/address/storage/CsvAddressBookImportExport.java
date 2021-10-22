@@ -5,14 +5,13 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CsvUtil;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -22,11 +21,11 @@ import seedu.address.model.person.Person;
  */
 public class CsvAddressBookImportExport implements ImportExport {
 
-    public static final String MESSAGE_DUPLICATE_NOT_DONE_PERSON = "Import contains duplicate person(s) that has yet "
-            + "to be called. These duplicate person(s) with these list index will NOT be updated:" + "\n";
+    public static final String MESSAGE_DUPLICATE_NOT_DONE_PERSON = "Import contains duplicate person(s)." +
+            " These duplicate person(s) are  list index:" + "\n";
 
     public static final String MESSAGE_DUPLICATE_DONE_PERSON = "These duplicate person(s) with "
-            + "these list index will be updated: " + "\n";
+            + "these list index will be updated to 'called' : \n";
 
     private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
 
@@ -136,6 +135,7 @@ public class CsvAddressBookImportExport implements ImportExport {
                 if (importPerson.getIsDone().value) {
                     updatePerson(listPos, importPerson, model);
                     updateRowImport.add(listPos + 1);
+                    duplicateRowImport.add(listPos + 1);
                     calledDuplicateImportCount++;
                     continue;
                 }
@@ -146,8 +146,9 @@ public class CsvAddressBookImportExport implements ImportExport {
             model.addPerson(importPerson);
             successfulNewImportCount++;
         }
+        Collections.sort(duplicateRowImport);
         logger.info(successfulNewImportCount + " new person(s) successfully imported");
-        logger.info( MESSAGE_DUPLICATE_DONE_PERSON + updateRowImport);
+        logger.info(MESSAGE_DUPLICATE_DONE_PERSON + updateRowImport);
         logger.info(MESSAGE_DUPLICATE_NOT_DONE_PERSON + duplicateRowImport);
     }
 
