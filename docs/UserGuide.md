@@ -200,7 +200,7 @@ CMM is able to import CSV files into CMM. The import files have to be in an Exce
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
 
-<div markdown="span" class="alert alert-info">:information_source: **Important:** Currently, import is **irreversible**. Please double check before <importing></importing>.
+<div markdown="span" class="alert alert-info">:information_source: **Important:** Currently, import is **irreversible**. Please double check before importing.
 </div>
 
 **Things to note**
