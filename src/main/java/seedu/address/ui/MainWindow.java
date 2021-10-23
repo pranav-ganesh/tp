@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -20,6 +21,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -122,7 +124,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    public void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), this.windowWidth);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -136,7 +138,25 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //Displays first person in the list by default
-        fullPersonCard = new FullPersonCard(this.logic.getFilteredPersonList(), 1, this.windowWidth);
+        fullPersonCard = new FullPersonCard(this.logic.getFilteredPersonList(), this.windowWidth);
+        fullPersonCardPlaceholder.getChildren().add(fullPersonCard.getRoot());
+        resultDisplay.setFeedbackToUser(importStatus);
+    }
+
+    /**
+     * Returns a list containing full details of persons stored in the address book.
+     * @return An ObservableList of people stored in the address book.
+     */
+    public ObservableList<Person> getPersonList() {
+        return this.logic.getFilteredPersonList();
+    }
+
+    /**
+     * Updates the FullPersonCard window with the details of the person chosen for display
+     */
+    public void fillFullPersonCard() {
+        fullPersonCardPlaceholder.getChildren().remove(fullPersonCard.getRoot());
+        fullPersonCard = new FullPersonCard(getPersonList(), this.windowWidth);
         fullPersonCardPlaceholder.getChildren().add(fullPersonCard.getRoot());
         resultDisplay.setFeedbackToUser(importStatus);
     }
