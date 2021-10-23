@@ -184,7 +184,7 @@ CMM is able to import CSV files into CMM. The import files have to be in an Exce
 1. Ensure that the Excel file is a CSV file with **semicolon delimited**. 
    Instructions on how to import to this file type can be found [here](SettingImportFileType.md)
 2. Ensure that the import file is named import.csv under the "data" folder found in the same directory as the CMM jar file
-3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Import`, `Start New Using Import`, `Don't Import`
+3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Imports`, `Start New Using Import`, `Don't Import`
 
 ![importPopUpUi](images/importPopUpMessage.png)
 
