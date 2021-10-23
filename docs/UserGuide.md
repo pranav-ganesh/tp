@@ -121,6 +121,35 @@ Example:
 * _The index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
 
+### Editing a person : `edit`
+
+Edits an existing contact in the address book.
+
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST] [i/INTEREST]`
+
+Examples:
+* `edit 1 n/Malan i/[2] Swimming` edits the name of person and the second item in the interests list of the first contact in the address book
+* `edit 1 i/Painting` adds the specified interest to the interests list of the first contact in the address book
+* `edit 2 n/Peter p/95637827 e/peter@email.com a/HOME g/M age/19 d/true i/[1] Shopping`
+
+**Things to note:**
+
+* `INDEX` refers to the index number shown in the displayed list.
+* `INDEX` **must be a positive integer** 1, 2, 3, …​
+* `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact.
+* `INTERESTSLIST INDEX` **must be a positive integer** 1, 2, 3, …​
+
+**Common issues:**
+* _The index provided is invalid_: <br />
+  a. Displayed list does not contain person at `INDEX`.
+* _The interests list index provided is invalid_: <br />
+  a. Displayed interests list does not contain an interest at `INTERESTSLIST INDEX`.
+* _Invalid command format!_: <br />
+  a. No fields provided <br />
+  b. Used the wrong prefix. (e.g., 'i/(1)' instead of 'i/[1]') <br />
+* _Invalid command arguments_: <br />
+    a. Duplicate of the edited person already exists on the address book. <br />
+
 ### Deleting a person : `delete`
 
 Deletes the specified contact from the CMM database.
