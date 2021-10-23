@@ -14,7 +14,7 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -26,17 +26,17 @@ If you can type fast, CMM can get your contact management tasks done faster than
 3. Copy the file to the folder you want to use as the home folder for your AddressBook.
 
 4. Double-click the file to start the app. Initially, a popup asking to import CSV data would appear. To learn more about
-importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
+   importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
    ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
    Commands that CallMeMaybe supports:
-    - `list` : Lists all contacts.
-    - `add n/John Doe p/98765432 e/johnd@example.com`: Adds a contact named John Doe to the Address Book.
-    - `delete 3`: Deletes the 3rd contact shown in the current list.
-    - `done 2`: Marks the 2nd contact shown in the current list as completed
-    - `clear` : Deletes all contacts.
-    - `exit` : Exits the app.
+   - `list` : Lists all contacts.
+   - `add n/John Doe p/98765432 e/johnd@example.com`: Adds a contact named John Doe to the Address Book.
+   - `delete 3`: Deletes the 3rd contact shown in the current list.
+   - `done 2`: Marks the 2nd contact shown in the current list as completed
+   - `clear` : Deletes all contacts.
+   - `exit` : Exits the app.
 
 6. Remember to clear the sample data using `clear` command before adding your own data.
 
@@ -138,13 +138,23 @@ Example:
 **Common issues:**
 * _The person index provided is invalid_: Displayed list does not contain person at `INDEX`.
 
+### Displaying complete details about a person: `display`
+
+Displays additional features of a particular individual stored in the application. The additional features include
+address, gender, age and their interests. The details of the person are shown in a separate section of the application.
+
+Format: `display INDEX`
+
+Example: `display 3` displays the 3rd person from the address book
+
+**Common issues:**
+* _The person index provided is invalid_: Displayed list does not contain person at `INDEX`.
 
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
-
 
 ### Exiting the program : `exit`
 
@@ -165,12 +175,12 @@ Steps to Import from CSV file
    Instructions on how to import to this file type can be found [here](https://ashwaniashwin.wordpress.com/2013/04/19/save-excel-file-as-a-csv-semicolon-delimited-file-along-with-unicode-encoding/)
 2. Ensure that the import file is named `import.csv` under the "data" folder found in the same directory as the CMM jar file
 3. Upon CMM application startup, a prompt will popup asking whether you want to import or not. If yes, the import will add on to the
-existing CMM database. Else, nothing would be imported and CMM runs as per normal
+   existing CMM database. Else, nothing would be imported and CMM runs as per normal
 
 **Things to note**
 1. Currently, import is **irreversible**. Please double check before importing
 2. CMM will not import data rows with:
-   1. Duplicates (Data with the exact name,phone, email, address, gender, age, Interest already exist in the database)
+   1. Duplicates (Data with the exact name, phone, email, address, gender, age, Interest already exist in the database)
    2. Missing details (Compulsory for data to have name/phone/email filled)
 3. CMM will abort import if :
    1. Files has missing headers
@@ -183,11 +193,11 @@ existing CMM database. Else, nothing would be imported and CMM runs as per norma
 
 1. `CSV file not found in data\import.csv` message was shown.
    * This could either mean that
-   the file does not exist at the specified location, or the file was incorrectly named
+     the file does not exist at the specified location, or the file was incorrectly named
 
 2. Data not imported despite correct import file placement and naming
    * File may not be in the correct CSV type. Please refer to [Import Setup Procedures](#importing-the-data) step 1
-   to correctly format your file.
+     to correctly format your file.
 3. Unable to understand why a specific row was not able to be imported
    * Detailed reasons for any import error can be found in the logs of the CMM
 
@@ -225,11 +235,13 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL` <br> e.g., `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Done** | `done INDEX` <br> e.g., `done 2`
+**Display** | `display INDEX` <br> e.g., `display 4`
 **List** | `list`
 **Clear** | `clear`
 **Exit** | `exit`
 **Help** | `help`
 
 
-
 Thank you for reading the User Guide. Hope you have a pleasant experience with CallMeMaybe.
+
+
