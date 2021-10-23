@@ -6,7 +6,7 @@ title: User Guide
 CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
 CMM provides a solution to quickly catalog people based on who has/yet to be called.
 The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers
-Importing of existing customer database is also supported by CMM to facilitate team-based environments.
+Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
 
 CMM is optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
@@ -166,28 +166,41 @@ Format: `exit`
 
 CMM data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-## Importing the data into database
+### Importing the data into database
 
-CMM is able to import csv files into the existing database. The files have to be semicolon delimited.
+CMM is able to import csv files into CMM. The import files have to be in an Excel CSV format (semicolon delimited).
 
-Steps to Import from CSV file
-1. Ensure that the Excel file is a CSV file with semicolon delimited.
-   Instructions on how to import to this file type can be found [here](https://ashwaniashwin.wordpress.com/2013/04/19/save-excel-file-as-a-csv-semicolon-delimited-file-along-with-unicode-encoding/)
-2. Ensure that the import file is named `import.csv` under the "data" folder found in the same directory as the CMM jar file
-3. Upon CMM application startup, a prompt will popup asking whether you want to import or not. If yes, the import will add on to the
-   existing CMM database. Else, nothing would be imported and CMM runs as per normal
+**Steps to Import from CSV file**
+1. Ensure that the Excel file is a CSV file with semicolon delimited. 
+   Instructions on how to import to this file type can be found [here](SettingImportFileType.md)
+2. Ensure that the import file is named import.csv under the "data" folder found in the same directory as the CMM jar file
+2. Upon CMM application startup, a prompt will popup with 3 options : `Add On Import`, `Start New Using Import`, `Don't Import`
+
+**Import options**  
+
+`Add On Import`
+- Adds on new imports into existing database
+
+`Start New Using Import`
+- Exports and reset the current database. CMM will then populate the reset database with new imports
+
+`Don't Import`
+- CMM will not import anything and application will startup normally
+- Closing the prompt will also choose this option
+
+
 
 **Things to note**
-1. Currently, import is **irreversible**. Please double check before importing
-2. CMM will not import data rows with:
-   1. Duplicates (Data with the exact name, phone, email, address, gender, age, Interest already exist in the database)
-   2. Missing details (Compulsory for data to have name/phone/email filled)
-3. CMM will abort import if :
-   1. Files has missing headers
-      * First row of Excel file is reserved for datatype headers.
-      * Headers must include Name, Phone, Email, Address, Gender, Age, Interest and isDone from the left to right, Starting from the cell 'A1'
-      * Headers are not case-sensitive
-4. Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
+1. CMM will prompt user for imports upon **every** application startup. 
+2. Currently, import is **irreversible**. Please double check before importing.
+3. CMM will not import data rows with missing details (Compulsory for data to have name/phone/email filled)
+4. CMM will update duplicate imports **only when** import status has been called.
+5. CMM will abort import if :
+   - Files has missing/invalid headers
+    - First row of Excel file is reserved for datatype headers.
+    - Headers must include Name, Phone, Email, Address, Gender, Age, Interest and isDone from the left to right, Starting from the cell 'A1'
+    - Headers are not case-sensitive
+6. Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
 
 **Common Issues**
 
@@ -196,8 +209,10 @@ Steps to Import from CSV file
      the file does not exist at the specified location, or the file was incorrectly named
 
 2. Data not imported despite correct import file placement and naming
-   * File may not be in the correct CSV type. Please refer to [Import Setup Procedures](#importing-the-data) step 1
-     to correctly format your file.
+   * File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
+   to correctly format your file.
+
+
 3. Unable to understand why a specific row was not able to be imported
    * Detailed reasons for any import error can be found in the logs of the CMM
 
