@@ -273,7 +273,8 @@ a. Detailed reasons for any import error can be found in the logs of the CMM
 CMM is able to export the current database as semicolon delimited CSV files. As such, there is no need for you to ensure that the formatting is right for furture use.
 
 **Steps to Export data as CSV file**
-1. Closing the application in any way would prompt user to export the current database
+1. Closing the application in any way would prompt user to export the current database <br/>
+![exportPopup](images/exportPopup.png)
 2. The CMM will export the database to the data file location
 3. Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
 
