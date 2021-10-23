@@ -145,7 +145,7 @@ Examples:
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 * `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact. 
 * `INTERESTSLIST INDEX` **must be a positive integer** 1, 2, 3, …​
-*  The Interests list can be found here (refer to the screenshot below) and can be displayed by using the [display command](#displaying-full-contact-details-display)
+*  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#displaying-full-contact-details-display)
    ![interestsList](images/interestsList.png)
 
 
