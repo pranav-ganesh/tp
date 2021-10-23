@@ -78,7 +78,7 @@ Shows a message explaining how to access the User Guide.
 
 Format: `help`
 
-### Adding a person: `add`
+### Adding a contact: `add`
 
 Adds a contact to the CMM database.
 
@@ -97,7 +97,7 @@ Examples:
   a. Omitted one or more of the mandatory fields <br />
   b. Used the wrong prefix. (e.g., '/n' instead of 'n/') <br />
 
-### Listing all persons : `list`
+### Listing all contacts : `list`
 
 Shows a list of all contacts in the CMM database.
 
@@ -121,23 +121,33 @@ Example:
 * _The index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
 
-### Editing a person : `edit`
+### Editing a contact : `edit`
 
-Edits an existing contact in the address book.
+Edits an existing contact in the CMM database.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST] [i/INTEREST]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** 
+Specifying [INTERESTLIST INDEX] is optional as well. <br/> 
+If [INTERESTLIST INDEX] is specified, the interest at that index would be updated. <br/>
+If it is not, then an interest would be added instead. <br/>
+You can refer to the examples below for a better understanding.
+</div>
 
 Examples:
-* `edit 1 n/Malan i/[2] Swimming` edits the name of person and the second item in the interests list of the first contact in the address book
-* `edit 1 i/Painting` adds the specified interest to the interests list of the first contact in the address book
-* `edit 2 n/Peter p/95637827 e/peter@email.com a/HOME g/M age/19 d/true i/[1] Shopping`
+* `edit 1 n/Malan i/[2] Swimming` edits the name of person and the second interest of the first contact in the displayed list
+* `edit 1 i/Painting i/[1] Running` adds 'painting' as an interest and edits the first existing interest of the first contact in the displayed list
+* `edit 2 g/M e/myEmail@email.com age/55` edits the gender, email and age of the second contact in the displayed list
 
 **Things to note:**
 
 * `INDEX` refers to the index number shown in the displayed list.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
-* `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact.
+* `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact. 
 * `INTERESTSLIST INDEX` **must be a positive integer** 1, 2, 3, …​
+*  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#displaying-full-contact-details-display)
+   ![interestsList](images/interestsList.png)
+
 
 **Common issues:**
 * _The index provided is invalid_: <br />
@@ -150,7 +160,7 @@ Examples:
 * _Invalid command arguments_: <br />
     a. Duplicate of the edited person already exists on the address book. <br />
 
-### Deleting a person : `delete`
+### Deleting a contact : `delete`
 
 Deletes the specified contact from the CMM database.
 
@@ -159,7 +169,7 @@ Format: `delete INDEX`
 Example:
 * `delete 2` deletes the 2nd contact in the displayed list.
 
-<div markdown="span" class="alert alert-info">:information_source: **Important:** Deleting is irreversible, please use with caution.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Deleting is irreversible, please use with caution.
 </div>
 
 **Things to note:**
@@ -186,13 +196,13 @@ Example: `display 3` displays full contact details of the 3rd contact in the dis
 * _The person index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
 
-### Clearing all entries : `clear`
+### Clearing all contacts : `clear`
 
-Clears all entries from the address book.
+Clears all contacts from the CMM database.
 
 Format: `clear`
 
-<div markdown="span" class="alert alert-info">:information_source: **Important:** Clearing is irreversible, please use with caution.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Clearing is irreversible, please use with caution.
 </div>
 
 ### Exiting the program : `exit`
@@ -229,7 +239,7 @@ CMM is able to import CSV files into CMM. The import files have to be in an Exce
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
 
-<div markdown="span" class="alert alert-info">:information_source: **Important:** Currently, import is **irreversible**. Please double check before importing.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Currently, import is **irreversible**. Please double check before importing.
 </div>
 
 **Things to note**
