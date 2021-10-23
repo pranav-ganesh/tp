@@ -72,7 +72,7 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 ### Viewing help : `help`
 
-Shows a message explaining how to access the help page.
+Shows a message explaining how to access the User Guide.
 
 ![help message](images/helpMessage.png)
 
@@ -80,7 +80,7 @@ Format: `help`
 
 ### Adding a person: `add`
 
-Adds a person to the CMM database.
+Adds a contact to the CMM database.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​`
 
@@ -89,72 +89,82 @@ Examples:
 * `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/her house i/running i/swimming `
 
 **Things to note:**
-* Name, Phone_number and Email fields are mandatory
-* Address, Gender, Age, Interest fields are optional
+* `Name`, `Phone_number` and `Email` fields are mandatory
+* `Address`, `Gender`, `Age`, `Interest` fields are optional
 
 **Common issues:**
 * _Invalid command format!_: <br />
-  a. Omitted one or more of the mandatory fields. <br />
+  a. Omitted one or more of the mandatory fields <br />
   b. Used the wrong prefix. (e.g., '/n' instead of 'n/') <br />
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all contacts in the CMM database.
 
 Format: `list`
 
 ### Marking a person as called : `done`
 
-Marks the specified person from the address book as done
+Marks the specified contact from the address book as done (i.e. person has already been called).
 
 Format: `done INDEX`
 
 Example:
-* `done 3` marks the 3rd person in the displayed list as Called.
+* `done 3` marks the 3rd contact in the displayed list as Called.
 
 **Things to note:**
 
-* Marks the person at the specified `INDEX` as completed (i.e. person has already been called).
 * `INDEX` refers to the index number shown in the displayed list.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 
 **Common issues:**
-* _The person index provided is invalid_: Displayed list does not contain person at `INDEX`.
+* _The index provided is invalid_: <br />
+  a. Displayed list does not contain person at `INDEX`.
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified contact from the CMM database.
 
 Format: `delete INDEX`
 
 Example:
-* `delete 2` deletes the 2nd person in the displayed list.
+* `delete 2` deletes the 2nd contact in the displayed list.
+
+<div markdown="span" class="alert alert-info">:information_source: **Important:** Deleting is irreversible, please use with caution.
+</div>
 
 **Things to note:**
-* Deletes the person at the specified `INDEX`.
 * `INDEX` refers to the index number shown in the displayed person list.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 
 **Common issues:**
-* _The person index provided is invalid_: Displayed list does not contain person at `INDEX`.
+* _The index provided is invalid_: <br />
+  a. Displayed list does not contain person at `INDEX`.
 
-### Displaying complete details about a person: `display`
+### Displaying full contact details: `display`
 
-Displays additional features of a particular individual stored in the application. The additional features include
-address, gender, age and their interests. The details of the person are shown in a separate section of the application.
+Displays additional information of a particular contact stored in the application. These include the
+address, gender, age and their interests. 
+
+The full details of the contact are shown on the right side of the application (inside the white box).
+![displayUi](images/displayUi.png)
 
 Format: `display INDEX`
 
-Example: `display 3` displays the 3rd person from the address book
+Example: `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
-* _The person index provided is invalid_: Displayed list does not contain person at `INDEX`.
+* _The person index provided is invalid_: <br />
+  a. Displayed list does not contain person at `INDEX`.
 
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
+
+<div markdown="span" class="alert alert-info">:information_source: **Important:** Clearing is irreversible, please use with caution.
+</div>
 
 ### Exiting the program : `exit`
 
@@ -168,17 +178,19 @@ CMM data are saved in the hard disk automatically after any command that changes
 
 ### Importing the data into database
 
-CMM is able to import csv files into CMM. The import files have to be in an Excel CSV format (semicolon delimited).
+CMM is able to import CSV files into CMM. The import files have to be in an Excel CSV format (semicolon delimited).
 
 **Steps to Import from CSV file**
-1. Ensure that the Excel file is a CSV file with semicolon delimited. 
+1. Ensure that the Excel file is a CSV file with **semicolon delimited**. 
    Instructions on how to import to this file type can be found [here](SettingImportFileType.md)
 2. Ensure that the import file is named import.csv under the "data" folder found in the same directory as the CMM jar file
-2. Upon CMM application startup, a prompt will popup with 3 options : `Add On Import`, `Start New Using Import`, `Don't Import`
+3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Import`, `Start New Using Import`, `Don't Import`
+
+![importPopUpUi](images/importPopUpMessage.png)
 
 **Import options**  
 
-`Add On Import`
+`Add On Imports`
 - Adds on new imports into existing database
 
 `Start New Using Import`
@@ -218,12 +230,12 @@ CMM is able to import csv files into CMM. The import files have to be in an Exce
 
 
 ### Exporting state of database
-CMM is able to export the current database into csv files. The files will to be semicolon delimited Csv file.
+CMM is able to export the current database as semicolon delimited CSV files. As such, there is no need for you to ensure that the formatting is right for furture use.
 
-Steps to Import from CSV file
+**Steps to Export data as CSV file**
 1. Closing the application in any way would prompt user to export the current database
 2. The CMM will export the database to the data file location
-3. Export file will follow have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow the system settings
+3. Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
 
 
 ### Editing the data file (JSON)
