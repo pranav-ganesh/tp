@@ -14,7 +14,7 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -31,16 +31,18 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
    Commands that CallMeMaybe supports:
+   - `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the CMM database.
    - `list` : Lists all contacts.
-   - `add n/John Doe p/98765432 e/johnd@example.com`: Adds a contact named John Doe to the Address Book.
-   - `delete 3`: Deletes the 3rd contact shown in the current list.
-   - `done 2`: Marks the 2nd contact shown in the current list as completed
+   - `done 2` : Marks the 2nd contact shown in the current list as completed.
+   - `edit 1 n/Bob p/62353535` : Edits the name and phone number of the first person in the displayed list.
+   - `delete 3` : Deletes the 3rd contact shown in the current list.
+   - `display 4` : Displays the full contact details of the fourth contact in the displayed list.
    - `clear` : Deletes all contacts.
    - `exit` : Exits the app.
 
-6. Remember to clear the sample data using `clear` command before adding your own data.
+7. Remember to clear the sample data using `clear` command before adding your own data.
 
-7. Refer to the [Features](#features) below for details of each command.
+8. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -136,7 +138,7 @@ You can refer to the examples below for a better understanding.
 
 Examples:
 * `edit 1 n/Malan i/[2] Swimming` edits the name of person and the second interest of the first contact in the displayed list
-* `edit 1 i/Painting i/[1] Running` adds 'painting' as an interest and edits the first existing interest of the first contact in the displayed list
+* `edit 1 i/Painting i/[1] Running` adds 'painting' as an interest and edits the first interest of the first contact in the displayed list
 * `edit 2 g/M e/myEmail@email.com age/55` edits the gender, email and age of the second contact in the displayed list
 
 **Things to note:**
