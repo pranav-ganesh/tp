@@ -182,7 +182,7 @@ Example:
 * _The index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
 
-### Displaying full contact details: `display`
+### Displaying full contact details : `display`
 
 Displays additional information of a particular contact stored in the application. These include the
 address, gender, age and their interests. 
@@ -299,11 +299,12 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL` <br> e.g., `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Done** | `done INDEX` <br> e.g., `done 2`
-**Display** | `display INDEX` <br> e.g., `display 4`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​` <br> e.g. `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com a/my house g/F age/95 i/Sleeping`
 **List** | `list`
+**Done** | `done INDEX` <br> e.g. `done 2`
+**edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g. `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
+**Delete** | `delete INDEX`<br> e.g. `delete 3`
+**Display** | `display INDEX` <br> e.g. `display 4`
 **Clear** | `clear`
 **Exit** | `exit`
 **Help** | `help`
