@@ -184,7 +184,7 @@ CMM is able to import CSV files into CMM. The import files have to be in an Exce
 1. Ensure that the Excel file is a CSV file with **semicolon delimited**. 
    Instructions on how to import to this file type can be found [here](SettingImportFileType.md)
 2. Ensure that the import file is named import.csv under the "data" folder found in the same directory as the CMM jar file
-3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Import`, `Start New Using Import`, `Don't Import`
+3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Imports`, `Start New Using Import`, `Don't Import`
 
 ![importPopUpUi](images/importPopUpMessage.png)
 
@@ -200,33 +200,32 @@ CMM is able to import CSV files into CMM. The import files have to be in an Exce
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
 
-
+<div markdown="span" class="alert alert-info">:information_source: **Important:** Currently, import is **irreversible**. Please double check before <importing></importing>.
+</div>
 
 **Things to note**
-1. CMM will prompt user for imports upon **every** application startup. 
-2. Currently, import is **irreversible**. Please double check before importing.
-3. CMM will not import data rows with missing details (Compulsory for data to have name/phone/email filled)
-4. CMM will update duplicate imports **only when** import status has been called.
-5. CMM will abort import if :
-   - Files has missing/invalid headers
-    - First row of Excel file is reserved for datatype headers.
-    - Headers must include Name, Phone, Email, Address, Gender, Age, Interest and isDone from the left to right, Starting from the cell 'A1'
-    - Headers are not case-sensitive
-6. Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
+* CMM will prompt user for imports upon **every** application startup.
+* CMM will not import data rows with missing details (Compulsory for data to have `name`, `phone`, `email` filled)
+* CMM will update duplicate imports **only when** import status has been called.
+* CMM will abort import if : <br/>
+a. Files has missing/invalid headers <br/>
+b. First row of Excel file is reserved for datatype headers. <br/>
+c. Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `isDone` from the left to right, starting from the cell 'A1' <br/>
+d. Headers are not case-sensitive<br/>
+* Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
 
 **Common Issues**
 
-1. `CSV file not found in data\import.csv` message was shown.
-   * This could either mean that
-     the file does not exist at the specified location, or the file was incorrectly named
+* `CSV file not found in data\import.csv` message was shown. <br/>
+a. This could either mean that the file does not exist at the specified location or <br/>
+b. The file was incorrectly named
+  
+* Data not imported despite correct import file placement and naming <br/>
+a. File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
+         to correctly format your file.
 
-2. Data not imported despite correct import file placement and naming
-   * File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
-   to correctly format your file.
-
-
-3. Unable to understand why a specific row was not able to be imported
-   * Detailed reasons for any import error can be found in the logs of the CMM
+* Unable to understand why a specific row was not able to be imported <br/>
+a. Detailed reasons for any import error can be found in the logs of the CMM
 
 
 ### Exporting state of database
