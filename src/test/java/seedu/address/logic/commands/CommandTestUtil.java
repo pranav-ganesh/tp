@@ -18,6 +18,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.comparators.exceptions.ComparatorException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -45,8 +46,8 @@ public class CommandTestUtil {
     public static final String VALID_INTEREST_BOB = "Watching football";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_CATEGORY_NAME = "name";
-    public static final String VALID_CATEGORY_PHONE = "phone";
+    public static final String VALID_CATEGORY_CALLED = "called";
+    public static final String VALID_CATEGORY_GENDER = "gender";
     public static final String VALID_COUNT_3 = "3";
     public static final String VALID_COUNT_5 = "5";
 
@@ -75,6 +76,8 @@ public class CommandTestUtil {
     public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "HELLO"; // Age should only consist of numbers
     public static final String INVALID_INTEREST_DESC = " " + PREFIX_INTEREST; // empty string not allowed for interest
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_CATEGORY = "whales";
+    public static final String INVALID_COUNT = "-1";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -100,7 +103,7 @@ public class CommandTestUtil {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
-        } catch (CommandException ce) {
+        } catch (CommandException | ComparatorException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
