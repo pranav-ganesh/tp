@@ -153,7 +153,9 @@ public class CsvAddressBookImportExport implements ImportExport {
     }
 
     private void updatePerson(int listPos, Person importPerson, Model model) {
+
         List<Person> lastShownList = model.getFilteredPersonList();
+        assert(listPos >= 0 && listPos < lastShownList.size());
         Person personToEdit = lastShownList.get(listPos);
         model.setPerson(personToEdit, importPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
