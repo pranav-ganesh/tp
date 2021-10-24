@@ -38,14 +38,18 @@ public class CsvAddressBookImportExport implements ImportExport {
     private int calledDuplicateImportCount = 0;
 
 
-    private final Path filePath;
+    private final Path importPath;
+    private final Path exportPath;
+
 
     /**
      * Constructor of the import export
      */
-    public CsvAddressBookImportExport(Path filePath) {
-        requireNonNull(filePath);
-        this.filePath = filePath;
+    public CsvAddressBookImportExport(Path importPath, Path exportPath) {
+        requireNonNull(importPath);
+        requireNonNull(exportPath);
+        this.importPath = importPath;
+        this.exportPath = exportPath;
     }
 
     /**
@@ -53,7 +57,7 @@ public class CsvAddressBookImportExport implements ImportExport {
      * @return
      */
     public Path getImportExportPath() {
-        return filePath;
+        return importPath;
     }
 
     /**
@@ -65,7 +69,7 @@ public class CsvAddressBookImportExport implements ImportExport {
      */
     @Override
     public Optional<List<Person>>importIntoAddressBook(Model model) throws DataConversionException {
-        return importAddressBook(this.filePath, model);
+        return importAddressBook(this.importPath, model);
     }
 
     /**
@@ -99,7 +103,7 @@ public class CsvAddressBookImportExport implements ImportExport {
     }
 
     private void exportAddressBook(Model model) {
-        CsvUtil.writeCsvFile(model.getFilteredPersonList());
+        CsvUtil.writeCsvFile(model.getFilteredPersonList(), this.exportPath);
     }
 
     public String getImportStatus() {
@@ -112,7 +116,7 @@ public class CsvAddressBookImportExport implements ImportExport {
                     + "          Not Called Duplicate(s) : " + notCalledDuplicateImportCount)
                     + "\nCheck logs for detailed explanation.";
         }
-        return String.format("CSV file not found in " + filePath);
+        return String.format("CSV file not found in " + exportPath);
     }
 
 

@@ -1,14 +1,13 @@
 package seedu.address.storage;
 
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,39 +21,40 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.Assert;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalPersons;
 
 
 class CsvAddressBookImportExportTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvAddressBookImportExport");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test",
+            "data", "CsvAddressBookImportExport");
     private static final Path EMPTY_IMPORT = TEST_DATA_FOLDER.resolve("emptyAddressBook.csv");
     private static final Path TWO_DUPLICATE = TEST_DATA_FOLDER.resolve("twoDuplicatePerson.csv");
 
     // Misc
     @Test
     public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CsvAddressBookImportExport(null));
+        assertThrows(NullPointerException.class, () -> new CsvAddressBookImportExport(
+                null, TEST_DATA_FOLDER));
     }
 
     @Test
     public void getImportExportPath_path_path() {
-        ImportExport importExport = new CsvAddressBookImportExport(EMPTY_IMPORT);
+        ImportExport importExport = new CsvAddressBookImportExport(EMPTY_IMPORT, TEST_DATA_FOLDER);
         assertEquals(EMPTY_IMPORT, importExport.getImportExportPath());
     }
 
     @Test
     public void importIntoAddressBook_missingImportFile_emptyOptional() throws DataConversionException {
         ImportExport importExport = new CsvAddressBookImportExport(
-                TestUtil.getFilePathInSandboxFolder("doesNotExist.csv"));
+                TestUtil.getFilePathInSandboxFolder("doesNotExist.csv"), TEST_DATA_FOLDER);
         Model model = new ModelManager(new AddressBookStub(), new UserPrefs());
         assertEquals(Optional.empty(), importExport.importIntoAddressBook(model));
     }
     @Test
     public void importIntoAddressBook_duplicateUpdateBenson_emptyOptional() throws DataConversionException {
-        ImportExport importExport = new CsvAddressBookImportExport(TWO_DUPLICATE);
+        ImportExport importExport = new CsvAddressBookImportExport(TWO_DUPLICATE, TEST_DATA_FOLDER);
         // setup
         // Benson was previously not called. import called
         // Alic was previously not called. import not called
@@ -86,14 +86,10 @@ class CsvAddressBookImportExportTest {
 
     @Test
     public void importIntoAddressBook_emptyImports_emptyOptional() throws DataConversionException {
-        ImportExport importExport = new CsvAddressBookImportExport(EMPTY_IMPORT);
+        ImportExport importExport = new CsvAddressBookImportExport(EMPTY_IMPORT, TEST_DATA_FOLDER);
         Model model = new ModelManager(new AddressBookStub(), new UserPrefs());
         assertEquals(0, importExport.importIntoAddressBook(model).get().size());
     }
-
-
-
-
 
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();

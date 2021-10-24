@@ -66,7 +66,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        importExportManager = new CsvAddressBookImportExport(userPrefs.getImportExport());
+        importExportManager = new CsvAddressBookImportExport(userPrefs.getImportPath(), userPrefs.getExportPath());
 
         logic = new LogicManager(model, storage, importExportManager);
 
