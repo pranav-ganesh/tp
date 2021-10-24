@@ -271,7 +271,7 @@ public class MainWindow extends UiPart<Stage> {
     private String exportCsvUserPrompt() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Do you want to export contacts from csv?");
-        alert.setContentText("There are " + logic.getFilteredPersonList().size() + " people currently in the "
+        alert.setContentText("There are " + logic.getAddressBook().getPersonList().size() + " people currently in the "
                 + "addressbook");
         ButtonType yesButton = new ButtonType("Export", ButtonBar.ButtonData.YES);
         ButtonType noButton = new ButtonType("Don't export", ButtonBar.ButtonData.NO);
