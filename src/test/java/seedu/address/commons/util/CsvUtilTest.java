@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.storage.CsvAdaptedPerson;
 import seedu.address.testutil.TestUtil;
 
 class CsvUtilTest {
@@ -28,8 +29,9 @@ class CsvUtilTest {
 
     @Test
     public void fromCsvString_mixOfValidAndInvalidPeople_peopleList() throws DataConversionException {
-        String header = "Name;Phone;Email;Done\n";
-        String validPerson = "name 3;123456789;email@email.com;TRUE\n";
+        String[] validHeader = CsvAdaptedPerson.headerOrder();
+        String header = String.join(";", validHeader) + "\n";
+        String validPerson = "name 3;123456789;email@email.com;;;;;TRUE\n";
         String invalidPerson = ";123111222;;\n";
         String csvString = header + validPerson + invalidPerson;
         assertEquals(1, CsvUtil.fromCsvString(csvString).size());
@@ -49,7 +51,8 @@ class CsvUtilTest {
 
     @Test
     public void checkValidHeader_wrongDelimiter_dataConversionExceptionThrown() {
-        String header = "Name,Phone,Email,Done";
+        String[] validHeader = CsvAdaptedPerson.headerOrder();
+        String header = String.join(",", validHeader) + "\n";
         assertThrows(DataConversionException.class, () -> CsvUtil.checkValidHeader(header));
     }
 

@@ -22,8 +22,10 @@ Class Address
 Class Email
 Class Name
 Class Phone
-Class Tag
-
+Class Gender
+Class Age
+Class InterestsList
+Class Interest
 }
 
 Class HiddenOutside #FFFFFF
@@ -44,7 +46,10 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
-Person *--> "*" Tag
+Person *--> Gender
+Person *--> Age
+Person *--> InterestsList
+InterestsList *--> "*" Interest
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address

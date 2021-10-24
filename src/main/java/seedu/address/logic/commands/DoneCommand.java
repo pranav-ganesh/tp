@@ -46,7 +46,6 @@ public class DoneCommand extends Command {
      */
     public DoneCommand(Index index) {
         requireAllNonNull(index);
-
         this.index = index;
     }
 
