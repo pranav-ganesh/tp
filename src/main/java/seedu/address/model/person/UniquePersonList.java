@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,6 +35,18 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(x -> x.equals(toCheck));
+    }
+
+    /**
+     * Returns index of duplicate. If duplicate exists, return value >= 0. If no duplicate return -1.
+     */
+    public int indexOfDuplicate(Person toCheck) {
+        requireNonNull(toCheck);
+        int pos = IntStream.range(0, internalList.size())
+                .filter(x -> (internalList.get(x).hashCode() == toCheck.hashCode())
+                        && internalList.get(x).equals(toCheck))
+                .findFirst().orElse(-1);
+        return pos;
     }
 
     /**
@@ -67,6 +80,7 @@ public class UniquePersonList implements Iterable<Person> {
 
         internalList.set(index, editedPerson);
     }
+
 
     /**
      * Removes the equivalent person from the list.
@@ -127,7 +141,7 @@ public class UniquePersonList implements Iterable<Person> {
     private boolean personsAreUnique(List<Person> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+                if (persons.get(i).equals(persons.get(j))) {
                     return false;
                 }
             }

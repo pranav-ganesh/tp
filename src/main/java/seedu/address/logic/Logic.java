@@ -54,6 +54,11 @@ public interface Logic {
     String importData();
 
     /**
+     * Exports and Resets current database
+     */
+    String exportResetData();
+
+    /**
      * Export data to CSV
      */
     String exportData();
