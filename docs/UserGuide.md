@@ -129,8 +129,8 @@ Edits an existing contact in the CMM database.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** 
-Specifying [INTERESTLIST INDEX] is optional as well. <br/> 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Specifying [INTERESTLIST INDEX] is optional as well. <br/>
 If [INTERESTLIST INDEX] is specified, the interest at that index would be updated. <br/>
 If it is not, then an interest would be added instead. <br/>
 You can refer to the examples below for a better understanding.
@@ -145,7 +145,7 @@ Examples:
 
 * `INDEX` refers to the index number shown in the displayed list.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
-* `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact. 
+* `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact.
 * `INTERESTSLIST INDEX` **must be a positive integer** 1, 2, 3, …​
 *  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
@@ -185,7 +185,7 @@ Example:
 ### Displaying full contact details : `display`
 
 Displays additional information of a particular contact stored in the application. These include the
-address, gender, age and their interests. 
+address, gender, age and their interests.
 
 The full details of the contact are shown on the right side of the application (inside the white box).
 ![displayUi](images/displayUi.png)
@@ -222,14 +222,14 @@ CMM data are saved in the hard disk automatically after any command that changes
 CMM is able to import CSV files into CMM. The import files have to be in an Excel CSV format (semicolon delimited).
 
 **Steps to Import from CSV file**
-1. Ensure that the Excel file is a CSV file with **semicolon delimited**. 
+1. Ensure that the Excel file is a CSV file with **semicolon delimited**.
    Instructions on how to import to this file type can be found [here](SettingImportFileType.md)
 2. Ensure that the import file is named import.csv under the "data" folder found in the same directory as the CMM jar file
 3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Imports`, `Start New Using Import`, `Don't Import`
 
 ![importPopUpUi](images/importPopUpMessage.png)
 
-**Import options**  
+**Import options**
 
 `Add On Imports`
 - Adds on new imports into existing database
@@ -260,7 +260,6 @@ d. Headers are not case-sensitive<br/>
 * `CSV file not found in data\import.csv` message was shown. <br/>
 a. This could either mean that the file does not exist at the specified location or <br/>
 b. The file was incorrectly named
-  
 * Data not imported despite correct import file placement and naming <br/>
 a. File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
          to correctly format your file.
