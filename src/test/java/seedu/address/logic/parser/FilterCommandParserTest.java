@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,11 @@ public class FilterCommandParserTest {
         userInput = NON_EMPTY_CATEGORY + " " + "";
         expectedCommand = new FilterCommand(nonEmptyCategory, Integer.MAX_VALUE);
         assertParseSuccess(parser, userInput, expectedCommand);
+
+        // no count
+        userInput = NON_EMPTY_CATEGORY + " ";
+        expectedCommand = new FilterCommand(nonEmptyCategory, Integer.MAX_VALUE);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
@@ -36,7 +42,14 @@ public class FilterCommandParserTest {
         // no parameters
         assertParseFailure(parser, "", expectedMessage);
 
-        // no category
+        // null input
+        assertThrows(NullPointerException.class, () -> parser.parse(null));
+
+        // wrong category
         assertParseFailure(parser, NON_ZERO_COUNT, expectedMessage);
+
+        // no category
+        String userInput = " " + NON_ZERO_COUNT;
+        assertParseFailure(parser, userInput, expectedMessage);
     }
 }

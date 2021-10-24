@@ -1,9 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
+
+import seedu.address.logic.comparators.PersonComparator;
+import seedu.address.logic.comparators.exceptions.ComparatorException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
+import seedu.address.model.person.Person;
 
 /**
  * Filters the displayed list in the GUI of CallMeMaybe
@@ -19,7 +25,7 @@ public class FilterCommand extends Command {
             + "INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " Called 5";
 
-    public static final String MESSAGE_SUCCESS = "Filter success";
+    public static final String MESSAGE_SUCCESS = "Filtered by: %1$s";
 
     private final Integer count;
     private final Category category;
@@ -36,8 +42,17 @@ public class FilterCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_SUCCESS);
+    public CommandResult execute(Model model) throws ComparatorException {
+        requireNonNull(model);
+
+        // Get Comparator based on category
+        Comparator<Person> comparator = PersonComparator.getComparator(category);
+        model.sortFilteredPersonList(comparator);
+
+        // Limit displayed Persons using count
+        model.limitFilteredPersonList(count);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, category));
     }
 
     @Override
