@@ -1,12 +1,10 @@
 package seedu.address.logic.comparators;
 
-import seedu.address.logic.commands.FilterCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.comparators.exceptions.ComparatorException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.category.Category;
-
 import java.util.Comparator;
+
+import seedu.address.logic.comparators.exceptions.ComparatorException;
+import seedu.address.model.category.Category;
+import seedu.address.model.person.Person;
 
 /**
  * A general comparator for Persons. Can be specified to compare any Person attributes.
@@ -18,7 +16,7 @@ public class PersonComparator {
      * Returns the appropriate comparator based on the {@code category} given.
      * @throws ComparatorException if unable to create the appropriate comparator.
      */
-    public static Comparator getComparator(Category category) throws ComparatorException {
+    public static Comparator<Person> getComparator(Category category) throws ComparatorException {
         switch (category.category) {
         case "CALLED":
             return new CalledComparator();

@@ -1,12 +1,13 @@
 package seedu.address.logic.comparators;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.comparators.exceptions.ComparatorException;
-import seedu.address.model.category.Category;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.comparators.PersonComparator.MESSAGE_INVALID_CATEGORY;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.comparators.exceptions.ComparatorException;
+import seedu.address.model.category.Category;
 
 /**
  * Test for PersonComparator which is used to compare Persons.
@@ -22,8 +23,8 @@ class PersonComparatorTest {
 
     @Test
     public void getComparator_invalidCategory_throwsComparatorException() {
-        assertThrows(ComparatorException.class, MESSAGE_INVALID_CATEGORY,
-                () -> PersonComparator.getComparator(invalidCategory));
+        assertThrows(ComparatorException.class, MESSAGE_INVALID_CATEGORY, () ->
+            PersonComparator.getComparator(invalidCategory));
     }
 
     @Test
