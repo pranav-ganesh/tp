@@ -52,6 +52,7 @@ class CsvAddressBookImportExportTest {
         Model model = new ModelManager(new AddressBookStub(), new UserPrefs());
         assertEquals(Optional.empty(), importExport.importIntoAddressBook(model));
     }
+
     @Test
     public void importIntoAddressBook_duplicateUpdateBenson_emptyOptional() throws DataConversionException {
         ImportExport importExport = new CsvAddressBookImportExport(TWO_DUPLICATE, TEST_DATA_FOLDER);
@@ -81,8 +82,6 @@ class CsvAddressBookImportExportTest {
         assertTrue(updatedBenson.getIsDone().value);
         assertTrue(addedIda.getName().toString().equals("Ida Mueller"));
     }
-
-
 
     @Test
     public void importIntoAddressBook_emptyImports_emptyOptional() throws DataConversionException {
