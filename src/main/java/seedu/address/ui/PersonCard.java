@@ -42,6 +42,8 @@ public class PersonCard extends UiPart<Region> {
     private Label isDone;
     @FXML
     private Label doneMarker;
+    @FXML
+    private Label gender;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -62,6 +64,16 @@ public class PersonCard extends UiPart<Region> {
             isDone.setText("Called: False");
             doneMarker.setText("❌");
             doneMarker.setStyle("-fx-text-fill: red");
+        }
+
+        if (person.getGender().value.equals("M")) {
+            gender.setText("♂");
+            gender.setStyle("-fx-text-fill: lightblue");
+        } else if (person.getGender().value.equals("F")) {
+            gender.setText("♀");
+            gender.setStyle("-fx-text-fill: pink");
+        } else {
+            gender.setText("");
         }
 
     }

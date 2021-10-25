@@ -86,9 +86,13 @@ Adds a contact to the CMM database.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​`
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** 
+A contact can have multiple interests (including 0)
+</div>
+
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com `
-* `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/her house i/running i/swimming `
+* `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/her house i/running i/swimming i/eating`
 
 **Things to note:**
 * `Name`, `Phone_number` and `Email` fields are mandatory
@@ -192,7 +196,8 @@ The full details of the contact are shown on the right side of the application (
 
 Format: `display INDEX`
 
-Example: `display 3` displays full contact details of the 3rd contact in the displayed list
+Example: 
+* `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
 * _The person index provided is invalid_: <br />
