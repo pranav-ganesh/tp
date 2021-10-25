@@ -137,8 +137,16 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        sortedPersons.setComparator(new NameComparator());
-        source.setAll(sortedPersons);
+        return filteredPersons;
+    }
+
+    /**
+     * Returns the original unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Person> getOriginalPersonList() {
+        sortFilteredPersonList();
         return filteredPersons;
     }
 
