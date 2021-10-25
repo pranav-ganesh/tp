@@ -63,7 +63,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         } else if (phoneNumbers != null) {
             predicate = getPhonePredicate(phoneNumbers.toLowerCase(Locale.ROOT));
         } else if (emailKeywords != null) {
-            System.out.println("YOYO");
             predicate = getEmailPredicate(emailKeywords.toLowerCase(Locale.ROOT));
         } else if (doneKeywords != null) {
             predicate = getDonePredicate(doneKeywords.toLowerCase(Locale.ROOT));
