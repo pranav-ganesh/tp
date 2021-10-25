@@ -20,6 +20,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.comparators.exceptions.ComparatorException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 
@@ -125,7 +126,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), this.windowWidth);
+        personListPanel = new PersonListPanel(logic.getOriginalPersonList(), this.windowWidth);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -216,7 +217,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, ComparatorException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -231,7 +233,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | ComparatorException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -269,7 +271,7 @@ public class MainWindow extends UiPart<Stage> {
     private String exportCsvUserPrompt() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Do you want to export contacts from csv?");
-        alert.setContentText("There are " + logic.getFilteredPersonList().size() + " people currently in the "
+        alert.setContentText("There are " + logic.getAddressBook().getPersonList().size() + " people currently in the "
                 + "addressbook");
         ButtonType yesButton = new ButtonType("Export", ButtonBar.ButtonData.YES);
         ButtonType noButton = new ButtonType("Don't export", ButtonBar.ButtonData.NO);

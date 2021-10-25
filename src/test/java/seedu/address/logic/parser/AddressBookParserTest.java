@@ -17,10 +17,12 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.category.Category;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class AddressBookParserTest {
@@ -86,6 +88,18 @@ public class AddressBookParserTest {
     public void parseCommand_done() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(DoneCommand.COMMAND_WORD));
+    }
+
+    @Test
+    public void parseCommand_filter() throws Exception {
+        final String categoryString = "called";
+        final String countString = "2";
+        final Category category = new Category("called");
+        final Integer count = 2;
+        FilterCommand command = (FilterCommand) parser.parseCommand(FilterCommand.COMMAND_WORD + " "
+                + categoryString + " " + countString);
+
+        assertEquals(new FilterCommand(category, count), command);
     }
 
     @Test
