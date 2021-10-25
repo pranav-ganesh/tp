@@ -92,9 +92,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        final String categoryString = "email";
+        final String categoryString = "called";
         final String countString = "2";
-        final Category category = new Category("email");
+        final Category category = new Category("called");
         final Integer count = 2;
         FilterCommand command = (FilterCommand) parser.parseCommand(FilterCommand.COMMAND_WORD + " "
                 + categoryString + " " + countString);

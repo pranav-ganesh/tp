@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.comparators.PersonComparator.MESSAGE_INVALID_CATEGORY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_COUNT;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -10,11 +12,12 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.model.category.Category;
 
 public class FilterCommandParserTest {
-    private static final String NON_EMPTY_CATEGORY = "phone";
-    private static final String NON_ZERO_COUNT = "4";
+    private static final String INVALID_CATEGORY = "phone";
     private static final String INVALID_COUNT = "-2";
+    private static final String NON_EMPTY_CATEGORY = "called";
+    private static final String NON_ZERO_COUNT = "4";
 
-    private final Category nonEmptyCategory = new Category("phone");
+    private final Category nonEmptyCategory = new Category("called");
     private final Integer nonZeroCount = 4;
     private FilterCommandParser parser = new FilterCommandParser();
 
@@ -62,9 +65,19 @@ public class FilterCommandParserTest {
         // no category
         String userInput = " " + NON_ZERO_COUNT;
         assertParseFailure(parser, userInput, expectedMessage);
+    }
 
-        // invalid count
-        userInput = NON_EMPTY_CATEGORY + " " + INVALID_COUNT;
+    @Test
+    public void parse_invalidCount_failure() {
+        String expectedMessage = MESSAGE_INVALID_COUNT;
+        String userInput = NON_EMPTY_CATEGORY + " " + INVALID_COUNT;
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    @Test
+    public void parse_invalidCategory_failure() {
+        String expectedMessage = MESSAGE_INVALID_CATEGORY;
+        String userInput = INVALID_CATEGORY + " " + NON_ZERO_COUNT;
         assertParseFailure(parser, userInput, expectedMessage);
     }
 }

@@ -29,7 +29,7 @@ public class Category {
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Returns true if a given string is a valid category.
      */
     public static boolean isValidCategory(String test) {
         String testUpperCase = test.toUpperCase(Locale.ROOT);

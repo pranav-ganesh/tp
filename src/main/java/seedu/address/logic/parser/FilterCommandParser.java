@@ -2,9 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.comparators.PersonComparator.MESSAGE_INVALID_CATEGORY;
+import static seedu.address.logic.comparators.PersonComparator.VALIDATION_REGEX;
 import static seedu.address.logic.parser.CliSyntax.EMPTY_PREFIX;
 
 import java.util.List;
+import java.util.Locale;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -37,10 +40,13 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             String lastArgument = extractLastArgument(argList);
             String secondLastArgument = extractSecondLastArgument(argList);
             try {
+                // Try to parse last argument as integer
+                Integer.parseInt(lastArgument);
                 count = ParserUtil.parseInteger(lastArgument);
-                category = ParserUtil.parseCategory(secondLastArgument);
-            } catch (ParseException e) {
-                category = ParserUtil.parseCategory(lastArgument);
+                category = checkAndParseCategory(secondLastArgument);
+            } catch (NumberFormatException e) {
+                // Parse last argument as category
+                category = checkAndParseCategory(lastArgument);
                 count = Integer.MAX_VALUE;
             }
         } else {
@@ -78,7 +84,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Extracts the last {@code argument} from {@code List<String> argList}.
      */
-    private String extractLastArgument(List<String> argList) throws ParseException {
+    private String extractLastArgument(List<String> argList) {
         String last = argList.get(argList.size() - 1); // category is the first argument
         return last;
     }
@@ -86,8 +92,30 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Extracts the second last {@code argument} from {@code List<String> argList}.
      */
-    private String extractSecondLastArgument(List<String> argList) throws ParseException {
+    private String extractSecondLastArgument(List<String> argList) {
         String secondLast = argList.get(argList.size() - 2); // category is the first argument
         return secondLast;
+    }
+
+    /**
+     * Checks if the {@code argument} is a valid {@code Category} for Comparator.
+     */
+    private boolean isValidComparatorCategory(String arg) {
+        requireNonNull(arg);
+        String trimmedArg = arg.trim();
+        String argUpperCase = trimmedArg.toUpperCase(Locale.ROOT);
+        return argUpperCase.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns Category if the {@code argument} is a valid {@code Category} for Comparator.
+     * @throws ParseException if the argument is not a valid category for Comparator.
+     */
+    private Category checkAndParseCategory(String arg) throws ParseException {
+        if (isValidComparatorCategory(arg)) {
+            return ParserUtil.parseCategory(arg);
+        } else {
+            throw new ParseException(MESSAGE_INVALID_CATEGORY);
+        }
     }
 }
