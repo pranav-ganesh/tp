@@ -34,11 +34,19 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         if (areBothArgumentsPresent(argList)) {
             // category and count arguments are specified
-            category = extractCategoryForFilter(argList);
-            count = extractCountForFilter(argList);
+            String lastArgument = extractLastArgument(argList);
+            String secondLastArgument = extractSecondLastArgument(argList);
+            try {
+                count = ParserUtil.parseInteger(lastArgument);
+                category = ParserUtil.parseCategory(secondLastArgument);
+            } catch (ParseException e) {
+                category = ParserUtil.parseCategory(lastArgument);
+                count = Integer.MAX_VALUE;
+            }
         } else {
             // only category argument specified
-            category = extractCategoryForFilter(argList);
+            String lastArgument = extractLastArgument(argList);
+            category = ParserUtil.parseCategory(lastArgument);
             count = Integer.MAX_VALUE;
         }
 
@@ -53,7 +61,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (argList == null) {
             return false;
         }
-        return argList.size() == 1 || argList.size() == 2;
+        return argList.size() >= 1;
     }
 
     /**
@@ -64,26 +72,22 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (argList == null) {
             return false;
         }
-        return argList.size() == 2;
+        return argList.size() >= 2;
     }
 
     /**
-     * Extracts {@code category} from {@code List<String> argList}.
+     * Extracts the last {@code argument} from {@code List<String> argList}.
      */
-    private Category extractCategoryForFilter(List<String> argList) throws ParseException {
-        String test = argList.get(0); // category is the first argument
-        return ParserUtil.parseCategory(test);
+    private String extractLastArgument(List<String> argList) throws ParseException {
+        String last = argList.get(argList.size() - 1); // category is the first argument
+        return last;
     }
 
     /**
-     * Extracts {@code count} from {@code List<String> argList}.
+     * Extracts the second last {@code argument} from {@code List<String> argList}.
      */
-    private Integer extractCountForFilter(List<String> argList) throws ParseException {
-        String test = argList.get(1); // count is the second argument
-        if (test == "") {
-            // count is unspecified
-            return Integer.MAX_VALUE;
-        }
-        return ParserUtil.parseInteger(test);
+    private String extractSecondLastArgument(List<String> argList) throws ParseException {
+        String secondLast = argList.get(argList.size() - 2); // category is the first argument
+        return secondLast;
     }
 }

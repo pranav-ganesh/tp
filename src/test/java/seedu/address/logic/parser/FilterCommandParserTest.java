@@ -12,6 +12,7 @@ import seedu.address.model.category.Category;
 public class FilterCommandParserTest {
     private static final String NON_EMPTY_CATEGORY = "phone";
     private static final String NON_ZERO_COUNT = "4";
+    private static final String INVALID_COUNT = "-2";
 
     private final Category nonEmptyCategory = new Category("phone");
     private final Integer nonZeroCount = 4;
@@ -33,6 +34,16 @@ public class FilterCommandParserTest {
         userInput = NON_EMPTY_CATEGORY + " ";
         expectedCommand = new FilterCommand(nonEmptyCategory, Integer.MAX_VALUE);
         assertParseSuccess(parser, userInput, expectedCommand);
+
+        // multiple parameters, last parameter is count
+        userInput = NON_ZERO_COUNT + " " + NON_EMPTY_CATEGORY + " " + NON_ZERO_COUNT;
+        expectedCommand = new FilterCommand(nonEmptyCategory, nonZeroCount);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // multiple parameters, last parameter is category
+        userInput = NON_ZERO_COUNT + " " + NON_ZERO_COUNT + " " + NON_EMPTY_CATEGORY;
+        expectedCommand = new FilterCommand(nonEmptyCategory, Integer.MAX_VALUE);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
@@ -50,6 +61,10 @@ public class FilterCommandParserTest {
 
         // no category
         String userInput = " " + NON_ZERO_COUNT;
+        assertParseFailure(parser, userInput, expectedMessage);
+
+        // invalid count
+        userInput = NON_EMPTY_CATEGORY + " " + INVALID_COUNT;
         assertParseFailure(parser, userInput, expectedMessage);
     }
 }
