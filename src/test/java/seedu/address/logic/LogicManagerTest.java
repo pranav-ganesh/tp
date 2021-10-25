@@ -49,10 +49,10 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         ImportExport importExport = new CsvAddressBookImportExport(
                 temporaryFolder.resolve("importAddressBook.csv"), TEST_DATA_FOLDER);
-        logic = new LogicManager(model, storage, importExport);
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, importExport);
+        logic = new LogicManager(model, storage);
     }
 
     @Test
@@ -80,10 +80,10 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         ImportExport importExport = new CsvAddressBookImportExport(temporaryFolder.resolve("importAddressBook.csv"),
                 temporaryFolder.resolve("data"));
-        logic = new LogicManager(model, storage, importExport);
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, importExport);
+        logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;

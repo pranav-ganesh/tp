@@ -60,15 +60,14 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        importExportManager = new CsvAddressBookImportExport(userPrefs.getImportPath(), userPrefs.getExportPath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, importExportManager);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
 
-        importExportManager = new CsvAddressBookImportExport(userPrefs.getImportPath(), userPrefs.getExportPath());
-
-        logic = new LogicManager(model, storage, importExportManager);
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
     }
