@@ -67,7 +67,7 @@ class CsvAddressBookImportExportTest {
         database.setPersons(peopleAlreadyInDatabase);
         Model model = new ModelManager(database, new UserPrefs());
         importExport.importIntoAddressBook(model);
-        ObservableList<Person>updated = model.getFilteredPersonList();
+        ObservableList<Person> updated = model.getFilteredPersonList();
 
         assert(updated.size() == 3);
 
