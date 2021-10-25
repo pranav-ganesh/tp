@@ -1,10 +1,10 @@
 package seedu.address.model.person.predicates;
 
-import seedu.address.model.person.Person;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
+
+import seedu.address.model.person.Person;
 
 public class DonePredicate implements Predicate<Person> {
     private final List<String> keywords;

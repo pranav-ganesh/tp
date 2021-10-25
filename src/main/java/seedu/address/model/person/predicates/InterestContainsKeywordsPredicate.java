@@ -1,12 +1,12 @@
 package seedu.address.model.person.predicates;
 
-import seedu.address.model.person.Person;
-import seedu.address.model.person.interests.Interest;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
+
+import seedu.address.model.person.Person;
+import seedu.address.model.person.interests.Interest;
 
 public class InterestContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> interests;
