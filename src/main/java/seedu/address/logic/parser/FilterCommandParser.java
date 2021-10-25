@@ -35,7 +35,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
-        if (areBothArgumentsPresent(argList)) {
+        if (moreThanOneArgumentPresent(argList)) {
             // category and count arguments are specified
             String lastArgument = extractLastArgument(argList);
             String secondLastArgument = extractSecondLastArgument(argList);
@@ -60,7 +60,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     }
 
     /**
-     * Returns true if all the arguments are present in the given
+     * Returns true if arguments are present in the given
      * {@code List<String>}.
      */
     private static boolean areArgumentsPresent(List<String> argList) {
@@ -71,10 +71,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     }
 
     /**
-     * Returns true if both arguments are present in the given
+     * Returns true if there are more than one argument present in the given
      * {@code List<String>}.
      */
-    private static boolean areBothArgumentsPresent(List<String> argList) {
+    private static boolean moreThanOneArgumentPresent(List<String> argList) {
         if (argList == null) {
             return false;
         }
