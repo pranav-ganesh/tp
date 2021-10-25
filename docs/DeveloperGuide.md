@@ -200,32 +200,47 @@ at the same time, improve user experience by reducing time required for users to
 
 The import export feature primarily facilitated by the Storage Manager
 
-**When is the import command executed:**
-
-Application will always ask user whether to User has any new imports upon **every** application startup.
-Import prompt will popup **AFTER** storage has been created within the MainWindow
+**How the import is executed:**
+1. MainWindow calls logic to import data
+2. Logic calls StorageManager to import the data into a model
+3. StorageManager calls CsvImportExportStorage to read and convert all details found in csv file to list of valid people
+4. CsvImportExportStorage then either adds or updates valid people into the model.
+5. Logic then saves the database after all imports have been completed
 
 ![Interactions Inside the Storage Component when importing](images/ImportCsvSequenceDiagram.png)
 
-User will be prompt with 3 options : Add on Imports, Start new with imports, No Imports. CMM react as according to
-the diagram below, based on which button the user selects.
+**Different Import settings based on User**
 
-![CMM behaviour based on user input ](images/ImportDecision.png)
+- Application will always ask user whether to User has any new imports upon **every** application startup.
+User will be prompt with 3 options : Add on Imports, Start new with imports, No Imports. CMM react as according to the diagram below, based on which button the user selects.
+  ![CMM behaviour based on user input](images/ImportDecision.png)
 
-Next few sections will go deeper on what 
+Next few sections will go deeper what the CMM does in each case
 
 #### Add On Imports
-- Adds on new imports into existing database
+- Adds on new valid imports into existing database
+  
+- Duplicates found in database 
+  As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for the CMM to handle such cases.  Below is a diagram to illustrate how CMM will react when encountering a duplicate import  
+ ![CMM behaviour when duplicate encountered](images/DuplicateImportDecision.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+Duplicates are defined to be two person with the exact same attributes, except for called status.
 
 #### Start New Imports
-- Exports and reset the current database. CMM will then populate the reset database with new imports
+- Exports the current state of the database into a Csv file. Export implementation is covered in detail [here](#export-feature).
+- Resets the current database and populate the now empty database with new valid imports
 
 #### No imports
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
 
 ### Export feature
-
+**How the export is executed:**
+1. MainWindow calls logic to Export data
+2. Logic calls StorageManager to export the data founda model
+3. StorageManager calls CsvImportExportStorage to read and convert
+4. Logic then saves the database after all export have been completed
 
 
 

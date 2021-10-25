@@ -10,9 +10,17 @@ participant CsvUtil
 
 participant CsvAdaptedPerson
 participant Model
-participant Storage
-'
-'
+participant Person
+
+box UI #Bisque
+    participant MainWindow
+end box
+
+
+box Logic #AquaMarine
+    participant Logic
+end box
+
 box Storage #LightBlue
     participant StorageManager
     participant CsvAddressBookImportExport
@@ -25,6 +33,7 @@ end box
 
 box Model
     participant Model
+    participant Person
 end box
 
 
@@ -33,16 +42,24 @@ end box
 MainWindow -> Logic: importData()
 Logic -> StorageManager: importIntoAddressBook(model)
 StorageManager -> CsvAddressBookImportExport: importIntoAddressBook(model)
-CsvAddressBookImportExport -> CsvAddressBookImportExport: importAddressBook(filepath,model)
+
 CsvAddressBookImportExport -> CsvUtil: readCsvFile(filepath)
 
 loop number of  rows in import - 1
+    create CsvAdaptedPerson
+    CsvUtil -> CsvAdaptedPerson
+    activate CsvAdaptedPerson
 
-    CsvUtil -> CsvAdaptedPerson: <<create>>
+    CsvAdaptedPerson -> CsvUtil
+    deactivate CsvAdaptedPerson
 
-    CsvAdaptedPerson -> CsvAdaptedPerson: setDetails(String)
+    CsvUtil -> CsvAdaptedPerson: toModelType()
 
-    CsvAdaptedPerson -> CsvAdaptedPerson: setInterestList(String)
+    create Person
+    CsvAdaptedPerson -> Person
+    activate Person
+    Person -> CsvAdaptedPerson
+    deactivate Person
     CsvUtil <- CsvAdaptedPerson: valid person
     end
 
@@ -63,8 +80,8 @@ loop Number of valid people
     end
 
 Logic -> Model: getAddressbook()
-Logic -> Storage: saveAddressbook(model)
-Logic -> CsvAddressBookImportExport: getImportStatus()
+Logic -> StorageManager: saveAddressbook(model)
+Logic -> StorageManager: getImportStatus()
 
 MainWindow <- Logic: status details
 
