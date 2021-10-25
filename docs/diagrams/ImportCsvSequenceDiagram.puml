@@ -3,6 +3,33 @@
 
 autonumber
 
+participant MainWindow
+participant Logic
+participant CsvAddressBookImportExport
+participant CsvUtil
+
+participant CsvAdaptedPerson
+participant Model
+participant Storage
+'
+'
+box "ImportExport" #LightBlue
+    participant CsvAddressBookImportExport
+    participant CsvUtil
+    participant CsvAdaptedPerson
+end box
+
+box "Model" #Lavender
+    participant Model
+end box
+
+'
+box "Storage"" #LightBlue
+    participant Storage
+end box
+
+
+
 MainWindow -> Logic: importData()
 Logic -> CsvAddressBookImportExport: importIntoAddressBook(model)
 
@@ -10,20 +37,11 @@ CsvAddressBookImportExport -> CsvAddressBookImportExport: importAddressBook(file
 
 CsvAddressBookImportExport -> CsvUtil: readCsvFile(filepath)
 
-CsvUtil -> CsvUtil: deserializeObjectFromCsvFile(filepath)
-
-CsvUtil -> FileUtil: readFromFile(filepath)
-
-CsvUtil <- FileUtil: all row string details
-
-CsvUtil -> CsvUtil: fromCsvString()
 
 
 loop number of  rows in import - 1
-    CsvUtil -> CsvUtil: createPerson(String, rowNumber)
 
     CsvUtil -> CsvAdaptedPerson: <<create>>
-
 
     CsvAdaptedPerson -> CsvAdaptedPerson: setDetails(String)
 
@@ -34,31 +52,23 @@ loop number of  rows in import - 1
 CsvAddressBookImportExport <- CsvUtil: optional(list of valid people)
 CsvAddressBookImportExport -> CsvAddressBookImportExport: addImportIntoAddressBook(list, model)
 
-loop no. of valid people
-    CsvAddressBookImportExport  -> model
-	Model -> AddressBook: duplicateIndex(person)
-	AddressBook -> UniquePersonList : indexOfDuplicate(person)
-	AddressBook <- UniquePersonList : int of duplicate in list
-	Model <- AddressBook : int of duplicate in list
+loop Number of valid people
+    CsvAddressBookImportExport  -> Model : duplicateIndex()
+
     CsvAddressBookImportExport <- Model : int of duplicate in list
-    alt no duplicates found in current list
+    alt Import does not has duplicate in current database
         CsvAddressBookImportExport ->  Model: addPerson(person)
-        Model -> AddressBook : addPerson(person)
-        AddressBook -> UniquePersonList : addPerson(person)
-    else duplicates found
+    else Import has duplicate in current database
         alt import duplicate has been called
                     CsvAddressBookImportExport ->  Model: updatePerson(index, person)
-                    Model -> AddressBook : updatePerson(index, person)
-                    AddressBook -> UniquePersonList : updatePerson(index, person)
         end
     end
+    end
 
-Logic <- CsvAddressBookImportExport
-deactivate CsvAddressBookImportExport
 Logic -> Model: getAddressbook()
 Logic -> Storage: saveAddressbook(model)
 Logic -> CsvAddressBookImportExport: getImportStatus()
-Logic <- CsvAddressBookImportExport: status details
+
 MainWindow <- Logic: status details
 
 @enduml
