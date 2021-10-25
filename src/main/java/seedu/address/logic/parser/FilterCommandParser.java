@@ -52,7 +52,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         } else {
             // only category argument specified
             String lastArgument = extractLastArgument(argList);
-            category = ParserUtil.parseCategory(lastArgument);
+            category = checkAndParseCategory(lastArgument);
             count = Integer.MAX_VALUE;
         }
 

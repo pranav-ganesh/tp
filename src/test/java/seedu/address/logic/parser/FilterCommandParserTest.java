@@ -51,7 +51,7 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = Category.MESSAGE_CONSTRAINTS;
+        String expectedMessage = MESSAGE_INVALID_CATEGORY;
 
         // no parameters
         assertParseFailure(parser, "", expectedMessage);
