@@ -219,9 +219,8 @@ Next few sections will go deeper what the CMM does in each case
 
 #### Add On Imports
 - Adds on new valid imports into existing database
-  
-- Duplicates found in database 
-  As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for the CMM to handle such cases.  Below is a diagram to illustrate how CMM will react when encountering a duplicate import  
+- Duplicates found in database
+  - As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for the CMM to handle such cases.  Below is a diagram to illustrate how CMM will react when encountering a duplicate import  
  ![CMM behaviour when duplicate encountered](images/DuplicateImportDecision.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
@@ -483,7 +482,7 @@ Guarantees: CMM Database will be set
 
 1. CMM ask whether to start creation new Database using import data or insert into existing database, upon startup
 2. User determines import setting
-3. CMM imports the file  
+3. CMM imports the file
    Use case ends.
 
 **Extensions**
