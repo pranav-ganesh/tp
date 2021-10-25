@@ -31,7 +31,8 @@ end box
 
 
 MainWindow -> Logic: importData()
-Logic -> CsvAddressBookImportExport: importIntoAddressBook(model)
+Logic -> StorageManager: importIntoAddressBook(model)
+StorageManager -> CsvAddressBookImportExport: importIntoAddressBook(model)
 CsvAddressBookImportExport -> CsvAddressBookImportExport: importAddressBook(filepath,model)
 CsvAddressBookImportExport -> CsvUtil: readCsvFile(filepath)
 
