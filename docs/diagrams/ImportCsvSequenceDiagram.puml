@@ -13,20 +13,20 @@ participant Model
 participant Storage
 '
 '
-box "ImportExport" #LightBlue
+box Storage #LightBlue
+    participant StorageManager
     participant CsvAddressBookImportExport
-    participant CsvUtil
     participant CsvAdaptedPerson
 end box
+box Common #Lavender
+    participant CsvUtil
+end box
 
-box "Model" #Lavender
+
+box Model
     participant Model
 end box
 
-'
-box "Storage"" #LightBlue
-    participant Storage
-end box
 
 
 

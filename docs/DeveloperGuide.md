@@ -137,7 +137,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+![Storage Class Diagram](images/StorageClassDiagram2.png)
 
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
@@ -205,34 +205,24 @@ The import export feature primarily facilitated by the Storage Manager
 Application will always ask user whether to User has any new imports upon **every** application startup.
 Import prompt will popup **AFTER** storage has been created within the MainWindow
 
---to include the prompt in mainwindow--
+![Interactions Inside the Storage Component when importing](images/ImportCsvSequenceDiagram.png)
 
 User will be prompt with 3 options : Add on Imports, Start new with imports, No Imports. CMM react as according to
 the diagram below, based on which button the user selects.
 
--- decision for the creating new import
+![CMM behaviour based on user input ](images/ImportDecision.png)
 
 Next few sections will go deeper on what 
 
 #### Add On Imports
-
-#### Start New Imports
-
-#### No imports
-
-
-
-`Add On Imports`
 - Adds on new imports into existing database
 
-`Start New Using Import`
+#### Start New Imports
 - Exports and reset the current database. CMM will then populate the reset database with new imports
 
-`Don't Import`
+#### No imports
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
-
-
 
 ### Export feature
 
