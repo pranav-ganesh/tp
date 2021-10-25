@@ -197,7 +197,7 @@ at the same time, improve user experience by reducing time required for users to
 
 ### Import feature
 
-The import export feature primarily facilitated by the Logic Manager
+The import export feature primarily facilitated by the ImportExportManager
 
 **When is the import command executed:**
 
@@ -218,6 +218,19 @@ Next few sections will go deeper on what
 #### Start New Imports
 
 #### No imports
+
+
+
+`Add On Imports`
+- Adds on new imports into existing database
+
+`Start New Using Import`
+- Exports and reset the current database. CMM will then populate the reset database with new imports
+
+`Don't Import`
+- CMM will not import anything and application will startup normally
+- Closing the prompt will also choose this option
+
 
 
 ### Export feature

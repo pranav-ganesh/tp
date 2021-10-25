@@ -32,12 +32,8 @@ end box
 
 MainWindow -> Logic: importData()
 Logic -> CsvAddressBookImportExport: importIntoAddressBook(model)
-
 CsvAddressBookImportExport -> CsvAddressBookImportExport: importAddressBook(filepath,model)
-
 CsvAddressBookImportExport -> CsvUtil: readCsvFile(filepath)
-
-
 
 loop number of  rows in import - 1
 
