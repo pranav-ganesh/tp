@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 /**
  * Importing and exporting of csv files into the database
  */
-public class CsvAddressBookImportExport implements ImportExport {
+public class CsvImportExportStorage implements ImportExportStorage {
 
     public static final String MESSAGE_DUPLICATE_NOT_DONE_PERSON = "Import contains duplicate person(s)."
             + " These duplicate person(s) are  list index:" + "\n";
@@ -27,7 +27,7 @@ public class CsvAddressBookImportExport implements ImportExport {
     public static final String MESSAGE_DUPLICATE_DONE_PERSON = "These duplicate person(s) with "
             + "these list index will be updated to 'called' : \n";
 
-    private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
+    private static final Logger logger = LogsCenter.getLogger(CsvImportExportStorage.class);
 
     private boolean fileFound = true;
     private List<Integer> duplicateRowImport = new ArrayList<>();
@@ -43,7 +43,7 @@ public class CsvAddressBookImportExport implements ImportExport {
     /**
      * Constructor of the import export
      */
-    public CsvAddressBookImportExport(Path filePath) {
+    public CsvImportExportStorage(Path filePath) {
         requireNonNull(filePath);
         this.filePath = filePath;
     }

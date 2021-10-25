@@ -141,7 +141,8 @@ The `Model` component,
 
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can export and import into address book data in csv format, and read them back into corresponding objects.
+* inherits from both `AddressBookStorage`, `UserPrefStorage` and `ImportExport`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -197,7 +198,7 @@ at the same time, improve user experience by reducing time required for users to
 
 ### Import feature
 
-The import export feature primarily facilitated by the ImportExportManager
+The import export feature primarily facilitated by the Storage Manager
 
 **When is the import command executed:**
 
