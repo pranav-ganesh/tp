@@ -21,15 +21,16 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
-        predicates.add(new NameContainsKeywordsPredicate(Arrays.asList("alice", "bob")));
-        CombinedPredicate predicate = new CombinedPredicate(predicates);
+        predicates.add(new NameContainsKeywordsPredicate(Arrays.asList("alice", "bob"), false));
+        CombinedPredicate predicate = new CombinedPredicate(predicates, false);
 
         FindCommand expectedFindCommand =
                 new FindCommand(predicate);

@@ -1,5 +1,7 @@
 package seedu.address.model.person.predicates;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
@@ -11,13 +13,27 @@ import seedu.address.model.person.Person;
  */
 public class GenderContainsKeywordPredicate implements Predicate<Person> {
     private final List<String> keywords;
+    private final boolean isFindAll;
 
-    public GenderContainsKeywordPredicate(List<String> keywords) {
+    /**
+     * Constructor for the GenderContainsKeywordPredicate class
+     * @param keywords The keywords to compare against the {@code Person}'s {@code Gender}
+     * @param isFindAll True if all keywords need to match, false otherwise
+     */
+    public GenderContainsKeywordPredicate(List<String> keywords, boolean isFindAll) {
+        requireNonNull(keywords);
         this.keywords = keywords;
+        this.isFindAll = isFindAll;
     }
 
     @Override
     public boolean test(Person person) {
+        if (isFindAll) {
+            return keywords.stream()
+                    .allMatch(keyword -> person.getGender().value.toLowerCase(Locale.ROOT).contains(
+                            getGenderValueFromKeyword(keyword)
+                    ));
+        }
         return keywords.stream()
                 .anyMatch(keyword -> person.getGender().value.toLowerCase(Locale.ROOT).contains(
                         getGenderValueFromKeyword(keyword)

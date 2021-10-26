@@ -76,8 +76,8 @@ public class AddressBookParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " n/foo bar baz");
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
-        predicates.add(new NameContainsKeywordsPredicate(keywords));
-        CombinedPredicate predicate = new CombinedPredicate(predicates);
+        predicates.add(new NameContainsKeywordsPredicate(keywords, false));
+        CombinedPredicate predicate = new CombinedPredicate(predicates, false);
         assertEquals(new FindCommand(predicate), command);
     }
 

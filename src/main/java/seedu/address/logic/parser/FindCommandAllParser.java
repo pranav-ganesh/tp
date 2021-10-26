@@ -17,6 +17,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindCommandAll;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
@@ -32,14 +33,14 @@ import seedu.address.model.person.predicates.PhoneContainsNumberPredicate;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class FindCommandParser implements Parser<FindCommand> {
+public class FindCommandAllParser implements Parser<FindCommandAll> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindCommand parse(String args) throws ParseException {
+    public FindCommandAll parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DONE,
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST);
@@ -100,12 +101,12 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         // Checks if the user passed in any valid prefixes and arguments
         if (predicates.size() == 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommandAll.MESSAGE_USAGE));
         }
 
-        CombinedPredicate combinedPredicate = new CombinedPredicate(predicates, false);
+        CombinedPredicate combinedPredicate = new CombinedPredicate(predicates, true);
 
-        return new FindCommand(combinedPredicate);
+        return new FindCommandAll(combinedPredicate);
     }
 
     /**
@@ -114,49 +115,49 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap) {
         return Stream.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DONE,
-                PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST)
+                        PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST)
                 .anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     private NameContainsKeywordsPredicate getNamePredicate(String nameKeywords) {
         String[] nameKeywordsArr = nameKeywords.split("\\s+");
-        return new NameContainsKeywordsPredicate(Arrays.asList(nameKeywordsArr), false);
+        return new NameContainsKeywordsPredicate(Arrays.asList(nameKeywordsArr), true);
     }
 
     private PhoneContainsNumberPredicate getPhonePredicate(String numbers) {
         String[] numbersArr = numbers.split("\\s+");
-        return new PhoneContainsNumberPredicate(Arrays.asList(numbersArr), false);
+        return new PhoneContainsNumberPredicate(Arrays.asList(numbersArr), true);
     }
 
     private EmailContainsKeywordsPredicate getEmailPredicate(String emailKeywords) {
         String[] emailKeywordsArr = emailKeywords.split("\\s+");
         System.out.println("hello");
-        return new EmailContainsKeywordsPredicate(Arrays.asList(emailKeywordsArr), false);
+        return new EmailContainsKeywordsPredicate(Arrays.asList(emailKeywordsArr), true);
     }
 
     private DonePredicate getDonePredicate(String doneKeywords) {
         String[] doneKeywordsArr = doneKeywords.split("\\s+");
-        return new DonePredicate(Arrays.asList(doneKeywordsArr), false);
+        return new DonePredicate(Arrays.asList(doneKeywordsArr), true);
     }
 
     private AddressContainsKeywordsPredicate getAddressPredicate(String addressKeywords) {
         String[] addressKeywordsArr = addressKeywords.split("\\s+");
-        return new AddressContainsKeywordsPredicate(Arrays.asList(addressKeywordsArr), false);
+        return new AddressContainsKeywordsPredicate(Arrays.asList(addressKeywordsArr), true);
     }
 
     private GenderContainsKeywordPredicate getGenderPredicate(String genderKeywords) {
         String[] genderKeywordsArr = genderKeywords.split("\\s+");
-        return new GenderContainsKeywordPredicate(Arrays.asList(genderKeywordsArr), false);
+        return new GenderContainsKeywordPredicate(Arrays.asList(genderKeywordsArr), true);
     }
 
     private AgeContainsValuePredicate getAgePredicate(String ageValues) {
         String[] ageValuesArr = ageValues.split("\\s+");
-        return new AgeContainsValuePredicate(Arrays.asList(ageValuesArr), false);
+        return new AgeContainsValuePredicate(Arrays.asList(ageValuesArr), true);
     }
 
     private InterestContainsKeywordsPredicate getInterestPredicate(String interestKeywords) {
         String[] interestKeywordsArr = interestKeywords.split("\\s+");
-        return new InterestContainsKeywordsPredicate(Arrays.asList(interestKeywordsArr), false);
+        return new InterestContainsKeywordsPredicate(Arrays.asList(interestKeywordsArr), true);
     }
 
 }

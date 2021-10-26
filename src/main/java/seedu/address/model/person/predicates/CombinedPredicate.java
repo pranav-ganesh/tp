@@ -13,18 +13,25 @@ import seedu.address.model.person.Person;
  */
 public class CombinedPredicate implements Predicate<Person> {
     private final List<Predicate<Person>> predicates;
+    private final boolean isFindAll;
 
     /**
-     * Combines all the predicates requested by the user.
-     * @param predicates All the predicates created by the user
+     * Constructor for the CombinedPredicate class
+     * @param predicates The predicates to compare against the {@code Person}
+     * @param isFindAll True if all predicates need to return true, false otherwise
      */
-    public CombinedPredicate(ArrayList<Predicate<Person>> predicates) {
+    public CombinedPredicate(ArrayList<Predicate<Person>> predicates, boolean isFindAll) {
         requireNonNull(predicates);
         this.predicates = predicates;
+        this.isFindAll = isFindAll;
     }
 
     @Override
     public boolean test(Person person) {
+        if (isFindAll) {
+            return predicates.stream()
+                    .allMatch(predicate -> predicate.test(person));
+        }
         return predicates.stream()
                 .anyMatch(predicate -> predicate.test(person));
     }

@@ -1,5 +1,7 @@
 package seedu.address.model.person.predicates;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -10,13 +12,25 @@ import seedu.address.model.person.Person;
  */
 public class AgeContainsValuePredicate implements Predicate<Person> {
     private final List<String> ages;
+    private final boolean isFindAll;
 
-    public AgeContainsValuePredicate(List<String> ages) {
+    /**
+     * Constructor for the AgeContainsValuePredicate class
+     * @param ages The keywords to compare against the {@code Person}'s {@code Age}
+     * @param isFindAll True if all keywords need to match, false otherwise
+     */
+    public AgeContainsValuePredicate(List<String> ages, boolean isFindAll) {
+        requireNonNull(ages);
         this.ages = ages;
+        this.isFindAll = isFindAll;
     }
 
     @Override
     public boolean test(Person person) {
+        if (isFindAll) {
+            return ages.stream()
+                    .allMatch(age -> person.getAge().value.equals(age));
+        }
         return ages.stream()
                 .anyMatch(age -> person.getAge().value.equals(age));
     }

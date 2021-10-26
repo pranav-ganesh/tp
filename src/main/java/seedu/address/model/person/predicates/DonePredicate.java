@@ -1,5 +1,7 @@
 package seedu.address.model.person.predicates;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
@@ -11,13 +13,27 @@ import seedu.address.model.person.Person;
  */
 public class DonePredicate implements Predicate<Person> {
     private final List<String> keywords;
+    private final boolean isFindAll;
 
-    public DonePredicate(List<String> keywords) {
+    /**
+     * Constructor for the DonePredicate class
+     * @param keywords The keywords to compare against the {@code Person}'s {@code isDone}
+     * @param isFindAll True if all keywords need to match, false otherwise
+     */
+    public DonePredicate(List<String> keywords, boolean isFindAll) {
+        requireNonNull(keywords);
         this.keywords = keywords;
+        this.isFindAll = isFindAll;
     }
 
     @Override
     public boolean test(Person person) {
+        if (isFindAll) {
+            return keywords.stream()
+                    .allMatch(keyword -> person.getIsDone().toString().toLowerCase(Locale.ROOT).equals(
+                            getDoneValueFromKeyword(keyword)
+                    ));
+        }
         return keywords.stream()
                 .anyMatch(keyword -> person.getIsDone().toString().toLowerCase(Locale.ROOT).equals(
                         getDoneValueFromKeyword(keyword)
