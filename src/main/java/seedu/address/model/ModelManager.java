@@ -15,6 +15,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.comparators.NameComparator;
 import seedu.address.model.person.Person;
+import seedu.address.ui.FullPersonCard;
+import seedu.address.ui.UiManager;
 
 /**
  * Represents the in-memory model of the address book data.

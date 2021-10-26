@@ -24,6 +24,12 @@ public class DonePredicate implements Predicate<Person> {
                 ));
     }
 
+    /**
+     * Allows more flexibility for user inputs
+     * @param keyword entered by user
+     * @return True if input is t or true
+     *          false if its f or false
+     */
     private String getDoneValueFromKeyword(String keyword) {
         String test = keyword.toLowerCase(Locale.ROOT);
         if (test.equals("t") || test.equals("true")) {
@@ -31,6 +37,8 @@ public class DonePredicate implements Predicate<Person> {
         } else if (test.equals("f") || test.equals("false")) {
             return "false";
         } else {
+            // Basically return anything that is not 'true' / 'false' / 'N.A'
+            // so that the predicate will return false
             return "THIS IS NOT A DONE VALUE";
         }
     }

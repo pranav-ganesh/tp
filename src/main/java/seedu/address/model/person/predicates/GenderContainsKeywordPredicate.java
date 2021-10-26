@@ -24,6 +24,12 @@ public class GenderContainsKeywordPredicate implements Predicate<Person> {
                 ));
     }
 
+    /**
+     * Allows more flexibility for user inputs
+     * @param keyword entered by user
+     * @return m if input is m or male
+     *          f if its f or female
+     */
     private String getGenderValueFromKeyword(String keyword) {
         String test = keyword.toLowerCase(Locale.ROOT);
         if (test.equals("m") || test.equals("male")) {
@@ -31,6 +37,8 @@ public class GenderContainsKeywordPredicate implements Predicate<Person> {
         } else if (test.equals("f") || test.equals("female")) {
             return "f";
         } else {
+            // Basically return anything that is not 'm' / 'f' / 'N.A'
+            // so that the predicate will return false
             return "THIS IS NOT A GENDER";
         }
     }
