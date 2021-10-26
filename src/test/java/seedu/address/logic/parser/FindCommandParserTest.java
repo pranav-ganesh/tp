@@ -10,20 +10,18 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.FindCommandAny;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.predicates.CombinedPredicateAny;
+import seedu.address.model.person.predicates.CombinedPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 
-public class FindCommandAnyParserTest {
+public class FindCommandParserTest {
 
-    private FindCommandAnyParser parser = new FindCommandAnyParser();
+    private FindCommandParser parser = new FindCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommandAny.MESSAGE_USAGE)
-        );
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -31,13 +29,13 @@ public class FindCommandAnyParserTest {
         // no leading and trailing whitespaces
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
         predicates.add(new NameContainsKeywordsPredicate(Arrays.asList("alice", "bob")));
-        CombinedPredicateAny predicate = new CombinedPredicateAny(predicates);
+        CombinedPredicate predicate = new CombinedPredicate(predicates);
 
-        FindCommandAny expectedFindCommandAny =
-                new FindCommandAny(predicate);
-        assertParseSuccess(parser, " n/Alice Bob", expectedFindCommandAny);
+        FindCommand expectedFindCommand =
+                new FindCommand(predicate);
+        assertParseSuccess(parser, " n/Alice Bob", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " n/\n Alice \n \t Bob  \t", expectedFindCommandAny);
+        assertParseSuccess(parser, " n/\n Alice \n \t Bob  \t", expectedFindCommand);
     }
 }

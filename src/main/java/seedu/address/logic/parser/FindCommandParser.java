@@ -16,12 +16,12 @@ import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.FindCommandAny;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.AgeContainsValuePredicate;
-import seedu.address.model.person.predicates.CombinedPredicateAny;
+import seedu.address.model.person.predicates.CombinedPredicate;
 import seedu.address.model.person.predicates.DonePredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.GenderContainsKeywordPredicate;
@@ -32,20 +32,20 @@ import seedu.address.model.person.predicates.PhoneContainsNumberPredicate;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class FindCommandAnyParser implements Parser<FindCommandAny> {
+public class FindCommandParser implements Parser<FindCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindCommandAny parse(String args) throws ParseException {
+    public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DONE,
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST);
 
         if (!arePrefixesPresent(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommandAny.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         String nameKeywords = argMultimap.getValue(PREFIX_NAME).orElse(null);
@@ -100,12 +100,12 @@ public class FindCommandAnyParser implements Parser<FindCommandAny> {
 
         // Checks if the user passed in any valid prefixes and arguments
         if (predicates.size() == 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommandAny.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        CombinedPredicateAny combinedPredicateAny = new CombinedPredicateAny(predicates);
+        CombinedPredicate combinedPredicate = new CombinedPredicate(predicates);
 
-        return new FindCommandAny(combinedPredicateAny);
+        return new FindCommand(combinedPredicate);
     }
 
     /**
