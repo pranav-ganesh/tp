@@ -105,13 +105,21 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
-Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
+Here are the other classes in `Logic` (omitted from the class diagram of the `Logic` component above) that are used for parsing a user command:
 
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+
+Additionally, here are other classes in `Logic` (omitted from the class diagram of the `Logic` component above) that are used for comparing `Person` objects which are part of the `Model` component:
+
+<img src="images/ComparatorClasses.png" width="600"/>
+
+How the comparing works:
+* When called upon to compare persons, the `PersonComparator` class creates an `XYZComparator` (`XYZ` is a placeholder for the specific comparator name e.g., `GenderComparator`) which can be used to compare persons. The `PersonComparator` returns the `XYZComparator` object as a `Comparator` object.
+* All `XYZComparator` classes (e.g., `GenderComparator`, `CalledComparator`, ...) inherit from the `Comparator` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -174,7 +182,7 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
 **Aspect: Compulsory fields:**
 
 * **Alternative 1 (current choice):** 3 compulsory fields
-    * Compulsory fields: `name`, `email`, `phone`.
+    * Compulsory fields: `Name`, `Email`, `Phone`.
     * Non-Compulsory fields: `Address`, `Gender`, `Age`, `Interest`.
     * Pros: Improves User Experience by minimising the number of fields the user is required to fill.
     * Cons: Slightly more complicated implementation.
@@ -188,12 +196,54 @@ who has already been called into the address book, all new persons added will ha
 is no need for the user to specify the isDone field.
 </div>
 
-As the app is catered towards telemarketers, the `name`, `email` and `phone` fields were kept as compulsory as they are important contact information for telemarketers.
+As the app is catered towards telemarketers, the `Name`, `Email` and `Phone` fields were kept as compulsory as they are important contact information for telemarketers.
 
 On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complementary fields. Hence, they are non-compulsory.
 
 The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while
 at the same time, improve user experience by reducing time required for users to type the command.
+
+### Filter feature
+
+The filter command is facilitated by the LogicManager.
+
+**How the filter command is executed:**
+
+1. Command entered by user is passed into the LogicManager
+2. AddressBookParser parses the command
+3. AddressBookParser creates an FilterCommand
+4. LogicManager executes the FilterCommand and creates a Comparator with the category field specified by the user
+5. The Comparator is used to sort the FilteredList of persons in Model
+6. The count field specified by the user is used to limit the number of persons displayed in the GUI
+
+The Sequence Diagram below illustrates the interactions within the Logic component for the execute("filter gender 3") API call.
+
+![Interactions Inside the Logic Component for the `filter' Command](images/FilterSequenceDiagram.png)
+
+#### Design considerations:
+
+**Aspect: Compulsory fields:**
+
+* **Alternative 1 (current choice):** 1 compulsory field
+    * Compulsory fields: `Category`.
+    * Non-Compulsory fields: `Count`.
+    * Pros: Allows quicker filtering by reducing the number of fields required.
+    * Cons: More difficult to implement.
+
+* **Alternative 2:** Both fields are compulsory
+    * Pros: Easier to implement.
+    * Cons: User has to choose how many persons to be displayed every time.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers sort persons
+by categories other than "Gender" and "Called", those are the only categories supported by the filter command. 
+</div>
+
+As the key intention is for users to filter by `Category`, it is kept as a compulsory field.
+
+On the other hand, filtering by `Count` is an additional feature. Hence, it is non-compulsory.
+
+The current design implementation allows users to filter persons quickly and gives the flexibility to further filter
+the results if they ever want to.
 
 ### \[Proposed\] Undo/redo feature
 
@@ -305,7 +355,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage potentially interested clients faster than a typical mouse/GUI driven app
+**Value proposition**: manage potentially interested clients faster than a typical mouse/ GUI driven app
 
 
 ### User stories
@@ -320,7 +370,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
 | `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
 | `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `*`      | user with many persons in the address book | filter persons                 | locate persons who have not been called quickly                                              |
 
 *{More to be added}*
 
@@ -484,6 +534,35 @@ MSS:
 1. User request CMM to export database into excel file
 2. CMM exports database into excel file to a CMM-specified location
    Use case ends.
+
+**Use Case 7: Filter persons**
+
+System : CallMeMaybe (CMM) </br>
+Use Case : UC7 - Filter persons </br>
+Actor : User </br>
+Guarantees: Persons will be sorted by category specified
+
+**MSS**
+
+1. User requests to filter persons
+2. Persons be filtered based on the fields specified by the user.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User enters the command wrongly
+
+    * 1a1. Command box displays error message
+
+      Use case resumes at step 1
+    
+* 1b. User enters an invalid field
+
+    * 1b1. Command box displays error message
+
+      Use case resumes at step 1
+
 *{More to be added}*
 
 ### Non-Functional Requirements
@@ -497,7 +576,9 @@ MSS:
 
 ### Glossary
 
+* **CLI**: Command Line Interface
 * **CMM**: CallMeMaybe, the name of the application
+* **GUI**: Graphical User Interface
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 
@@ -518,16 +599,16 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+3. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -535,16 +616,38 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
+   2. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   3. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+2. _{ more test cases …​ }_
+
+### Filtering persons
+
+1. Filtering all persons
+
+    1. Test case: `filter gender`<br>
+       Expected: All persons are displayed, sorted by gender.
+
+    2. Test case: `filter called 1`<br>
+       Expected: Sort persons based on whether they are called. Only the first person is displayed.
+
+    3. Test case: `filter called 0`<br>
+       Expected: Persons are not filtered. Error details shown in the status message. Status bar remains the same.
+    
+    4. Test case: `filter address 0`<br>
+       Expected: Persons are not filtered. Error details shown in the status message. Status bar remains the same.
+
+    5. Other incorrect delete commands to try: `filter`, `filter x` (where x is an invalid category), 
+       `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
+       Expected: Similar to previous.
+
+3. _{ more test cases …​ }_
 
 ### Saving data
 
