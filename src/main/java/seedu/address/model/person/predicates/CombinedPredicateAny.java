@@ -11,14 +11,14 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Person}'s fields matches any of the respective fields provided
  */
-public class CombinedPredicate implements Predicate<Person> {
+public class CombinedPredicateAny implements Predicate<Person> {
     private final List<Predicate<Person>> predicates;
 
     /**
      * Combines all the predicates requested by the user.
      * @param predicates All the predicates created by the user
      */
-    public CombinedPredicate(ArrayList<Predicate<Person>> predicates) {
+    public CombinedPredicateAny(ArrayList<Predicate<Person>> predicates) {
         requireNonNull(predicates);
         this.predicates = predicates;
     }
@@ -32,7 +32,7 @@ public class CombinedPredicate implements Predicate<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CombinedPredicate // instanceof handles nulls
-                && predicates.equals(((CombinedPredicate) other).predicates)); // state check
+                || (other instanceof CombinedPredicateAny // instanceof handles nulls
+                && predicates.equals(((CombinedPredicateAny) other).predicates)); // state check
     }
 }

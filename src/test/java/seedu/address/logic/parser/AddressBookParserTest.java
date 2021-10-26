@@ -20,13 +20,13 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindCommandAny;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.predicates.CombinedPredicate;
+import seedu.address.model.person.predicates.CombinedPredicateAny;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -73,12 +73,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " n/foo bar baz");
+        FindCommandAny command = (FindCommandAny) parser.parseCommand(
+                FindCommandAny.COMMAND_WORD + " n/foo bar baz");
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
         predicates.add(new NameContainsKeywordsPredicate(keywords));
-        CombinedPredicate predicate = new CombinedPredicate(predicates);
-        assertEquals(new FindCommand(predicate), command);
+        CombinedPredicateAny predicate = new CombinedPredicateAny(predicates);
+        assertEquals(new FindCommandAny(predicate), command);
     }
 
     @Test
