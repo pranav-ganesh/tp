@@ -6,6 +6,9 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
 
+/**
+ * Tests that a {@code Person}'s {@code Address} contains the keywords given.
+ */
 public class AddressContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 

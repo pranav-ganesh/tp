@@ -6,6 +6,9 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
 
+/**
+ * Tests that a {@code Person}'s {@code Done} matches the value given.
+ */
 public class DonePredicate implements Predicate<Person> {
     private final List<String> keywords;
 
@@ -16,7 +19,20 @@ public class DonePredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> person.getIsDone().toString().toLowerCase(Locale.ROOT).equals(keyword));
+                .anyMatch(keyword -> person.getIsDone().toString().toLowerCase(Locale.ROOT).equals(
+                        getDoneValueFromKeyword(keyword)
+                ));
+    }
+
+    private String getDoneValueFromKeyword(String keyword) {
+        String test = keyword.toLowerCase(Locale.ROOT);
+        if (test.equals("t") || test.equals("true")) {
+            return "true";
+        } else if (test.equals("f") || test.equals("false")) {
+            return "false";
+        } else {
+            return "THIS IS NOT A DONE VALUE";
+        }
     }
 
     @Override

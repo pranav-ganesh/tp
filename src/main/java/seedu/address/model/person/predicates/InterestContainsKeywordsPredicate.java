@@ -8,6 +8,9 @@ import java.util.function.Predicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.interests.Interest;
 
+/**
+ * Tests that a {@code Person}'s {@code Interests} contains the keywords given.
+ */
 public class InterestContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> interests;
 

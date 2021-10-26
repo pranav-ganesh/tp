@@ -7,8 +7,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +26,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.predicates.CombinedPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -72,7 +75,10 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " n/foo bar baz");
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        ArrayList<Predicate<Person>> predicates = new ArrayList<>();
+        predicates.add(new NameContainsKeywordsPredicate(keywords));
+        CombinedPredicate predicate = new CombinedPredicate(predicates);
+        assertEquals(new FindCommand(predicate), command);
     }
 
     @Test

@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.function.Predicate;
@@ -20,6 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.AgeContainsValuePredicate;
+import seedu.address.model.person.predicates.CombinedPredicate;
 import seedu.address.model.person.predicates.DonePredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.GenderContainsKeywordPredicate;
@@ -55,30 +57,55 @@ public class FindCommandParser implements Parser<FindCommand> {
         String ageValues = argMultimap.getValue(PREFIX_AGE).orElse(null);
         String interestKeywords = argMultimap.getValue(PREFIX_INTEREST).orElse(null);
 
-        Predicate<Person> predicate;
-
+        ArrayList<Predicate<Person>> predicates = new ArrayList<>();
 
         if (nameKeywords != null) {
-            predicate = getNamePredicate(nameKeywords.toLowerCase(Locale.ROOT));
-        } else if (phoneNumbers != null) {
-            predicate = getPhonePredicate(phoneNumbers.toLowerCase(Locale.ROOT));
-        } else if (emailKeywords != null) {
-            predicate = getEmailPredicate(emailKeywords.toLowerCase(Locale.ROOT));
-        } else if (doneKeywords != null) {
-            predicate = getDonePredicate(doneKeywords.toLowerCase(Locale.ROOT));
-        } else if (addressKeywords != null) {
-            predicate = getAddressPredicate(addressKeywords.toLowerCase(Locale.ROOT));
-        } else if (genderKeywords != null) {
-            predicate = getGenderPredicate(genderKeywords.toLowerCase(Locale.ROOT));
-        } else if (ageValues != null) {
-            predicate = getAgePredicate(ageValues.toLowerCase(Locale.ROOT));
-        } else if (interestKeywords != null) {
-            predicate = getInterestPredicate(interestKeywords.toLowerCase(Locale.ROOT));
-        } else {
+            NameContainsKeywordsPredicate namePredicate = getNamePredicate(nameKeywords.toLowerCase(Locale.ROOT));
+            predicates.add(namePredicate);
+        }
+        if (phoneNumbers != null) {
+            PhoneContainsNumberPredicate phonePredicate = getPhonePredicate(phoneNumbers.toLowerCase(Locale.ROOT));
+            predicates.add(phonePredicate);
+        }
+        if (emailKeywords != null) {
+            EmailContainsKeywordsPredicate emailPredicate = getEmailPredicate(emailKeywords.toLowerCase(Locale.ROOT));
+            predicates.add(emailPredicate);
+        }
+        if (doneKeywords != null) {
+            DonePredicate donePredicate = getDonePredicate(doneKeywords.toLowerCase(Locale.ROOT));
+            predicates.add(donePredicate);
+        }
+        if (addressKeywords != null) {
+            AddressContainsKeywordsPredicate addressPredicate = getAddressPredicate(
+                    addressKeywords.toLowerCase(Locale.ROOT)
+            );
+            predicates.add(addressPredicate);
+        }
+        if (genderKeywords != null) {
+            GenderContainsKeywordPredicate genderPredicate = getGenderPredicate(
+                    genderKeywords.toLowerCase(Locale.ROOT)
+            );
+            predicates.add(genderPredicate);
+        }
+        if (ageValues != null) {
+            AgeContainsValuePredicate agePredicate = getAgePredicate(ageValues.toLowerCase(Locale.ROOT));
+            predicates.add(agePredicate);
+        }
+        if (interestKeywords != null) {
+            InterestContainsKeywordsPredicate interestPredicate = getInterestPredicate(
+                    interestKeywords.toLowerCase(Locale.ROOT)
+            );
+            predicates.add(interestPredicate);
+        }
+
+        // Checks if the user passed in any valid prefixes and arguments
+        if (predicates.size() == 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        return new FindCommand(predicate);
+        CombinedPredicate combinedPredicate = new CombinedPredicate(predicates);
+
+        return new FindCommand(combinedPredicate);
     }
 
     /**

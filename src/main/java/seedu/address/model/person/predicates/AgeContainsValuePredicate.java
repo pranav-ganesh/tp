@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
 
+/**
+ * Tests that a {@code Person}'s {@code Age} matches the value given.
+ */
 public class AgeContainsValuePredicate implements Predicate<Person> {
     private final List<String> ages;
 
