@@ -77,16 +77,6 @@ public class FindAllCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = prepareNamePredicate(" ");
-        FindAllCommand command = new FindAllCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
-    }
-
-    @Test
     public void execute_multipleKeywords_noPersonFound() {
         // No one has all three of kurz elle and knuz in their name
 
@@ -99,7 +89,7 @@ public class FindAllCommandTest {
     }
 
     @Test
-    public void execute_MultipleFields_onePersonFound() {
+    public void execute_multipleFields_onePersonFound() {
         // finding all with isDone as false as the more generic field,
         // then finding the name 'ben' to show only Benson since the only contact that has not been called
         // and has a ben substring in the name is Benson

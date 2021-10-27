@@ -52,6 +52,8 @@ public class GenderContainsKeywordPredicate implements Predicate<Person> {
             return "m";
         } else if (test.equals("f") || test.equals("female")) {
             return "f";
+        } else if (test.equals("n.a")) {
+            return ("n.a");
         } else {
             // Basically return anything that is not 'm' / 'f' / 'N.A'
             // so that the predicate will return false

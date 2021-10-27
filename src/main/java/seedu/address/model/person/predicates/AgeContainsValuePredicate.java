@@ -43,3 +43,4 @@ public class AgeContainsValuePredicate implements Predicate<Person> {
                 && isFindAll == ((AgeContainsValuePredicate) other).isFindAll; // state check
     }
 }
+
