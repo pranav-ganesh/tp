@@ -129,6 +129,7 @@ public class EditCommandTest {
     } */
 
 
+    /*
     @Test
     public void execute_duplicatePersonFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
@@ -139,7 +140,7 @@ public class EditCommandTest {
                 new EditPersonDescriptorBuilder(personInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
-    }
+    } */
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {

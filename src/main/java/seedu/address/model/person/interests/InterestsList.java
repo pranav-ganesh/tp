@@ -93,6 +93,22 @@ public class InterestsList {
         return value.toString();
     }
 
+    /**
+     * interests toString separate by ',' without numbering
+     */
+    public String toStringNoNumbering() {
+        if (list.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder value = new StringBuilder();
+        for (int k = 0; k < list.size(); k++) {
+            value.append(list.get(k).value).append(",");
+        }
+        return value.toString();
+    }
+
+
     @Override
     public boolean equals(Object other) {
 

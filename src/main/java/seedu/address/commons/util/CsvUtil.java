@@ -23,7 +23,7 @@ import seedu.address.model.person.Person;
 import seedu.address.storage.CsvAdaptedPerson;
 
 /**
- * Converts a Java object instance to CSV and vice versa
+ * Converts a List of persons {@code Person} instance to CSV and vice versa
  */
 public class CsvUtil {
 
@@ -44,16 +44,23 @@ public class CsvUtil {
         return fromCsvString(FileUtil.readFromFile(filePath));
     }
 
+    /**
+     * Takes in a list of people and writes the individual details in a Csv file
+     *
+     * @param filePath
+     * @param currentState
+     * @throws IOException
+     */
     public static void serializeObjectToCsvFile(Path filePath, List<Person> currentState) throws IOException {
         FileUtil.writeToFile(filePath, toCsvString(currentState));
     }
 
 
     /**
-     * Reads from CSV file and converts into an optional list of people
+     * Reads from Csv file and converts into an optional list of people
      *
      * @param filePath filepath of the csv
-     * @return list optional, whether there is a list of people within the csv
+     * @return list optional, whether there is a list of people within the Csv file
      * @throws DataConversionException
      */
     public static Optional<List<Person>> readCsvFile(Path filePath) throws DataConversionException {
@@ -68,7 +75,7 @@ public class CsvUtil {
         try {
             persons = deserializeObjectFromCsvFile(filePath);
         } catch (IOException e) {
-            logger.warning("Error reading from CsvFile file " + filePath);
+            logger.warning("Error reading from CSV file " + filePath);
             throw new DataConversionException(e);
         }
 
@@ -81,15 +88,15 @@ public class CsvUtil {
      *
      * @param currentState list of valid people currently in the database
      */
-    public static void writeCsvFile(List<Person> currentState) {
+    public static void writeCsvFile(List<Person> currentState, Path exportPath) {
         requireNonNull(currentState);
-        File dir = new File("./data");
+        File dir = new File(exportPath.toString());
         dir.mkdirs();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy HH-mm-ss");
         Date date = new Date();
         String exportUniqueName = "export[" + dateFormat.format(date) + "].csv";
-        Path exportFilePath = Paths.get("data" , exportUniqueName);
+        Path exportFilePath = Paths.get(exportPath.toString() , exportUniqueName);
         try {
             FileUtil.createIfMissing(exportFilePath);
         } catch (IOException e) {
@@ -149,9 +156,7 @@ public class CsvUtil {
 
 
     static String toCsvString(List<Person> personList) {
-
-
-        String[] headingOrder = headerOrder();
+        String[] headingOrder = CsvAdaptedPerson.headerOrder();
         String headerString = headingOrder[0];
         for (int i = 1; i < headingOrder.length; i++) {
             headerString = headerString + ";" + headingOrder[i];
@@ -160,8 +165,7 @@ public class CsvUtil {
         String toCsv = headerString;
 
         for (Person p : personList) {
-            String csvString = p.getName().toString() + ';' + p.getPhone().toString() + ';' + p.getEmail().toString()
-                            + ';' + p.getIsDone().toString();
+            String csvString = p.toStringNoHeaders();
             toCsv = toCsv + "\n" + csvString;
         }
 
@@ -169,8 +173,8 @@ public class CsvUtil {
     }
 
 
-    public static String getUnsuccessfulRow() {
-        return unsuccessfulRow.toString();
+    public static List<Integer> getUnsuccessfulRow() {
+        return unsuccessfulRow;
     }
 
     /**
@@ -182,7 +186,7 @@ public class CsvUtil {
     public static void checkValidHeader(String header)
             throws DataConversionException {
         String[] headerCheck = header.split(";", CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size());
-        String[] headerValid = headerOrder();
+        String[] headerValid = CsvAdaptedPerson.headerOrder();
 
         if (headerCheck.length == 1) {
             throw new DataConversionException(new Exception("Wrong delimiter, Refer to user guide to use correct "
@@ -190,7 +194,7 @@ public class CsvUtil {
                     + (CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size() - 1) + " ';' "));
         }
 
-        if (headerCheck.length != 4) {
+        if (headerCheck.length != headerValid.length) {
             throw new DataConversionException(new Exception("Missing/Extra Headers, Please check file"));
         }
 
@@ -204,16 +208,6 @@ public class CsvUtil {
                         + Arrays.toString(headerValid) + " in that order."));
             }
         }
-    }
-
-    private static String[] headerOrder() {
-        String[] headerKeySet = CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().toArray(new String[0]);
-        String[] validOrder = new String[headerKeySet.length];
-        for (String key : headerKeySet) {
-            int pos = CsvAdaptedPerson.ATTRIBUTE_ORDERING.get(key);
-            validOrder[pos] = key;
-        }
-        return validOrder;
     }
 
 }
