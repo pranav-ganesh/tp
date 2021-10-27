@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,5 +17,7 @@ public interface ImportExport {
     void exportCurrentAddressBook(Model model) throws DataConversionException;
 
     String getImportStatus();
+
+    Path getImportExportPath();
 
 }

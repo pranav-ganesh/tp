@@ -2,8 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 
+import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 
 /**
@@ -72,6 +74,10 @@ public class Person {
         return interests;
     }
 
+    public List<Interest> getAllInterests() {
+        return interests.getAllInterests();
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -112,7 +118,8 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, isDone);
+        // return Objects.hash(name, phone, email, isDone);
+        return Objects.hash(name, phone, email, address, gender, age);
     }
 
     @Override
@@ -137,6 +144,36 @@ public class Person {
         if (!interests.isEmpty()) {
             builder.append("; Interests: ").append(getInterests());
         }
+        return builder.toString();
+    }
+
+    /**
+     * Display details without headers. If field is empty, field will be an empty string
+     */
+    public String toStringNoHeaders() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(";")
+                .append(getPhone())
+                .append(";")
+                .append(getEmail());
+        builder.append(";");
+        if (!address.isEmpty()) {
+            builder.append(getAddress());
+        }
+        builder.append(";");
+        if (!gender.isEmpty()) {
+            builder.append(getGender());
+        }
+        builder.append(";");
+        if (!age.isEmpty()) {
+            builder.append(getAge());
+        }
+        builder.append(";");
+        if (!interests.isEmpty()) {
+            builder.append(interests.toStringNoNumbering());
+        }
+        builder.append(";").append(getIsDone());
         return builder.toString();
     }
 
