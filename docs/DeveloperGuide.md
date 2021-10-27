@@ -199,7 +199,7 @@ at the same time, improve user experience by reducing time required for users to
 ### Edit feature
 
 The edit mechanism is facilitated by `LogicManager` and `EditCommandParser`. `LogicManager#execute()` is used to execute the edit command
-while the `EditCommandParser#parse()` is used to parse the command arguments in the context of EditCommand and returns an EditCommand object for execution. 
+while the `EditCommandParser#parse()` is used to parse the command arguments in the context of EditCommand and returns an EditCommand object for execution.
 This feature allows telemarketers to edit data fields at any point in time if they need to.
 
 Given below is an example usage scenario and how the edit mechanism behaves at each step.
@@ -256,7 +256,7 @@ The following activity diagram summarizes what happens when a user executes an e
 
     * Pros: Easier to implement, more readable code and less prone to errors.
 
-    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which is not the most efficient mechanism for editing a person, 
+    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which is not the most efficient mechanism for editing a person,
       potential overhead.
 
 
@@ -505,7 +505,7 @@ Guarantees: CMM Database will be set
 
 2. CMM ask whether to start creation new Database using import data or insert into existing database, upon startup
 3. User determines import setting
-4. CMM imports the file  
+4. CMM imports the file
    Use case ends.
 
 **Extensions**
