@@ -66,48 +66,42 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
 
         if (nameKeywords != null) {
             checkEmptyString(nameKeywords, PREFIX_NAME);
-            NameContainsKeywordsPredicate namePredicate = getNamePredicate(nameKeywords.toLowerCase(Locale.ROOT));
+            NameContainsKeywordsPredicate namePredicate = getNamePredicate(nameKeywords);
             predicates.add(namePredicate);
         }
         if (phoneNumbers != null) {
             checkEmptyString(phoneNumbers, PREFIX_PHONE);
-            PhoneContainsNumberPredicate phonePredicate = getPhonePredicate(phoneNumbers.toLowerCase(Locale.ROOT));
+            PhoneContainsNumberPredicate phonePredicate = getPhonePredicate(phoneNumbers);
             predicates.add(phonePredicate);
         }
         if (emailKeywords != null) {
             checkEmptyString(emailKeywords, PREFIX_EMAIL);
-            EmailContainsKeywordsPredicate emailPredicate = getEmailPredicate(emailKeywords.toLowerCase(Locale.ROOT));
+            EmailContainsKeywordsPredicate emailPredicate = getEmailPredicate(emailKeywords);
             predicates.add(emailPredicate);
         }
         if (doneKeywords != null) {
             checkEmptyString(doneKeywords, PREFIX_DONE);
-            DonePredicate donePredicate = getDonePredicate(doneKeywords.toLowerCase(Locale.ROOT));
+            DonePredicate donePredicate = getDonePredicate(doneKeywords);
             predicates.add(donePredicate);
         }
         if (addressKeywords != null) {
             checkEmptyString(addressKeywords, PREFIX_ADDRESS);
-            AddressContainsKeywordsPredicate addressPredicate = getAddressPredicate(
-                    addressKeywords.toLowerCase(Locale.ROOT)
-            );
+            AddressContainsKeywordsPredicate addressPredicate = getAddressPredicate(addressKeywords);
             predicates.add(addressPredicate);
         }
         if (genderKeywords != null) {
             checkEmptyString(genderKeywords, PREFIX_GENDER);
-            GenderContainsKeywordPredicate genderPredicate = getGenderPredicate(
-                    genderKeywords.toLowerCase(Locale.ROOT)
-            );
+            GenderContainsKeywordPredicate genderPredicate = getGenderPredicate(genderKeywords);
             predicates.add(genderPredicate);
         }
         if (ageValues != null) {
             checkEmptyString(ageValues, PREFIX_AGE);
-            AgeContainsValuePredicate agePredicate = getAgePredicate(ageValues.toLowerCase(Locale.ROOT));
+            AgeContainsValuePredicate agePredicate = getAgePredicate(ageValues);
             predicates.add(agePredicate);
         }
         if (interestKeywords != null) {
             checkEmptyString(interestKeywords, PREFIX_INTEREST);
-            InterestContainsKeywordsPredicate interestPredicate = getInterestPredicate(
-                    interestKeywords.toLowerCase(Locale.ROOT)
-            );
+            InterestContainsKeywordsPredicate interestPredicate = getInterestPredicate(interestKeywords);
             predicates.add(interestPredicate);
         }
 

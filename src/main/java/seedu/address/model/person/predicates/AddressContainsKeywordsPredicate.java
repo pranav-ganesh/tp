@@ -30,10 +30,12 @@ public class AddressContainsKeywordsPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         if (isFindAll) {
             return keywords.stream()
-                    .allMatch(keyword -> person.getAddress().value.toLowerCase(Locale.ROOT).contains(keyword));
+                    .allMatch(keyword -> person.getAddress().value.toLowerCase(Locale.ROOT)
+                            .contains(keyword.toLowerCase(Locale.ROOT)));
         }
         return keywords.stream()
-                .anyMatch(keyword -> person.getAddress().value.toLowerCase(Locale.ROOT).contains(keyword));
+                .anyMatch(keyword -> person.getAddress().value.toLowerCase(Locale.ROOT).
+                        contains(keyword.toLowerCase(Locale.ROOT)));
     }
 
     @Override

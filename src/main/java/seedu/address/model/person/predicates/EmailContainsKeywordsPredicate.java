@@ -3,6 +3,7 @@ package seedu.address.model.person.predicates;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
@@ -29,10 +30,12 @@ public class EmailContainsKeywordsPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         if (isFindAll) {
             return keywords.stream()
-                    .allMatch(keyword -> person.getEmail().value.contains(keyword));
+                    .allMatch(keyword -> person.getEmail().value.toLowerCase(Locale.ROOT)
+                            .contains(keyword.toLowerCase(Locale.ROOT)));
         }
         return keywords.stream()
-                .anyMatch(keyword -> person.getEmail().value.contains(keyword));
+                .anyMatch(keyword -> person.getEmail().value.toLowerCase(Locale.ROOT)
+                        .contains(keyword.toLowerCase(Locale.ROOT)));
     }
 
     @Override

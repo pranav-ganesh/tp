@@ -33,10 +33,12 @@ public class InterestContainsKeywordsPredicate implements Predicate<Person> {
         ArrayList<Interest> personInterestsList = person.getInterests().getAllInterests();
         if (isFindAll) {
             return interests.stream().allMatch(interest -> personInterestsList
-                    .stream().anyMatch(interest1 -> interest1.value.toLowerCase(Locale.ROOT).contains(interest)));
+                    .stream().anyMatch(interest1 -> interest1.value.toLowerCase(Locale.ROOT)
+                            .contains(interest.toLowerCase(Locale.ROOT))));
         }
         return interests.stream().anyMatch(interest -> personInterestsList
-                        .stream().anyMatch(interest1 -> interest1.value.toLowerCase(Locale.ROOT).contains(interest)));
+                        .stream().anyMatch(interest1 -> interest1.value.toLowerCase(Locale.ROOT)
+                        .contains(interest.toLowerCase(Locale.ROOT))));
     }
 
     @Override
