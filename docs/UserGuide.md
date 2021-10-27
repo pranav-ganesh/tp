@@ -227,6 +227,8 @@ Examples:
   (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
 * If the last argument is not an integer, it will be interpreted as a `CATEGORY`.
   (e.g., `filter gender called` will be interpreted as `filter called`)
+* If more than one category is entered, the last category will be interpreted as the `CATEGORY`.
+  (e.g., `filter gender called 3` will be interpreted as `filter called 3`)
 
 
 **Common issues:**

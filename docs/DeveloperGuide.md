@@ -95,7 +95,7 @@ Here's a (partial) class diagram of the `Logic` component:
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a person).
+1. The command can communicate with the `Model` when it is executed (e.g. to add a contact).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -118,7 +118,7 @@ Additionally, here are other classes in `Logic` (omitted from the class diagram 
 <img src="images/ComparatorClasses.png" width="600"/>
 
 How the comparing works:
-* When called upon to compare persons, the `PersonComparator` class creates an `XYZComparator` (`XYZ` is a placeholder for the specific comparator name e.g., `GenderComparator`) which can be used to compare persons. The `PersonComparator` returns the `XYZComparator` object as a `Comparator` object.
+* When called upon to compare contacts, the `PersonComparator` class creates an `XYZComparator` (`XYZ` is a placeholder for the specific comparator name e.g., `GenderComparator`) which can be used to compare contacts. The `PersonComparator` returns the `XYZComparator` object as a `Comparator` object.
 * All `XYZComparator` classes (e.g., `GenderComparator`, `CalledComparator`, ...) inherit from the `Comparator` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -191,8 +191,8 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
     * Pros: Easier to implement.
     * Cons: Having to enter every field can be time-consuming for the user.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers to add a person
-who has already been called into the address book, all new persons added will have their isDone field set to false by default. Hence there
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers to add a contact
+who has already been called into the address book, all new contacts added will have their isDone field set to false by default. Hence there
 is no need for the user to specify the isDone field.
 </div>
 
@@ -211,10 +211,10 @@ The filter command is facilitated by the LogicManager.
 
 1. Command entered by user is passed into the LogicManager
 2. AddressBookParser parses the command
-3. AddressBookParser creates an FilterCommand
+3. AddressBookParser creates a FilterCommand
 4. LogicManager executes the FilterCommand and creates a Comparator with the category field specified by the user
-5. The Comparator is used to sort the FilteredList of persons in Model
-6. The count field specified by the user is used to limit the number of persons displayed in the GUI
+5. The Comparator is used to sort the FilteredList of contacts in Model
+6. The count field specified by the user is used to limit the number of contacts displayed in the GUI
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the execute("filter gender 3") API call.
 
@@ -232,9 +232,9 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
 
 * **Alternative 2:** Both fields are compulsory
     * Pros: Easier to implement.
-    * Cons: User has to choose how many persons to be displayed every time.
+    * Cons: User has to choose how many contacts to be displayed every time.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers sort persons
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers sort contacts
 by categories other than "Gender" and "Called", those are the only categories supported by the filter command. 
 </div>
 
@@ -242,7 +242,7 @@ As the key intention is for users to filter by `Category`, it is kept as a compu
 
 On the other hand, filtering by `Count` is an additional feature. Hence, it is non-compulsory.
 
-The current design implementation allows users to filter persons quickly and gives the flexibility to further filter
+The current design implementation allows users to filter contacts quickly and gives the flexibility to further filter
 the results if they ever want to.
 
 ### \[Proposed\] Undo/redo feature
@@ -263,11 +263,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new contact. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -275,7 +275,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
@@ -320,7 +320,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `delete`, just save the contact being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -366,11 +366,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
 | `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
 | `* * *`  | Telemarketer                               | import data from an excel file | work on the list of contacts that was  set for me by my manager        |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
+| `* * *`  | user                                       | add a new contact               |                                                                        |
+| `* * *`  | user                                       | delete a contact                | remove entries that I no longer need                                   |
+| `* * *`  | user                                       | find a contact by name          | locate details of contacts without having to go through the entire list |
 | `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | filter persons                 | locate persons who have not been called quickly                                              |
+| `*`      | user with many contacts in the address book | filter contacts                 | locate contacts who have not been called quickly                                              |
 
 *{More to be added}*
 
@@ -378,17 +378,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is `CallMeMaybe` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use Case 1: Add a person**
+**Use Case 1: Add a contact**
 
 System : CallMeMaybe (CMM) </br>
-Use Case : UC1 - Add a person </br>
+Use Case : UC1 - Add a contact </br>
 Actor : User </br>
-Guarantees: New person will be added to the address book
+Guarantees: New contact will be added to the address book
 
 **MSS**
 
-1. User requests to add a person
-2. Person gets added into the address book
+1. User requests to add a contact
+2. Contact gets added into the address book
 
     Use case ends.
 
@@ -400,17 +400,17 @@ Guarantees: New person will be added to the address book
 
     Use case resumes at step 1
 
-**Use Case 2: List persons**
+**Use Case 2: List contacts**
 
 System : CallMeMaybe (CMM) </br>
-Use Case : UC2 - List persons </br>
+Use Case : UC2 - List contacts </br>
 Actor : User </br>
-Guarantees: Persons in the address book will be listed
+Guarantees: Contacts in the address book will be listed
 
 **MSS**
 
-1. User requests to list persons
-2. All persons in the address book is listed
+1. User requests to list contacts
+2. All contacts in the address book is listed
 
     Use case ends
 
@@ -420,18 +420,18 @@ Guarantees: Persons in the address book will be listed
 
     Use case ends
 
-**Use Case 3: Delete a person**
+**Use Case 3: Delete a contact**
 
 System : CallMeMaybe (CMM) </br>
-Use Case : UC3 - Delete a person </br>
+Use Case : UC3 - Delete a contact </br>
 Actor : User </br>
-Guarantees: Selected person will be deleted from the address book
+Guarantees: Selected contact will be deleted from the address book
 
 **MSS**
 
-1. User requests to list persons (UC2)
-2. User requests to delete a specific person in the list
-3. AddressBook deletes the person
+1. User requests to list contacts (UC2)
+2. User requests to delete a specific contact in the list
+3. AddressBook deletes the contact
 
     Use case ends.
 
@@ -447,18 +447,18 @@ Guarantees: Selected person will be deleted from the address book
 
       Use case resumes at step 2.
 
-**Use Case 4: Mark a person as done**
+**Use Case 4: Mark a contact as done**
 
 System : CallMeMaybe (CMM) </br>
-Use Case : UC4 - Mark person as called </br>
+Use Case : UC4 - Mark contact as called </br>
 Actor : User </br>
-Guarantees: Selected person will be marked as called
+Guarantees: Selected contact will be marked as called
 
 **MSS**
 
-1. User requests to list persons (UC2)
-2. User requests to mark a person as called
-3. Address book marks the selected person as called
+1. User requests to list contacts (UC2)
+2. User requests to mark a contact as called
+3. Address book marks the selected contact as called
 
 **Extensions**
 
@@ -535,17 +535,17 @@ MSS:
 2. CMM exports database into excel file to a CMM-specified location
    Use case ends.
 
-**Use Case 7: Filter persons**
+**Use Case 7: Filter contacts**
 
 System : CallMeMaybe (CMM) </br>
-Use Case : UC7 - Filter persons </br>
+Use Case : UC7 - Filter contacts </br>
 Actor : User </br>
-Guarantees: Persons will be sorted by category specified
+Guarantees: Contacts will be sorted by category specified
 
 **MSS**
 
-1. User requests to filter persons
-2. Persons be filtered based on the fields specified by the user.
+1. User requests to filter contacts
+2. Contacts be filtered based on the fields specified by the user.
 
    Use case ends.
 
@@ -568,7 +568,7 @@ Guarantees: Persons will be sorted by category specified
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  Portability of database is expected as Telemarketers tend to work in a team setting.
 
@@ -610,38 +610,38 @@ testers are expected to do more *exploratory* testing.
 
 3. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a contact
 
-1. Deleting a person while all persons are being shown
+1. Deleting a contact while all contacts are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
 
    2. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    3. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 2. _{ more test cases …​ }_
 
-### Filtering persons
+### Filtering contacts
 
-1. Filtering all persons
+1. Filtering all contacts
 
     1. Test case: `filter gender`<br>
-       Expected: All persons are displayed, sorted by gender.
+       Expected: All contacts are displayed, sorted by gender.
 
     2. Test case: `filter called 1`<br>
-       Expected: Sort persons based on whether they are called. Only the first person is displayed.
+       Expected: Sort contacts based on whether they are called. Only the first contact is displayed.
 
     3. Test case: `filter called 0`<br>
-       Expected: Persons are not filtered. Error details shown in the status message. Status bar remains the same.
+       Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
     
     4. Test case: `filter address 0`<br>
-       Expected: Persons are not filtered. Error details shown in the status message. Status bar remains the same.
+       Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
 
     5. Other incorrect delete commands to try: `filter`, `filter x` (where x is an invalid category), 
        `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
