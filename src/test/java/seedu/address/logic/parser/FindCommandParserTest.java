@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.CombinedPredicate;
+import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -26,7 +27,19 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_oneInvalidField_throwsParseException() {
+        assertParseFailure(parser, "  nn/test",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_emptyField_throwsParseException() {
+        assertParseFailure(parser, " g/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommandParser.EMPTY_FIELD_MESSAGE + "g/"));
+    }
+
+    @Test
+    public void parse_oneValidField_returnsFindCommand() {
         // no leading and trailing whitespaces
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
         predicates.add(new NameContainsKeywordsPredicate(Arrays.asList("alice", "bob"), false));
@@ -38,5 +51,23 @@ public class FindCommandParserTest {
 
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " n/\n Alice \n \t Bob  \t", expectedFindCommand);
+    }
+
+    @Test
+    public void parse_multipleValidFields_returnsFindCommand() {
+        // no leading and trailing whitespaces
+        ArrayList<Predicate<Person>> predicates = new ArrayList<>();
+
+        predicates.add(new NameContainsKeywordsPredicate(Arrays.asList("alice", "bob"), false));
+        predicates.add(new EmailContainsKeywordsPredicate(Arrays.asList("gmail", "yahoo"), false));
+
+        CombinedPredicate predicate = new CombinedPredicate(predicates, false);
+
+        FindCommand expectedFindCommand = new FindCommand(predicate);
+
+        assertParseSuccess(parser, " n/Alice Bob e/gmail yahoo", expectedFindCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, " n/\n Alice \n \t Bob  \t e/\n gmail \t yahoo", expectedFindCommand);
     }
 }

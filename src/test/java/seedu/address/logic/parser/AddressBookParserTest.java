@@ -20,6 +20,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
+import seedu.address.logic.commands.FindAllCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -79,6 +80,20 @@ public class AddressBookParserTest {
         predicates.add(new NameContainsKeywordsPredicate(keywords, false));
         CombinedPredicate predicate = new CombinedPredicate(predicates, false);
         assertEquals(new FindCommand(predicate), command);
+    }
+
+    @Test
+    public void parseCommand_findAll() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindAllCommand command = (FindAllCommand) parser.parseCommand(
+                FindAllCommand.COMMAND_WORD + " n/foo bar baz");
+
+        ArrayList<Predicate<Person>> predicates = new ArrayList<>();
+        predicates.add(new NameContainsKeywordsPredicate(keywords, false));
+
+        CombinedPredicate predicate = new CombinedPredicate(predicates, false);
+
+        assertEquals(new FindAllCommand(predicate), command);
     }
 
     @Test
