@@ -16,7 +16,6 @@ if () then ([command is valid])
         : UiManager communicates with MainWindow;
         : MainWindow displays the details of the selected contact;
     endif
-
 else ([else])
     : Application outputs an error message;
 endif

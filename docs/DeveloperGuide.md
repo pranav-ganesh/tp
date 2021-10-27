@@ -197,11 +197,11 @@ at the same time, improve user experience by reducing time required for users to
 
 ### Display feature
 
-The display command is facilitated by the LogicManager. The `LogicManager#execute()` executes the DisplayCommand 
-that it is passed from `DisplayCommandParser#parse()`. The `DisplayCommandParser#parse()` is used to parse the 
+The display command is facilitated by the LogicManager. The `LogicManager#execute()` executes the DisplayCommand
+that it is passed from `DisplayCommandParser#parse()`. The `DisplayCommandParser#parse()` is used to parse the
 command arguments in the context of DisplayCommand and returns a DisplayCommand object for execution.
 
-This feature allows telemarketers to display additional details about a contact at any point in time 
+This feature allows telemarketers to display additional details about a contact at any point in time
 if they need to.
 
 **Given below is an example usage scenario and how the display mechanism behaves at each step.**
@@ -209,7 +209,7 @@ if they need to.
 1. The telemarketer opens the application and views the list of contacts. Then they want to view more details
 about a particular contact. They enter the command `display 2`
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the user enters the command in an 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the user enters the command in an
    incorrect format, then an invalid command format message is displayed along with the correct format to use.
 
 </div>
@@ -473,7 +473,7 @@ Guarantees: CMM Database will be set
 
 2. CMM ask whether to start creation new Database using import data or insert into existing database, upon startup
 3. User determines import setting
-4. CMM imports the file  
+4. CMM imports the file
    Use case ends.
 
 **Extensions**
@@ -551,11 +551,11 @@ Guarantees: Selected person's additional details will be displayed
     * 2a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
-  
+ 
 * 2b. The selected person is already being displayed
 
     * 2b1. Application shows a message saying the person is already being displayed
-      
+   
       Use case resumes at step 2.
 
 *{More to be added}*
@@ -620,7 +620,7 @@ testers are expected to do more *exploratory* testing.
 
 2. _{ more test cases …​ }_
 
-### Displaying a person 
+### Displaying a person
 
 1. Displaying a contact while all contacts are being shown
 
@@ -634,7 +634,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Other incorrect delete commands to try: `display`, `display x` (where x is larger than the list size)<br>
        Expected: Similar to previous.
-         
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
