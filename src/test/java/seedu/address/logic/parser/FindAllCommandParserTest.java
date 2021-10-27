@@ -10,15 +10,16 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.FindAllCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.CombinedPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 
-public class FindCommandParserTest {
+public class FindAllCommandParserTest {
 
-    private FindCommandParser parser = new FindCommandParser();
+    private FindAllCommandParser parser = new FindAllCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
@@ -39,18 +40,18 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_oneValidField_returnsFindCommand() {
+    public void parse_oneValidField_returnsFindAllCommand() {
         // no leading and trailing whitespaces
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
-        predicates.add(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), false));
-        CombinedPredicate predicate = new CombinedPredicate(predicates, false);
+        predicates.add(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), true));
+        CombinedPredicate predicate = new CombinedPredicate(predicates, true);
 
-        FindCommand expectedFindCommand =
-                new FindCommand(predicate);
-        assertParseSuccess(parser, " n/Alice Bob", expectedFindCommand);
+        FindAllCommand expectedFindAllCommand =
+                new FindAllCommand(predicate);
+        assertParseSuccess(parser, " n/Alice Bob", expectedFindAllCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " n/\n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " n/\n Alice \n \t Bob  \t", expectedFindAllCommand);
     }
 
     @Test
@@ -58,16 +59,16 @@ public class FindCommandParserTest {
         // no leading and trailing whitespaces
         ArrayList<Predicate<Person>> predicates = new ArrayList<>();
 
-        predicates.add(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), false));
-        predicates.add(new EmailContainsKeywordsPredicate(Arrays.asList("gmail", "yahoo"), false));
+        predicates.add(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), true));
+        predicates.add(new EmailContainsKeywordsPredicate(Arrays.asList("gmail", "yahoo"), true));
 
-        CombinedPredicate predicate = new CombinedPredicate(predicates, false);
+        CombinedPredicate predicate = new CombinedPredicate(predicates, true);
 
-        FindCommand expectedFindCommand = new FindCommand(predicate);
+        FindAllCommand expectedFindAllCommand = new FindAllCommand(predicate);
 
-        assertParseSuccess(parser, " n/Alice Bob e/gmail yahoo", expectedFindCommand);
+        assertParseSuccess(parser, " n/Alice Bob e/gmail yahoo", expectedFindAllCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " n/\n Alice \n \t Bob  \t e/\n gmail \t yahoo", expectedFindCommand);
+        assertParseSuccess(parser, " n/\n Alice \n \t Bob  \t e/\n gmail \t yahoo", expectedFindAllCommand);
     }
 }

@@ -63,6 +63,7 @@ public class GenderContainsKeywordPredicate implements Predicate<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof GenderContainsKeywordPredicate // instanceof handles nulls
-                && keywords.equals(((GenderContainsKeywordPredicate) other).keywords)); // state check
+                && keywords.equals(((GenderContainsKeywordPredicate) other).keywords))
+                && isFindAll == ((GenderContainsKeywordPredicate) other).isFindAll; // state check
     }
 }

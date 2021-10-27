@@ -40,6 +40,7 @@ public class CombinedPredicate implements Predicate<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CombinedPredicate // instanceof handles nulls
-                && predicates.equals(((CombinedPredicate) other).predicates)); // state check
+                && predicates.equals(((CombinedPredicate) other).predicates))
+                && isFindAll == ((CombinedPredicate) other).isFindAll; // state check
     }
 }

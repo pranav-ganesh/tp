@@ -63,6 +63,7 @@ public class DonePredicate implements Predicate<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DonePredicate // instanceof handles nulls
-                && keywords.equals(((DonePredicate) other).keywords)); // state check
+                && keywords.equals(((DonePredicate) other).keywords))
+                && isFindAll == ((DonePredicate) other).isFindAll; // state check
     }
 }

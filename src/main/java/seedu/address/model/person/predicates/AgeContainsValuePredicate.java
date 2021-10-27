@@ -39,6 +39,7 @@ public class AgeContainsValuePredicate implements Predicate<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AgeContainsValuePredicate // instanceof handles nulls
-                && ages.equals(((AgeContainsValuePredicate) other).ages)); // state check
+                && ages.equals(((AgeContainsValuePredicate) other).ages))
+                && isFindAll == ((AgeContainsValuePredicate) other).isFindAll; // state check
     }
 }

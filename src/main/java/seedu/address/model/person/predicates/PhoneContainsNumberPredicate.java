@@ -39,6 +39,7 @@ public class PhoneContainsNumberPredicate implements Predicate<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PhoneContainsNumberPredicate // instanceof handles nulls
-                && numbers.equals(((PhoneContainsNumberPredicate) other).numbers)); // state check
+                && numbers.equals(((PhoneContainsNumberPredicate) other).numbers))
+                && isFindAll == ((PhoneContainsNumberPredicate) other).isFindAll; // state check
     }
 }
