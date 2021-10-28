@@ -86,7 +86,7 @@ Adds a contact to the CMM database.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have multiple interests (including 0)
 </div>
 
@@ -199,7 +199,7 @@ The full details of the contact are shown on the right side of the application (
 
 Format: `display INDEX`
 
-Example: 
+Example:
 * `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
