@@ -16,10 +16,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Person;
-import seedu.address.ui.FullPersonCard;
-import seedu.address.ui.UiManager;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for DisplayCommand.
@@ -42,25 +39,6 @@ public class DisplayCommandTest {
         DisplayCommand displayCommand = new DisplayCommand(INDEX_SECOND_PERSON);
 
         String expectedMessage = String.format(DisplayCommand.MESSAGE_DISPLAY_SUCCESS, person);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-
-        assertCommandSuccess(displayCommand, model, expectedMessage, expectedModel);
-    }
-
-
-    @Test
-    public void execute_personAlreadyDisplayed_showAppropriateMessage() {
-        Person person = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getOneBased());
-        Person displayedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                new IsDone("TRUE"), person.getAddress(), person.getGender(), person.getAge(), person.getInterests());
-        model.setPerson(person, displayedPerson);
-        int intDisplayIndex = INDEX_SECOND_PERSON.getOneBased();
-        FullPersonCard.setDisplayedIndex(intDisplayIndex);
-        UiManager.displayFunction();
-        DisplayCommand displayCommand = new DisplayCommand(INDEX_SECOND_PERSON);
-
-        String expectedMessage = String.format(DisplayCommand.MESSAGE_ALREADY_DISPLAYED_CALL, person);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
