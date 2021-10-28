@@ -3,6 +3,7 @@ package seedu.address.logic.comparators;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
+import java.util.Locale;
 
 import seedu.address.model.person.Person;
 
@@ -14,7 +15,9 @@ public class NameComparator implements Comparator<Person> {
     @Override
     public int compare(Person a, Person b) {
         requireAllNonNull(a, b);
-        return a.getName().fullName.compareTo(b.getName().fullName);
+        String aNameInUpperCase = a.getName().fullName.toUpperCase(Locale.ROOT);
+        String bNameInUpperCase = b.getName().fullName.toUpperCase(Locale.ROOT);
+        return aNameInUpperCase.compareTo(bNameInUpperCase);
     }
 
     @Override

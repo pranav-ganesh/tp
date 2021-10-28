@@ -86,7 +86,7 @@ Adds a contact to the CMM database.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have multiple interests (including 0)
 </div>
 
@@ -108,6 +108,9 @@ Examples:
 Shows a list of all contacts in the CMM database.
 
 Format: `list`
+
+**Things to note:**
+* `list` shows all contacts in ascending order by name.
 
 ### Marking a person as called : `done`
 
@@ -133,8 +136,8 @@ Edits an existing contact in the CMM database.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** 
-Specifying [INTERESTLIST INDEX] is optional as well. <br/> 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Specifying [INTERESTLIST INDEX] is optional as well. <br/>
 If [INTERESTLIST INDEX] is specified, the interest at that index would be updated. <br/>
 If it is not, then an interest would be added instead. <br/>
 You can refer to the examples below for a better understanding.
@@ -149,7 +152,7 @@ Examples:
 
 * `INDEX` refers to the index number shown in the displayed list.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
-* `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact. 
+* `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact.
 * `INTERESTSLIST INDEX` **must be a positive integer** 1, 2, 3, …​
 *  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
@@ -189,19 +192,51 @@ Example:
 ### Displaying full contact details : `display`
 
 Displays additional information of a particular contact stored in the application. These include the
-address, gender, age and their interests. 
+address, gender, age and their interests.
 
 The full details of the contact are shown on the right side of the application (inside the white box).
 ![displayUi](images/displayUi.png)
 
 Format: `display INDEX`
 
-Example: 
+Example:
 * `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
 * _The person index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
+
+### Filtering contacts : `filter`
+
+Filters the existing contacts in the CMM database. The displayed list will show contacts sorted by the chosen category.
+
+Format: `filter CATEGORY [COUNT]`
+
+Examples:
+* `filter called` filters the displayed list to show uncalled contacts first
+* `filter called 2` filters the displayed list to show uncalled contacts first and to only show the first two contacts
+* `filter gender 3` filters the displayed list to show female contacts first and to only show the first three contacts
+
+**Things to note:**
+* `CATEGORY` field is mandatory
+* `CATEGORY` refers to the category used to filter the contacts.
+* `CATEGORY` **must be one of the following:** called, gender
+* `COUNT` refers to the number of contacts to be shown in the displayed list.
+* `COUNT` **must be a positive integer** 1, 2, 3, …​
+* If more arguments are given than what is required, the last two arguments are taken into account.
+  (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
+* If the last argument is not an integer, it will be interpreted as a `CATEGORY`.
+  (e.g., `filter gender called` will be interpreted as `filter called`)
+* If more than one category is entered, the last category will be interpreted as the `CATEGORY`.
+  (e.g., `filter gender called 3` will be interpreted as `filter called 3`)
+
+
+**Common issues:**
+* _Category can only be either "called" or "gender"_: <br />
+  a. The category specified is not `called` or `gender` <br />
+  b. Category not specified
+* _Count is not a non-zero unsigned integer_: <br />
+  a. The last argument is not a positive integer
 
 ### Clearing all contacts : `clear`
 
@@ -227,14 +262,14 @@ CMM data are saved in the hard disk automatically after any command that changes
 CMM is able to import CSV files into CMM. The import files have to be in an Excel CSV format (semicolon delimited).
 
 **Steps to Import from CSV file**
-1. Ensure that the Excel file is a CSV file with **semicolon delimited**. 
+1. Ensure that the Excel file is a CSV file with **semicolon delimited**.
    Instructions on how to import to this file type can be found [here](SettingImportFileType.md)
 2. Ensure that the import file is named import.csv under the "data" folder found in the same directory as the CMM jar file
 3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Imports`, `Start New Using Import`, `Don't Import`
 
 ![importPopUpUi](images/importPopUpMessage.png)
 
-**Import options**  
+**Import options**
 
 `Add On Imports`
 - Adds on new imports into existing database
@@ -265,7 +300,6 @@ d. Headers are not case-sensitive<br/>
 * `CSV file not found in data\import.csv` message was shown. <br/>
 a. This could either mean that the file does not exist at the specified location or <br/>
 b. The file was incorrectly named
-  
 * Data not imported despite correct import file placement and naming <br/>
 a. File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
          to correctly format your file.
@@ -311,6 +345,7 @@ Action | Format, Examples
 **edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g. `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
 **Display** | `display INDEX` <br> e.g. `display 4`
+**Filter** | `filter CATEGORY [COUNT]` <br> e.g. `filter gender 5`
 **Clear** | `clear`
 **Exit** | `exit`
 **Help** | `help`
