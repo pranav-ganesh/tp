@@ -18,7 +18,6 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> PersonComparator
 
 PersonComparator .down.> XYZComparator: creates >
-PersonComparator .down.> XYZComparator: returns >
 
 XYZComparator .right.> Person : compares >
 XYZComparator .up.|> Comparator
