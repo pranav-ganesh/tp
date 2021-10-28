@@ -178,7 +178,8 @@ Format: `delete INDEX`
 Example:
 * `delete 2` deletes the 2nd contact in the displayed list.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Deleting is irreversible, please use with caution.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Deleting is irreversible,
+please use with caution.
 </div>
 
 **Things to note:**
@@ -188,6 +189,41 @@ Example:
 **Common issues:**
 * _The index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
+  
+### Finding contacts that matches **ANY** of the keywords specified: `findAny`
+
+Finds persons whose details match any of the fields listed
+
+Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] 
+[d/DONE…​] [i/INTEREST…​]`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+FndAny requires at least one field. It is optional to include all the fields.
+However, to ensure consistency, each field should be written at most once. **If** there are duplicate fields, CMM will
+only take the latest field (right-most in CLI)
+</div>
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* Any number of keywords can be specified within each field
+* The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
+as `n/Bo Hans`
+
+Examples:
+* `findAny n/John` returns `john` and `John Doe`
+* `findAny n/alex david` returns `Alex Yeoh`, `David Li`<br>
+* `findAny n/alex david a/woodlands returns `Alex Yeoh`, `David Li` even though Alex lives in Sengkang 
+    * Alex Yeoh is returned as Alex satisfies the name field
+* `findAny n/alex david e/@yahoo returns `Alex Yeoh`, `David Li` even though Alex lives only has a gmail account
+    * Alex Yeoh is returned as Alex satisfies the name field
+
+**Things to note:**
+* findAll vs findAny
+    * findAll searches for contacts that satisfies **all** the fields specified
+    * findAny searches for contacts that satisfied **any** of the fields specified
+
+**Common issues:**
+* Wrong command given due to incorrect format. Only `findAny` is accepted.
+* No fields provided will result in an error message
 
 ### Displaying full contact details : `display`
 
