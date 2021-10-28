@@ -203,6 +203,45 @@ On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complem
 The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while
 at the same time, improve user experience by reducing time required for users to type the command.
 
+### Display feature
+
+The display command is facilitated by the LogicManager. The `LogicManager#execute()` executes the DisplayCommand
+that it is passed from `DisplayCommandParser#parse()`. The `DisplayCommandParser#parse()` is used to parse the
+command arguments in the context of DisplayCommand and returns a DisplayCommand object for execution.
+
+This feature allows telemarketers to display additional details about a contact at any point in time
+if they need to.
+
+**Given below is an example usage scenario and how the display mechanism behaves at each step.**
+
+1. The telemarketer opens the application and views the list of contacts. Then they want to view more details
+about a particular contact. They enter the command `display 2`
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the user enters the command in an
+   incorrect format, then an invalid command format message is displayed along with the correct format to use.
+
+</div>
+
+2. Command entered by user is passed into the LogicManager which directs it to AddressBookParser
+
+3. AddressBookParser parses the command
+
+4. AddressBookParser creates a DisplayCommand with the index (i.e., 2) specified by the user
+
+5. LogicManager executes the DisplayCommand and the contact to be displayed is obtained from the list of contacts
+
+6. The UiManager then executes the displaying process by communicating with the MainWindow
+
+7. The MainWindow, where the relevant JavaFX elements are placed, then shows the details of the selected contact
+
+The following sequence diagram shows how the display operation works when the telemarketer enters `display 2`:
+
+![Interactions Inside the Logic Component for the `display' Command](images/DisplaySequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a display command:
+
+![DisplayActivityDiagram](images/DisplayActivityDiagram.png)
+
 ### Filter feature
 
 The filter command is facilitated by the LogicManager.
@@ -315,6 +354,7 @@ The following activity diagram summarizes what happens when a user executes an e
 
     * Cons: Implementation gets messy, violates the law of abstraction, and more prone to errors.
 
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -399,7 +439,6 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -436,9 +475,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
 | `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
 | `* * *`  | Telemarketer                               | import data from an excel file | work on the list of contacts that was  set for me by my manager        |
-| `* * *`  | user                                       | add a new contact               |                                                                        |
-| `* * *`  | user                                       | delete a contact                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a contact by name          | locate details of contacts without having to go through the entire list |
+| `* * *`  | user                                       | add a new person               |                                                                        |
+| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
+| `* * *`  | user                                       | display a person               | display additional details about a particular contact                  |
+| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
 | `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
 | `*`      | user with many contacts in the address book | filter contacts                 | locate contacts who have not been called quickly                                              |
 
@@ -592,7 +632,6 @@ Guarantees: CMM Database will be set
     * *a3. No changes are made in CMM Database
     * *a4. CMM starts as per normal
 
-
 **Use Case 6: Exporting current database into excel file**
 
 System : CallMeMaybe (CMM) </br>
@@ -605,10 +644,39 @@ MSS:
 2. CMM exports database into excel file to a CMM-specified location
    Use case ends.
 
-**Use Case 7: Filter contacts**
+**Use Case 7: Displaying additional details about a person**
 
 System : CallMeMaybe (CMM) </br>
-Use Case : UC7 - Filter contacts </br>
+Use Case : UC7 - Display a person </br>
+Actor : User </br>
+Guarantees: Selected person's additional details will be displayed
+
+**MSS**
+
+1. User requests to list persons (UC2)
+2. User requests to display a specific person in the list
+3. Application displays the person in a new window
+
+* 1a. The list is empty.
+
+  Use case ends.
+
+* 2a. The given index is invalid.
+
+    * 2a1. AddressBook shows an error message.
+
+      Use case resumes at step 2.
+ 
+* 2b. The selected person is already being displayed
+
+    * 2b1. Application shows a message saying the person is already being displayed
+   
+      Use case resumes at step 2.
+
+**Use Case 8: Filter contacts**
+
+System : CallMeMaybe (CMM) </br>
+Use Case : UC8 - Filter contacts </br>
 Actor : User </br>
 Guarantees: Contacts will be sorted by category specified
 
@@ -697,6 +765,22 @@ testers are expected to do more *exploratory* testing.
 
 2. _{ more test cases …​ }_
 
+
+### Displaying a person
+
+1. Displaying a contact while all contacts are being shown
+
+    1. Prerequisites: List all persons using the `list` command.
+
+    1. Test case: `display 2`<br>
+        Expected: Second contact is displayed from the list.
+
+    1. Test case: `display 0`<br>
+       Expected: The default contact (i.e, first contact) is displayed. Error details shown in the status message.
+
+    1. Other incorrect delete commands to try: `display`, `display x` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
 ### Filtering contacts
 
 1. Filtering all contacts
@@ -718,6 +802,7 @@ testers are expected to do more *exploratory* testing.
        Expected: Similar to previous.
 
 3. _{ more test cases …​ }_
+
 
 ### Saving data
 
