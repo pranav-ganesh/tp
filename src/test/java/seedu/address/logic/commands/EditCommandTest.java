@@ -135,13 +135,11 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonFilteredList_failure() {
         // showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
         // edit person in filtered list into a duplicate in address book
         Person person = TypicalPersons.DANIEL;
         // Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(person).build());
-
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }*/
 

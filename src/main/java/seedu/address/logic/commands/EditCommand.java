@@ -126,11 +126,11 @@ public class EditCommand extends Command {
     public void editInterestList(InterestsList newList, InterestsList currentList) throws CommandException {
         for (Interest i : newList.getAllInterests()) {
             String s = i.toString();
-            this.helper(s, currentList);
+            this.editSpecifiedInterest(s, currentList);
         }
     }
 
-    private void helper(String s, InterestsList currentList) throws CommandException {
+    private void editSpecifiedInterest(String s, InterestsList currentList) throws CommandException {
         if (s.substring(0, 1).equals("[")) {
             String pos = s.substring(s.indexOf("[") + 1, s.indexOf("]"));
             int index = Integer.parseInt(pos) - 1;
