@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindAllCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindAnyCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.CombinedPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
@@ -24,19 +24,19 @@ public class FindAllCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAnyCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_oneInvalidField_throwsParseException() {
         assertParseFailure(parser, "  nn/test",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAnyCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_emptyField_throwsParseException() {
         assertParseFailure(parser, " g/",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommandParser.EMPTY_FIELD_MESSAGE + "g/"));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAnyCommandParser.EMPTY_FIELD_MESSAGE + "g/"));
     }
 
     @Test

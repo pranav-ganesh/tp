@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindAllCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindAnyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
@@ -49,7 +49,7 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST);
 
         if (!arePrefixesPresent(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAnyCommand.MESSAGE_USAGE));
         }
 
         String nameKeywords = argMultimap.getValue(PREFIX_NAME).orElse(null);

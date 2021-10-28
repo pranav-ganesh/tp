@@ -166,6 +166,10 @@ Examples:
 * _Invalid command arguments_: <br />
     a. Duplicate of the edited person already exists on the address book. <br />
 
+### Finding a contact: `find`
+
+Format: `find [n/NAME...] [p/PHONE...] [e/EMAIL...] [a/ADDRESS...] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
+
 ### Deleting a contact : `delete`
 
 Deletes the specified contact from the CMM database.

@@ -19,7 +19,7 @@ public class FindAllCommand extends Command {
     public static final String COMMAND_WORD = "findAll";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose fields matches "
-            + "the ALL the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "ALL the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]...\n"
             + "Example: " + COMMAND_WORD + " n/alice  g/F age/15";
 

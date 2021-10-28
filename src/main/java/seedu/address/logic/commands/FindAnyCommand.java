@@ -14,18 +14,18 @@ import seedu.address.ui.UiManager;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindAnyCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "findAny";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose fields matches "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]...\n"
             + "Example: " + COMMAND_WORD + " n/alice  g/F age/15";
 
     private final Predicate<Person> predicate;
 
-    public FindCommand(Predicate<Person> predicate) {
+    public FindAnyCommand(Predicate<Person> predicate) {
         this.predicate = predicate;
     }
 
@@ -49,7 +49,7 @@ public class FindCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof FindAnyCommand // instanceof handles nulls
+                && predicate.equals(((FindAnyCommand) other).predicate)); // state check
     }
 }

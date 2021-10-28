@@ -56,14 +56,14 @@ public class FindAllCommandTest {
         CombinedPredicate firstPredicate = new CombinedPredicate(firstPredicateList, false);
         CombinedPredicate secondPredicate = new CombinedPredicate(secondPredicateList, false);
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindAnyCommand findFirstCommand = new FindAnyCommand(firstPredicate);
+        FindAnyCommand findSecondCommand = new FindAnyCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindAnyCommand findFirstCommandCopy = new FindAnyCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -82,7 +82,7 @@ public class FindAllCommandTest {
 
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = prepareNamePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(predicate);
+        FindAnyCommand command = new FindAnyCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(List.of(), model.getFilteredPersonList());

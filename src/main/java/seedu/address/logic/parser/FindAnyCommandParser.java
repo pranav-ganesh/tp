@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindAnyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
@@ -32,7 +32,7 @@ import seedu.address.model.person.predicates.PhoneContainsNumberPredicate;
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-public class FindCommandParser implements Parser<FindCommand> {
+public class FindAnyCommandParser implements Parser<FindAnyCommand> {
 
     public static final String EMPTY_FIELD_MESSAGE = "Fields provided can be anything but cannot be an empty string \n"
             + "Found one violation at: ";
@@ -42,13 +42,13 @@ public class FindCommandParser implements Parser<FindCommand> {
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindCommand parse(String args) throws ParseException {
+    public FindAnyCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DONE,
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST);
 
         if (!arePrefixesPresent(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAnyCommand.MESSAGE_USAGE));
         }
 
         String nameKeywords = argMultimap.getValue(PREFIX_NAME).orElse(null);
@@ -105,7 +105,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         CombinedPredicate combinedPredicate = new CombinedPredicate(predicates, false);
 
-        return new FindCommand(combinedPredicate);
+        return new FindAnyCommand(combinedPredicate);
     }
 
     /**
