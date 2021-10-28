@@ -218,8 +218,8 @@ Examples:
 
 **Things to note:**
 * findAll vs findAny
-    * findAll searches for contacts that satisfies **all** the fields specified
-    * findAny searches for contacts that satisfied **any** of the fields specified
+    * findAll searches for contacts that satisfy **all** the fields specified
+    * findAny searches for contacts that satisfy **any** of the fields specified
 
 **Common issues:**
 * Wrong command given due to incorrect format. Only `findAny` is accepted.
