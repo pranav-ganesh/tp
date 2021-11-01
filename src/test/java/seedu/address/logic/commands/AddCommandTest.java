@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-import javafx.collections.transformation.SortedList;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
