@@ -62,7 +62,7 @@ public class FullPersonCard extends UiPart<Region> {
     public FullPersonCard(ObservableList<Person> persons, double windowWidth) {
         super(FXML);
 
-        fullPersonDetails.setPrefWidth(windowWidth / 3 );
+        fullPersonDetails.setPrefWidth(windowWidth / 3);
         //cardPane.setPrefWidth(windowWidth / 3);
         try {
             this.person = persons.get(displayedIndex - 1);
