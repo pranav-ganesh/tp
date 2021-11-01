@@ -80,8 +80,8 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
             predicates.add(emailPredicate);
         }
         if (doneKeywords != null) {
-            checkTrueOrFalse(doneKeywords);
             checkEmptyString(doneKeywords, PREFIX_DONE);
+            checkTrueOrFalse(doneKeywords);
             DonePredicate donePredicate = getDonePredicate(doneKeywords);
             predicates.add(donePredicate);
         }
@@ -92,6 +92,7 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
         }
         if (genderKeywords != null) {
             checkEmptyString(genderKeywords, PREFIX_GENDER);
+            checkMaleOrFemale(genderKeywords);
             GenderContainsKeywordPredicate genderPredicate = getGenderPredicate(genderKeywords);
             predicates.add(genderPredicate);
         }
@@ -179,7 +180,7 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
     }
 
     /**
-     * Checks if the string supplied is either "t", "true", "f" or "false".
+     * Checks if the string supplied is either "t", "true", "f" or "false".(case-insensitive)
      * @param s The String to be checked
      * @return True if the string supplied is either "t", "true", "f" or "false". False otherwise
      */
@@ -191,6 +192,23 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
             if (!(test.equals("t") || test.equals("true")
                     || test.equals("f") || test.equals("false"))) {
                 throw new ParseException("'d/' can only be followed by 't','f', 'true', or 'false'");
+            }
+        }
+    }
+
+    /**
+     * Checks if the string supplied is either "m", "male", "f", "female" or "n.a". (case-insensitive)
+     * @param s The String to be checked
+     * @return True if the string supplied is either "t", "true", "f" or "false". False otherwise
+     */
+    private void checkMaleOrFemale(String s) throws ParseException {
+        String[] testStrings = s.split("\\s+");
+
+        for (String test : testStrings) {
+            test = test.toLowerCase(Locale.ROOT);
+            if (!(test.equals("m") || test.equals("male")
+                    || test.equals("f") || test.equals("female") || test.equals("n.a"))) {
+                throw new ParseException("'g/' can only be followed by 'm','f', 'male', 'female' or 'N.A'");
             }
         }
     }
