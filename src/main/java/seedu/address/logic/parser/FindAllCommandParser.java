@@ -49,7 +49,7 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST);
 
         if (!arePrefixesPresent(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAnyCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAllCommand.MESSAGE_USAGE));
         }
 
         String nameKeywords = argMultimap.getValue(PREFIX_NAME).orElse(null);
