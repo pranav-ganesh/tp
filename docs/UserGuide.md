@@ -35,6 +35,8 @@ If you can type fast, CMM can get your contact management tasks done faster than
    - `list` : Lists all contacts.
    - `done 2` : Marks the 2nd contact shown in the current list as completed.
    - `edit 1 n/Bob p/62353535` : Edits the name and phone number of the first person in the displayed list.
+   - `findAny n/alex g/m` : Finds the contacts that have the substring `alex`in their name **AND/OR** are males.
+   - `findAll n/alex g/m` : Finds the contacts that have both the substring `alex` in their name **AND** are males.
    - `delete 3` : Deletes the 3rd contact shown in the current list.
    - `display 4` : Displays the full contact details of the fourth contact in the displayed list.
    - `clear` : Deletes all contacts.
