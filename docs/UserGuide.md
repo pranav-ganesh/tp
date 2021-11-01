@@ -23,7 +23,7 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 2. Download the latest CallMeMaybe.jar from [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases).
 
-3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+3. Copy the file to the folder you want to use as the home folder for CMM.
 
 4. Double-click the file to start the app. Initially, a popup asking to import CSV data would appear. To learn more about
    importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
