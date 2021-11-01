@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -79,6 +80,7 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
             predicates.add(emailPredicate);
         }
         if (doneKeywords != null) {
+            checkTrueOrFalse(doneKeywords);
             checkEmptyString(doneKeywords, PREFIX_DONE);
             DonePredicate donePredicate = getDonePredicate(doneKeywords);
             predicates.add(donePredicate);
@@ -174,6 +176,23 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
     private InterestContainsKeywordsPredicate getInterestPredicate(String interestKeywords) {
         String[] interestKeywordsArr = interestKeywords.split("\\s+");
         return new InterestContainsKeywordsPredicate(Arrays.asList(interestKeywordsArr), true);
+    }
+
+    /**
+     * Checks if the string supplied is either "t", "true", "f" or "false".
+     * @param s The String to be checked
+     * @return True if the string supplied is either "t", "true", "f" or "false". False otherwise
+     */
+    private void checkTrueOrFalse(String s) throws ParseException {
+        String[] testStrings = s.split("\\s+");
+
+        for (String test : testStrings) {
+            test = test.toLowerCase(Locale.ROOT);
+            if (!(test.equals("t") || test.equals("true")
+                    || test.equals("f") || test.equals("false"))) {
+                throw new ParseException("'d/' can only be followed by 't','f', 'true', or 'false'");
+            }
+        }
     }
 
 }
