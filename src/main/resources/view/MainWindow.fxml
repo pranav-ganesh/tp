@@ -50,7 +50,7 @@
           <padding>
             <Insets bottom="10" left="10" right="10" top="10" />
           </padding>
-          <HBox VBox.vgrow="ALWAYS">
+          <HBox HBox.hgrow="ALWAYS">
             <children>
               <StackPane fx:id="personListPanelPlaceholder" />
               <StackPane fx:id="fullPersonCardPlaceholder" />
