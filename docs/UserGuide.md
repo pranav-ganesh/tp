@@ -25,8 +25,10 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 3. Copy the file to the folder you want to use as the home folder for CMM.
 
-4. Double-click the file to start the app. Initially, a popup asking to import CSV data would appear. To learn more about
-   importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
+4. Double-click the file to start the app. Initially, a popup asking to import CSV data would appear.
+   ![importPopUpUi](images/importPopUpMessage.png) <br>
+   To learn more about importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button 
+   on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
    ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
@@ -42,9 +44,9 @@ If you can type fast, CMM can get your contact management tasks done faster than
    - `clear` : Deletes all contacts.
    - `exit` : Exits the app.
 
-7. Remember to clear the sample data using `clear` command before adding your own data.
+6. Remember to clear the sample data using `clear` command before adding your own data.
 
-8. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -88,8 +90,9 @@ Adds a contact to the CMM database.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A contact can have multiple interests (including 0)
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+* PHONE_NUMBER must contain only digits and be at least 8 digits long
+* A contact can have multiple interests (including 0)
 </div>
 
 Examples:
@@ -138,11 +141,11 @@ Edits an existing contact in the CMM database.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Specifying [INTERESTLIST INDEX] is optional as well. <br/>
-If [INTERESTLIST INDEX] is specified, the interest at that index would be updated. <br/>
-If it is not, then an interest would be added instead. <br/>
-You can refer to the examples below for a better understanding.
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+* Specifying [INTERESTLIST INDEX] is optional as well. <br/>
+* If [INTERESTLIST INDEX] is specified, the interest at that index would be updated. <br/>
+* If it is not, then an interest would be added instead. <br/>
+* You can refer to the examples below for a better understanding.
 </div>
 
 Examples:
@@ -198,13 +201,13 @@ Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 [d/DONE…​] [i/INTEREST…​]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-FindAny requires at least one field. It is optional to include all the fields. <br>
-If there are duplicate fields, CMM will only take the right-most field <br>
-The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
-Any number of keywords can be specified within each field <br>
-The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
+* FindAny requires at least one field. It is optional to include all the fields. <br>
+* If there are duplicate fields, CMM will only take the right-most field <br>
+* The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
+* Any number of keywords can be specified within each field <br>
+* The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
 as `n/Bo Hans`<br>
-You can refer to the examples below for a better understanding
+* You can refer to the examples below for a better understanding
 </div>
 
 
@@ -232,13 +235,13 @@ b. Used the wrong prefix (eg. '/n' instead of 'n/')
 Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-FindAll requires at least one field. It is optional to include all the fields. <br>
-If there are duplicate fields, CMM will only take the right-most field <br>
-The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
-Any number of keywords can be specified within each field <br>
-The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
+* FindAll requires at least one field. It is optional to include all the fields. <br>
+* If there are duplicate fields, CMM will only take the right-most field <br>
+* The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
+* Any number of keywords can be specified within each field <br>
+* The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
 as `n/Bo Hans`<br>
-You can refer to the examples below for a better understanding
+* You can refer to the examples below for a better understanding
 </div>
 
 Examples:
