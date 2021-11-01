@@ -363,7 +363,6 @@ public class ParserUtil {
     /**
      * Checks if the string supplied is either "t", "true", "f" or "false". (case-insensitive)
      * @param s The String to be checked
-     * @return True if the string supplied is either "t", "true", "f" or "false". False otherwise
      */
     public static void checkTrueOrFalse(String s) throws ParseException {
         String[] testStrings = s.split("\\s+");
@@ -380,7 +379,6 @@ public class ParserUtil {
     /**
      * Checks if the string supplied is either "m", "male", "f", "female" or "n.a". (case-insensitive)
      * @param s The String to be checked
-     * @return True if the string supplied is either "t", "true", "f" or "false". False otherwise
      */
     public static void checkMaleOrFemale(String s) throws ParseException {
         String[] testStrings = s.split("\\s+");

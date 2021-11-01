@@ -100,7 +100,7 @@ public class DonePredicateTest {
         predicate = new DonePredicate(Arrays.asList(
                 "Alice", "12345", "alice@email.com"
         ), false);
-        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("12345678")
                 .withEmail("alice@email.com").withDone("true").build()));
     }
 
@@ -129,9 +129,9 @@ public class DonePredicateTest {
 
         // Keywords match name, phone, email, but does not match isDone -> false
         predicate = new DonePredicate(Arrays.asList(
-                "Alice", "12345", "alice@email.com"
+                "Alice", "12345678", "alice@email.com"
         ), true);
-        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("12345678")
                 .withEmail("alice@email.com").withDone("false").build()));
     }
 }

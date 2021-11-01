@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
@@ -12,13 +11,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindAllCommand;
-import seedu.address.logic.commands.FindAnyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
@@ -103,7 +98,9 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
         }
         if (interestKeywords != null) {
             ParserUtil.checkEmptyString(interestKeywords, PREFIX_INTEREST);
-            InterestContainsKeywordsPredicate interestPredicate = ParserUtil.getInterestPredicate(interestKeywords, true);
+            InterestContainsKeywordsPredicate interestPredicate = ParserUtil.getInterestPredicate(
+                    interestKeywords, true
+            );
             predicates.add(interestPredicate);
         }
 

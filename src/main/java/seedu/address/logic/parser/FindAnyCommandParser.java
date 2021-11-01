@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
@@ -12,12 +11,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-import seedu.address.logic.commands.FindAllCommand;
 import seedu.address.logic.commands.FindAnyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
@@ -50,7 +45,7 @@ public class FindAnyCommandParser implements Parser<FindAnyCommand> {
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST);
 
         if (!ParserUtil.arePrefixesPresent(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAllCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAnyCommand.MESSAGE_USAGE));
         }
 
         String nameKeywords = argMultimap.getValue(PREFIX_NAME).orElse(null);
@@ -103,7 +98,9 @@ public class FindAnyCommandParser implements Parser<FindAnyCommand> {
         }
         if (interestKeywords != null) {
             ParserUtil.checkEmptyString(interestKeywords, PREFIX_INTEREST);
-            InterestContainsKeywordsPredicate interestPredicate = ParserUtil.getInterestPredicate(interestKeywords, false);
+            InterestContainsKeywordsPredicate interestPredicate = ParserUtil.getInterestPredicate(
+                    interestKeywords, false
+            );
             predicates.add(interestPredicate);
         }
 
