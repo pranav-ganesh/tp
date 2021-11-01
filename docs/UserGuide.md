@@ -90,18 +90,28 @@ Adds a contact to the CMM database.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​`
 
+**Things to note:**
+* `Name`, `Phone_number` and `Email` fields are mandatory
+* `Name`, `Address` and `Interest` can be in any format.
+* `Phone_number` must contain only digits and be at least 8 digits long
+* `Email` should be in the form of `local-part@domain-name`
+  a. The local-part should only contain alphanumeric characters and these special characters, `+_.-`. <br>
+  b. The local-part may not start or end with any special characters.
+  c. The domain-name is made up of domain labels separated by periods. (eg. @nus.edu.sg)
+  d. The domain-name must end with a domain label at least 2 characters long
+  e. The domain-name must have each domain label start and end with alphanumeric characters
+  f. The domain-name must have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+* `Gender` can only be "m", "f", "n.a" (case-insensitive)
+* `Age` must only contain numbers
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-* PHONE_NUMBER must contain only digits and be at least 8 digits long
-* A contact can have multiple interests (including 0)
+* `Address`, `Gender`, `Age`, `Interest` fields are optional
+* A contact can have multiple interests
 </div>
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com `
 * `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/her house i/running i/swimming i/eating`
-
-**Things to note:**
-* `Name`, `Phone_number` and `Email` fields are mandatory
-* `Address`, `Gender`, `Age`, `Interest` fields are optional
 
 **Common issues:**
 * _Invalid command format!_: <br />
@@ -200,16 +210,25 @@ please use with caution.
 Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] 
 [d/DONE…​] [i/INTEREST…​]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-* FindAny requires at least one field. It is optional to include all the fields. <br>
+**Things to note:**
+* FindAny requires at least one field. But it is optional to include all the fields. <br>
 * If there are duplicate fields, CMM will only take the right-most field <br>
+eg. `findAny n/alex n/david` returns the same results as `findAny n/david`
 * The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
 * Any number of keywords can be specified within each field <br>
 * The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
-as `n/Bo Hans`<br>
+  as `n/Bo Hans`<br>
+* Keywords for `Done` are limited to `true`, `false`, `t`, `f`
+* Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+findAll vs findAny<br>
+    * findAll searches for contacts that satisfy **ALL** the fields specified<br>
+    * findAny searches for contacts that satisfy **ANY** of the fields specified<br>
 </div>
 
+Click [here](#finding-contacts-that-matches-all-the-keywords-specified--findall) to learn more about findAll
 
 Examples:
 * `findAny n/John` finds all contacts that have the substring `john` in their name
@@ -217,11 +236,6 @@ Examples:
 * `findAny n/alex david a/woodlands` finds all contacts that have either the substring 'alex' or 'david' in their name or 
 have the substring 'woodlands' in their address
 * `findAny n/alex n/david` only finds all contacts that have the substring 'david' in their name
-
-**Things to note:**
-* [findAll](#finding-contacts-that-matches-all-the-keywords-specified--findall) vs findAny
-    * findAll searches for contacts that satisfy **ALL** the fields specified
-    * findAny searches for contacts that satisfy **ANY** of the fields specified
 
 **Common issues:**
 * _Unknown command_: <br/>
@@ -234,27 +248,33 @@ b. Used the wrong prefix (eg. '/n' instead of 'n/')
 
 Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-* FindAll requires at least one field. It is optional to include all the fields. <br>
+**Things to note:**
+* `findAll` only returns contacts that matches all the keywords specified in their respective fields
+* `findAll` requires at least one field. But it is optional to include all the fields. <br>
 * If there are duplicate fields, CMM will only take the right-most field <br>
+  eg. `findAll n/alex n/david` returns the same results as `findAny n/david`
 * The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
 * Any number of keywords can be specified within each field <br>
 * The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
-as `n/Bo Hans`<br>
+  as `n/Bo Hans`<br>
+* Keywords for `Done` are limited to `true`, `false`, `t`, `f`
+* Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+findAll vs findAny<br>
+    * findAll searches for contacts that satisfy **ALL** the fields specified<br>
+    * findAny searches for contacts that satisfy **ANY** of the fields specified<br>
 </div>
+
+Click [here](#finding-contacts-that-matches-any-of-the-keywords-specified-findany) to learn more about findAny
 
 Examples:
 * `findAll n/alex` finds all the contacts that have the substring 'alex' in their name
 * `findAll n/Malan i/Swimming` finds only the contacts that have **BOTH** the substring 'malan' in the name and the substring 'swimming' as their interests
 * `findAll i/Painting i/ Running` finds only the contacts that have 'running' as a substring as their interests
-* `findAll n/al da vi a/ho oh` finds only the contacts that have **all 3** substrings of 'al', 'da' and 'vi' in their name 
+* `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name 
 **AND both** substrings of 'ho' and 'oh' in the address
-
-**Things to note:**
-* findAll vs [findAny](#finding-contacts-that-matches-any-of-the-keywords-specified-findany)
-    * findAll searches for contacts that satisfy **ALL** the fields specified
-    * findAny searches for contacts that satisfy **ANY** of the fields specified
 
 **Common issues:**
 * _Unknown command_: <br/>
