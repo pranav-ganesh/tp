@@ -91,9 +91,9 @@ public class InterestsContainsKeywordsPredicateTest {
 
         // Keywords match name, phone, email, but does not match interest
         predicate = new InterestContainsKeywordsPredicate(Arrays.asList(
-                "Alice", "12345", "alice@email.com"
+                "Alice", "87654321", "alice@email.com"
         ), false);
-        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("87654321")
                 .withEmail("alice@email.com").withInterest("eating", "sleeping").build()));
     }
 
@@ -129,9 +129,9 @@ public class InterestsContainsKeywordsPredicateTest {
 
         // Keywords match name, phone, email, but does not match interests -> false
         predicate = new InterestContainsKeywordsPredicate(Arrays.asList(
-                "Alice", "12345", "alice@email.com"
+                "Alice", "87654321", "alice@email.com"
         ), true);
-        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("87654321")
                 .withEmail("alice@email.com").withInterest("eating", "sleeping").build()));
     }
 }
