@@ -108,18 +108,14 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getGender().equals(getGender())
-                && otherPerson.getAge().equals(getAge())
-                && otherPerson.getInterests().equals(getInterests());
+                && otherPerson.getEmail().equals(getEmail());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        // return Objects.hash(name, phone, email, isDone);
-        return Objects.hash(name, phone, email, address, gender, age);
+        // return Objects.hash(name, phone, email);
+        return Objects.hash(name, phone, email);
     }
 
     @Override
