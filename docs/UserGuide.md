@@ -109,6 +109,9 @@ Shows a list of all contacts in the CMM database.
 
 Format: `list`
 
+**Things to note:**
+* `list` shows all contacts in ascending order by name.
+
 ### Marking a person as called : `done`
 
 Marks the specified contact from the address book as done (i.e. person has already been called).
@@ -175,7 +178,8 @@ Format: `delete INDEX`
 Example:
 * `delete 2` deletes the 2nd contact in the displayed list.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Deleting is irreversible, please use with caution.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Deleting is irreversible,
+please use with caution.
 </div>
 
 **Things to note:**
@@ -185,6 +189,74 @@ Example:
 **Common issues:**
 * _The index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
+  
+### Finding contacts that matches **ANY** of the keywords specified: `findAny`
+
+Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] 
+[d/DONE…​] [i/INTEREST…​]`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+FindAny requires at least one field. It is optional to include all the fields. <br>
+If there are duplicate fields, CMM will only take the right-most field <br>
+The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
+Any number of keywords can be specified within each field <br>
+The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
+as `n/Bo Hans`<br>
+You can refer to the examples below for a better understanding
+</div>
+
+
+Examples:
+* `findAny n/John` finds all contacts that have the substring `john` in their name
+* `findAny n/alex david` finds all contacts that have either the substring 'alex' or 'david' in their name<br>
+* `findAny n/alex david a/woodlands` finds all contacts that have either the substring 'alex' or 'david' in their name or 
+have the substring 'woodlands' in their address
+* `findAny n/alex n/david` only finds all contacts that have the substring 'david' in their name
+
+**Things to note:**
+* [findAll](#finding-contacts-that-matches-all-the-keywords-specified--findall) vs findAny
+    * findAll searches for contacts that satisfy **ALL** the fields specified
+    * findAny searches for contacts that satisfy **ANY** of the fields specified
+
+**Common issues:**
+* _Unknown command_: <br/>
+  a. Using `findany` instead of `findAny` (not capitalising the 'A')
+* _Invalid command format!_: <br>
+a. No fields provided<br>
+b. Used the wrong prefix (eg. '/n' instead of 'n/')
+
+### Finding contacts that matches "ALL" the keywords specified : `findAll`
+
+Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+FindAll requires at least one field. It is optional to include all the fields. <br>
+If there are duplicate fields, CMM will only take the right-most field <br>
+The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
+Any number of keywords can be specified within each field <br>
+The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
+as `n/Bo Hans`<br>
+You can refer to the examples below for a better understanding
+</div>
+
+Examples:
+* `findAll n/alex` finds all the contacts that have the substring 'alex' in their name
+* `findAll n/Malan i/Swimming` finds only the contacts that have **BOTH** the substring 'malan' in the name and the substring 'swimming' as their interests
+* `findAll i/Painting i/ Running` finds only the contacts that have 'running' as a substring as their interests
+* `findAll n/al da vi a/ho oh` finds only the contacts that have **all 3** substrings of 'al', 'da' and 'vi' in their name 
+**AND both** substrings of 'ho' and 'oh' in the address
+
+**Things to note:**
+* findAll vs [findAny](#finding-contacts-that-matches-any-of-the-keywords-specified-findany)
+    * findAll searches for contacts that satisfy **ALL** the fields specified
+    * findAny searches for contacts that satisfy **ANY** of the fields specified
+
+**Common issues:**
+* _Unknown command_: <br/>
+  a. Using `findall` instead of `findAll` (not capitalising the 'A')
+* _Invalid command format!_: <br>
+  a. No fields provided<br>
+  b. Used the wrong prefix (eg. '/n' instead of 'n/')
 
 ### Displaying full contact details : `display`
 
@@ -202,6 +274,38 @@ Example:
 **Common issues:**
 * _The person index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
+
+### Filtering contacts : `filter`
+
+Filters the existing contacts in the CMM database. The displayed list will show contacts sorted by the chosen category.
+
+Format: `filter CATEGORY [COUNT]`
+
+Examples:
+* `filter called` filters the displayed list to show uncalled contacts first
+* `filter called 2` filters the displayed list to show uncalled contacts first and to only show the first two contacts
+* `filter gender 3` filters the displayed list to show female contacts first and to only show the first three contacts
+
+**Things to note:**
+* `CATEGORY` field is mandatory
+* `CATEGORY` refers to the category used to filter the contacts.
+* `CATEGORY` **must be one of the following:** called, gender
+* `COUNT` refers to the number of contacts to be shown in the displayed list.
+* `COUNT` **must be a positive integer** 1, 2, 3, …​
+* If more arguments are given than what is required, the last two arguments are taken into account.
+  (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
+* If the last argument is not an integer, it will be interpreted as a `CATEGORY`.
+  (e.g., `filter gender called` will be interpreted as `filter called`)
+* If more than one category is entered, the last category will be interpreted as the `CATEGORY`.
+  (e.g., `filter gender called 3` will be interpreted as `filter called 3`)
+
+
+**Common issues:**
+* _Category can only be either "called" or "gender"_: <br />
+  a. The category specified is not `called` or `gender` <br />
+  b. Category not specified
+* _Count is not a non-zero unsigned integer_: <br />
+  a. The last argument is not a positive integer
 
 ### Clearing all contacts : `clear`
 
@@ -310,6 +414,7 @@ Action | Format, Examples
 **edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g. `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
 **Display** | `display INDEX` <br> e.g. `display 4`
+**Filter** | `filter CATEGORY [COUNT]` <br> e.g. `filter gender 5`
 **Clear** | `clear`
 **Exit** | `exit`
 **Help** | `help`

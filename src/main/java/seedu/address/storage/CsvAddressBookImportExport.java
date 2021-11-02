@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 /**
  * Importing and exporting of csv files into the database
  */
-public class CsvImportExportStorage implements ImportExportStorage {
+public class CsvAddressBookImportExport implements ImportExport {
 
     public static final String MESSAGE_DUPLICATE_NOT_DONE_PERSON = "Import contains duplicate person(s)."
             + " These duplicate person(s) are  list index:" + "\n";
@@ -27,7 +27,7 @@ public class CsvImportExportStorage implements ImportExportStorage {
     public static final String MESSAGE_DUPLICATE_DONE_PERSON = "These duplicate person(s) with "
             + "these list index will be updated to 'called' : \n";
 
-    private static final Logger logger = LogsCenter.getLogger(CsvImportExportStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
 
     private boolean fileFound = true;
     private List<Integer> duplicateRowImport = new ArrayList<>();
@@ -38,14 +38,18 @@ public class CsvImportExportStorage implements ImportExportStorage {
     private int calledDuplicateImportCount = 0;
 
 
-    private final Path filePath;
+    private final Path importPath;
+    private final Path exportPath;
+
 
     /**
      * Constructor of the import export
      */
-    public CsvImportExportStorage(Path filePath) {
-        requireNonNull(filePath);
-        this.filePath = filePath;
+    public CsvAddressBookImportExport(Path importPath, Path exportPath) {
+        requireNonNull(importPath);
+        requireNonNull(exportPath);
+        this.importPath = importPath;
+        this.exportPath = exportPath;
     }
 
     /**
@@ -53,7 +57,7 @@ public class CsvImportExportStorage implements ImportExportStorage {
      * @return
      */
     public Path getImportExportPath() {
-        return filePath;
+        return importPath;
     }
 
     /**
@@ -65,7 +69,7 @@ public class CsvImportExportStorage implements ImportExportStorage {
      */
     @Override
     public Optional<List<Person>>importIntoAddressBook(Model model) throws DataConversionException {
-        return importAddressBook(this.filePath, model);
+        return importAddressBook(this.importPath, model);
     }
 
     /**
@@ -99,7 +103,7 @@ public class CsvImportExportStorage implements ImportExportStorage {
     }
 
     private void exportAddressBook(Model model) {
-        CsvUtil.writeCsvFile(model.getFilteredPersonList());
+        CsvUtil.writeCsvFile(model.getFilteredPersonList(), this.exportPath);
     }
 
     public String getImportStatus() {
@@ -112,7 +116,7 @@ public class CsvImportExportStorage implements ImportExportStorage {
                     + "          Not Called Duplicate(s) : " + notCalledDuplicateImportCount)
                     + "\nCheck logs for detailed explanation.";
         }
-        return String.format("CSV file not found in " + filePath);
+        return String.format("CSV file not found in " + exportPath);
     }
 
 
@@ -153,7 +157,9 @@ public class CsvImportExportStorage implements ImportExportStorage {
     }
 
     private void updatePerson(int listPos, Person importPerson, Model model) {
+
         List<Person> lastShownList = model.getFilteredPersonList();
+        assert(listPos >= 0 && listPos < lastShownList.size());
         Person personToEdit = lastShownList.get(listPos);
         model.setPerson(personToEdit, importPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

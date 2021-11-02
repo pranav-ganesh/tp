@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,8 +28,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.storage.CsvImportExportStorage;
-import seedu.address.storage.ImportExportStorage;
+import seedu.address.storage.CsvAddressBookImportExport;
+import seedu.address.storage.ImportExport;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -36,6 +37,7 @@ import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data");
 
     @TempDir
     public Path temporaryFolder;
@@ -48,10 +50,10 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        ImportExportStorage importExportStorage = new CsvImportExportStorage(
-                temporaryFolder.resolve("importAddressBook.csv"));
-        logic = new LogicManager(model, storage, importExportStorage);
+        ImportExport importExport = new CsvAddressBookImportExport(
+                temporaryFolder.resolve("importAddressBook.csv"), TEST_DATA_FOLDER);
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, importExport);
+        logic = new LogicManager(model, storage);
     }
 
     @Test
@@ -79,10 +81,10 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        ImportExportStorage importExportStorage = new CsvImportExportStorage(
-                temporaryFolder.resolve("importAddressBook.csv"));
-        logic = new LogicManager(model, storage, importExportStorage);
+        ImportExport importExport = new CsvAddressBookImportExport(temporaryFolder.resolve("importAddressBook.csv"),
+                temporaryFolder.resolve("data"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, importExport);
+        logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;

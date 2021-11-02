@@ -23,8 +23,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.CsvImportExportStorage;
-import seedu.address.storage.ImportExportStorage;
+import seedu.address.storage.CsvAddressBookImportExport;
+import seedu.address.storage.ImportExport;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -47,7 +47,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    protected ImportExportStorage importExportStorageManager;
+    protected ImportExport importExportManager;
 
     @Override
     public void init() throws Exception {
@@ -60,15 +60,14 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        importExportManager = new CsvAddressBookImportExport(userPrefs.getImportPath(), userPrefs.getExportPath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, importExportManager);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
 
-        importExportStorageManager = new CsvImportExportStorage(userPrefs.getImportExport());
-
-        logic = new LogicManager(model, storage, importExportStorageManager);
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
     }

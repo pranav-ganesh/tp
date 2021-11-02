@@ -1,13 +1,19 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+
+import java.util.ArrayList;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.interests.Interest;
 
 /**
  * A utility class for Person.
@@ -29,10 +35,21 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        if (person.getIsDone().value) {
-            sb.append(PREFIX_DONE + "true" + " ");
-        } else {
-            sb.append(PREFIX_DONE + "false" + " ");
+
+        if (!person.getAddress().isEmpty()) {
+            sb.append(PREFIX_ADDRESS + person.getAddress().value);
+        }
+        if (!person.getGender().isEmpty()) {
+            sb.append(PREFIX_GENDER + person.getGender().value);
+        }
+        if (!person.getAge().isEmpty()) {
+            sb.append(PREFIX_AGE + person.getAge().value);
+        }
+        if (!person.getInterests().isEmpty()) {
+            ArrayList<Interest> interests = person.getInterests().getAllInterests();
+            for (Interest i : interests) {
+                sb.append(PREFIX_INTEREST + "i");
+            }
         }
 
         return sb.toString();

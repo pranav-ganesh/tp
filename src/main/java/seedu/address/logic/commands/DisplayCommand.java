@@ -20,7 +20,6 @@ public class DisplayCommand extends Command {
             + "Format: " + COMMAND_WORD + " INDEX";
 
     public static final String MESSAGE_DISPLAY_SUCCESS = "Displayed selected person!";
-    public static final String MESSAGE_ALREADY_DISPLAYED_CALL = "The particular person is already being displayed";
 
     private final Index displayIndex;
 
@@ -45,10 +44,6 @@ public class DisplayCommand extends Command {
 
         Person personToDisplay = lastShownList.get(displayIndex.getZeroBased());
         assert personToDisplay != null : "person to display cannot be null";
-
-        if (displayIndex.getOneBased() == FullPersonCard.getDisplayedIndex()) {
-            return new CommandResult(MESSAGE_ALREADY_DISPLAYED_CALL);
-        }
 
         int intDisplayIndex = displayIndex.getOneBased();
         FullPersonCard.setDisplayedIndex(intDisplayIndex);

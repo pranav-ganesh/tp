@@ -1,0 +1,23 @@
+@startuml
+start
+:User executes display command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([command is valid])
+    :AddressBookParser parses the command;
+    :DisplayCommandParser creates a new DisplayCommand;
+    : LogicManager executes the DisplayCommand and
+                  obtains contact to be displayed;
+    if () then ([contact is already displayed])
+        : Application communicates the message to the user;
+    else ([else])
+        : UiManager communicates with MainWindow;
+        : MainWindow displays the details of the selected contact;
+    endif
+else ([else])
+    : Application outputs an error message;
+endif
+stop
+@enduml

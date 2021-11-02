@@ -18,7 +18,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.storage.ImportExportStorage;
 import seedu.address.storage.Storage;
 
 /**
@@ -31,15 +30,14 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
-    private final ImportExportStorage importExportStorageManager;
+
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
-    public LogicManager(Model model, Storage storage, ImportExportStorage importExportStorageManager) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.importExportStorageManager = importExportStorageManager;
         this.addressBookParser = new AddressBookParser();
     }
 
@@ -93,13 +91,13 @@ public class LogicManager implements Logic {
     @Override
     public String importData() {
         try {
-            importExportStorageManager.importIntoAddressBook(model);
+            storage.importIntoAddressBook(model);
             storage.saveAddressBook(model.getAddressBook());
         } catch (DataConversionException | IOException e) {
             logger.warning("Data file not in the correct format.\n" + e.toString()
                     + "\nData will not be imported. Importing aborted");
         }
-        return importExportStorageManager.getImportStatus();
+        return storage.getImportStatus();
     }
 
     @Override
@@ -112,13 +110,13 @@ public class LogicManager implements Logic {
     @Override
     public String exportData() {
         try {
-            importExportStorageManager.exportCurrentAddressBook(model);
+            storage.exportCurrentAddressBook(model);
             storage.saveAddressBook(model.getAddressBook());
         } catch (DataConversionException | IOException e) {
             logger.warning("Data file not in the correct format.\n" + e.toString()
                     + "\nData will not be imported. Importing aborted");
         }
-        return importExportStorageManager.getImportStatus();
+        return storage.getImportStatus();
     }
 
 }
