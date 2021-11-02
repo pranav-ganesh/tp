@@ -79,9 +79,9 @@ public class AgeContainsValuePredicateTest {
 
         // Keywords match name, phone, email, but does not match age
         predicate = new AgeContainsValuePredicate(Arrays.asList(
-                "Alice", "12345678", "alice@email.com"
+                "Alice", "87654321", "alice@email.com"
         ), false);
-        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("12345678")
+        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("87654321")
                 .withEmail("alice@email.com").withAge("11").build()));
     }
 
@@ -105,9 +105,9 @@ public class AgeContainsValuePredicateTest {
 
         // Keywords match name, phone, email, but does not match age -> false
         predicate = new AgeContainsValuePredicate(Arrays.asList(
-                "Alice", "12345", "alice@email.com"
+                "Alice", "87654321", "alice@email.com"
         ), true);
-        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("12345678")
+        assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("87654321")
                 .withEmail("alice@email.com").withAge("11").build()));
     }
 }
