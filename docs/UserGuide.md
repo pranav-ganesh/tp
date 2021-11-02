@@ -189,10 +189,10 @@ please use with caution.
 **Common issues:**
 * _The index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
-  
+
 ### Finding contacts that matches **ANY** of the keywords specified: `findAny`
 
-Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] 
+Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​]
 [d/DONE…​] [i/INTEREST…​]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
@@ -209,7 +209,7 @@ You can refer to the examples below for a better understanding
 Examples:
 * `findAny n/John` finds all contacts that have the substring `john` in their name
 * `findAny n/alex david` finds all contacts that have either the substring 'alex' or 'david' in their name<br>
-* `findAny n/alex david a/woodlands` finds all contacts that have either the substring 'alex' or 'david' in their name or 
+* `findAny n/alex david a/woodlands` finds all contacts that have either the substring 'alex' or 'david' in their name or
 have the substring 'woodlands' in their address
 * `findAny n/alex n/david` only finds all contacts that have the substring 'david' in their name
 
@@ -243,7 +243,7 @@ Examples:
 * `findAll n/alex` finds all the contacts that have the substring 'alex' in their name
 * `findAll n/Malan i/Swimming` finds only the contacts that have **BOTH** the substring 'malan' in the name and the substring 'swimming' as their interests
 * `findAll i/Painting i/ Running` finds only the contacts that have 'running' as a substring as their interests
-* `findAll n/al da vi a/ho oh` finds only the contacts that have **all 3** substrings of 'al', 'da' and 'vi' in their name 
+* `findAll n/al da vi a/ho oh` finds only the contacts that have **all 3** substrings of 'al', 'da' and 'vi' in their name
 **AND both** substrings of 'ho' and 'oh' in the address
 
 **Things to note:**

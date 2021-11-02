@@ -276,7 +276,7 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
     * Cons: User has to choose how many contacts to be displayed every time.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers sort contacts
-by categories other than "Gender" and "Called", those are the only categories supported by the filter command. 
+by categories other than "Gender" and "Called", those are the only categories supported by the filter command.
 </div>
 
 As the key intention is for users to filter by `Category`, it is kept as a compulsory field.
@@ -714,11 +714,11 @@ Guarantees: Selected person's additional details will be displayed
     * 2a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
- 
+
 * 2b. The selected person is already being displayed
 
     * 2b1. Application shows a message saying the person is already being displayed
-   
+
       Use case resumes at step 2.
 
 **Use Case 8: Filter contacts**
@@ -742,7 +742,7 @@ Guarantees: Contacts will be sorted by category specified
     * 1a1. Command box displays error message
 
       Use case resumes at step 1
-    
+
 * 1b. User enters an invalid field
 
     * 1b1. Command box displays error message
@@ -841,11 +841,11 @@ testers are expected to do more *exploratory* testing.
 
     3. Test case: `filter called 0`<br>
        Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
-    
+
     4. Test case: `filter address 0`<br>
        Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
 
-    5. Other incorrect delete commands to try: `filter`, `filter x` (where x is an invalid category), 
+    5. Other incorrect delete commands to try: `filter`, `filter x` (where x is an invalid category),
        `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
        Expected: Similar to previous.
 
