@@ -2,10 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -24,6 +26,7 @@ import seedu.address.model.person.IsDone;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 
 /**
@@ -41,14 +44,19 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_AGE + "AGE] "
+            + "[" + PREFIX_INTEREST + "[index] INTEREST]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_GENDER + "M "
+            + PREFIX_INTEREST + "[1] software engineering";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_INVALID_INTERESTS_INDEX = "The specified interestsList index is invalid.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -83,6 +91,10 @@ public class EditCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        DisplayCommand displayCommand = new DisplayCommand(Index.fromOneBased(index.getOneBased()));
+        displayCommand.execute(model);
+
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
@@ -90,7 +102,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor)
+            throws CommandException {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
@@ -100,10 +113,41 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
-        InterestsList updatedInterests = editPersonDescriptor.getInterests().orElse(personToEdit.getInterests());
+
+        InterestsList newInterests = editPersonDescriptor.getInterests().orElse(null);
+        if (newInterests != null) {
+            this.editInterestList(newInterests, personToEdit.getInterests());
+        }
+        InterestsList updatedInterests = personToEdit.getInterests();
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress,
                 updatedGender, updatedAge, updatedInterests);
+    }
+
+    /**
+     * Edits the {@code InterestsList} attribute of {@code personToEdit} based on user input command.
+     */
+    public void editInterestList(InterestsList newList, InterestsList currentList) throws CommandException {
+        for (Interest i : newList.getAllInterests()) {
+            String s = i.toString();
+            this.editSpecifiedInterest(s, currentList);
+        }
+    }
+
+    private void editSpecifiedInterest(String s, InterestsList currentList) throws CommandException {
+        if (s.substring(0, 1).equals("[")) {
+            String pos = s.substring(s.indexOf("[") + 1, s.indexOf("]"));
+            int index = Integer.parseInt(pos) - 1;
+
+            if (index < currentList.size()) {
+                currentList.setInterest(new Interest(s.substring(s.indexOf("]") + 2).trim()), index);
+            } else {
+                throw new CommandException(MESSAGE_INVALID_INTERESTS_INDEX);
+            }
+
+        } else {
+            currentList.addInterest(new Interest(s));
+        }
     }
 
     @Override
