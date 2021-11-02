@@ -32,4 +32,39 @@ public class AddressTest {
         assertTrue(Address.isValidAddress("-")); // one character
         assertTrue(Address.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
     }
+    @Test
+    public void equals() {
+
+        Address address = new Address("my house");
+
+        // same object -> returns true
+        assertTrue(address.equals(address));
+
+        // same values -> returns true
+        Address remarkCopy = new Address("my house");
+        assertTrue(address.equals(remarkCopy));
+
+        // different types -> returns false
+        assertFalse(address.equals(1));
+
+        // null -> returns false
+        assertFalse(address.equals(null));
+
+        // different value -> returns false
+        Address differentAddress = new Address("His house");
+        assertFalse(address.equals(differentAddress));
+    }
+
+    @Test
+    public void isEmpty() {
+        Address test = new Address(null);
+        assertTrue(test.isEmpty());
+
+        test = new Address("N.A");
+        assertTrue(test.isEmpty());
+
+        test = new Address("ANYTHING");
+        assertFalse(test.isEmpty());
+    }
+
 }
