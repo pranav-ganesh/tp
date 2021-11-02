@@ -290,7 +290,8 @@ Examples:
 * `CATEGORY` field is mandatory
 * `CATEGORY` refers to the category used to filter the contacts.
 * `CATEGORY` **must be one of the following:** called, gender
-* `COUNT` refers to the number of contacts to be shown in the displayed list.
+* `COUNT` refers to the number of contacts to be shown in the displayed list. If `COUNT` is more than the total number
+of contacts, all contacts will be shown.
 * `COUNT` **must be a positive integer** 1, 2, 3, …​
 * If more arguments are given than what is required, the last two arguments are taken into account.
   (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
