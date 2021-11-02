@@ -292,7 +292,7 @@ Examples:
 * `CATEGORY` **must be one of the following:** called, gender
 * `COUNT` refers to the number of contacts to be shown in the displayed list. If `COUNT` is more than the total number
 of contacts, all contacts will be shown
-* `COUNT` **must be a positive integer** 1, 2, 3, …​
+* `COUNT` **must be a positive integer less than 2147483648** 1, 2, 3, …​, 2147483647
 * If more arguments are given than what is required, the last two arguments are taken into account
   (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
 * If the last argument is not an integer, it will be interpreted as a `CATEGORY`
