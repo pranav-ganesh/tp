@@ -27,21 +27,15 @@ import seedu.address.testutil.TypicalPersons;
 
 class CsvAddressBookImportExportTest {
 
-<<<<<<< HEAD:src/test/java/seedu/address/storage/CsvAddressBookImportExportTest.java
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvAddressBookImportExport");
-=======
+
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test",
             "data", "CsvAddressBookImportExport");
->>>>>>> master:src/test/java/seedu/address/storage/CsvAddressBookImportExportTest.java
     private static final Path EMPTY_IMPORT = TEST_DATA_FOLDER.resolve("emptyAddressBook.csv");
     private static final Path TWO_DUPLICATE = TEST_DATA_FOLDER.resolve("twoDuplicatePerson.csv");
 
     // Misc
     @Test
     public void readAddressBook_nullFilePath_throwsNullPointerException() {
-<<<<<<< HEAD:src/test/java/seedu/address/storage/ CsvAddressBookImportExportTest.java
-        assertThrows(NullPointerException.class, () -> new CsvAddressBookImportExport(null));
-=======
         assertThrows(NullPointerException.class, () -> new CsvAddressBookImportExport(
                 null, TEST_DATA_FOLDER));
     }
@@ -88,7 +82,6 @@ class CsvAddressBookImportExportTest {
         assertFalse(updatedAlice.getIsDone().value);
         assertTrue(updatedBenson.getIsDone().value);
         assertTrue(addedIda.getName().toString().equals("Ida Mueller"));
->>>>>>> master:src/test/java/seedu/address/storage/CsvAddressBookImportExportTest.java
     }
 
     @Test
