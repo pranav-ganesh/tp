@@ -313,16 +313,19 @@ Examples:
 
 **Things to note:**
 * `CATEGORY` field is mandatory
-* `CATEGORY` refers to the category used to filter the contacts.
+* `CATEGORY` refers to the category used to filter the contacts
 * `CATEGORY` **must be one of the following:** called, gender
-* `COUNT` refers to the number of contacts to be shown in the displayed list.
-* `COUNT` **must be a positive integer** 1, 2, 3, …​
-* If more arguments are given than what is required, the last two arguments are taken into account.
+* `COUNT` refers to the number of contacts to be shown in the displayed list. If `COUNT` is more than the total number
+of contacts, all contacts will be shown
+* `COUNT` **must be a positive integer less than 2147483648** 1, 2, 3, …​, 2147483647
+* If more arguments are given than what is required, the last two arguments are taken into account
   (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
-* If the last argument is not an integer, it will be interpreted as a `CATEGORY`.
+* If the last argument is not an integer, it will be interpreted as a `CATEGORY`
   (e.g., `filter gender called` will be interpreted as `filter called`)
-* If more than one category is entered, the last category will be interpreted as the `CATEGORY`.
+* If more than one category is entered, the last category will be interpreted as the `CATEGORY`
   (e.g., `filter gender called 3` will be interpreted as `filter called 3`)
+* If only one argument is given, it will be interpreted as a `CATEGORY`
+  (e.g., `filter 1000` will cause `1000` to be interpreted as a `CATEGORY`)
 
 
 **Common issues:**
