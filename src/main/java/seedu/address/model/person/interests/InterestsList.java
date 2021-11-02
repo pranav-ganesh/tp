@@ -20,6 +20,10 @@ public class InterestsList {
         this.list = new ArrayList<>();
     }
 
+    /**
+     * Constructor for the class
+     * @param list A list of interests
+     */
     public InterestsList(ArrayList<Interest> list) {
         requireNonNull(list);
         this.list = list;
