@@ -44,7 +44,7 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DONE,
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.areAnyPrefixesPresent(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAllCommand.MESSAGE_USAGE));
         }
 

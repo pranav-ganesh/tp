@@ -210,33 +210,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
-    }
-
-    /**
      * Parses {@code oneBasedInteger} into an {@code Integer} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      * @throws ParseException if the specified integer is invalid (not non-zero unsigned integer).
@@ -270,7 +243,7 @@ public class ParserUtil {
      * @param prefix The prefix the string has
      * @throws ParseException when the string is empty
      */
-    public static void checkEmptyString(String test, Prefix prefix) throws ParseException {
+    public static boolean checkEmptyString(String test, Prefix prefix) throws ParseException {
         requireNonNull(test);
         requireNonNull(prefix);
         if (test.length() == 0) {
@@ -278,6 +251,7 @@ public class ParserUtil {
                     MESSAGE_INVALID_COMMAND_FORMAT, EMPTY_FIELD_MESSAGE + prefix.getPrefix()
             ));
         }
+        return true;
     }
 
     /**
@@ -286,6 +260,7 @@ public class ParserUtil {
      * @return The predicate
      */
     public static NameContainsKeywordsPredicate getNamePredicate(String nameKeywords, boolean isFindAll) {
+        requireNonNull(nameKeywords);
         String[] nameKeywordsArr = nameKeywords.split("\\s+");
         return new NameContainsKeywordsPredicate(Arrays.asList(nameKeywordsArr), isFindAll);
     }
@@ -296,6 +271,7 @@ public class ParserUtil {
      * @return The predicate
      */
     public static PhoneContainsNumberPredicate getPhonePredicate(String numbers, boolean isFindAll) {
+        requireNonNull(numbers);
         String[] numbersArr = numbers.split("\\s+");
         return new PhoneContainsNumberPredicate(Arrays.asList(numbersArr), isFindAll);
     }
@@ -306,6 +282,7 @@ public class ParserUtil {
      * @return The predicate
      */
     public static EmailContainsKeywordsPredicate getEmailPredicate(String emailKeywords, boolean isFindAll) {
+        requireNonNull(emailKeywords);
         String[] emailKeywordsArr = emailKeywords.split("\\s+");
         return new EmailContainsKeywordsPredicate(Arrays.asList(emailKeywordsArr), isFindAll);
     }
@@ -316,6 +293,7 @@ public class ParserUtil {
      * @return The predicate
      */
     public static DonePredicate getDonePredicate(String doneKeywords, boolean isFindAll) {
+        requireNonNull(doneKeywords);
         String[] doneKeywordsArr = doneKeywords.split("\\s+");
         return new DonePredicate(Arrays.asList(doneKeywordsArr), isFindAll);
     }
@@ -326,6 +304,7 @@ public class ParserUtil {
      * @return The predicate
      */
     public static AddressContainsKeywordsPredicate getAddressPredicate(String addressKeywords, boolean isFindAll) {
+        requireNonNull(addressKeywords);
         String[] addressKeywordsArr = addressKeywords.split("\\s+");
         return new AddressContainsKeywordsPredicate(Arrays.asList(addressKeywordsArr), isFindAll);
     }
@@ -336,6 +315,7 @@ public class ParserUtil {
      * @return The predicate
      */
     public static GenderContainsKeywordPredicate getGenderPredicate(String genderKeywords, boolean isFindAll) {
+        requireNonNull(genderKeywords);
         String[] genderKeywordsArr = genderKeywords.split("\\s+");
         return new GenderContainsKeywordPredicate(Arrays.asList(genderKeywordsArr), isFindAll);
     }
@@ -346,6 +326,7 @@ public class ParserUtil {
      * @return The predicate
      */
     public static AgeContainsValuePredicate getAgePredicate(String ageValues, boolean isFindAll) {
+        requireNonNull(ageValues);
         String[] ageValuesArr = ageValues.split("\\s+");
         return new AgeContainsValuePredicate(Arrays.asList(ageValuesArr), isFindAll);
     }
@@ -356,6 +337,7 @@ public class ParserUtil {
      * @return The predicate
      */
     public static InterestContainsKeywordsPredicate getInterestPredicate(String interestKeywords, boolean isFindAll) {
+        requireNonNull(interestKeywords);
         String[] interestKeywordsArr = interestKeywords.split("\\s+");
         return new InterestContainsKeywordsPredicate(Arrays.asList(interestKeywordsArr), isFindAll);
     }
@@ -363,8 +345,9 @@ public class ParserUtil {
     /**
      * Checks if the string supplied is either "t", "true", "f" or "false". (case-insensitive)
      * @param s The String to be checked
+     * @throws ParseException if the String is not one of the accepted forms
      */
-    public static void checkTrueOrFalse(String s) throws ParseException {
+    public static boolean checkTrueOrFalse(String s) throws ParseException {
         String[] testStrings = s.split("\\s+");
 
         for (String test : testStrings) {
@@ -374,13 +357,15 @@ public class ParserUtil {
                 throw new ParseException("'d/' can only be followed by 't','f', 'true', or 'false'");
             }
         }
+        return true;
     }
 
     /**
      * Checks if the string supplied is either "m", "male", "f", "female" or "n.a". (case-insensitive)
      * @param s The String to be checked
+     * @throws ParseException if the String is not one of the accepted forms
      */
-    public static void checkMaleOrFemale(String s) throws ParseException {
+    public static boolean checkMaleOrFemale(String s) throws ParseException {
         String[] testStrings = s.split("\\s+");
 
         for (String test : testStrings) {
@@ -390,13 +375,15 @@ public class ParserUtil {
                 throw new ParseException("'g/' can only be followed by 'm','f', 'male', 'female' or 'N.A'");
             }
         }
+        return true;
     }
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap) {
+    public static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap) {
+        requireNonNull(argumentMultimap);
         return Stream.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DONE,
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST)
                 .anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
