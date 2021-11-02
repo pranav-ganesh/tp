@@ -20,6 +20,11 @@ public class InterestsList {
         this.list = new ArrayList<>();
     }
 
+    public InterestsList(ArrayList<Interest> list) {
+        requireNonNull(list);
+        this.list = list;
+    }
+
     /**
      * Adds an interest into the list.
      * @param interest
@@ -32,8 +37,8 @@ public class InterestsList {
 
     /**
      * Edits an interest in the list.
-     * @param interest
-     * @param index
+     * @param interest The new interest
+     * @param index The index of the Interest in the list to be changed
      */
     public void setInterest(Interest interest, int index) {
         this.list.set(index, interest);

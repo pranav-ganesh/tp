@@ -38,4 +38,26 @@ public class PhoneTest {
         assertTrue(Phone.isValidPhone("87654321")); // exactly 8 numbers beginning with 8
         assertTrue(Phone.isValidPhone("93121534")); // exactly 8 numbers beginning with 9
     }
+
+    @Test
+    public void equals() {
+        Phone phone = new Phone("98765432");
+
+        // same object -> returns true
+        assertTrue(phone.equals(phone));
+
+        // same values -> returns true
+        Phone remarkCopy = new Phone("98765432");
+        assertTrue(phone.equals(remarkCopy));
+
+        // different types -> returns false
+        assertFalse(phone.equals(1));
+
+        // null -> returns false
+        assertFalse(phone.equals(null));
+
+        // different remark -> returns false
+        Phone differentPhone = new Phone("62353535");
+        assertFalse(phone.equals(differentPhone));
+    }
 }
