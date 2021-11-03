@@ -55,7 +55,10 @@ Given below are my contributions to the project.
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `import` and `export` [\#72]()
+    * Added documentation for the features `import` and `export` and `findAny`
+      PR for reference:
+      [findAny](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/131/files)
+      
     * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
   * Developer Guide:
     * Added implementation details of the `import` and `export` feature.
