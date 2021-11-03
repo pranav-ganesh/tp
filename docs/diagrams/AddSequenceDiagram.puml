@@ -14,10 +14,10 @@ box Model MODEL_COLOR_T1
 participant Model MODEL_COLOR
 end box
 
--> LogicManager : execute("add n/bob e/email@email.com p/999")
+-> LogicManager : execute(...)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("add n/bob e/email@email.com p/999")
+LogicManager -> AddressBookParser : parseCommand(...)
 activate AddressBookParser
 
 create AddCommandParser
@@ -25,7 +25,7 @@ AddressBookParser -> AddCommandParser
 activate AddCommandParser
 return
 
-AddressBookParser -> AddCommandParser : parse("n/bob e/email@email.com p/999")
+AddressBookParser -> AddCommandParser : parse(...)
 activate AddCommandParser
 
 create AddCommand

@@ -173,7 +173,11 @@ The add command is facilitated by the LogicManager.
 3. AddressBookParser creates an AddCommand and a new Person with the fields specified by the user
 4. LogicManager executes the AddCommand and the new Person is added into the address book
 
-The Sequence Diagram below illustrates the interactions within the Logic component for the execute("add n/bob e/email@email.com p/999") API call.
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+Due to the length of the command, we have decided to replace it with '...' within the diagram for easier viewing.
+</div>
 
 ![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
 
