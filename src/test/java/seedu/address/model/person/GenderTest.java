@@ -35,4 +35,24 @@ public class GenderTest {
         assertTrue(Gender.isValidGender("f")); // lower case
         assertTrue(Gender.isValidGender("N.A"));
     }
+
+    @Test
+    public void isEmpty() {
+        //true only when null or "N.A" is passed into constructor, case-insensitive
+        Gender test = new Gender(null);
+        assertTrue(test.isEmpty());
+
+        test = new Gender("N.A");
+        assertTrue(test.isEmpty());
+
+        test = new Gender("n.A");
+        assertTrue(test.isEmpty());
+
+        //False either m or f
+        test = new Gender("f");
+        assertFalse(test.isEmpty());
+
+        test = new Gender("m");
+        assertFalse(test.isEmpty());
+    }
 }

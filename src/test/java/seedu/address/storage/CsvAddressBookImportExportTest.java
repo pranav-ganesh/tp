@@ -59,7 +59,7 @@ class CsvAddressBookImportExportTest {
         ImportExport importExport = new CsvAddressBookImportExport(TWO_DUPLICATE, TEST_DATA_FOLDER);
         // setup
         // Benson was previously not called. import called
-        // Alic was previously not called. import not called
+        // Alice was previously not called. import not called
         assertFalse(TypicalPersons.ALICE.getIsDone().value);
         assertFalse(TypicalPersons.BENSON.getIsDone().value);
 

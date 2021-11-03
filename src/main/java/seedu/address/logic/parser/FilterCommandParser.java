@@ -46,6 +46,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 category = checkAndParseCategory(secondLastArgument);
             } catch (NumberFormatException e) {
                 // Parse last argument as category
+                checkIfNumberTooLarge(lastArgument);
                 category = checkAndParseCategory(lastArgument);
                 count = Integer.MAX_VALUE;
             }
@@ -117,5 +118,20 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         } else {
             throw new ParseException(MESSAGE_INVALID_CATEGORY);
         }
+    }
+
+    /**
+     * Checks if the {@code argument} is a number larger than {@code Integer.MAX_VALUE}.
+     * @throws ParseException if {@code argument} is a number is larger than {@code Integer.MAX_VALUE}
+     */
+    private void checkIfNumberTooLarge(String arg) throws ParseException {
+        try {
+            for (char c : arg.toCharArray()) {
+                Integer.parseInt(String.valueOf(c));
+            }
+        } catch (NumberFormatException e) {
+            return;
+        }
+        ParserUtil.parseInteger(arg);
     }
 }

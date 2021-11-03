@@ -34,4 +34,39 @@ public class AgeTest {
         assertTrue(Age.isValidAge("2000"));
         assertTrue(Age.isValidAge("N.A"));
     }
+
+    @Test
+    public void equals() {
+
+        Age age = new Age("10");
+
+        // same object -> returns true
+        assertTrue(age.equals(age));
+
+        // same values -> returns true
+        Age remarkCopy = new Age("10");
+        assertTrue(age.equals(remarkCopy));
+
+        // different types -> returns false
+        assertFalse(age.equals(1));
+
+        // null -> returns false
+        assertFalse(age.equals(null));
+
+        // different value -> returns false
+        Age differentAge = new Age("11");
+        assertFalse(age.equals(differentAge));
+    }
+
+    @Test
+    public void isEmpty() {
+        Age test = new Age(null);
+        assertTrue(test.isEmpty());
+
+        test = new Age("N.A");
+        assertTrue(test.isEmpty());
+
+        test = new Age("10101");
+        assertFalse(test.isEmpty());
+    }
 }
