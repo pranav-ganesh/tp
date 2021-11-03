@@ -175,8 +175,8 @@ The add command is facilitated by the LogicManager.
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** 
-Due to the length of the arguments, we have decided to replace the line "n/bob e/email@email.com p/999" 
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+Due to the length of the arguments, we have decided to replace the line "n/bob e/email@email.com p/999"
 with "..." within the diagram for easier viewing.
 </div>
 
@@ -225,7 +225,7 @@ The find commands are facilitated by the LogicManager.
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex g/m")` API call.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
 While only the findAny command was used for the examples below, the findAll command works exactly the same way
 </div>
 
@@ -250,7 +250,7 @@ The activity diagram below summarises what happens when a user executes a `findA
     * Pros: Improves User Experience by giving users the freedom to decide whether they want find to be lenient or strict
     * Cons: more complicated implementation.
 
-As telemarketers, having the option to find specific demographics when selling products with very niche target audiences would 
+As telemarketers, having the option to find specific demographics when selling products with very niche target audiences would
 be invaluable. Therefore, although the usage rate of `findAll` may not be high while selling generic products. We cannot overlook
 the event where the need arises.
 
