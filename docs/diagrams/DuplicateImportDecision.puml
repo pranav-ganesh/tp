@@ -2,19 +2,20 @@
 'https://plantuml.com/activity-diagram-beta
 
 start
-- ....
--Import person created based \non  Csv row detail
+- Reading file from Csv file
+-Import person created based \non  Csv file row detail
 
 -Import person to be\nadded in  model
-if () then (**No duplicates** of \n**import person** \nin  database)
+if () then ([ **No duplicates** of import person \nin  database ])
     :Import Person is added into\ndatabase;
-else (**Duplicates of import** \n**person** found \nin  database)
-      if () then (Import has \nbeen  called)
-        :Update duplicate  in  \ndatabase  to called  status;
-      else (Import has not  been  called)
+else ([ **Found duplicates of import person** \nin  database ])
+      if () then  ( [ Import has been  called  ])
+        :Update duplicate  in  database \nto "called"  status;
+      else ([ Import has not  been  called ])
+        :CMM does nothing with the \nimport person;
       endif
 endif
-- ....
+- Continue import process
 stop
 
 @enduml

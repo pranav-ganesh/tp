@@ -364,8 +364,8 @@ The import export feature primarily facilitated by the Storage Manager
 **How the import is executed:**
 1. MainWindow calls logic to import data
 2. Logic calls StorageManager to import the data into a model
-3. StorageManager calls CsvImportExportStorage to read and convert all details found in csv file to list of valid people
-4. CsvImportExportStorage then either adds or updates valid people into the model.
+3. StorageManager calls CsvAddressBookImportExport to read and convert all details found in csv file to list of valid people
+4. CsvAddressBookImportExport then either adds or updates valid people into the model.
 5. Logic then saves the database after all imports have been completed
 
 ![Interactions Inside the Storage Component when importing](images/ImportCsvSequenceDiagram.png)
@@ -380,12 +380,14 @@ Next few sections will go deeper what the CMM does in each case
 
 #### Add On Imports
 - Adds on new valid imports into existing database
+    - Valid people need to have the following attributes : Name, Phone, Email filled
+    - Every attribute of import person has to follow the type requirements. This is handled in CsvUtil and  CsvAdaptedPerson
 - Duplicates found in database
-    - As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for the CMM to handle such cases.  Below is a diagram to illustrate how CMM will react when encountering a duplicate import
+    - As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for the CMM to handle such cases.  Below is a diagram    to illustrate how CMM will react when encountering a duplicate import  
       ![CMM behaviour when duplicate encountered](images/DuplicateImportDecision.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
-Duplicates are defined to be two person with the exact same attributes, except for called status.
+Duplicates are defined to be two person with the exact same name, phone number and email address.
 
 #### Start New Imports
 - Exports the current state of the database into a Csv file. Export implementation is covered in detail [here](#export-feature).
@@ -395,12 +397,35 @@ Duplicates are defined to be two person with the exact same attributes, except f
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+This import will not work if first row does not have valid headers. Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `isDone` from the left to right, starting from the cell 'A1'
+</div>
+
 ### Export feature
 **How the export is executed:**
 1. MainWindow calls logic to Export data
-2. Logic calls StorageManager to export the data founda model
-3. StorageManager calls CsvImportExportStorage to read and convert
+2. Logic calls StorageManager to export the data found in model
+3. StorageManager calls CsvImportExportStorage to read and convert to Csv file
 4. Logic then saves the database after all export have been completed
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
+</div>
+
+#### Design considerations:
+
+**Aspect: How the import and export is executed:**
+
+* **Alternative 1 (current choice):** Always ask for import and export upon startup and closing of CMM
+    * Pros: Ensures that user will always be using the most updated list. This reduces the likelihood of time wasted working on outdated data.
+    * Cons: May cause user disatisfaction if user constantly open and close application
+
+* **Alternative 2:** Individual command to import
+  itself.
+    * Pros: Less prompts upon startup. User can import while CMM is running
+    * Cons: User may have forgotten to import the latest excel file and work on a file that was outdated, this will make the user waste a lot of time.
+
+
 
 
 ### \[Proposed\] Undo/redo feature
@@ -483,9 +508,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 --------------------------------------------------------------------------------------------------------------------
 

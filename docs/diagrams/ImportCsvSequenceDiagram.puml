@@ -8,9 +8,9 @@ participant Logic
 participant CsvAddressBookImportExport
 participant CsvUtil
 
-participant CsvAdaptedPerson
+
 participant Model
-participant Person
+
 
 box UI #Bisque
     participant MainWindow
@@ -24,7 +24,6 @@ end box
 box Storage #LightBlue
     participant StorageManager
     participant CsvAddressBookImportExport
-    participant CsvAdaptedPerson
 end box
 box Common #Lavender
     participant CsvUtil
@@ -33,7 +32,6 @@ end box
 
 box Model
     participant Model
-    participant Person
 end box
 
 
@@ -44,24 +42,6 @@ Logic -> StorageManager: importIntoAddressBook(model)
 StorageManager -> CsvAddressBookImportExport: importIntoAddressBook(model)
 
 CsvAddressBookImportExport -> CsvUtil: readCsvFile(filepath)
-
-loop number of  rows in import - 1
-    create CsvAdaptedPerson
-    CsvUtil -> CsvAdaptedPerson
-    activate CsvAdaptedPerson
-
-    CsvAdaptedPerson -> CsvUtil
-    deactivate CsvAdaptedPerson
-
-    CsvUtil -> CsvAdaptedPerson: toModelType()
-
-    create Person
-    CsvAdaptedPerson -> Person
-    activate Person
-    Person -> CsvAdaptedPerson
-    deactivate Person
-    CsvUtil <- CsvAdaptedPerson: valid person
-    end
 
 CsvAddressBookImportExport <- CsvUtil: optional(list of valid people)
 CsvAddressBookImportExport -> CsvAddressBookImportExport: addImportIntoAddressBook(list, model)

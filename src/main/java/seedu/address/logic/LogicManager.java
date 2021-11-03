@@ -94,8 +94,10 @@ public class LogicManager implements Logic {
             storage.importIntoAddressBook(model);
             storage.saveAddressBook(model.getAddressBook());
         } catch (DataConversionException | IOException e) {
-            logger.warning("Data file not in the correct format.\n" + e.toString()
-                    + "\nData will not be imported. Importing aborted");
+            String error = "Data file not in the correct format.\n" + e.getMessage()
+                    + "\nData will not be imported. Importing aborted";
+            logger.warning(error);
+            return error;
         }
         return storage.getImportStatus();
     }
