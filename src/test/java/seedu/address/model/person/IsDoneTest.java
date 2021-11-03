@@ -28,4 +28,20 @@ public class IsDoneTest {
         IsDone differentIsDone = new IsDone("true");
         assertFalse(isDone.equals(differentIsDone));
     }
+
+    @Test
+    public void isValidIsDone() {
+        //true
+        assertTrue(IsDone.isValidIsDone(""));
+        assertTrue(IsDone.isValidIsDone("true"));
+        assertTrue(IsDone.isValidIsDone("false"));
+        assertTrue(IsDone.isValidIsDone("tRuE"));
+        assertTrue(IsDone.isValidIsDone("FaLsE"));
+
+        //false
+        assertFalse(IsDone.isValidIsDone("this is not valid"));
+        assertFalse(IsDone.isValidIsDone("1"));
+        assertFalse(IsDone.isValidIsDone("f"));
+        assertFalse(IsDone.isValidIsDone("t"));
+    }
 }

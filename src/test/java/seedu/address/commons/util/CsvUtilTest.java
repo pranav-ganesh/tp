@@ -31,7 +31,7 @@ class CsvUtilTest {
     public void fromCsvString_mixOfValidAndInvalidPeople_peopleList() throws DataConversionException {
         String[] validHeader = CsvAdaptedPerson.headerOrder();
         String header = String.join(";", validHeader) + "\n";
-        String validPerson = "name 3;123456789;email@email.com;;;;;TRUE\n";
+        String validPerson = "name 3;98765432;email@email.com;;;;;TRUE\n";
         String invalidPerson = ";123111222;;\n";
         String csvString = header + validPerson + invalidPerson;
         assertEquals(1, CsvUtil.fromCsvString(csvString).size());
