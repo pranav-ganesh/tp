@@ -176,7 +176,7 @@ The add command is facilitated by the LogicManager.
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
-Due to the length of the arguments, we have decided to replace the line "add n/bob e/email@email.com p/999" 
+Due to the length of the arguments, we have decided to replace the line "n/bob e/email@email.com p/999" 
 with "..." within the diagram for easier viewing.
 </div>
 
