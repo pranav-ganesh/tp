@@ -1,18 +1,72 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.interests.InterestsList;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
+
+    @Test
+    public void constructor_anyNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Person(
+                new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
+                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                null
+        ));
+
+        assertThrows(NullPointerException.class, () -> new Person(
+                new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
+                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), null,
+                new InterestsList()
+        ));
+
+        assertThrows(NullPointerException.class, () -> new Person(
+                new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
+                new IsDone("true"), new Address("VALID ADDRESS"), null, new Age("22"),
+                new InterestsList()
+        ));
+
+        assertThrows(NullPointerException.class, () -> new Person(
+                new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
+                new IsDone("true"), null, new Gender("F"), new Age("22"),
+                new InterestsList()
+        ));
+
+        assertThrows(NullPointerException.class, () -> new Person(
+                new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
+                null, new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new InterestsList()
+        ));
+
+        assertThrows(NullPointerException.class, () -> new Person(
+                new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), null,
+                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new InterestsList()
+        ));
+
+        assertThrows(NullPointerException.class, () -> new Person(
+                new Name(VALID_NAME_BOB), null, new Email(VALID_EMAIL_BOB),
+                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new InterestsList()
+        ));
+
+        assertThrows(NullPointerException.class, () -> new Person(
+                null, new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
+                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new InterestsList()
+        ));
+    }
 
     @Test
     public void isSamePerson() {
@@ -69,5 +123,13 @@ public class PersonTest {
         // different email -> returns false
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
+    }
+
+    @Test
+    public void toStringNoHeaders() {
+        Person test = new PersonBuilder().build();
+        String expectedString = new StringBuilder().append("Amy Bee;").append("85355255;")
+                .append("amy@gmail.com;").append("False;").toString();
+        assertEquals(test.toStringNoHeaders(), expectedString);
     }
 }
