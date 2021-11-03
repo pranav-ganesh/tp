@@ -2,7 +2,7 @@
 !include style.puml
 
 skinparam sequence {
-    ParticipantFontSize 20
+    ParticipantFontSize 25
     ArrowFontSize 25
 }
 

@@ -226,7 +226,7 @@ The find commands are facilitated by the LogicManager.
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex g/m")` API call.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
-While only the FindAny command was used for the examples below, the FindAll command works exactly the same way
+While only the findAny command was used for the examples below, the findAll command works exactly the same way
 </div>
 
 ![Interactions Inside the Logic Component for the `findAny' Command](images/FindSequenceDiagram.png)
@@ -239,7 +239,7 @@ The activity diagram below summarises what happens when a user executes a `findA
 
 **Aspect: Different types of find commands:**
 
-`findAny`: A contact would be displayed as long as it matches any of the keywords specified by the user in its respective fields
+`findAny`: A contact would be displayed as long as it matches any of the keywords specified by the user in its respective fields <br>
 `findAll`: A contact would be displayed only if it matches **ALL** of the keywords specified by the user in its respective fields
 
 * **Alternative 1 :** only findAny
