@@ -176,7 +176,8 @@ The add command is facilitated by the LogicManager.
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
-Due to the length of the command, we have decided to replace it with '...' within the diagram for easier viewing.
+Due to the length of the arguments, we have decided to replace the line "add n/bob e/email@email.com p/999" 
+with "..." within the diagram for easier viewing.
 </div>
 
 ![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
@@ -210,6 +211,48 @@ On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complem
 
 The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while
 at the same time, improve user experience by reducing time required for users to type the command.
+
+### FindAll/FindAny feature
+
+The find commands are facilitated by the LogicManager.
+
+**How the find command is executed:**
+
+1. Command entered by user is passed into the LogicManager (ie. `findAny n/alex g/m` or `findAll n/alice g/f`)
+2. AddressBookParser parses the command
+3. AddressBookParser creates a FindAny/FindAll command with the respective predicates depending on the fields specified by the user
+4. LogicManager executes the Find command and the model updates the filtered person list with the new predicates
+
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex g/m")` API call.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+While only the FindAny command was used for the examples below, the FindAll command works exactly the same way
+</div>
+
+![Interactions Inside the Logic Component for the `findAny' Command](images/FindSequenceDiagram.png)
+
+The activity diagram below summarises what happens when a user executes a `findAny` Command.
+
+![Find command activity diagram](images/FindActivityDiagram.png)
+
+#### Design considerations:
+
+**Aspect: Different types of find commands:**
+
+`findAny`: A contact would be displayed as long as it matches any of the keywords specified by the user in its respective fields
+`findAll`: A contact would be displayed only if it matches **ALL** of the keywords specified by the user in its respective fields
+
+* **Alternative 1 :** only findAny
+    * Pros: Easier implementation
+    * Cons: Users will not have a way to find contacts that fit a precise demographic
+
+* **Alternative 2 (current choice):** Both findAny and findAll
+    * Pros: Improves User Experience by giving users the freedom to decide whether they want find to be lenient or strict
+    * Cons: more complicated implementation.
+
+As telemarketers, having the option to find specific demographics when selling products with very niche target audiences would 
+be invaluable. Therefore, although the usage rate of `findAll` may not be high while selling generic products. We cannot overlook
+the event where the need arises.
 
 ### Display feature
 
