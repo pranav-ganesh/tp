@@ -10,7 +10,7 @@ The in-built tracking functionality serves as a reminder to reach back on previo
 Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. This It is written in Java, and has about
 16 kLoC. The development of this software was used as a medium for students to apply Software Engineering principles
-taught during the Software Engineering Modulde CS2103T.
+taught during the Software Engineering Module CS2103T.
 
 Given below are my contributions to the project.
 
@@ -58,16 +58,19 @@ Given below are my contributions to the project.
     * Added documentation for the features `import` and `export` and `findAny`
       PR for reference:
       [findAny](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/131/files)
-      
-    * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+      [import](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/109/files)
+      [export](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/97/files)
   * Developer Guide:
     * Added implementation details of the `import` and `export` feature.
+      [ImporExport](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/96/files)
+      [Usecases](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/32/files)
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
-
-* **Tools**:
-  * Integrated a third party library (Natty) to the project ([\#42]())
-  * Integrated a new Github plugin (CircleCI) to the team repo
+  * PRs reviewed (with non-trivial review comments):
+    [Reviewing find command](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/175)
+    [Reviewing Add command](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/89)
+    [Reviewing DG](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/93)
+    [Reviewing Addition of new Attributes](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/67)
+    [Reviewing testcases](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/38)
+    [Reviewing Storage](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/34)
+    
