@@ -31,7 +31,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, IsDone isDone,
                   Address address, Gender gender, Age age, InterestsList interests) {
-        requireAllNonNull(name, phone, email, isDone, address, gender, age);
+        requireAllNonNull(name, phone, email, isDone, address, gender, age, interests);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -157,23 +157,23 @@ public class Person {
                 .append(getPhone())
                 .append(";")
                 .append(getEmail());
-        builder.append(";");
         if (!address.isEmpty()) {
+            builder.append(";");
             builder.append(getAddress());
         }
-        builder.append(";");
         if (!gender.isEmpty()) {
+            builder.append(";");
             builder.append(getGender());
         }
-        builder.append(";");
         if (!age.isEmpty()) {
+            builder.append(";");
             builder.append(getAge());
         }
-        builder.append(";");
         if (!interests.isEmpty()) {
+            builder.append(";");
             builder.append(interests.toStringNoNumbering());
         }
-        builder.append(";").append(getIsDone());
+        builder.append(";").append(getIsDone()).append(";");
         return builder.toString();
     }
 
