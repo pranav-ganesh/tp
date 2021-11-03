@@ -181,6 +181,10 @@ Due to the length of the command, we have decided to replace it with '...' withi
 
 ![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
 
+The activity diagram below summarises what happens when a user executes an Add Command.
+
+![Add command activity diagram](images/AddActivityDiagram.png)
+
 #### Design considerations:
 
 **Aspect: Compulsory fields:**
