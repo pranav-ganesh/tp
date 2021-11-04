@@ -9,18 +9,18 @@ import java.util.function.Predicate;
 import seedu.address.model.person.Person;
 
 /**
- * Tests that a {@code Person}'s {@code Done} matches the value given.
+ * Tests that a {@code Person}'s {@code Called} matches the value given.
  */
-public class DonePredicate implements Predicate<Person> {
+public class CalledPredicate implements Predicate<Person> {
     private final List<String> keywords;
     private final boolean isFindAll;
 
     /**
-     * Constructor for the DonePredicate class
-     * @param keywords The keywords to compare against the {@code Person}'s {@code isDone}
+     * Constructor for the CalledPredicate class
+     * @param keywords The keywords to compare against the {@code Person}'s {@code isCalled}
      * @param isFindAll True if all keywords need to match, false otherwise
      */
-    public DonePredicate(List<String> keywords, boolean isFindAll) {
+    public CalledPredicate(List<String> keywords, boolean isFindAll) {
         requireNonNull(keywords);
         this.keywords = keywords;
         this.isFindAll = isFindAll;
@@ -30,12 +30,12 @@ public class DonePredicate implements Predicate<Person> {
     public boolean test(Person person) {
         if (isFindAll) {
             return keywords.stream()
-                    .allMatch(keyword -> person.getIsDone().toString().toLowerCase(Locale.ROOT).equals(
+                    .allMatch(keyword -> person.getIsCalled().toString().toLowerCase(Locale.ROOT).equals(
                             getDoneValueFromKeyword(keyword)
                     ));
         }
         return keywords.stream()
-                .anyMatch(keyword -> person.getIsDone().toString().toLowerCase(Locale.ROOT).equals(
+                .anyMatch(keyword -> person.getIsCalled().toString().toLowerCase(Locale.ROOT).equals(
                         getDoneValueFromKeyword(keyword)
                 ));
     }
@@ -62,8 +62,8 @@ public class DonePredicate implements Predicate<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DonePredicate // instanceof handles nulls
-                && keywords.equals(((DonePredicate) other).keywords))
-                && isFindAll == ((DonePredicate) other).isFindAll; // state check
+                || (other instanceof CalledPredicate // instanceof handles nulls
+                && keywords.equals(((CalledPredicate) other).keywords))
+                && isFindAll == ((CalledPredicate) other).isFindAll; // state check
     }
 }

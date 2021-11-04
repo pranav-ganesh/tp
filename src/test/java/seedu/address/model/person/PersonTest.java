@@ -21,25 +21,25 @@ public class PersonTest {
     public void constructor_anyNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
                 null
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), null,
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), null,
                 new InterestsList()
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), null, new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), null, new Age("22"),
                 new InterestsList()
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), null, new Gender("F"), new Age("22"),
+                new IsCalled("true"), null, new Gender("F"), new Age("22"),
                 new InterestsList()
         ));
 
@@ -51,19 +51,19 @@ public class PersonTest {
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), null,
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
                 new InterestsList()
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), null, new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
                 new InterestsList()
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 null, new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
                 new InterestsList()
         ));
     }
