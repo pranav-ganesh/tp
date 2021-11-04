@@ -204,10 +204,10 @@ please use with caution.
 **Common issues:**
 * _The index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
-  
+
 ### Finding contacts that matches **ANY** of the keywords specified: `findAny`
 
-Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] 
+Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​]
 [d/DONE…​] [i/INTEREST…​]`
 
 **Things to note:**
@@ -233,7 +233,7 @@ Click [here](#finding-contacts-that-matches-all-the-keywords-specified--findall)
 Examples:
 * `findAny n/John` finds all contacts that have the substring `john` in their name
 * `findAny n/alex david` finds all contacts that have either the substring 'alex' or 'david' in their name<br>
-* `findAny n/alex david a/woodlands` finds all contacts that have either the substring 'alex' or 'david' in their name or 
+* `findAny n/alex david a/woodlands` finds all contacts that have either the substring 'alex' or 'david' in their name or
 have the substring 'woodlands' in their address
 * `findAny n/alex n/david` only finds all contacts that have the substring 'david' in their name
 
@@ -273,7 +273,7 @@ Examples:
 * `findAll n/alex` finds all the contacts that have the substring 'alex' in their name
 * `findAll n/Malan i/Swimming` finds only the contacts that have **BOTH** the substring 'malan' in the name and the substring 'swimming' as their interests
 * `findAll i/Painting i/ Running` finds only the contacts that have 'running' as a substring as their interests
-* `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name 
+* `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name
 **AND both** substrings of 'ho' and 'oh' in the address
 
 **Common issues:**
@@ -313,16 +313,19 @@ Examples:
 
 **Things to note:**
 * `CATEGORY` field is mandatory
-* `CATEGORY` refers to the category used to filter the contacts.
+* `CATEGORY` refers to the category used to filter the contacts
 * `CATEGORY` **must be one of the following:** called, gender
-* `COUNT` refers to the number of contacts to be shown in the displayed list.
-* `COUNT` **must be a positive integer** 1, 2, 3, …​
-* If more arguments are given than what is required, the last two arguments are taken into account.
+* `COUNT` refers to the number of contacts to be shown in the displayed list. If `COUNT` is more than the total number
+of contacts, all contacts will be shown
+* `COUNT` **must be a positive integer less than 2147483648** 1, 2, 3, …​, 2147483647
+* If more arguments are given than what is required, the last two arguments are taken into account
   (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
-* If the last argument is not an integer, it will be interpreted as a `CATEGORY`.
+* If the last argument is not an integer, it will be interpreted as a `CATEGORY`
   (e.g., `filter gender called` will be interpreted as `filter called`)
-* If more than one category is entered, the last category will be interpreted as the `CATEGORY`.
+* If more than one category is entered, the last category will be interpreted as the `CATEGORY`
   (e.g., `filter gender called 3` will be interpreted as `filter called 3`)
+* If only one argument is given, it will be interpreted as a `CATEGORY`
+  (e.g., `filter 1000` will cause `1000` to be interpreted as a `CATEGORY`)
 
 
 **Common issues:**
