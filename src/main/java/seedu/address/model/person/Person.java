@@ -92,7 +92,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both persons have the name, phone and email data fields.
      * This defines a stronger notion of equality between two persons.
      */
     @Override
@@ -114,7 +114,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        // return Objects.hash(name, phone, email, isCalled);
+        // return Objects.hash(name, phone, email);
         return Objects.hash(name, phone, email);
     }
 

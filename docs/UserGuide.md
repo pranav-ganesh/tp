@@ -27,7 +27,7 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 4. Double-click the file to start the app. Initially, a popup asking to import CSV data would appear.
    ![importPopUpUi](images/importPopUpMessage.png) <br>
-   To learn more about importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button 
+   To learn more about importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button
    on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
    ![Ui](images/Ui.png)
 

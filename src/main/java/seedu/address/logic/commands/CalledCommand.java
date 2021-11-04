@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -66,7 +65,6 @@ public class CalledCommand extends Command {
         Person editedPerson = createCalledPerson(personToEdit);
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         DisplayCommand displayCommand = new DisplayCommand(Index.fromOneBased(index.getOneBased()));
         displayCommand.execute(model);
