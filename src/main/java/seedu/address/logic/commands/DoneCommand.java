@@ -65,7 +65,6 @@ public class DoneCommand extends Command {
         Person editedPerson = createCalledPerson(personToEdit);
 
         model.setPerson(personToEdit, editedPerson);
-        //model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_DONE_CALL_SUCCESS, editedPerson));
     }
