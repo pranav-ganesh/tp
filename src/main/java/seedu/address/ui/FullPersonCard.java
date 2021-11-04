@@ -17,7 +17,7 @@ public class FullPersonCard extends UiPart<Region> {
 
     private static final String PHONE_LABEL = "Phone: ";
     private static final String EMAIL_LABEL = "Email: ";
-    private static final String DONE_LABEL = "Called: ";
+    private static final String CALLED_LABEL = "Called: ";
     private static final String ADDRESS_LABEL = "Address: ";
     private static final String GENDER_LABEL = "Gender: ";
     private static final String AGE_LABEL = "Age: ";
@@ -44,7 +44,7 @@ public class FullPersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label isDone;
+    private Label isCalled;
     @FXML
     private Label address;
     @FXML
@@ -63,7 +63,7 @@ public class FullPersonCard extends UiPart<Region> {
         super(FXML);
 
         fullPersonDetails.setPrefWidth(windowWidth / 3);
-        //cardPane.setPrefWidth(windowWidth / 3);
+
         try {
             this.person = persons.get(displayedIndex - 1);
             id.setText(displayedIndex + ". ");
@@ -71,12 +71,12 @@ public class FullPersonCard extends UiPart<Region> {
             phone.setText(person.getPhone().value);
             email.setText(person.getEmail().value);
 
-            if (person.getIsDone().value) {
-                isDone.setText("True");
-                isDone.setStyle("-fx-text-fill: springgreen");
+            if (person.getIsCalled().value) {
+                isCalled.setText("True");
+                isCalled.setStyle("-fx-text-fill: springgreen");
             } else {
-                isDone.setText("False");
-                isDone.setStyle("-fx-text-fill: red");
+                isCalled.setText("False");
+                isCalled.setStyle("-fx-text-fill: red");
             }
 
             address.setText(person.getAddress().value);
@@ -105,7 +105,7 @@ public class FullPersonCard extends UiPart<Region> {
         name.setText("");
         phone.setText(DEFAULT_FIELD);
         email.setText(DEFAULT_FIELD);
-        isDone.setText(DEFAULT_FIELD);
+        isCalled.setText(DEFAULT_FIELD);
         address.setText(DEFAULT_FIELD);
         address.setText(DEFAULT_FIELD);
         gender.setText(DEFAULT_FIELD);

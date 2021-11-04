@@ -27,7 +27,7 @@ import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.AgeContainsValuePredicate;
-import seedu.address.model.person.predicates.DonePredicate;
+import seedu.address.model.person.predicates.CalledPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.GenderContainsKeywordPredicate;
 import seedu.address.model.person.predicates.InterestContainsKeywordsPredicate;
@@ -39,7 +39,6 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
     private static final String INVALID_GENDER = "Cheetah";
     private static final String INVALID_AGE = "22.5";
     private static final String INVALID_INTEREST = "";
@@ -55,8 +54,6 @@ public class ParserUtilTest {
     private static final String VALID_INTEREST_2 = "Rolling";
     private static final String VALID_PREFIX_1 = "n/";
     private static final String VALID_PREFIX_2 = "a/";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_TEST_STRING = "THIS IS A VALID STRING";
 
     private static final String WHITESPACE = " \t\r\n";
@@ -438,24 +435,24 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void getDonePredicate_nullKeywords_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.getDonePredicate(null, true));
+    public void getCalledPredicate_nullKeywords_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.getCalledPredicate(null, true));
     }
 
     @Test
-    public void getDonePredicate_emptyKeywords_returnsNameContainsKeywordsPredicate() {
-        DonePredicate expectedPredicate = new DonePredicate(
+    public void getCalledPredicate_emptyKeywords_returnsNameContainsKeywordsPredicate() {
+        CalledPredicate expectedPredicate = new CalledPredicate(
                 Arrays.asList(""), true
         );
-        assertEquals(ParserUtil.getDonePredicate("", true), expectedPredicate);
+        assertEquals(ParserUtil.getCalledPredicate("", true), expectedPredicate);
     }
 
     @Test
-    public void getDonePredicate_nonEmptyKeywords_returnsNameContainsKeywordsPredicate() {
-        DonePredicate expectedPredicate = new DonePredicate(
+    public void getCalledPredicate_nonEmptyKeywords_returnsNameContainsKeywordsPredicate() {
+        CalledPredicate expectedPredicate = new CalledPredicate(
                 Arrays.asList("true", "false"), true
         );
-        assertEquals(ParserUtil.getDonePredicate("true false", true), expectedPredicate);
+        assertEquals(ParserUtil.getCalledPredicate("true false", true), expectedPredicate);
     }
 
     @Test

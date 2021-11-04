@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fx:id="fullPersonDetails" maxWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fx:id="fullPersonDetails" minWidth="200.0" prefHeight="100000.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox fx:id="fullPersonContainer" alignment="CENTER_LEFT">
+      <VBox fx:id="fullPersonContainer" alignment="CENTER_LEFT" minWidth="200.0" VBox.vgrow="ALWAYS">
          <padding>
             <Insets bottom="5" left="15" right="5" top="5" />
          </padding>
@@ -42,7 +42,7 @@
                </VBox.margin>
             </Label>
             <Label fx:id="calledHeader" text="Called:" />
-            <Label fx:id="isDone" styleClass="cell_small_label" text="\$isDone" wrapText="true">
+            <Label fx:id="isCalled" styleClass="cell_small_label" text="\$isCalled" wrapText="true">
                <VBox.margin>
                   <Insets bottom="10.0" left="20.0" />
                </VBox.margin>

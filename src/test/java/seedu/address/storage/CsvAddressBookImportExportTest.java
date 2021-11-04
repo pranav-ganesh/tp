@@ -59,8 +59,8 @@ class CsvAddressBookImportExportTest {
         // setup
         // Benson was previously not called. import called
         // Alice was previously not called. import not called
-        assertFalse(TypicalPersons.ALICE.getIsDone().value);
-        assertFalse(TypicalPersons.BENSON.getIsDone().value);
+        assertFalse(TypicalPersons.ALICE.getIsCalled().value);
+        assertFalse(TypicalPersons.BENSON.getIsCalled().value);
 
         List<Person> peopleAlreadyInDatabase = Arrays.asList(TypicalPersons.ALICE, TypicalPersons.BENSON);
         AddressBookStub database = new AddressBookStub();
@@ -78,8 +78,8 @@ class CsvAddressBookImportExportTest {
 
         // Since import called, benson updated call status
         // Since import not called, alice not updated
-        assertFalse(updatedAlice.getIsDone().value);
-        assertTrue(updatedBenson.getIsDone().value);
+        assertFalse(updatedAlice.getIsCalled().value);
+        assertTrue(updatedBenson.getIsCalled().value);
         assertTrue(addedIda.getName().toString().equals("Ida Mueller"));
     }
 

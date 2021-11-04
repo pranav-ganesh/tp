@@ -16,9 +16,9 @@ import seedu.address.testutil.PersonBuilder;
 class CalledComparatorTest {
     @Test
     public void compare_sameCalled_returnsZero() {
-        Person a = new PersonBuilder().withName("Kent").withDone("true")
+        Person a = new PersonBuilder().withName("Kent").withCalled("true")
                 .withPhone("88886666").withEmail("nameComparator@test.com").build();
-        Person b = new PersonBuilder().withName("Mike").withDone("true")
+        Person b = new PersonBuilder().withName("Mike").withCalled("true")
                 .withPhone("99997777").withEmail("nameComparator@test.org").build();
         assertEquals(0, new CalledComparator().compare(a, b));
     }
@@ -27,25 +27,25 @@ class CalledComparatorTest {
     public void compare_differentCalled_success() {
         // Persons will be shown in this order: false, true
         // Person a is not called
-        Person a = new PersonBuilder().withName("Acorn").withDone("false")
+        Person a = new PersonBuilder().withName("Acorn").withCalled("false")
                 .withPhone("88886666").withEmail("nameComparator@test.com").build();
-        Person b = new PersonBuilder().withName("Kent").withDone("true")
+        Person b = new PersonBuilder().withName("Kent").withCalled("true")
                 .withPhone("99997777").withEmail("nameComparator@test.org").build();
         assertTrue(new CalledComparator().compare(a, b) < 0);
 
         // Person b is not called
-        a = new PersonBuilder().withName("Kent").withDone("true")
+        a = new PersonBuilder().withName("Kent").withCalled("true")
                 .withPhone("88886666").withEmail("nameComparator@test.com").build();
-        b = new PersonBuilder().withName("Acorn").withDone("false")
+        b = new PersonBuilder().withName("Acorn").withCalled("false")
                 .withPhone("99997777").withEmail("nameComparator@test.org").build();
         assertTrue(new CalledComparator().compare(a, b) > 0);
     }
 
     @Test
     public void compare_nullPerson_throwNullPointerException() {
-        Person a = new PersonBuilder().withName("Acorn").withDone("true")
+        Person a = new PersonBuilder().withName("Acorn").withCalled("true")
                 .withPhone("88886666").withEmail("nameComparator@test.com").build();
-        Person b = new PersonBuilder().withName("Kent").withDone("true")
+        Person b = new PersonBuilder().withName("Kent").withCalled("true")
                 .withPhone("99997777").withEmail("nameComparator@test.org").build();
 
         assertThrows(NullPointerException.class, () -> new CalledComparator().compare(null, b));
