@@ -15,10 +15,10 @@ public class CalledComparator implements Comparator<Person> {
     @Override
     public int compare(Person a, Person b) {
         requireAllNonNull(a, b);
-        if (a.getIsDone().value == b.getIsDone().value) {
+        if (a.getIsCalled().value == b.getIsCalled().value) {
             return 0;
         }
-        return a.getIsDone().value ? 1 : -1;
+        return a.getIsCalled().value ? 1 : -1;
     }
 
     @Override

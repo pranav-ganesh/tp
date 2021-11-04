@@ -21,10 +21,10 @@ import seedu.address.model.person.Person;
  */
 public class CsvAddressBookImportExport implements ImportExport {
 
-    public static final String MESSAGE_DUPLICATE_NOT_DONE_PERSON = "Import contains duplicate person(s)."
+    public static final String MESSAGE_DUPLICATE_NOT_CALLED_PERSON = "Import contains duplicate person(s)."
             + " These duplicate person(s) are  list index:" + "\n";
 
-    public static final String MESSAGE_DUPLICATE_DONE_PERSON = "These duplicate person(s) with "
+    public static final String MESSAGE_DUPLICATE_CALLED_PERSON = "These duplicate person(s) with "
             + "these list index will be updated to 'called' : \n";
 
     private static final Logger logger = LogsCenter.getLogger(CsvAddressBookImportExport.class);
@@ -136,7 +136,7 @@ public class CsvAddressBookImportExport implements ImportExport {
             int listPos = model.duplicateIndex(importPerson);
 
             if (listPos != -1) {
-                if (importPerson.getIsDone().value) {
+                if (importPerson.getIsCalled().value) {
                     updatePerson(listPos, importPerson, model);
                     updateRowImport.add(listPos + 1);
                     duplicateRowImport.add(listPos + 1);
@@ -152,8 +152,8 @@ public class CsvAddressBookImportExport implements ImportExport {
         }
         Collections.sort(duplicateRowImport);
         logger.info(successfulNewImportCount + " new person(s) successfully imported");
-        logger.info(MESSAGE_DUPLICATE_DONE_PERSON + updateRowImport);
-        logger.info(MESSAGE_DUPLICATE_NOT_DONE_PERSON + duplicateRowImport);
+        logger.info(MESSAGE_DUPLICATE_CALLED_PERSON + updateRowImport);
+        logger.info(MESSAGE_DUPLICATE_NOT_CALLED_PERSON + duplicateRowImport);
     }
 
     private void updatePerson(int listPos, Person importPerson, Model model) {
