@@ -173,9 +173,18 @@ The add command is facilitated by the LogicManager.
 3. AddressBookParser creates an AddCommand and a new Person with the fields specified by the user
 4. LogicManager executes the AddCommand and the new Person is added into the address book
 
-The Sequence Diagram below illustrates the interactions within the Logic component for the execute("add n/bob e/email@email.com p/999") API call.
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+Due to the length of the arguments, we have decided to replace the line "n/bob e/email@email.com p/999"
+with "..." within the diagram for easier viewing.
+</div>
 
 ![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
+
+The activity diagram below summarises what happens when a user executes an Add Command.
+
+![Add command activity diagram](images/AddActivityDiagram.png)
 
 #### Design considerations:
 
@@ -202,6 +211,48 @@ On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complem
 
 The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while
 at the same time, improve user experience by reducing time required for users to type the command.
+
+### FindAll/FindAny feature
+
+The find commands are facilitated by the LogicManager.
+
+**How the find command is executed:**
+
+1. Command entered by user is passed into the LogicManager (ie. `findAny n/alex g/m` or `findAll n/alice g/f`)
+2. AddressBookParser parses the command
+3. AddressBookParser creates a FindAny/FindAll command with the respective predicates depending on the fields specified by the user
+4. LogicManager executes the Find command and the model updates the filtered person list with the new predicates
+
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex")` API call.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+While only the findAny command was used for the examples below, the findAll command works exactly the same way
+</div>
+
+![Interactions Inside the Logic Component for the `findAny' Command](images/FindSequenceDiagram.png)
+
+The activity diagram below summarises what happens when a user executes a `findAny` Command.
+
+![Find command activity diagram](images/FindActivityDiagram.png)
+
+#### Design considerations:
+
+**Aspect: Different types of find commands:**
+
+`findAny`: A contact would be displayed as long as it matches any of the keywords specified by the user in its respective fields <br>
+`findAll`: A contact would be displayed only if it matches **ALL** of the keywords specified by the user in its respective fields
+
+* **Alternative 1 :** only findAny
+    * Pros: Easier implementation
+    * Cons: Users will not have a way to find contacts that fit a precise demographic
+
+* **Alternative 2 (current choice):** Both findAny and findAll
+    * Pros: Improves User Experience by giving users the freedom to decide whether they want find to be lenient or strict
+    * Cons: more complicated implementation.
+
+As telemarketers, having the option to find specific demographics when selling products with very niche target audiences would
+be invaluable. Therefore, although the usage rate of `findAll` may not be high while selling generic products. We cannot overlook
+the event where the need arises.
 
 ### Display feature
 
@@ -274,7 +325,7 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
     * Cons: User has to choose how many contacts to be displayed every time.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers sort contacts
-by categories other than "Gender" and "Called", those are the only categories supported by the filter command. 
+by categories other than "Gender" and "Called", those are the only categories supported by the filter command.
 </div>
 
 As the key intention is for users to filter by `Category`, it is kept as a compulsory field.
@@ -666,11 +717,11 @@ Guarantees: Selected person's additional details will be displayed
     * 2a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
- 
+
 * 2b. The selected person is already being displayed
 
     * 2b1. Application shows a message saying the person is already being displayed
-   
+
       Use case resumes at step 2.
 
 **Use Case 8: Filter contacts**
@@ -694,7 +745,7 @@ Guarantees: Contacts will be sorted by category specified
     * 1a1. Command box displays error message
 
       Use case resumes at step 1
-    
+
 * 1b. User enters an invalid field
 
     * 1b1. Command box displays error message
@@ -793,11 +844,11 @@ testers are expected to do more *exploratory* testing.
 
     3. Test case: `filter called 0`<br>
        Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
-    
+
     4. Test case: `filter address 0`<br>
        Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
 
-    5. Other incorrect delete commands to try: `filter`, `filter x` (where x is an invalid category), 
+    5. Other incorrect delete commands to try: `filter`, `filter x` (where x is an invalid category),
        `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
        Expected: Similar to previous.
 

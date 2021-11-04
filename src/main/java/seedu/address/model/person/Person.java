@@ -31,7 +31,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, IsDone isDone,
                   Address address, Gender gender, Age age, InterestsList interests) {
-        requireAllNonNull(name, phone, email, isDone, address, gender, age);
+        requireAllNonNull(name, phone, email, isDone, address, gender, age, interests);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -108,18 +108,14 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getGender().equals(getGender())
-                && otherPerson.getAge().equals(getAge())
-                && otherPerson.getInterests().equals(getInterests());
+                && otherPerson.getEmail().equals(getEmail());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        // return Objects.hash(name, phone, email, isDone);
-        return Objects.hash(name, phone, email, address, gender, age);
+        // return Objects.hash(name, phone, email);
+        return Objects.hash(name, phone, email);
     }
 
     @Override
@@ -157,23 +153,23 @@ public class Person {
                 .append(getPhone())
                 .append(";")
                 .append(getEmail());
-        builder.append(";");
         if (!address.isEmpty()) {
+            builder.append(";");
             builder.append(getAddress());
         }
-        builder.append(";");
         if (!gender.isEmpty()) {
+            builder.append(";");
             builder.append(getGender());
         }
-        builder.append(";");
         if (!age.isEmpty()) {
+            builder.append(";");
             builder.append(getAge());
         }
-        builder.append(";");
         if (!interests.isEmpty()) {
+            builder.append(";");
             builder.append(interests.toStringNoNumbering());
         }
-        builder.append(";").append(getIsDone());
+        builder.append(";").append(getIsDone()).append(";");
         return builder.toString();
     }
 
