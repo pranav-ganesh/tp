@@ -29,6 +29,8 @@ public class ModelManager implements Model {
     private final SortedList<Person> sortedPersons;
     private ObservableList<Person> source;
 
+    private Predicate<Person> currentPredicate = PREDICATE_SHOW_ALL_PERSONS;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -118,7 +120,8 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        //updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(currentPredicate);
     }
 
     @Override
@@ -154,6 +157,7 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        currentPredicate = predicate;
     }
 
     @Override
