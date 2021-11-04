@@ -15,9 +15,12 @@ public class DisplayCommand extends Command {
 
     public static final String COMMAND_WORD = "display";
 
+    public static final String MESSAGE_INDEX_NOT_PARSED = "The index entered is not within the allowed range. "
+            + "The index cannot be bigger than 2147483647 (i.e., MAX_VALUE).";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays additional details about a "
-            + "particular person in the address book. Person is chosen based on index.\n"
-            + "Format: " + COMMAND_WORD + " INDEX";
+            + "particular contact in the address book. Contact is chosen based on index.\n"
+            + "Parameter: " + " INDEX";
 
     public static final String MESSAGE_DISPLAY_SUCCESS = "Displayed selected person!";
 

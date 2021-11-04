@@ -13,7 +13,7 @@ public class DisplayCommandParserTest {
     private DisplayCommandParser parser = new DisplayCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDoneCommand() {
+    public void parse_validArgs_returnsDisplayCommand() {
         assertParseSuccess(parser, "2", new DisplayCommand(INDEX_SECOND_PERSON));
     }
 
@@ -21,5 +21,12 @@ public class DisplayCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "*", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "c", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_tooBigInt_throwsParseException() {
+        long l = 23423498233L;
+        String input = String.valueOf(l);
+        assertParseFailure(parser, input, String.format(DisplayCommand.MESSAGE_INDEX_NOT_PARSED));
     }
 }
