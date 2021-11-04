@@ -5,19 +5,19 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.CalledCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses the input argument and creates a new DoneCommand object
+ * Parses the input argument and creates a new CalledCommand object
  */
-public class DoneCommandParser implements Parser<DoneCommand> {
+public class CalledCommandParser implements Parser<CalledCommand> {
 
     /**
-     * Parses the given {@code String} of argument and returns a DoneCommand object for execution.
+     * Parses the given {@code String} of argument and returns a CalledCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DoneCommand parse(String args) throws ParseException {
+    public CalledCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
@@ -25,9 +25,9 @@ public class DoneCommandParser implements Parser<DoneCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalledCommand.MESSAGE_USAGE), ive);
         }
 
-        return new DoneCommand(index);
+        return new CalledCommand(index);
     }
 }

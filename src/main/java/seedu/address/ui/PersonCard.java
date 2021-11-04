@@ -39,9 +39,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private Label isDone;
+    private Label isCalled;
     @FXML
-    private Label doneMarker;
+    private Label calledMarker;
     @FXML
     private Label gender;
 
@@ -56,14 +56,14 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
 
-        if (person.getIsDone().value) {
-            isDone.setText("Called: True");
-            doneMarker.setText("✔");
-            doneMarker.setStyle("-fx-text-fill: springgreen");
+        if (person.getIsCalled().value) {
+            isCalled.setText("Called: True");
+            calledMarker.setText("✔");
+            calledMarker.setStyle("-fx-text-fill: springgreen");
         } else {
-            isDone.setText("Called: False");
-            doneMarker.setText("❌");
-            doneMarker.setStyle("-fx-text-fill: red");
+            isCalled.setText("Called: False");
+            calledMarker.setText("❌");
+            calledMarker.setStyle("-fx-text-fill: red");
         }
 
         if (person.getGender().value.equals("M")) {
