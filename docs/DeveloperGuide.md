@@ -223,7 +223,7 @@ The find commands are facilitated by the LogicManager.
 3. AddressBookParser creates a FindAny/FindAll command with the respective predicates depending on the fields specified by the user
 4. LogicManager executes the Find command and the model updates the filtered person list with the new predicates
 
-The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex g/m")` API call.
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex")` API call.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
 While only the findAny command was used for the examples below, the findAll command works exactly the same way

@@ -20,7 +20,7 @@ participant "p:NameContainsKeywordPredicate" as namePredicate MODEL_COLOR
 participant "c:CombinedPredicate" as combinedPredicate MODEL_COLOR
 end box
 
--> LogicManager : execute("findAny n/alex g/m")
+-> LogicManager : execute("findAny n/alex")
 activate LogicManager
 
 LogicManager -> AddressBookParser : parseCommand("findAny n/alex")

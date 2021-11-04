@@ -5,15 +5,15 @@ start
 :User enters add command;
 :AddressBookParser parses the command;
 :AddCommandParser parses the arguments provided;
-if () then (command is valid)
+if () then ([command is valid])
   :new contact with the specified fields is created;
   :new AddCommand object is created;
-  if() then (contact already exists)
+  if() then ([contact already exists])
   :throws CommandException;
-  else (else)
+  else ([contact does not exist])
   :contact is added into the address book;
   endif
-else (command is invalid)
+else ([command is invalid])
   :throws ParseException;
 endif
 
