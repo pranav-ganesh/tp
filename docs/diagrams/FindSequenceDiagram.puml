@@ -9,15 +9,15 @@ skinparam sequence {
 box Logic LOGIC_COLOR_T1
 participant LogicManager LOGIC_COLOR
 participant AddressBookParser LOGIC_COLOR
-participant FindAnyCommandParser LOGIC_COLOR
+participant "FindAny \n CommandParser" LOGIC_COLOR
 participant "f:FindAnyCommand" as FindAnyCommand LOGIC_COLOR
 participant CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant Model MODEL_COLOR
-participant "p:NameContainsKeywordPredicate" as namePredicate MODEL_COLOR
-participant "c:CombinedPredicate" as combinedPredicate MODEL_COLOR
+participant "p:NameContains \n KeywordPredicate" as namePredicate MODEL_COLOR
+participant "c:Combined \n Predicate" as combinedPredicate MODEL_COLOR
 end box
 
 -> LogicManager : execute("findAny n/alex")

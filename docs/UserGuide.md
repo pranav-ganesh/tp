@@ -5,7 +5,7 @@ title: User Guide
 
 CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
 CMM provides a solution to quickly catalog people based on who has/yet to be called.
-The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers
+The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers.
 Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
 
 CMM is optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
@@ -31,8 +31,8 @@ If you can type fast, CMM can get your contact management tasks done faster than
    on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
-   Commands that CallMeMaybe supports:
+5. Type the command in the command box and press Enter to execute it. e.g. typing "help" and pressing `Enter` will open the help window.
+   You can find the commands that CallMeMaybe supports below:
    - `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the CMM database.
    - `list` : Lists all contacts.
    - `done 2` : Marks the 2nd contact shown in the current list as completed.
@@ -41,6 +41,7 @@ If you can type fast, CMM can get your contact management tasks done faster than
    - `findAll n/alex g/m` : Finds the contacts that have both the substring `alex` in their name **AND** are males.
    - `delete 3` : Deletes the 3rd contact shown in the current list.
    - `display 4` : Displays the full contact details of the fourth contact in the displayed list.
+   - `filter called` : Sorts the list to display uncalled contacts first
    - `clear` : Deletes all contacts.
    - `exit` : Exits the app.
 
@@ -93,14 +94,15 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/I
 **Things to note:**
 * `Name`, `Phone_number` and `Email` fields are mandatory
 * `Name`, `Address` and `Interest` can be in any format.
-* `Phone_number` must contain only digits and be at least 8 digits long
-* `Email` should be in the form of `local-part@domain-name`
+* `Phone_number` must contain exactly 8 digits
+  a. numbers must start with "6", "8" or "9"
+* `Email` should be in the form of `local-part@domain-name` <br>
   a. The local-part should only contain alphanumeric characters and these special characters, `+_.-`. <br>
-  b. The local-part may not start or end with any special characters.
-  c. The domain-name is made up of domain labels separated by periods. (eg. @nus.edu.sg)
-  d. The domain-name must end with a domain label at least 2 characters long
-  e. The domain-name must have each domain label start and end with alphanumeric characters
-  f. The domain-name must have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+  b. The local-part may not start or end with any special characters.<br>
+  c. The domain-name is made up of domain labels separated by periods. (eg. @nus.edu.sg)<br>
+  d. The domain-name must end with a domain label at least 2 characters long<br>
+  e. The domain-name must have each domain label start and end with alphanumeric characters<br>
+  f. The domain-name must have each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br>
 * `Gender` can only be "m", "f", "n.a" (case-insensitive)
 * `Age` must only contain numbers
 
@@ -205,7 +207,7 @@ please use with caution.
 * _The index provided is invalid_: <br />
   a. Displayed list does not contain person at `INDEX`.
 
-### Finding contacts that matches **ANY** of the keywords specified: `findAny`
+### Finding contacts that match **ANY** of the keywords specified: `findAny`
 
 Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​]
 [d/DONE…​] [i/INTEREST…​]`
@@ -244,7 +246,7 @@ have the substring 'woodlands' in their address
 a. No fields provided<br>
 b. Used the wrong prefix (eg. '/n' instead of 'n/')
 
-### Finding contacts that matches "ALL" the keywords specified : `findAll`
+### Finding contacts that match **ALL** the keywords specified : `findAll`
 
 Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
 
@@ -262,9 +264,9 @@ Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 * You can refer to the examples below for a better understanding
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-findAll vs findAny<br>
-    * findAll searches for contacts that satisfy **ALL** the fields specified<br>
-    * findAny searches for contacts that satisfy **ANY** of the fields specified<br>
+findAll vs findAny: <br>
+- findAll searches for contacts that satisfy **ALL** the fields specified<br>
+- findAny searches for contacts that satisfy **ANY** of the fields specified<br>
 </div>
 
 Click [here](#finding-contacts-that-matches-any-of-the-keywords-specified-findany) to learn more about findAny
@@ -306,17 +308,12 @@ Filters the existing contacts in the CMM database. The displayed list will show 
 
 Format: `filter CATEGORY [COUNT]`
 
-Examples:
-* `filter called` filters the displayed list to show uncalled contacts first
-* `filter called 2` filters the displayed list to show uncalled contacts first and to only show the first two contacts
-* `filter gender 3` filters the displayed list to show female contacts first and to only show the first three contacts
-
 **Things to note:**
 * `CATEGORY` field is mandatory
 * `CATEGORY` refers to the category used to filter the contacts
 * `CATEGORY` **must be one of the following:** called, gender
 * `COUNT` refers to the number of contacts to be shown in the displayed list. If `COUNT` is more than the total number
-of contacts, all contacts will be shown
+  of contacts, all contacts will be shown
 * `COUNT` **must be a positive integer less than 2147483648** 1, 2, 3, …​, 2147483647
 * If more arguments are given than what is required, the last two arguments are taken into account
   (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
@@ -327,6 +324,10 @@ of contacts, all contacts will be shown
 * If only one argument is given, it will be interpreted as a `CATEGORY`
   (e.g., `filter 1000` will cause `1000` to be interpreted as a `CATEGORY`)
 
+Examples:
+* `filter called` filters the displayed list to show uncalled contacts first
+* `filter called 2` filters the displayed list to show uncalled contacts first and to only show the first two contacts
+* `filter gender 3` filters the displayed list to show female contacts first and to only show the first three contacts
 
 **Common issues:**
 * _Category can only be either "called" or "gender"_: <br />
@@ -441,8 +442,8 @@ Action | Format, Examples
 **Done** | `done INDEX` <br> e.g. `done 2`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g. `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
-**FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
-**FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
+**FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> `findAny n/alex g/m`
+**FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> `findAll n/alex g/m`
 **Display** | `display INDEX` <br> e.g. `display 4`
 **Filter** | `filter CATEGORY [COUNT]` <br> e.g. `filter gender 5`
 **Clear** | `clear`
