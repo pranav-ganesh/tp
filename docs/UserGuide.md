@@ -21,14 +21,18 @@ If you can type fast, CMM can get your contact management tasks done faster than
 ## How to use the User Guide
 
 This user guide aims to help you easily find the information you desire for any command. <br>
-Each Command sections is separated into:<br>
+Each Command section is separated into:<br>
 * Brief description of the command
 * Command Format
 * Things to note
 * Examples
 * Common issues
 
-To get the most out of this user guide, it is recommended to familiarise yourself with the [notations](#command-notations) we use.
+<div markdown="block" class="alert alert-info">
+**:information_source: Note:** Straightforward commands such as 'list' would not have the sections "Things to note", "examples" and "Common issues"
+</div>
+
+To get the most out of this user guide, it is recommended that you familiarise yourself with the [notations](#command-notations) we use.
 However, if this is your first time using CMM, it would be easier for you to go through the [Quick Start](#quick-start) and learn the 
 notations along the way. Hope you have a great time with CMM.
 
