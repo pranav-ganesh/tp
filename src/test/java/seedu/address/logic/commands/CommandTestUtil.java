@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
@@ -43,8 +43,8 @@ public class CommandTestUtil {
     public static final String VALID_GENDER_BOB = "M";
     public static final String VALID_AGE_AMY = "22";
     public static final String VALID_AGE_BOB = "33";
-    public static final String VALID_DONE_AMY = "true";
-    public static final String VALID_DONE_BOB = "false";
+    public static final String VALID_CALLED_AMY = "true";
+    public static final String VALID_CALLED_BOB = "false";
     public static final String VALID_INTEREST_AMY = "Shopping";
     public static final String VALID_INTEREST_BOB = "Watching football";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -66,8 +66,8 @@ public class CommandTestUtil {
     public static final String GENDER_DESC_BOB = " " + PREFIX_GENDER + VALID_GENDER_BOB;
     public static final String AGE_DESC_AMY = " " + PREFIX_AGE + VALID_AGE_AMY;
     public static final String AGE_DESC_BOB = " " + PREFIX_AGE + VALID_AGE_BOB;
-    public static final String DONE_DESC_AMY = " " + PREFIX_DONE + VALID_DONE_AMY;
-    public static final String DONE_DESC_BOB = " " + PREFIX_DONE + VALID_DONE_BOB;
+    public static final String CALLED_DESC_AMY = " " + PREFIX_CALLED + VALID_CALLED_AMY;
+    public static final String CALLED_DESC_BOB = " " + PREFIX_CALLED + VALID_CALLED_BOB;
     public static final String INTEREST_DESC_AMY = " " + PREFIX_INTEREST + VALID_INTEREST_AMY;
     public static final String INTEREST_DESC_BOB = " " + PREFIX_INTEREST + VALID_INTEREST_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
@@ -81,7 +81,7 @@ public class CommandTestUtil {
     public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "HELLO"; // Age should only consist of numbers
     public static final String INVALID_INTEREST_DESC = " " + PREFIX_INTEREST; // empty string not allowed for interest
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_DONE_DESC = " " + PREFIX_DONE + "lucas"; // only boolean values are allowed
+    public static final String INVALID_CALLED_DESC = " " + PREFIX_CALLED + "lucas"; // only boolean values are allowed
 
     public static final String INVALID_CATEGORY = "whales";
     public static final String INVALID_COUNT = "-1";
@@ -94,9 +94,9 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withDone("false").build();
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withCalled("false").build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withDone("false").build();
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withCalled("false").build();
     }
 
     /**

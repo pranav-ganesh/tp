@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
@@ -18,8 +18,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.AgeContainsValuePredicate;
+import seedu.address.model.person.predicates.CalledPredicate;
 import seedu.address.model.person.predicates.CombinedPredicate;
-import seedu.address.model.person.predicates.DonePredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.GenderContainsKeywordPredicate;
 import seedu.address.model.person.predicates.InterestContainsKeywordsPredicate;
@@ -41,7 +41,7 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
      */
     public FindAllCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DONE,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_CALLED,
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST);
 
         if (!ParserUtil.areAnyPrefixesPresent(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
@@ -51,7 +51,7 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
         String nameKeywords = argMultimap.getValue(PREFIX_NAME).orElse(null);
         String phoneNumbers = argMultimap.getValue(PREFIX_PHONE).orElse(null);
         String emailKeywords = argMultimap.getValue(PREFIX_EMAIL).orElse(null);
-        String doneKeywords = argMultimap.getValue(PREFIX_DONE).orElse(null);
+        String calledKeywords = argMultimap.getValue(PREFIX_CALLED).orElse(null);
         String addressKeywords = argMultimap.getValue(PREFIX_ADDRESS).orElse(null);
         String genderKeywords = argMultimap.getValue(PREFIX_GENDER).orElse(null);
         String ageValues = argMultimap.getValue(PREFIX_AGE).orElse(null);
@@ -74,11 +74,11 @@ public class FindAllCommandParser implements Parser<FindAllCommand> {
             EmailContainsKeywordsPredicate emailPredicate = ParserUtil.getEmailPredicate(emailKeywords, true);
             predicates.add(emailPredicate);
         }
-        if (doneKeywords != null) {
-            ParserUtil.checkEmptyString(doneKeywords, PREFIX_DONE);
-            ParserUtil.checkTrueOrFalse(doneKeywords);
-            DonePredicate donePredicate = ParserUtil.getDonePredicate(doneKeywords, true);
-            predicates.add(donePredicate);
+        if (calledKeywords != null) {
+            ParserUtil.checkEmptyString(calledKeywords, PREFIX_CALLED);
+            ParserUtil.checkTrueOrFalse(calledKeywords);
+            CalledPredicate calledPredicate = ParserUtil.getCalledPredicate(calledKeywords, true);
+            predicates.add(calledPredicate);
         }
         if (addressKeywords != null) {
             ParserUtil.checkEmptyString(addressKeywords, PREFIX_ADDRESS);

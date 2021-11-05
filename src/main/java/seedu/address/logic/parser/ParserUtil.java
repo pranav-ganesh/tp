@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
@@ -24,14 +24,14 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
-import seedu.address.model.person.IsDone;
+import seedu.address.model.person.IsCalled;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 import seedu.address.model.person.predicates.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.AgeContainsValuePredicate;
-import seedu.address.model.person.predicates.DonePredicate;
+import seedu.address.model.person.predicates.CalledPredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.GenderContainsKeywordPredicate;
 import seedu.address.model.person.predicates.InterestContainsKeywordsPredicate;
@@ -161,21 +161,21 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String isDone} into an {@code isDone}.
+     * Parses a {@code String isCalled} into an {@code isCalled}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code isDone} is invalid.
+     * @throws ParseException if the given {@code isCalled} is invalid.
      */
-    public static IsDone parseIsDone(String isDone) throws ParseException {
-        if (isDone == null) {
-            return new IsDone(null);
+    public static IsCalled parseIsCalled(String isCalled) throws ParseException {
+        if (isCalled == null) {
+            return new IsCalled(null);
         }
 
-        String trimmedDone = isDone.trim();
-        if (!IsDone.isValidIsDone(trimmedDone)) {
-            throw new ParseException(IsDone.MESSAGE_CONSTRAINTS);
+        String trimmedCalled = isCalled.trim();
+        if (!IsCalled.isValidIsCalled(trimmedCalled)) {
+            throw new ParseException(IsCalled.MESSAGE_CONSTRAINTS);
         }
-        return new IsDone(trimmedDone);
+        return new IsCalled(trimmedCalled);
     }
 
     /**
@@ -285,14 +285,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a String into a {@code DonePredicate}
-     * @param doneKeywords the keywords to be parsed
+     * Parses a String into a {@code CalledPredicate}
+     * @param calledKeywords the keywords to be parsed
      * @return The predicate
      */
-    public static DonePredicate getDonePredicate(String doneKeywords, boolean isFindAll) {
-        requireNonNull(doneKeywords);
-        String[] doneKeywordsArr = doneKeywords.split("\\s+");
-        return new DonePredicate(Arrays.asList(doneKeywordsArr), isFindAll);
+    public static CalledPredicate getCalledPredicate(String calledKeywords, boolean isFindAll) {
+        requireNonNull(calledKeywords);
+        String[] calledKeywordsArr = calledKeywords.split("\\s+");
+        return new CalledPredicate(Arrays.asList(calledKeywordsArr), isFindAll);
     }
 
     /**
@@ -381,7 +381,7 @@ public class ParserUtil {
      */
     public static boolean areAnyPrefixesPresent(ArgumentMultimap argumentMultimap) {
         requireNonNull(argumentMultimap);
-        return Stream.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_DONE,
+        return Stream.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_CALLED,
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST)
                 .anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }

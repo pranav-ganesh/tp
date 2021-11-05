@@ -15,9 +15,9 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.CalledCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindAllCommand;
@@ -109,9 +109,9 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_done() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(DoneCommand.COMMAND_WORD));
+    public void parseCommand_called() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CalledCommand.MESSAGE_USAGE), () -> parser.parseCommand(CalledCommand.COMMAND_WORD));
     }
 
     @Test
