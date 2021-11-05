@@ -26,7 +26,7 @@ public class InterestsListTest {
     }
 
     @Test
-    public void addInterest() {
+    public void addUniqueInterest_success() {
         Interest i1 = new Interest("Watching anime");
         Interest i2 = new Interest("Reading manga");
         Interest i3 = new Interest("getting drunk");
@@ -43,6 +43,20 @@ public class InterestsListTest {
         test.addInterest(i3);
         assertEquals(test, expectedInterestsList);
 
+    }
+
+    @Test
+    public void addDuplicateInterest_throwsIllegalArgumentException() {
+        Interest i1 = new Interest("Watching anime");
+        Interest i2 = new Interest("Reading manga");
+        Interest i3 = new Interest("getting drunk");
+
+        InterestsList test = new InterestsList();
+        test.addInterest(i1);
+        test.addInterest(i2);
+        test.addInterest(i3);
+
+        assertThrows(IllegalArgumentException.class, () -> test.addInterest(i2));
     }
 
     @Test
@@ -65,6 +79,22 @@ public class InterestsListTest {
         updatedInterestsList.setInterest(i4, 2);
 
         assertEquals(updatedInterestsList, expectedInterestsList);
+    }
+
+    @Test
+    public void setDuplicateInterest_throwsIllegalArgumentException() {
+        Interest i1 = new Interest("Watching anime");
+        Interest i2 = new Interest("Reading manga");
+        Interest i3 = new Interest("getting drunk");
+        Interest i4 = new Interest("Having a life");
+
+        InterestsList test = new InterestsList();
+        test.addInterest(i1);
+        test.addInterest(i2);
+        test.addInterest(i3);
+        test.addInterest(i4);
+
+        assertThrows(IllegalArgumentException.class, () -> test.setInterest(i4, 3));
 
     }
 
@@ -87,13 +117,6 @@ public class InterestsListTest {
 
         assertTrue(interestsList.checkDuplicate(i3)); // same interest
 
-    }
-
-    @Test
-    public void duplicateInterests_throwsIllegalArgumentException() {
-        Interest i = new Interest("Jumping");
-        interestsList.addInterest(i);
-        assertThrows(IllegalArgumentException.class, () -> interestsList.addInterest(i));
     }
 
     @Test
@@ -121,5 +144,26 @@ public class InterestsListTest {
         assertEquals(interestsList, otherList);
     }
 
+    @Test
+    public void toStringNoNumberingTest() {
+        Interest i1 = new Interest("Watching anime");
+        Interest i2 = new Interest("Reading manga");
+        Interest i3 = new Interest("getting drunk");
+        Interest i4 = new Interest("Having a life");
 
+        InterestsList test = new InterestsList();
+        String expectedStringEmpty = "";
+        String actualStringEmpty = test.toStringNoNumbering();
+        assertEquals(actualStringEmpty, expectedStringEmpty); //empty interestsList
+
+        test.addInterest(i1);
+        test.addInterest(i2);
+        test.addInterest(i3);
+        test.addInterest(i4);
+
+        String expectedString = "Watching anime, Reading manga, getting drunk, Having a life";
+        String actualString = test.toStringNoNumbering();
+
+        assertEquals(expectedString, actualString);
+    }
 }

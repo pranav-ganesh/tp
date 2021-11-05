@@ -45,6 +45,7 @@ public class InterestsList {
      * @param index The index of the Interest in the list to be changed
      */
     public void setInterest(Interest interest, int index) {
+        checkArgument(!checkDuplicate(interest), MESSAGE_CONSTRAINTS);
         this.list.set(index, interest);
     }
 
@@ -103,7 +104,8 @@ public class InterestsList {
     }
 
     /**
-     * interests toString separate by ',' without numbering
+     * Prints out all interests without the numbering
+     * @return The string
      */
     public String toStringNoNumbering() {
         if (list.isEmpty()) {
@@ -111,9 +113,10 @@ public class InterestsList {
         }
 
         StringBuilder value = new StringBuilder();
-        for (int k = 0; k < list.size(); k++) {
-            value.append(list.get(k).value).append(",");
+        for (int k = 0; k < list.size() - 1; k++) {
+            value.append(list.get(k).value).append(", ");
         }
+        value.append(list.get(size() - 1));
         return value.toString();
     }
 
