@@ -5,7 +5,7 @@ title: User Guide
 
 CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
 CMM provides a solution to quickly catalog people based on who has/yet to be called.
-The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers
+The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers.
 Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
 
 CMM is optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
@@ -127,7 +127,7 @@ Format: `list`
 **Things to note:**
 * `list` shows all contacts in ascending order by name.
 
-### Marking a person as called : `called`
+### Marking a contact as called : `called`
 
 Marks the specified contact from the address book as called (i.e. person has already been called).
 
@@ -143,7 +143,7 @@ Example:
 
 **Common issues:**
 * _The index provided is invalid_: <br />
-  a. Displayed list does not contain person at `INDEX`.
+  a. Displayed list does not contain contact at `INDEX`.
 
 ### Editing a contact : `edit`
 
@@ -159,7 +159,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 </div>
 
 Examples:
-* `edit 1 n/Malan i/[2] Swimming` edits the name of person and the second interest of the first contact in the displayed list
+* `edit 1 n/Malan i/[2] Swimming` edits the name of contact and the second interest of the first contact in the displayed list
 * `edit 1 i/Painting i/[1] Running` adds 'painting' as an interest and edits the first interest of the first contact in the displayed list
 * `edit 2 g/M e/myEmail@email.com age/55` edits the gender, email and age of the second contact in the displayed list
 
@@ -175,14 +175,14 @@ Examples:
 
 **Common issues:**
 * _The index provided is invalid_: <br />
-  a. Displayed list does not contain person at `INDEX`.
+  a. Displayed list does not contain contact at `INDEX`.
 * _The interests list index provided is invalid_: <br />
   a. Displayed interests list does not contain an interest at `INTERESTSLIST INDEX`.
 * _Invalid command format!_: <br />
   a. No fields provided <br />
   b. Used the wrong prefix. (e.g., 'i/[1]' instead of 'i/(1)') <br />
 * _Invalid command arguments_: <br />
-    a. Duplicate of the edited person already exists on the address book. <br />
+    a. Duplicate of the edited contact already exists on the address book. <br />
 
 ### Deleting a contact : `delete`
 
@@ -198,12 +198,12 @@ please use with caution.
 </div>
 
 **Things to note:**
-* `INDEX` refers to the index number shown in the displayed person list.
+* `INDEX` refers to the index number shown in the displayed contacts list.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 
 **Common issues:**
 * _The index provided is invalid_: <br />
-  a. Displayed list does not contain person at `INDEX`.
+  a. Displayed list does not contain contact at `INDEX`.
 
 ### Finding contacts that matches **ANY** of the keywords specified: `findAny`
 
@@ -297,8 +297,8 @@ Example:
 * `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
-* _The person index provided is invalid_: <br />
-  a. Displayed list does not contain person at `INDEX`.
+* _The index provided is invalid_: <br />
+  a. Displayed list does not contain contact at `INDEX`.
 
 ### Filtering contacts : `filter`
 
