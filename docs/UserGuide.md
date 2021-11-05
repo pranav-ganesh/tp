@@ -18,6 +18,20 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 --------------------------------------------------------------------------------------------------------------------
 
+## How to use the User Guide
+
+This user guide aims to help you easily find the information you desire for any command. <br>
+Each Command sections is separated into:<br>
+* Brief description of the command
+* Command Format
+* Things to note
+* Examples
+* Common issues
+
+To get the most out of this user guide, it is recommended to familiarise yourself with the [notations](#command-notations) we use.
+However, if this is your first time using CMM, it would be easier for you to go through the [Quick Start](#quick-start) and learn the 
+notations along the way. Hope you have a great time with CMM.
+
 ## Quick start
 1. Ensure you have Java 11 or above installed in your Computer.
 
@@ -52,6 +66,8 @@ If you can type fast, CMM can get your contact management tasks done faster than
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
+### Command Notations
 
 <div markdown="block" class="alert alert-info">
 
