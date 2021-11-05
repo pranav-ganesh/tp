@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
@@ -30,7 +30,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_GENDER,
-                        PREFIX_DONE, PREFIX_AGE, PREFIX_INTEREST);
+                        PREFIX_CALLED, PREFIX_AGE, PREFIX_INTEREST);
 
         Index index;
 
@@ -56,8 +56,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_AGE).isPresent()) {
             editPersonDescriptor.setAge(ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get()));
         }
-        if (argMultimap.getValue(PREFIX_DONE).isPresent()) {
-            editPersonDescriptor.setIsDone(ParserUtil.parseIsDone(argMultimap.getValue(PREFIX_DONE).get()));
+        if (argMultimap.getValue(PREFIX_CALLED).isPresent()) {
+            editPersonDescriptor.setIsCalled(ParserUtil.parseIsCalled(argMultimap.getValue(PREFIX_CALLED).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
