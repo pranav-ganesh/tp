@@ -764,6 +764,34 @@ Guarantees: Contacts will be sorted by category specified
 
       Use case resumes at step 1
 
+**Use Case 9**: Finding specific contacts
+
+System : CallMeMaybe (CMM) <br>
+Use Case : UC9 - Finding specific contacts <br>
+Actor : User <br>
+Guarantees: All contacts that match the specified fields would be displayed
+
+**MSS**
+
+1. User requests to find contacts
+2. Only the contacts the match the keywords specified are displayed
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User enters the command wrongly
+
+    * 1a1. Command box displays error message
+
+      Use case resumes at step 1
+
+* 1b. User enters an invalid field
+
+    * 1b1. Command box displays error message
+
+      Use case resumes at step 1
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
