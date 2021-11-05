@@ -16,8 +16,8 @@ public class DisplayCommand extends Command {
     public static final String COMMAND_WORD = "display";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays additional details about a "
-            + "particular person in the address book. Person is chosen based on index.\n"
-            + "Format: " + COMMAND_WORD + " INDEX";
+            + "particular contact in the address book. Contact is chosen based on index.\n"
+            + "Parameter: " + " INDEX";
 
     public static final String MESSAGE_DISPLAY_SUCCESS = "Displayed selected person!";
 
