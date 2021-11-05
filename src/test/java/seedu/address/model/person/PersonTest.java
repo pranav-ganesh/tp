@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,25 +21,25 @@ public class PersonTest {
     public void constructor_anyNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
                 null
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), null,
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), null,
                 new InterestsList()
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), null, new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), null, new Age("22"),
                 new InterestsList()
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), null, new Gender("F"), new Age("22"),
+                new IsCalled("true"), null, new Gender("F"), new Age("22"),
                 new InterestsList()
         ));
 
@@ -52,19 +51,19 @@ public class PersonTest {
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), new Phone(VALID_PHONE_BOB), null,
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
                 new InterestsList()
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 new Name(VALID_NAME_BOB), null, new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
                 new InterestsList()
         ));
 
         assertThrows(NullPointerException.class, () -> new Person(
                 null, new Phone(VALID_PHONE_BOB), new Email(VALID_EMAIL_BOB),
-                new IsDone("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
+                new IsCalled("true"), new Address("VALID ADDRESS"), new Gender("F"), new Age("22"),
                 new InterestsList()
         ));
     }
@@ -124,46 +123,6 @@ public class PersonTest {
         // different email -> returns false
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
-
-        // different address -> returns false
-        editedAlice = new PersonBuilder(ALICE).withAddress("This is a different address").build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // both no address -> returns true
-        Person editedCarl = new PersonBuilder(CARL).withAddress(null).build();
-        assertTrue(CARL.equals(editedCarl));
-
-        // different gender -> returns false
-        editedAlice = new PersonBuilder(ALICE).withGender("M").build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // both no gender -> returns true
-        editedCarl = new PersonBuilder(CARL).withGender(null).build();
-        assertTrue(CARL.equals(editedCarl));
-
-        // different age -> returns false
-        editedAlice = new PersonBuilder(ALICE).withAge("999").build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // both no age -> returns true
-        editedCarl = new PersonBuilder(CARL).withAge(null).build();
-        assertTrue(CARL.equals(editedCarl));
-
-        // different interests -> returns false
-        editedAlice = new PersonBuilder(ALICE).withInterest("this is a different interest").build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // same interests -> returns true
-        editedAlice = new PersonBuilder(ALICE).withInterest("Running").build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // same interests with different capitalisation -> returns true
-        editedAlice = new PersonBuilder(ALICE).withInterest("RuNnIng").build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // both no interests -> return true
-        editedCarl = new PersonBuilder(CARL).withInterest((String[]) null).build();
-        assertTrue(CARL.equals(editedCarl));
     }
 
     @Test

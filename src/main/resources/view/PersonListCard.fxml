@@ -27,13 +27,13 @@
           </minWidth>
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-        <Label fx:id="doneMarker" text="Label" />
+        <Label fx:id="calledMarker" text="Label" />
         <Label fx:id="gender" text="Label" />
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <Label fx:id="isDone" styleClass="cell_small_label" text="\$isDone" />
+      <Label fx:id="isCalled" styleClass="cell_small_label" text="\$isCalled" />
     </VBox>
     <rowConstraints>
       <RowConstraints />

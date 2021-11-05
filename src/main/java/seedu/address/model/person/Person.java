@@ -24,18 +24,18 @@ public class Person {
     private final InterestsList interests;
 
     // Data fields
-    private final IsDone isDone;
+    private final IsCalled isCalled;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, IsDone isDone,
+    public Person(Name name, Phone phone, Email email, IsCalled isCalled,
                   Address address, Gender gender, Age age, InterestsList interests) {
-        requireAllNonNull(name, phone, email, isDone, address, gender, age, interests);
+        requireAllNonNull(name, phone, email, isCalled, address, gender, age, interests);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.isDone = isDone;
+        this.isCalled = isCalled;
         this.address = address;
         this.gender = gender;
         this.age = age;
@@ -54,8 +54,8 @@ public class Person {
         return email;
     }
 
-    public IsDone getIsDone() {
-        return isDone;
+    public IsCalled getIsCalled() {
+        return isCalled;
     }
 
     public Address getAddress() {
@@ -92,7 +92,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both persons have the name, phone and email data fields.
      * This defines a stronger notion of equality between two persons.
      */
     @Override
@@ -108,18 +108,14 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getGender().equals(getGender())
-                && otherPerson.getAge().equals(getAge())
-                && otherPerson.getInterests().equals(getInterests());
+                && otherPerson.getEmail().equals(getEmail());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        // return Objects.hash(name, phone, email, isDone);
-        return Objects.hash(name, phone, email, address, gender, age);
+        // return Objects.hash(name, phone, email);
+        return Objects.hash(name, phone, email);
     }
 
     @Override
@@ -130,8 +126,8 @@ public class Person {
                 .append(getPhone())
                 .append("; Email: ")
                 .append(getEmail())
-                .append("; Done: ")
-                .append(getIsDone());
+                .append("; Called: ")
+                .append(getIsCalled());
         if (!address.isEmpty()) {
             builder.append("; Address: ").append(getAddress());
         }
@@ -173,7 +169,7 @@ public class Person {
             builder.append(";");
             builder.append(interests.toStringNoNumbering());
         }
-        builder.append(";").append(getIsDone()).append(";");
+        builder.append(";").append(getIsCalled()).append(";");
         return builder.toString();
     }
 

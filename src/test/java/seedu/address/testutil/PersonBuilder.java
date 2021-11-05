@@ -4,7 +4,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
-import seedu.address.model.person.IsDone;
+import seedu.address.model.person.IsCalled;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -19,7 +19,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_DONE = "false";
+    public static final String DEFAULT_CALLED = "false";
     public static final String DEFAULT_ADDRESS = null;
     public static final String DEFAULT_GENDER = null;
     public static final String DEFAULT_AGE = null;
@@ -27,7 +27,7 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Email email;
-    private IsDone isDone;
+    private IsCalled isCalled;
     private Address address;
     private Gender gender;
     private Age age;
@@ -40,7 +40,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        isDone = new IsDone(DEFAULT_DONE);
+        isCalled = new IsCalled(DEFAULT_CALLED);
         address = new Address(DEFAULT_ADDRESS);
         gender = new Gender(DEFAULT_GENDER);
         age = new Age(DEFAULT_AGE);
@@ -54,7 +54,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
-        isDone = personToCopy.getIsDone();
+        isCalled = personToCopy.getIsCalled();
         address = personToCopy.getAddress();
         gender = personToCopy.getGender();
         age = personToCopy.getAge();
@@ -86,10 +86,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code isDone} of the {@code Person} that we are building.
+     * Sets the {@code isCalled} of the {@code Person} that we are building.
      */
-    public PersonBuilder withDone(String isDone) {
-        this.isDone = new IsDone(isDone);
+    public PersonBuilder withCalled(String isCalled) {
+        this.isCalled = new IsCalled(isCalled);
         return this;
     }
 
@@ -142,7 +142,7 @@ public class PersonBuilder {
      * @return the person
      */
     public Person build() {
-        return new Person(name, phone, email, isDone, address, gender, age, interests);
+        return new Person(name, phone, email, isCalled, address, gender, age, interests);
     }
 
 }
