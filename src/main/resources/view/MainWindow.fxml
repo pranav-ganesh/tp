@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="810" minWidth="725" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -36,13 +36,13 @@
 
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
+            <Insets left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
         <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
+            <Insets bottom="1" left="10" right="10" top="1" />
           </padding>
         </StackPane>
 
@@ -50,10 +50,10 @@
           <padding>
             <Insets bottom="10" left="10" right="10" top="10" />
           </padding>
-          <HBox VBox.vgrow="ALWAYS">
+          <HBox HBox.hgrow="ALWAYS">
             <children>
-              <StackPane fx:id="personListPanelPlaceholder" />
-              <StackPane fx:id="fullPersonCardPlaceholder" />
+              <StackPane fx:id="personListPanelPlaceholder" minWidth="340"/>
+              <StackPane fx:id="fullPersonCardPlaceholder" minWidth="340"/>
             </children>
           </HBox>
         </VBox>

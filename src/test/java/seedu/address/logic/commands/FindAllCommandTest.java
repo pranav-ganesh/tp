@@ -20,8 +20,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.predicates.CalledPredicate;
 import seedu.address.model.person.predicates.CombinedPredicate;
-import seedu.address.model.person.predicates.DonePredicate;
 import seedu.address.model.person.predicates.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicates.NameContainsKeywordsPredicate;
 
@@ -90,16 +90,16 @@ public class FindAllCommandTest {
 
     @Test
     public void execute_multipleFields_onePersonFound() {
-        // finding all with isDone as false as the more generic field,
+        // finding all with isCalled as false as the more generic field,
         // then finding the name 'ben' to show only Benson since the only contact that has not been called
         // and has a ben substring in the name is Benson
 
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         NameContainsKeywordsPredicate namePredicate = prepareNamePredicate("ben");
-        DonePredicate donePredicate = prepareDonePredicate("false");
+        CalledPredicate calledPredicate = prepareCalledPredicate("false");
 
         ArrayList<Predicate<Person>> predicateList = new ArrayList<>();
-        predicateList.add(donePredicate);
+        predicateList.add(calledPredicate);
         predicateList.add(namePredicate);
 
         CombinedPredicate predicate = new CombinedPredicate(predicateList, true);
@@ -120,7 +120,7 @@ public class FindAllCommandTest {
     /**
      * Parses {@code userInput} into a {@code EmailContainsKeywordsPredicate}.
      */
-    private DonePredicate prepareDonePredicate(String userInput) {
-        return new DonePredicate(Arrays.asList(userInput.split("\\s+")), true);
+    private CalledPredicate prepareCalledPredicate(String userInput) {
+        return new CalledPredicate(Arrays.asList(userInput.split("\\s+")), true);
     }
 }

@@ -11,30 +11,28 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class DonePredicateTest {
+public class CalledPredicateTest {
 
     @Test
     public void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        DonePredicate firstPredicate = new DonePredicate(
+        CalledPredicate firstPredicate = new CalledPredicate(
                 firstPredicateKeywordList, false
         );
-        DonePredicate secondPredicate = new DonePredicate(
+        CalledPredicate secondPredicate = new CalledPredicate(
                 secondPredicateKeywordList, false
         );
-        DonePredicate thirdPredicate = new DonePredicate(
+        CalledPredicate thirdPredicate = new CalledPredicate(
                 secondPredicateKeywordList, true
         );
-
-
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        DonePredicate firstPredicateCopy = new DonePredicate(
+        CalledPredicate firstPredicateCopy = new CalledPredicate(
                 firstPredicateKeywordList, false
         );
         assertTrue(firstPredicate.equals(firstPredicateCopy));
@@ -55,83 +53,83 @@ public class DonePredicateTest {
     @Test
     public void test_addressContainsKeywords_returnsTrue() {
         // One keyword
-        DonePredicate predicate = new DonePredicate(
+        CalledPredicate predicate = new CalledPredicate(
                 Collections.singletonList("false"), false
         );
-        assertTrue(predicate.test(new PersonBuilder().withDone("false").build()));
+        assertTrue(predicate.test(new PersonBuilder().withCalled("false").build()));
 
-        predicate = new DonePredicate(
+        predicate = new CalledPredicate(
                 Collections.singletonList("f"), false
         );
-        assertTrue(predicate.test(new PersonBuilder().withDone("false").build()));
+        assertTrue(predicate.test(new PersonBuilder().withCalled("false").build()));
 
-        predicate = new DonePredicate(
+        predicate = new CalledPredicate(
                 Collections.singletonList("true"), false
         );
-        assertTrue(predicate.test(new PersonBuilder().withDone("true").build()));
+        assertTrue(predicate.test(new PersonBuilder().withCalled("true").build()));
 
-        predicate = new DonePredicate(
+        predicate = new CalledPredicate(
                 Collections.singletonList("t"), false
         );
-        assertTrue(predicate.test(new PersonBuilder().withDone("true").build()));
+        assertTrue(predicate.test(new PersonBuilder().withCalled("true").build()));
 
         // Multiple keywords
-        predicate = new DonePredicate(Arrays.asList("t", "f"), false);
-        assertTrue(predicate.test(new PersonBuilder().withDone("false").build()));
+        predicate = new CalledPredicate(Arrays.asList("t", "f"), false);
+        assertTrue(predicate.test(new PersonBuilder().withCalled("false").build()));
 
         // Mixed-case keywords
-        predicate = new DonePredicate(Arrays.asList("tRuE", "fAlSe"), false);
-        assertTrue(predicate.test(new PersonBuilder().withDone("false").build()));
+        predicate = new CalledPredicate(Arrays.asList("tRuE", "fAlSe"), false);
+        assertTrue(predicate.test(new PersonBuilder().withCalled("false").build()));
     }
 
     @Test
     public void test_addressDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        DonePredicate predicate = new DonePredicate(
+        CalledPredicate predicate = new CalledPredicate(
                 Collections.emptyList(), false
         );
-        assertFalse(predicate.test(new PersonBuilder().withDone("true").build()));
+        assertFalse(predicate.test(new PersonBuilder().withCalled("true").build()));
 
         // Non-matching keyword
-        predicate = new DonePredicate(Arrays.asList("Carol"), false);
-        assertFalse(predicate.test(new PersonBuilder().withDone("false").build()));
+        predicate = new CalledPredicate(Arrays.asList("Carol"), false);
+        assertFalse(predicate.test(new PersonBuilder().withCalled("false").build()));
 
-        // Keywords match name, phone, email, but does not match isDone
-        predicate = new DonePredicate(Arrays.asList(
+        // Keywords match name, phone, email, but does not match isCalled
+        predicate = new CalledPredicate(Arrays.asList(
                 "Alice", "87654321", "alice@email.com"
         ), false);
         assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("87654321")
-                .withEmail("alice@email.com").withDone("true").build()));
+                .withEmail("alice@email.com").withCalled("true").build()));
     }
 
     @Test
     public void test_addressContainsKeywordsIsFindAll() {
         // One keyword match -> true
-        DonePredicate predicate = new DonePredicate(
+        CalledPredicate predicate = new CalledPredicate(
                 Collections.singletonList("f"), true
         );
-        assertTrue(predicate.test(new PersonBuilder().withDone("false").build()));
+        assertTrue(predicate.test(new PersonBuilder().withCalled("false").build()));
 
-        predicate = new DonePredicate(
+        predicate = new CalledPredicate(
                 Collections.singletonList("t"), true
         );
-        assertTrue(predicate.test(new PersonBuilder().withDone("true").build()));
+        assertTrue(predicate.test(new PersonBuilder().withCalled("true").build()));
 
         // One keyword no match -> false
-        predicate = new DonePredicate(
+        predicate = new CalledPredicate(
                 Collections.singletonList("haha"), true
         );
-        assertFalse(predicate.test(new PersonBuilder().withDone("false").build()));
+        assertFalse(predicate.test(new PersonBuilder().withCalled("false").build()));
 
         // Only one matching keyword -> false
-        predicate = new DonePredicate(Arrays.asList("t", "f"), true);
-        assertFalse(predicate.test(new PersonBuilder().withDone("false").build()));
+        predicate = new CalledPredicate(Arrays.asList("t", "f"), true);
+        assertFalse(predicate.test(new PersonBuilder().withCalled("false").build()));
 
-        // Keywords match name, phone, email, but does not match isDone -> false
-        predicate = new DonePredicate(Arrays.asList(
+        // Keywords match name, phone, email, but does not match isCalled -> false
+        predicate = new CalledPredicate(Arrays.asList(
                 "Alice", "87654321", "alice@email.com"
         ), true);
         assertFalse(predicate.test(new PersonBuilder().withName("ALice").withPhone("87654321")
-                .withEmail("alice@email.com").withDone("false").build()));
+                .withEmail("alice@email.com").withCalled("false").build()));
     }
 }

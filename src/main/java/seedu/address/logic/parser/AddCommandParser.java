@@ -17,7 +17,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
-import seedu.address.model.person.IsDone;
+import seedu.address.model.person.IsCalled;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -51,7 +51,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).orElse(null));
         InterestsList interestList = ParserUtil.parseInterests(argMultimap.getAllValues(PREFIX_INTEREST));
 
-        Person person = new Person(name, phone, email, new IsDone("FALSE"), address,
+        Person person = new Person(name, phone, email, new IsCalled("FALSE"), address,
                 gender, age, interestList);
 
         return new AddCommand(person);

@@ -27,7 +27,7 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 4. Double-click the file to start the app. Initially, a popup asking to import CSV data would appear.
    ![importPopUpUi](images/importPopUpMessage.png) <br>
-   To learn more about importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button 
+   To learn more about importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button
    on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
    ![Ui](images/Ui.png)
 
@@ -35,7 +35,7 @@ If you can type fast, CMM can get your contact management tasks done faster than
    Commands that CallMeMaybe supports:
    - `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the CMM database.
    - `list` : Lists all contacts.
-   - `done 2` : Marks the 2nd contact shown in the current list as completed.
+   - `called 2` : Marks the 2nd contact shown in the current list as called.
    - `edit 1 n/Bob p/62353535` : Edits the name and phone number of the first person in the displayed list.
    - `findAny n/alex g/m` : Finds the contacts that have the substring `alex`in their name **AND/OR** are males.
    - `findAll n/alex g/m` : Finds the contacts that have both the substring `alex` in their name **AND** are males.
@@ -127,14 +127,14 @@ Format: `list`
 **Things to note:**
 * `list` shows all contacts in ascending order by name.
 
-### Marking a person as called : `done`
+### Marking a person as called : `called`
 
-Marks the specified contact from the address book as done (i.e. person has already been called).
+Marks the specified contact from the address book as called (i.e. person has already been called).
 
-Format: `done INDEX`
+Format: `called INDEX`
 
 Example:
-* `done 3` marks the 3rd contact in the displayed list as Called.
+* `called 3` marks the 3rd contact in the displayed list as Called.
 
 **Things to note:**
 
@@ -149,13 +149,13 @@ Example:
 
 Edits an existing contact in the CMM database.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(INTERESTSLIST INDEX) INTEREST]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-* Specifying [INTERESTLIST INDEX] is optional as well. <br/>
-* If [INTERESTLIST INDEX] is specified, the interest at that index would be updated. <br/>
-* If it is not, then an interest would be added instead. <br/>
-* You can refer to the examples below for a better understanding.
+* Specifying (INTERESTLIST INDEX) is optional as well. <br/>
+* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated. <br/>
+* If it is not, then an interest would be added to the list instead. <br/>
+* You can refer to the examples below for a better understanding of the edit command functionality.
 </div>
 
 Examples:
@@ -180,7 +180,7 @@ Examples:
   a. Displayed interests list does not contain an interest at `INTERESTSLIST INDEX`.
 * _Invalid command format!_: <br />
   a. No fields provided <br />
-  b. Used the wrong prefix. (e.g., 'i/(1)' instead of 'i/[1]') <br />
+  b. Used the wrong prefix. (e.g., 'i/[1]' instead of 'i/(1)') <br />
 * _Invalid command arguments_: <br />
     a. Duplicate of the edited person already exists on the address book. <br />
 
@@ -208,7 +208,7 @@ please use with caution.
 ### Finding contacts that matches **ANY** of the keywords specified: `findAny`
 
 Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​]
-[d/DONE…​] [i/INTEREST…​]`
+[c/CALLED…​] [i/INTEREST…​]`
 
 **Things to note:**
 * FindAny requires at least one field. But it is optional to include all the fields. <br>
@@ -218,7 +218,7 @@ eg. `findAny n/alex n/david` returns the same results as `findAny n/david`
 * Any number of keywords can be specified within each field <br>
 * The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
   as `n/Bo Hans`<br>
-* Keywords for `Done` are limited to `true`, `false`, `t`, `f`
+* Keywords for `Called` are limited to `true`, `false`, `t`, `f`
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
 
@@ -246,7 +246,7 @@ b. Used the wrong prefix (eg. '/n' instead of 'n/')
 
 ### Finding contacts that matches "ALL" the keywords specified : `findAll`
 
-Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
+Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [c/CALLED…​] [i/INTEREST…​]`
 
 **Things to note:**
 * `findAll` only returns contacts that matches all the keywords specified in their respective fields
@@ -257,7 +257,7 @@ Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 * Any number of keywords can be specified within each field <br>
 * The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
   as `n/Bo Hans`<br>
-* Keywords for `Done` are limited to `true`, `false`, `t`, `f`
+* Keywords for `Called` are limited to `true`, `false`, `t`, `f`
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
 
@@ -447,11 +447,11 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​` <br> e.g. `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com a/my house g/F age/95 i/Sleeping`
 **List** | `list`
-**Done** | `done INDEX` <br> e.g. `done 2`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g. `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
+**Called** | `called INDEX` <br> e.g. `called 2`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g. `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
-**FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
-**FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
+**FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [c/CALLED…​] [i/INTEREST…​]`
+**FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [c/CALLED…​] [i/INTEREST…​]`
 **Display** | `display INDEX` <br> e.g. `display 4`
 **Filter** | `filter CATEGORY [COUNT]` <br> e.g. `filter gender 5`
 **Clear** | `clear`

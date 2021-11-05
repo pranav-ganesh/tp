@@ -5,7 +5,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
-import seedu.address.model.person.IsDone;
+import seedu.address.model.person.IsCalled;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -35,7 +35,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setName(person.getName());
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
-        descriptor.setIsDone(person.getIsDone());
+        descriptor.setIsCalled(person.getIsCalled());
         descriptor.setAddress(person.getAddress());
         descriptor.setGender(person.getGender());
         descriptor.setAge(person.getAge());
@@ -75,10 +75,10 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code isDone} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code isCalled} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withDone(String isDone) {
-        descriptor.setIsDone(new IsDone(isDone));
+    public EditPersonDescriptorBuilder withCalled(String isCalled) {
+        descriptor.setIsCalled(new IsCalled(isCalled));
         return this;
     }
 
