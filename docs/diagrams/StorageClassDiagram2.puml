@@ -24,8 +24,8 @@ Class JsonAdaptedTag
 }
 
 package "ImportExport Storage" #F4F6F6{
-Interface ImportExportStorage <<Interface>>
-Class CsvImportExportStorage
+Interface ImportExport <<Interface>>
+Class CsvAddressBookImportExport
 Class CsvAdaptedPerson
 Class CsvAdaptedInterest
 }
@@ -38,14 +38,14 @@ HiddenOutside ..> Storage
 StorageManager .up.|> Storage
 StorageManager -up-> "1" UserPrefsStorage
 StorageManager -up-> "1" AddressBookStorage
-StorageManager -down-> "1" ImportExportStorage
+StorageManager -down-> "1" ImportExport
 
 Storage -down-|> UserPrefsStorage
 Storage -down-|> AddressBookStorage
-Storage -down-|> ImportExportStorage
+Storage -down-|> ImportExport
 
-CsvImportExportStorage .up.|> ImportExportStorage
-CsvImportExportStorage  --> "*" CsvAdaptedPerson
+CsvAddressBookImportExport .up.|> ImportExport
+CsvAddressBookImportExport  --> "*" CsvAdaptedPerson
 CsvAdaptedPerson  --> "*" CsvAdaptedInterest
 
 JsonUserPrefsStorage .up.|> UserPrefsStorage

@@ -387,6 +387,7 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
 * CMM will treat two people with the exact `name`, `phone`, `email`  as duplicates
 * CMM will update duplicate imports **only when** import status has been called.
 * Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
+* Unsuccessful file import will result in an empty database. The previous database can be recovered in the latest export file.
 
 **Common Issues**
 
@@ -396,7 +397,7 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
 * `Missing/Extra Headers, Please check file` message was shown<br/>
    * **Files has invalid headers** <br/>
         * First row of Excel file is reserved for datatype headers. <br/>
-        * Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `isDone` from the left to right, starting from the cell 'A1' <br/>
+        * Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1' <br/>
         * Headers are not case-sensitive<br/>
     * File may have **incorrect CSV type**. Please refer to this [guide](SettingImportFileType.md)
    to correctly format your file.
