@@ -553,9 +553,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use Case 1: Add a contact**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC1 - Add a contact </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC1 - Add a contact <br>
+Actor : User <br>
 Guarantees: New contact will be added to the address book
 
 **MSS**
@@ -575,9 +575,9 @@ Guarantees: New contact will be added to the address book
 
 **Use Case 2: List contacts**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC2 - List contacts </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC2 - List contacts <br>
+Actor : User <br>
 Guarantees: Contacts in the address book will be listed
 
 **MSS**
@@ -595,9 +595,9 @@ Guarantees: Contacts in the address book will be listed
 
 **Use Case 3: Delete a contact**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC3 - Delete a contact </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC3 - Delete a contact <br>
+Actor : User <br>
 Guarantees: Selected contact will be deleted from the address book
 
 **MSS**
@@ -622,9 +622,9 @@ Guarantees: Selected contact will be deleted from the address book
 
 **Use Case 4: Mark a contact as done**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC4 - Mark contact as called </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC4 - Mark contact as called <br>
+Actor : User <br>
 Guarantees: Selected contact will be marked as called
 
 **MSS**
@@ -648,9 +648,9 @@ Guarantees: Selected contact will be marked as called
 
 **Use Case 5: Using an Excel file to import data of users**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC5 - Import Excel File </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC5 - Import Excel File <br>
+Actor : User <br>
 Guarantees: CMM Database will be set
 
 **MSS**
@@ -697,9 +697,9 @@ Guarantees: CMM Database will be set
 
 **Use Case 6: Exporting current database into excel file**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC6 - Export database as Excel File </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC6 - Export database as Excel File <br>
+Actor : User <br>
 Guarantees: Excel file export of current database
 
 MSS:
@@ -709,9 +709,9 @@ MSS:
 
 **Use Case 7: Displaying additional details about a person**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC7 - Display a person </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC7 - Display a person <br>
+Actor : User <br>
 Guarantees: Selected person's additional details will be displayed
 
 **MSS**
@@ -738,9 +738,9 @@ Guarantees: Selected person's additional details will be displayed
 
 **Use Case 8: Filter contacts**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC8 - Filter contacts </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC8 - Filter contacts <br>
+Actor : User <br>
 Guarantees: Contacts will be sorted by category specified
 
 **MSS**
