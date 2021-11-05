@@ -30,7 +30,7 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
 
         Index index;
         try {
-            tryParse(argList);
+            tryParseIndex(argList);
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplayCommand.MESSAGE_USAGE), ive);
@@ -84,7 +84,7 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
      * Tries to parse the input of the user to get the integer index
      * @param argList List that stores the user input
      */
-    public void tryParse(List<String> argList) {
+    public void tryParseIndex(List<String> argList) throws NumberFormatException {
         if (!hasParameterValue(argList)) {
             return;
         }
