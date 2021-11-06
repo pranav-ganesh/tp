@@ -13,7 +13,7 @@ if () then ([command is valid])
   :new DisplayCommand object is created;
   :first contact in list is displayed on person card;
 else ([command is invalid])
-  :Output error message;
+  :output error message;
 endif
 
 
