@@ -261,7 +261,7 @@ The activity diagram below summarises what happens when a user executes a `findA
 
 * **Alternative 2 (current choice):** Both findAny and findAll
     * Pros: Improves User Experience by giving users the freedom to decide whether they want find to be lenient or strict
-    * Cons: more complicated implementation.
+    * Cons: More difficult to implement
 
 As telemarketers, having the option to find specific demographics when selling products with very niche target audiences would
 be invaluable. Therefore, although the usage rate of `findAll` may not be high while selling generic products. We cannot overlook

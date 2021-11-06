@@ -351,7 +351,9 @@ public class ParserUtil {
             test = test.toLowerCase(Locale.ROOT);
             if (!(test.equals("t") || test.equals("true")
                     || test.equals("f") || test.equals("false"))) {
-                throw new ParseException("'d/' can only be followed by 't','f', 'true', or 'false'");
+                throw new ParseException(String.format(
+                        MESSAGE_INVALID_COMMAND_FORMAT, "'d/' can only be followed by 't','f', 'true', or 'false'"
+                ));
             }
         }
         return true;
@@ -369,7 +371,9 @@ public class ParserUtil {
             test = test.toLowerCase(Locale.ROOT);
             if (!(test.equals("m") || test.equals("male")
                     || test.equals("f") || test.equals("female") || test.equals("n.a"))) {
-                throw new ParseException("'g/' can only be followed by 'm','f', 'male', 'female' or 'N.A'");
+                throw new ParseException(String.format(
+                        MESSAGE_INVALID_COMMAND_FORMAT, "'g/' can only be followed by 'm','f', 'male', 'female' or 'N.A'"
+                ));
             }
         }
         return true;
