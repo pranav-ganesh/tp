@@ -5,6 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.comparators.PersonComparator;
 import seedu.address.logic.comparators.exceptions.ComparatorException;
 import seedu.address.model.Model;
@@ -42,7 +44,7 @@ public class FilterCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws ComparatorException {
+    public CommandResult execute(Model model) throws ComparatorException, CommandException {
         requireNonNull(model);
 
         // Get Comparator based on category
@@ -51,6 +53,9 @@ public class FilterCommand extends Command {
 
         // Limit displayed Persons using count
         model.limitFilteredPersonList(count);
+
+        DisplayCommand displayCommand = new DisplayCommand(Index.fromOneBased(1));
+        displayCommand.execute(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, category));
     }
