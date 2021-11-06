@@ -3,13 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.EMPTY_PREFIX;
 
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.List;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
