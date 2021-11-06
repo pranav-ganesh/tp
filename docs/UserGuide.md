@@ -274,8 +274,7 @@ Examples:
 * `findAll n/alex` finds all the contacts that have the substring 'alex' in their name
 * `findAll n/Malan i/Swimming` finds only the contacts that have **BOTH** the substring 'malan' in the name and the substring 'swimming' as their interests
 * `findAll i/Painting i/ Running` finds only the contacts that have 'running' as a substring as their interests
-* `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name
-**AND both** substrings of 'ho' and 'oh' in the address
+* `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name **AND both** substrings of 'ho' and 'oh' in the address
 
 **Common issues:**
 * _Unknown command_: <br/>
@@ -357,10 +356,10 @@ CMM data are saved in the hard disk automatically after any command that changes
 
 ### Importing the data into database
 
-CMM is able to import CSV files into CMM. The import files have to be in an Excel CSV format (semicolon delimited).
+CMM is able to import Excel files into CMM. The import files have to be in an Excel Csv format (semicolon delimited).
 
-**Steps to Import from CSV file**
-1. Ensure that the Excel file is a CSV file with **semicolon delimited**.
+**Steps to Import from Excel file**
+1. Ensure that the Excel file is a Csv file with **semicolon delimited**.
    Instructions on how to import to this file type can be found [here](SettingImportFileType.md)
 2. Ensure that the import file is named import.csv under the "data" folder found in the same directory as the CMM jar file
 3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Imports`, `Start New Using Import`, `Don't Import`
@@ -374,36 +373,43 @@ CMM is able to import CSV files into CMM. The import files have to be in an Exce
 
 `Start New Using Import`
 - Exports and reset the current database. CMM will then populate the reset database with new imports
+- Previous database **before import** can be found in a Csv file under the "data" folder found in the same directory as the CMM jar file. It will have the following file name : `export[Date HH:MM:SS].csv`
 
 `Don't Import`
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Currently, import is **irreversible**. Please double check before importing.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Currently, import is **irreversible**. Please double check before importing. This is especially important when choosing the add on import option.
 </div>
 
 **Things to note**
 * CMM will prompt user for imports upon **every** application startup.
 * CMM will not import data rows with missing details (Compulsory for data to have `name`, `phone`, `email` filled)
+* CMM will treat two people with the exact `name`, `phone`, `email`  as duplicates
 * CMM will update duplicate imports **only when** import status has been called.
-* CMM will abort import if : <br/>
-a. Files has missing/invalid headers <br/>
-b. First row of Excel file is reserved for datatype headers. <br/>
-c. Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1' <br/>
-d. Headers are not case-sensitive<br/>
 * Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
+* Unsuccessful file import will result in an empty database. The previous database can be recovered in the latest export file.
 
 **Common Issues**
 
 * `CSV file not found in data\import.csv` message was shown. <br/>
-a. This could either mean that the file does not exist at the specified location or <br/>
-b. The file was incorrectly named
-* Data not imported despite correct import file placement and naming <br/>
-a. File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
+    * This could either mean that the file **does not exist** at the specified location or <br/>
+    * The file was **incorrectly named**. File has to be named `import.csv`
+* `Missing/Extra Headers, Please check file` message was shown<br/>
+   * **Files has invalid headers** <br/>
+        * First row of Excel file is reserved for datatype headers. <br/>
+        * Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1' <br/>
+        * Headers are not case-sensitive<br/>
+    * File may have **incorrect CSV type**. Please refer to this [guide](SettingImportFileType.md)
+   to correctly format your file.
+* `Wrong header detected,please double check file` message was shown. <br/>
+    * **Files has invalid headers**. Please refer to Common issue `Missing/Extra Headers, Please check file` to resolve
+* Data not imported despite **correct import file placement, naming AND headers** <br/>
+    * File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
          to correctly format your file.
-
 * Unable to understand why a specific row was not able to be imported <br/>
-a. Detailed reasons for any import error can be found in the logs of the CMM
+    * Row could either be duplicate or there was an error reading the row
+    * Detailed reasons for any import error can be found in the logs of the CMM
 
 
 ### Exporting state of database
@@ -414,6 +420,10 @@ CMM is able to export the current database as semicolon delimited CSV files. As 
 ![exportPopup](images/exportPopup.png)
 2. The CMM will export the database to the data file location
 3. Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+Csv file can be found under the "data" folder found in the same directory as the CMM jar file.
+</div>
 
 
 ### Editing the data file (JSON)
