@@ -70,7 +70,7 @@ public class InterestsList {
             if (interest.equals(i)) {
                 return true;
             }
-         }
+        }
         return false;
     }
 
