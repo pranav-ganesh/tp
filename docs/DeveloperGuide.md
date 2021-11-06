@@ -7,9 +7,21 @@ title: Developer Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
+## **Introduction**
+
+CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
+CMM provides a solution to quickly catalog people based on who has/yet to be called.
+The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers
+Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
+
+This Developer Guide (DG) aims to help developers better understand the architecture and design choices of CMM.
+
+--------------------------------------------------------------------------------------------------------------------
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* CMM is adapted from AddressBook-Level3 (AB3)
+* For the detailed documentation of AddressBook-Level3 project, see the Address Book Product Website
+* Libraries used: JavaFX, Jackson, JUnit5
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -571,7 +583,9 @@ _{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation, logging, testing, configuration, dev-ops**
+## **Documentation, logging, testing, configuration, dev-ops** 
+
+Here are some guides that you may find useful.
 
 * [Documentation guide](Documentation.md)
 * [Testing guide](Testing.md)
@@ -612,8 +626,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                        | find a person by name          | locate details of persons without having to go through the entire list     |
 | `* *`    | user                                        | hide private contact details   | minimize chance of someone else seeing them by accident                    |
 | `*`      | user with many contacts in the address book | filter contacts                | locate contacts who have not been called quickly                           |
-
-*{More to be added}*
 
 ### Use cases
 
@@ -832,16 +844,42 @@ Guarantees: Contacts will be sorted by category specified
 
       Use case resumes at step 1
 
-*{More to be added}*
+**Use Case 9**: Finding specific contacts
+
+System : CallMeMaybe (CMM) <br>
+Use Case : UC9 - Finding specific contacts <br>
+Actor : User <br>
+Guarantees: All contacts that match the specified fields would be displayed
+
+**MSS**
+
+1. User requests to find contacts
+2. Only the contacts the match the keywords specified are displayed
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User enters the command wrongly
+
+    * 1a1. Command box displays error message
+
+      Use case resumes at step 1
+
+* 1b. User enters an invalid field
+
+    * 1b1. Command box displays error message
+
+      Use case resumes at step 1
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  Portability of database is expected as Telemarketers tend to work in a team setting.
-
-*{More to be added}*
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Portability of database is expected as Telemarketers tend to work in a team setting.
+5. A user should be able to retrieve the latest list of contacts in the event the program crashes unexpectedly.
+6. Each command should not take more to 1 second to execute.
 
 ### Glossary
 
@@ -850,6 +888,9 @@ Guarantees: Contacts will be sorted by category specified
 * **GUI**: Graphical User Interface
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **CSV Comma Separated Values**: An excel format
+* **PlantUML**: An open-source tool allowing users to create diagrams from a plain text language
+* **JSON**: JSON is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays.
 
 --------------------------------------------------------------------------------------------------------------------
 

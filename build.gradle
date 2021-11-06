@@ -69,11 +69,6 @@ run {
     enableAssertions = true
 }
 
-/*
-test {
-    forkEvery = 0
-}*/
-
 shadowJar {
     archiveName = 'CallMeMaybe.jar'
 }
