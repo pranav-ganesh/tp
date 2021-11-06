@@ -30,12 +30,14 @@ Each Command section is separated into:<br>
 * Common issues
 
 <div markdown="block" class="alert alert-info">
-**:information_source: Note:** Straightforward commands such as 'list' would not have the sections "Things to note", "examples" and "Common issues"
+**:information_source: Note:** Straightforward commands such as 'list' may not have the sections "Things to note", "examples" and "Common issues"
 </div>
 
 To get the most out of this user guide, it is recommended that you familiarise yourself with the [notations](#command-notations) we use.
 However, if this is your first time using CMM, it would be easier for you to go through the [Quick Start](#quick-start) and learn the 
 notations along the way. Hope you have a great time with CMM.
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
 1. Ensure you have Java 11 or above installed in your Computer.
@@ -69,6 +71,7 @@ notations along the way. Hope you have a great time with CMM.
 7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Features
 
@@ -98,13 +101,7 @@ notations along the way. Hope you have a great time with CMM.
 
 </div>
 
-### Viewing help : `help`
-
-Shows a message explaining how to access the User Guide.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
+<div style="page-break-after: always;"></div>
 
 ### Adding a contact: `add`
 
@@ -114,22 +111,23 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/I
 
 **Things to note:**
 * `Name`, `Phone_number` and `Email` fields are mandatory
-* `Name`, `Address` and `Interest` can be in any format.
+* `Name` must contain only alphanumeric characters
 * `Phone_number` must contain exactly 8 digits
-  a. numbers must start with "6", "8" or "9"
+  * numbers must start with "6", "8" or "9"
 * `Email` should be in the form of `local-part@domain-name` <br>
-  a. The local-part should only contain alphanumeric characters and these special characters, `+_.-`. <br>
-  b. The local-part may not start or end with any special characters.<br>
-  c. The domain-name is made up of domain labels separated by periods. (eg. @nus.edu.sg)<br>
-  d. The domain-name must end with a domain label at least 2 characters long<br>
-  e. The domain-name must have each domain label start and end with alphanumeric characters<br>
-  f. The domain-name must have each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br>
+  * The local-part should only contain alphanumeric characters and these special characters, `+_.-` <br>
+  * The local-part may not start or end with any special characters.<br>
+  * The domain-name is made up of domain labels separated by periods. (eg. @nus.edu.sg)<br>
+  * The domain-name must end with a domain label at least 2 characters long<br>
+  * The domain-name must have each domain label start and end with alphanumeric characters<br>
+  * The domain-name must have each domain label consist of alphanumeric characters, separated only by hyphens, if any<br>
 * `Gender` can only be "m", "f", "n.a" (case-insensitive)
 * `Age` must only contain numbers
+* `Address` and `Interest` can be in any format
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-* `Address`, `Gender`, `Age`, `Interest` fields are optional
-* A contact can have multiple interests
+`Address`, `Gender`, `Age`, `Interest` fields are optional<br>
+A contact can have multiple interests
 </div>
 
 Examples:
@@ -137,9 +135,15 @@ Examples:
 * `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/her house i/running i/swimming i/eating`
 
 **Common issues:**
+<<<<<<< HEAD
 * _Invalid command format!_: <br>
   a. Omitted one or more of the mandatory fields <br>
   b. Used the wrong prefix. (e.g., '/n' instead of 'n/') <br>
+=======
+* _Invalid command format!_: <br />
+  a. Omitted one or more of the mandatory fields <br />
+  b. Used the wrong prefix (e.g., '/n' instead of 'n/') <br />
+>>>>>>> master
 
 ### Listing all contacts : `list`
 
@@ -152,21 +156,25 @@ Format: `list`
 
 ### Marking a contact as called : `called`
 
-Marks the specified contact from the address book as called (i.e. person has already been called).
+Marks the specified contact from the address book as called. (i.e. person has already been called)
 
 Format: `called INDEX`
 
 Example:
-* `called 3` marks the 3rd contact in the displayed list as Called.
+* `called 3` marks the 3rd contact in the displayed list as Called
 
 **Things to note:**
 
-* `INDEX` refers to the index number shown in the displayed list.
-* `INDEX` **must be a positive integer** 1, 2, 3, …​
+* `INDEX` refers to the index number shown in the displayed list
+* `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 
 **Common issues:**
+
 * _The index provided is invalid_: <br>
-  a. Displayed list does not contain contact at `INDEX`.
+  a. Displayed list does not contain contact at `INDEX` <br>
+  b. Index specified is larger than 2147483647 <br>
+  c. Index specified is not a positive integer <br>
+
 
 ### Editing a contact : `edit`
 
@@ -175,9 +183,9 @@ Edits an existing contact in the CMM database.
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(INTERESTSLIST INDEX) INTEREST]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-* Specifying (INTERESTLIST INDEX) is optional as well. <br/>
-* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated. <br/>
-* If it is not, then an interest would be added to the list instead. <br/>
+* Specifying (INTERESTLIST INDEX) is optional as well. <br>
+* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated. <br>
+* If it is not, then an interest would be added to the list instead. <br>
 * You can refer to the examples below for a better understanding of the edit command functionality.
 </div>
 
@@ -225,8 +233,15 @@ please use with caution.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 
 **Common issues:**
+<<<<<<< HEAD
 * _The index provided is invalid_: <br>
   a. Displayed list does not contain contact at `INDEX`.
+=======
+* _The index provided is invalid_: <br />
+  a. Displayed list does not contain contact at `INDEX`
+  b. Index specified is larger than 2147483647
+  c. Index specified is not a positive integer
+>>>>>>> master
 
 ### Finding contacts that match **ANY** of the keywords specified: `findAny`
 
@@ -261,11 +276,13 @@ have the substring 'woodlands' in their address
 * `findAny n/alex n/david` only finds all contacts that have the substring 'david' in their name
 
 **Common issues:**
-* _Unknown command_: <br/>
+* _Unknown command_: <br>
   a. Using `findany` instead of `findAny` (not capitalising the 'A')
 * _Invalid command format!_: <br>
-a. No fields provided<br>
-b. Used the wrong prefix (eg. '/n' instead of 'n/')
+  a. No fields provided<br>
+  b. Used the wrong prefix (eg. '/n' instead of 'n/')
+  c. Did not specify either 't', 'f', 'true', 'false' after `c/`
+  d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/`
 
 ### Finding contacts that match **ALL** the keywords specified : `findAll`
 
@@ -299,11 +316,13 @@ Examples:
 * `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name **AND both** substrings of 'ho' and 'oh' in the address
 
 **Common issues:**
-* _Unknown command_: <br/>
-  a. Using `findall` instead of `findAll` (not capitalising the 'A')
+* _Unknown command_: <br>
+  a. Using `findany` instead of `findAny` (not capitalising the 'A')
 * _Invalid command format!_: <br>
   a. No fields provided<br>
   b. Used the wrong prefix (eg. '/n' instead of 'n/')
+  c. Did not specify either 't', 'f', 'true', 'false' after `c/`
+  d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/`
 
 ### Displaying full contact details : `display`
 
@@ -319,8 +338,15 @@ Example:
 * `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
+<<<<<<< HEAD
 * _The index provided is invalid_: <br>
   a. Displayed list does not contain contact at `INDEX`.
+=======
+* _The index provided is invalid_: <br />
+  a. Displayed list does not contain contact at `INDEX`
+  b. Index specified is larger than 2147483647
+  c. Index specified is not a positive integer
+>>>>>>> master
 
 ### Filtering contacts : `filter`
 
@@ -367,6 +393,14 @@ Format: `clear`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Clearing is irreversible, please use with caution.
 </div>
+
+### Viewing help : `help`
+
+Shows a message explaining how to access the User Guide.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
 
 ### Exiting the program : `exit`
 
@@ -416,22 +450,22 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
 
 **Common Issues**
 
-* `CSV file not found in data\import.csv` message was shown. <br/>
-    * This could either mean that the file **does not exist** at the specified location or <br/>
+* `CSV file not found in data\import.csv` message was shown. <br>
+    * This could either mean that the file **does not exist** at the specified location or <br>
     * The file was **incorrectly named**. File has to be named `import.csv`
-* `Missing/Extra Headers, Please check file` message was shown<br/>
-   * **Files has invalid headers** <br/>
-        * First row of Excel file is reserved for datatype headers. <br/>
-        * Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1' <br/>
-        * Headers are not case-sensitive<br/>
+* `Missing/Extra Headers, Please check file` message was shown <br>
+   * **Files has invalid headers** <br>
+        * First row of Excel file is reserved for datatype headers. <br>
+        * Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1' <br>
+        * Headers are not case-sensitive<br>
     * File may have **incorrect CSV type**. Please refer to this [guide](SettingImportFileType.md)
    to correctly format your file.
-* `Wrong header detected,please double check file` message was shown. <br/>
+* `Wrong header detected,please double check file` message was shown. <br>
     * **Files has invalid headers**. Please refer to Common issue `Missing/Extra Headers, Please check file` to resolve
-* Data not imported despite **correct import file placement, naming AND headers** <br/>
+* Data not imported despite **correct import file placement, naming AND headers** <br>
     * File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
          to correctly format your file.
-* Unable to understand why a specific row was not able to be imported <br/>
+* Unable to understand why a specific row was not able to be imported <br>
     * Row could either be duplicate or there was an error reading the row
     * Detailed reasons for any import error can be found in the logs of the CMM
 
@@ -440,7 +474,7 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
 CMM is able to export the current database as semicolon delimited CSV files. As such, there is no need for you to ensure that the formatting is right for furture use.
 
 **Steps to Export data as CSV file**
-1. Closing the application in any way would prompt user to export the current database <br/>
+1. Closing the application in any way would prompt user to export the current database <br>
 ![exportPopup](images/exportPopup.png)
 2. The CMM will export the database to the data file location
 3. Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
@@ -473,13 +507,13 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​` <br> e.g. `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com a/my house g/F age/95 i/Sleeping`
 **List** | `list`
-**Called** | `called INDEX` <br> e.g. `called 2`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g. `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
-**Delete** | `delete INDEX`<br> e.g. `delete 3`
-**FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> `findAny n/alex g/m`
-**FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> `findAll n/alex g/m`
-**Display** | `display INDEX` <br> e.g. `display 4`
-**Filter** | `filter CATEGORY [COUNT]` <br> e.g. `filter gender 5`
+**Called** | `called INDEX` <br> e.g., `called 2`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/[INTERESTSLIST INDEX] INTEREST]` <br> e.g., `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> e.g., `findAny n/alex g/m`
+**FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> e.g., `findAll n/alex g/m`
+**Display** | `display INDEX` <br> e.g., `display 4`
+**Filter** | `filter CATEGORY [COUNT]` <br> e.g., `filter gender 5`
 **Clear** | `clear`
 **Exit** | `exit`
 **Help** | `help`

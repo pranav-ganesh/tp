@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.areAnyPrefixesPresent;
 import static seedu.address.logic.parser.ParserUtil.checkEmptyString;
@@ -66,7 +67,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_INDEX), ()
             -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 

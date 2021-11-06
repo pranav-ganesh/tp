@@ -6,10 +6,13 @@ participant LogicManager LOGIC_COLOR
 participant AddressBookParser LOGIC_COLOR
 participant DisplayCommandParser LOGIC_COLOR
 participant "a:DisplayCommand" as DisplayCommand LOGIC_COLOR
+participant CommandResult LOGIC_COLOR
+end box
+
+box Ui UI_COLOR_T1
 participant FullPersonCard LOGIC_COLOR
 participant UiManager LOGIC_COLOR
 participant MainWindow LOGIC_COLOR
-participant CommandResult LOGIC_COLOR
 end box
 
 -> LogicManager : execute("display 2")

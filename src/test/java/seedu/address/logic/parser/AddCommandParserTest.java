@@ -115,34 +115,34 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB,
-                Name.MESSAGE_CONSTRAINTS);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_CONSTRAINTS));
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB,
-                Phone.MESSAGE_CONSTRAINTS);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Phone.MESSAGE_CONSTRAINTS));
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC,
-                Email.MESSAGE_CONSTRAINTS);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Email.MESSAGE_CONSTRAINTS));
 
         // invalid address
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_CONSTRAINTS);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Address.MESSAGE_CONSTRAINTS));
 
         // invalid gender
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_GENDER_DESC,
-                Gender.MESSAGE_CONSTRAINTS);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Gender.MESSAGE_CONSTRAINTS));
 
         // invalid age
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_AGE_DESC,
-                Age.MESSAGE_CONSTRAINTS);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Age.MESSAGE_CONSTRAINTS));
 
         // invalid interests
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_INTEREST_DESC,
-                Interest.MESSAGE_CONSTRAINTS);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, Interest.MESSAGE_CONSTRAINTS));
     }
 }
