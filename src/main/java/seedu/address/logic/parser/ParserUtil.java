@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.stream.Stream;
 
@@ -384,5 +385,59 @@ public class ParserUtil {
         return Stream.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_CALLED,
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST)
                 .anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Extracts the last {@code argument} from {@code List<String> argList}.
+     */
+    private static String extractLastArgument(List<String> argList) {
+        String last = argList.get(argList.size() - 1); // category is the first argument
+        return last;
+    }
+
+    /**
+     * Checks whether the parameter that has been input is a whole number (can also be a whole number greater
+     * than Integer.MAX_VALUE
+     *
+     * @param arg the parameter that has been entered by the user
+     * @return
+     */
+    public static boolean isWholeNumber(String arg) {
+        try {
+            for (char c : arg.toCharArray()) {
+                Integer.parseInt(String.valueOf(c));
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if there are any parameters input by the user
+     * @param list The list that stores the parameters
+     * @return a boolean indicating whether there is a parameter input or not
+     */
+    public static boolean hasParameterValue(List<String> list) {
+        for (String s: list) {
+            if (!s.equals("")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Tries to parse the input of the user to get the integer index
+     * @param argList List that stores the user input
+     */
+    public static void tryParseIndex(List<String> argList) throws NumberFormatException {
+        if (!hasParameterValue(argList)) {
+            return;
+        }
+        String lastArgument = extractLastArgument(argList);
+        if (isWholeNumber(lastArgument)) {
+            Integer.parseInt(lastArgument);
+        }
     }
 }
