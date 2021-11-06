@@ -85,6 +85,10 @@ public class InterestsList {
     public ArrayList<Interest> getAllInterests() {
         return this.list;
     }
+    
+    public InterestsList copyInterestsList() {
+        return new InterestsList(new ArrayList<>(this.list));
+    }
 
     /**
      * Checks if there is a proper value.
