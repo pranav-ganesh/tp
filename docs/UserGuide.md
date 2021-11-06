@@ -37,6 +37,8 @@ To get the most out of this user guide, it is recommended that you familiarise y
 However, if this is your first time using CMM, it would be easier for you to go through the [Quick Start](#quick-start) and learn the 
 notations along the way. Hope you have a great time with CMM.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## Quick start
 1. Ensure you have Java 11 or above installed in your Computer.
 
