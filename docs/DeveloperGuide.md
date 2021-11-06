@@ -323,6 +323,10 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
 
 ![Interactions Inside the Logic Component for the `filter' Command](images/FilterSequenceDiagram.png)
 
+The activity diagram below summarises what happens when a user executes an Filter Command.
+
+![Filter command activity diagram](images/FilterActivityDiagram.png)
+
 #### Design considerations:
 
 **Aspect: Compulsory fields:**

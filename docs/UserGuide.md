@@ -350,6 +350,8 @@ Examples:
 * `filter gender 3` filters the displayed list to show female contacts first and to only show the first three contacts
 
 **Common issues:**
+* _Invalid command format!_: <br>
+  a. No fields provided <br>
 * _Category can only be either "called" or "gender"_: <br>
   a. The category specified is not `called` or `gender` <br>
   b. Category not specified
