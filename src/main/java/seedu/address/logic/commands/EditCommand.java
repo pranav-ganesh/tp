@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,9 +62,16 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_INVALID_INTERESTS_INDEX = "The specified interestsList index is invalid.";
     public static final String MESSAGE_DUPLICATE_INTEREST = "The specified interest already exists in the list.";
+    public static final String MESSAGE_DUPLICATE_INDEX = "You have specified the same index more than once.";
+    public static final String MESSAGE_DUPLICATE_INTEREST_ARGUMENT = "You have duplicate interest arguments in "
+            + "your command.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
+    private ArrayList<Integer> indexesToBeRemoved;
+    private ArrayList<Interest> interestsToBeAdded;
+    private ArrayList<Integer> listOfIndexes;
+    private ArrayList<String> listOfArguments;
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -75,6 +83,10 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.indexesToBeRemoved = new ArrayList<>();
+        this.interestsToBeAdded = new ArrayList<>();
+        this.listOfIndexes = new ArrayList<>();
+        this.listOfArguments = new ArrayList<>();
     }
 
     @Override
@@ -128,6 +140,8 @@ public class EditCommand extends Command {
         InterestsList newInterests = editPersonDescriptor.getInterests().orElse(null);
         if (newInterests != null) {
             this.editInterestList(newInterests, personToEdit.getInterests());
+            this.removeSpecifiedInterests(personToEdit.getInterests());
+            this.addSpecifiedInterests(personToEdit.getInterests());
         }
         InterestsList updatedInterests = personToEdit.getInterests();
 
@@ -143,32 +157,82 @@ public class EditCommand extends Command {
             String s = i.toString();
             this.editSpecifiedInterest(s, currentList);
         }
+        this.listOfIndexes.clear();
+        this.listOfArguments.clear();
     }
 
     private void editSpecifiedInterest(String s, InterestsList currentList) throws CommandException {
         if (s.substring(0, 1).equals("(")) {
             String pos = s.substring(s.indexOf("(") + 1, s.indexOf(")"));
+            String desc = s.substring(s.indexOf(")") + 2).trim();
             int index = Integer.parseInt(pos) - 1;
 
-            if (index < currentList.size()) {
-                Interest interest = new Interest(s.substring(s.indexOf(")") + 2).trim());
-                checkDuplicate(currentList, interest);
-                currentList.setInterest(interest, index);
-            } else {
+            if (index >= currentList.size()) {
                 throw new CommandException(MESSAGE_INVALID_INTERESTS_INDEX);
+            }
+
+            if (this.listOfIndexes.contains(index)) {
+                throw new CommandException(MESSAGE_DUPLICATE_INDEX);
+            }
+
+            if (this.listOfArguments.contains(desc)) {
+                throw new CommandException(MESSAGE_DUPLICATE_INTEREST_ARGUMENT);
+            }
+
+            this.listOfIndexes.add(index);
+            this.listOfArguments.add(desc);
+
+            if (desc.equals("remove")) {
+                this.indexesToBeRemoved.add(index);
+            } else {
+                modifyCurrentList(currentList, index, desc);
             }
 
         } else {
             Interest interest = new Interest(s);
-            checkDuplicate(currentList, interest);
-            currentList.addInterest(interest);
+
+            if (this.listOfArguments.contains(s)) {
+                throw new CommandException(MESSAGE_DUPLICATE_INTEREST_ARGUMENT);
+            }
+
+            this.listOfArguments.add(s);
+            this.interestsToBeAdded.add(interest);
         }
     }
 
-    private void checkDuplicate(InterestsList lst, Interest interest) throws CommandException {
-        if (lst.checkDuplicate(interest)) {
+    private void modifyCurrentList(InterestsList currentList, int index, String desc) throws CommandException {
+        Interest interest = new Interest(desc);
+        System.out.println(desc);
+        if (currentList.checkDuplicate(interest)) {
             throw new CommandException(MESSAGE_DUPLICATE_INTEREST);
         }
+
+        currentList.setInterest(interest, index);
+    }
+
+    private void removeSpecifiedInterests(InterestsList currentList) {
+        int count = 0;
+        int len = this.indexesToBeRemoved.size();
+
+        if (len > 0) {
+            for (int i = 0; i < len; i++) {
+                currentList.removeInterest(indexesToBeRemoved.get(i) - count);
+                count++;
+            }
+
+            this.indexesToBeRemoved.clear();
+        }
+    }
+
+    private void addSpecifiedInterests(InterestsList currentList) throws CommandException {
+        for (int i = 0; i < interestsToBeAdded.size(); i++) {
+            if (currentList.checkDuplicate(interestsToBeAdded.get(i))) {
+                throw new CommandException(MESSAGE_DUPLICATE_INTEREST);
+            }
+            currentList.addInterest(interestsToBeAdded.get(i));
+        }
+
+        this.interestsToBeAdded.clear();
     }
 
     @Override

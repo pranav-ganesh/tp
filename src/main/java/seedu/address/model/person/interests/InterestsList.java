@@ -42,10 +42,18 @@ public class InterestsList {
     /**
      * Edits an interest in the list.
      * @param interest The new interest
-     * @param index The index of the Interest in the list to be changed
+     * @param index The index of the Interest in the list that is to be changed
      */
     public void setInterest(Interest interest, int index) {
         this.list.set(index, interest);
+    }
+
+    /**
+     * Removes an interest in the list.
+     * @param index The index of the Interest in the list that is to be removed
+     */
+    public void removeInterest(int index) {
+        this.list.remove(index);
     }
 
     /**
