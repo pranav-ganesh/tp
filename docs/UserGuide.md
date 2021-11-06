@@ -137,9 +137,9 @@ Examples:
 * `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/her house i/running i/swimming i/eating`
 
 **Common issues:**
-* _Invalid command format!_: <br />
-  a. Omitted one or more of the mandatory fields <br />
-  b. Used the wrong prefix. (e.g., '/n' instead of 'n/') <br />
+* _Invalid command format!_: <br>
+  a. Omitted one or more of the mandatory fields <br>
+  b. Used the wrong prefix. (e.g., '/n' instead of 'n/') <br>
 
 ### Listing all contacts : `list`
 
@@ -165,7 +165,7 @@ Example:
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 
 **Common issues:**
-* _The index provided is invalid_: <br />
+* _The index provided is invalid_: <br>
   a. Displayed list does not contain contact at `INDEX`.
 
 ### Editing a contact : `edit`
@@ -197,15 +197,15 @@ Examples:
 
 
 **Common issues:**
-* _The index provided is invalid_: <br />
+* _The index provided is invalid_: <br>
   a. Displayed list does not contain contact at `INDEX`.
-* _The interests list index provided is invalid_: <br />
+* _The interests list index provided is invalid_: <br>
   a. Displayed interests list does not contain an interest at `INTERESTSLIST INDEX`.
-* _Invalid command format!_: <br />
-  a. No fields provided <br />
-  b. Used the wrong prefix. (e.g., 'i/[1]' instead of 'i/(1)') <br />
-* _Invalid command arguments_: <br />
-    a. Duplicate of the edited contact already exists on the address book. <br />
+* _Invalid command format!_: <br>
+  a. No fields provided <br>
+  b. Used the wrong prefix. (e.g., 'i/[1]' instead of 'i/(1)') <br>
+* _Invalid command arguments_: <br>
+    a. Duplicate of the edited contact already exists on the address book. <br>
 
 ### Deleting a contact : `delete`
 
@@ -225,7 +225,7 @@ please use with caution.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 
 **Common issues:**
-* _The index provided is invalid_: <br />
+* _The index provided is invalid_: <br>
   a. Displayed list does not contain contact at `INDEX`.
 
 ### Finding contacts that match **ANY** of the keywords specified: `findAny`
@@ -319,7 +319,7 @@ Example:
 * `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
-* _The index provided is invalid_: <br />
+* _The index provided is invalid_: <br>
   a. Displayed list does not contain contact at `INDEX`.
 
 ### Filtering contacts : `filter`
@@ -350,11 +350,12 @@ Examples:
 * `filter gender 3` filters the displayed list to show female contacts first and to only show the first three contacts
 
 **Common issues:**
-* _Category can only be either "called" or "gender"_: <br />
-  a. The category specified is not `called` or `gender` <br />
+* _Category can only be either "called" or "gender"_: <br>
+  a. The category specified is not `called` or `gender` <br>
   b. Category not specified
-* _Count is not a non-zero unsigned integer_: <br />
-  a. The last argument is not a positive integer
+* _Count is not a non-zero unsigned integer. It cannot be bigger than 2147483647 (i.e., MAX_VALUE)_: <br>
+  a. The last argument is not a positive integer <br>
+  b. The last argument is bigger than 2147483647 <br>
 
 ### Clearing all contacts : `clear`
 
