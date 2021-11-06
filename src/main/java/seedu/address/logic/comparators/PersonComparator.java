@@ -10,7 +10,7 @@ import seedu.address.model.person.Person;
  * A general comparator for Persons. Can be specified to compare any Person attributes.
  */
 public class PersonComparator {
-    public static final String MESSAGE_INVALID_CATEGORY = "Category can only be either \"called\" or \"gender\"";
+    public static final String MESSAGE_INVALID_CATEGORY = "Category can only be either \"called\" or \"gender\"\n";
     public static final String VALIDATION_REGEX = "CALLED|GENDER";
 
     /**
