@@ -56,7 +56,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_INDEX));
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -71,7 +71,7 @@ public class ParserUtil {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_CONSTRAINTS));
         }
         return new Name(trimmedName);
     }
@@ -86,7 +86,7 @@ public class ParserUtil {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Phone.MESSAGE_CONSTRAINTS));
         }
         return new Phone(trimmedPhone);
     }
@@ -101,7 +101,7 @@ public class ParserUtil {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Email.MESSAGE_CONSTRAINTS));
         }
         return new Email(trimmedEmail);
     }
@@ -119,7 +119,7 @@ public class ParserUtil {
 
         String trimmedAddress = address.trim();
         if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Address.MESSAGE_CONSTRAINTS));
         }
         return new Address(trimmedAddress);
     }
@@ -137,7 +137,7 @@ public class ParserUtil {
 
         String trimmedGender = gender.trim();
         if (!Gender.isValidGender(trimmedGender)) {
-            throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Gender.MESSAGE_CONSTRAINTS));
         }
         return new Gender(trimmedGender);
     }
@@ -155,7 +155,7 @@ public class ParserUtil {
 
         String trimmedAge = age.trim();
         if (!Age.isValidAge(trimmedAge)) {
-            throw new ParseException(Age.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Age.MESSAGE_CONSTRAINTS));
         }
         return new Age(trimmedAge);
     }
@@ -173,7 +173,7 @@ public class ParserUtil {
 
         String trimmedCalled = isCalled.trim();
         if (!IsCalled.isValidIsCalled(trimmedCalled)) {
-            throw new ParseException(IsCalled.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, IsCalled.MESSAGE_CONSTRAINTS));
         }
         return new IsCalled(trimmedCalled);
     }
@@ -189,7 +189,7 @@ public class ParserUtil {
         String trimmedInterest = interest.trim();
 
         if (!Interest.isValidInterest(trimmedInterest)) {
-            throw new ParseException(Interest.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Interest.MESSAGE_CONSTRAINTS));
         }
         return new Interest(trimmedInterest);
     }
@@ -351,7 +351,9 @@ public class ParserUtil {
             test = test.toLowerCase(Locale.ROOT);
             if (!(test.equals("t") || test.equals("true")
                     || test.equals("f") || test.equals("false"))) {
-                throw new ParseException("'d/' can only be followed by 't','f', 'true', or 'false'");
+                throw new ParseException(String.format(
+                        MESSAGE_INVALID_COMMAND_FORMAT, "'d/' can only be followed by 't','f', 'true', or 'false'"
+                ));
             }
         }
         return true;
@@ -369,7 +371,10 @@ public class ParserUtil {
             test = test.toLowerCase(Locale.ROOT);
             if (!(test.equals("m") || test.equals("male")
                     || test.equals("f") || test.equals("female") || test.equals("n.a"))) {
-                throw new ParseException("'g/' can only be followed by 'm','f', 'male', 'female' or 'N.A'");
+                throw new ParseException(String.format(
+                        MESSAGE_INVALID_COMMAND_FORMAT,
+                        "'g/' can only be followed by 'm','f', 'male', 'female' or 'N.A'"
+                ));
             }
         }
         return true;
