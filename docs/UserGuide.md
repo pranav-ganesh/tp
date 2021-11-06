@@ -69,6 +69,7 @@ notations along the way. Hope you have a great time with CMM.
 7. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Features
 
