@@ -21,6 +21,7 @@ Class Person
 Class Address
 Class Email
 Class Name
+Class isCalled
 Class Phone
 Class Gender
 Class Age
@@ -43,10 +44,11 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
 Person *--> Name
-Person *--> Phone
+Person *---> Phone
 Person *--> Email
+Person *---> isCalled
 Person *--> Address
-Person *--> Gender
+Person *---> Gender
 Person *--> Age
 Person *--> InterestsList
 InterestsList *--> "*" Interest
