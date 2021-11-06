@@ -8,6 +8,7 @@ CMM provides a solution to quickly catalog people based on who has/yet to be cal
 The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers.
 Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
 
+
 CMM is optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 If you can type fast, CMM can get your contact management tasks done faster than traditional GUI apps.
@@ -388,7 +389,7 @@ CMM is able to import CSV files into CMM. The import files have to be in an Exce
 * CMM will abort import if : <br/>
 a. Files has missing/invalid headers <br/>
 b. First row of Excel file is reserved for datatype headers. <br/>
-c. Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `isCalled` from the left to right, starting from the cell 'A1' <br/>
+c. Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1' <br/>
 d. Headers are not case-sensitive<br/>
 * Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
 
