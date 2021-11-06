@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
-import seedu.address.model.person.IsDone;
+import seedu.address.model.person.IsCalled;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -22,11 +21,11 @@ import seedu.address.model.person.interests.InterestsList;
 
 
 /**
- * Changes the done field of an existing person in the address book.
+ * Changes the called field of an existing person in the address book.
  */
-public class DoneCommand extends Command {
+public class CalledCommand extends Command {
 
-    public static final String COMMAND_WORD = "done";
+    public static final String COMMAND_WORD = "called";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the 'Called' field of the address identified "
             + "by the index number of the address listing. "
@@ -40,11 +39,11 @@ public class DoneCommand extends Command {
     private final Index index;
 
     /**
-     * Creates a DoneCommand to mark the specified {@code Person} as done
+     * Creates a CalledCommand to mark the specified {@code Person} as called
      *
      * @param index of the person in the person list
      */
-    public DoneCommand(Index index) {
+    public CalledCommand(Index index) {
         requireAllNonNull(index);
         this.index = index;
     }
@@ -59,14 +58,16 @@ public class DoneCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        if (personToEdit.getIsDone().value) {
+        if (personToEdit.getIsCalled().value) {
             return new CommandResult(MESSAGE_ALREADY_DONE_CALL);
         }
 
         Person editedPerson = createCalledPerson(personToEdit);
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        DisplayCommand displayCommand = new DisplayCommand(Index.fromOneBased(index.getOneBased()));
+        displayCommand.execute(model);
 
         return new CommandResult(String.format(MESSAGE_DONE_CALL_SUCCESS, editedPerson));
     }
@@ -77,13 +78,13 @@ public class DoneCommand extends Command {
         Name name = personToEdit.getName();
         Phone phone = personToEdit.getPhone();
         Email email = personToEdit.getEmail();
-        IsDone updatedIsDone = new IsDone("TRUE");
+        IsCalled updatedIsCalled = new IsCalled("TRUE");
         Address address = personToEdit.getAddress();
         Gender gender = personToEdit.getGender();
         Age age = personToEdit.getAge();
         InterestsList interests = personToEdit.getInterests();
 
-        return new Person(name, phone, email, updatedIsDone, address, gender, age, interests);
+        return new Person(name, phone, email, updatedIsCalled, address, gender, age, interests);
     }
 
     @Override
@@ -92,11 +93,11 @@ public class DoneCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof DoneCommand)) {
+        if (!(other instanceof CalledCommand)) {
             return false;
         }
 
-        DoneCommand e = (DoneCommand) other;
+        CalledCommand e = (CalledCommand) other;
         return index.equals(e.index);
     }
 }

@@ -12,7 +12,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
-import seedu.address.model.person.IsDone;
+import seedu.address.model.person.IsCalled;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -30,7 +30,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
-    private final String isDone;
+    private final String isCalled;
     private final String gender;
     private final String age;
     private final List<JsonAdaptedInterest> interests = new ArrayList<>();
@@ -40,7 +40,7 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("isDone") String isDone,
+                             @JsonProperty("email") String email, @JsonProperty("isCalled") String isCalled,
                              @JsonProperty("address") String address, @JsonProperty("gender") String gender,
                              @JsonProperty("age") String age,
                              @JsonProperty("interests") List<JsonAdaptedInterest> interests) {
@@ -48,7 +48,7 @@ class JsonAdaptedPerson {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.isDone = isDone;
+        this.isCalled = isCalled;
         this.address = address;
         this.gender = gender;
         this.age = age;
@@ -64,7 +64,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        isDone = source.getIsDone().value ? "TRUE" : "FALSE";
+        isCalled = source.getIsCalled().value ? "TRUE" : "FALSE";
         address = source.getAddress().value;
         gender = source.getGender().value;
         age = source.getAge().value;
@@ -105,15 +105,16 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (isDone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, IsDone.class.getSimpleName()));
+        if (isCalled == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    IsCalled.class.getSimpleName()));
         }
 
-        if (!(IsDone.isValidIsDone(isDone))) {
-            throw new IllegalValueException(IsDone.MESSAGE_CONSTRAINTS);
+        if (!(IsCalled.isValidIsCalled(isCalled))) {
+            throw new IllegalValueException(IsCalled.MESSAGE_CONSTRAINTS);
         }
 
-        final IsDone modelIsDone = new IsDone(isDone);
+        final IsCalled modelIsCalled = new IsCalled(isCalled);
 
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
@@ -144,7 +145,7 @@ class JsonAdaptedPerson {
             }
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,
+        return new Person(modelName, modelPhone, modelEmail, modelIsCalled, modelAddress,
                 modelGender, modelAge, modelInterests);
     }
 

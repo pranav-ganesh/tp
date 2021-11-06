@@ -8,26 +8,26 @@ import java.util.Locale;
 /**
  * Represents whether a Person is called in the address book.
  */
-public class IsDone {
+public class IsCalled {
 
-    public static final String MESSAGE_CONSTRAINTS = "Done has to either be TRUE or FALSE";
+    public static final String MESSAGE_CONSTRAINTS = "Called has to either be TRUE or FALSE";
     public final boolean value;
 
     /**
-     * Constructs an {@code IsDone}.
+     * Constructs an {@code IsCalled}.
      *
-     * @param isDone Indication whether person is called.
+     * @param isCalled Indication whether person is called.
      */
-    public IsDone(String isDone) {
-        requireNonNull(isDone);
-        checkArgument(isValidIsDone(isDone), MESSAGE_CONSTRAINTS);
-        value = isDone.toUpperCase(Locale.ROOT).equals("TRUE");
+    public IsCalled(String isCalled) {
+        requireNonNull(isCalled);
+        checkArgument(isValidIsCalled(isCalled), MESSAGE_CONSTRAINTS);
+        value = isCalled.toUpperCase(Locale.ROOT).equals("TRUE");
     }
 
     /**
-     * Returns true if a given string is a valid IsDone.
+     * Returns true if a given string is a valid IsCalled.
      */
-    public static boolean isValidIsDone(String test) {
+    public static boolean isValidIsCalled(String test) {
         String testValid = test.toUpperCase(Locale.ROOT);
         return testValid.equals("TRUE") || testValid.equals("FALSE") || testValid.equals("");
     }
@@ -43,8 +43,8 @@ public class IsDone {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof IsDone // instanceof handles nulls
-                && (value == ((IsDone) other).value)); // state check
+                || (other instanceof IsCalled // instanceof handles nulls
+                && (value == ((IsCalled) other).value)); // state check
     }
 
     @Override

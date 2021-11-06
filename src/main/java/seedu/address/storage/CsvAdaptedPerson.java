@@ -12,7 +12,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
-import seedu.address.model.person.IsDone;
+import seedu.address.model.person.IsCalled;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -28,13 +28,13 @@ public class CsvAdaptedPerson {
     // This sets the ordering of which person object constructor takes in  data
     public static final Map<String, Integer> ATTRIBUTE_ORDERING = Stream.of(new Object[][] {
             {"Name", 0}, { "Phone", 1 }, {"Email", 2}, {"Address", 3}, {"Gender", 4}, {"Age", 5}, {"Interest", 6},
-            {"Done", 7},
+            {"Called", 7},
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (Integer) data[1]));
 
     private String name;
     private String phone;
     private String email;
-    private String doneString;
+    private String calledString;
     private String address;
     private String gender;
     private String age;
@@ -63,11 +63,11 @@ public class CsvAdaptedPerson {
                 .stream()
                 .map(CsvAdaptedInterest::new)
                 .collect(Collectors.toList()));
-        doneString = source.getIsDone().value ? "TRUE" : "FALSE";
+        calledString = source.getIsCalled().value ? "TRUE" : "FALSE";
     }
 
     /**
-     * Parses the string into indivdiual deltails
+     * Parses the string into individual details
      * Note that this assumes that the CSV datafile is delimited using semicolon
      * Quick guide as to how to do that :https://ashwaniashwin.wordpress
      * .com/2013/04/19/save-excel-file-as-a-csv-semicolon-delimited
@@ -91,7 +91,7 @@ public class CsvAdaptedPerson {
         this.gender = details[ATTRIBUTE_ORDERING.get("Gender")].trim();
         this.age = details[ATTRIBUTE_ORDERING.get("Age")].trim();
         setInterestList(details[ATTRIBUTE_ORDERING.get("Interest")].trim());
-        this.doneString = details[ATTRIBUTE_ORDERING.get("Done")].trim().toUpperCase();
+        this.calledString = details[ATTRIBUTE_ORDERING.get("Called")].trim().toUpperCase();
     }
 
     private void setInterestList (String csvInterestString) {
@@ -147,10 +147,10 @@ public class CsvAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (!(IsDone.isValidIsDone(doneString))) {
-            throw new IllegalValueException(IsDone.MESSAGE_CONSTRAINTS);
+        if (!(IsCalled.isValidIsCalled(calledString))) {
+            throw new IllegalValueException(IsCalled.MESSAGE_CONSTRAINTS);
         }
-        final IsDone modelIsDone = new IsDone(doneString);
+        final IsCalled modelIsCalled = new IsCalled(calledString);
 
         String checkAddress = address.equals("") ? null : address;
 
@@ -187,7 +187,7 @@ public class CsvAdaptedPerson {
             }
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelIsDone, modelAddress,
+        return new Person(modelName, modelPhone, modelEmail, modelIsCalled, modelAddress,
                 modelGender, modelAge, modelInterests);
     }
 

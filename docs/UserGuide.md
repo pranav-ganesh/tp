@@ -5,8 +5,9 @@ title: User Guide
 
 CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
 CMM provides a solution to quickly catalog people based on who has/yet to be called.
-The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers
+The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers.
 Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
+
 
 CMM is optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
@@ -18,6 +19,24 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 --------------------------------------------------------------------------------------------------------------------
 
+## How to use the User Guide
+
+This user guide aims to help you easily find the information you desire for any command. <br>
+Each Command section is separated into:<br>
+* Brief description of the command
+* Command Format
+* Things to note
+* Examples
+* Common issues
+
+<div markdown="block" class="alert alert-info">
+**:information_source: Note:** Straightforward commands such as 'list' would not have the sections "Things to note", "examples" and "Common issues"
+</div>
+
+To get the most out of this user guide, it is recommended that you familiarise yourself with the [notations](#command-notations) we use.
+However, if this is your first time using CMM, it would be easier for you to go through the [Quick Start](#quick-start) and learn the 
+notations along the way. Hope you have a great time with CMM.
+
 ## Quick start
 1. Ensure you have Java 11 or above installed in your Computer.
 
@@ -27,20 +46,21 @@ If you can type fast, CMM can get your contact management tasks done faster than
 
 4. Double-click the file to start the app. Initially, a popup asking to import CSV data would appear.
    ![importPopUpUi](images/importPopUpMessage.png) <br>
-   To learn more about importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button 
+   To learn more about importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button
    on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
-   Commands that CallMeMaybe supports:
+5. Type the command in the command box and press Enter to execute it. e.g. typing "help" and pressing `Enter` will open the help window.
+   You can find the commands that CallMeMaybe supports below:
    - `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the CMM database.
    - `list` : Lists all contacts.
-   - `done 2` : Marks the 2nd contact shown in the current list as completed.
+   - `called 2` : Marks the 2nd contact shown in the current list as called.
    - `edit 1 n/Bob p/62353535` : Edits the name and phone number of the first person in the displayed list.
    - `findAny n/alex g/m` : Finds the contacts that have the substring `alex`in their name **AND/OR** are males.
    - `findAll n/alex g/m` : Finds the contacts that have both the substring `alex` in their name **AND** are males.
    - `delete 3` : Deletes the 3rd contact shown in the current list.
    - `display 4` : Displays the full contact details of the fourth contact in the displayed list.
+   - `filter called` : Sorts the list to display uncalled contacts first
    - `clear` : Deletes all contacts.
    - `exit` : Exits the app.
 
@@ -51,6 +71,8 @@ If you can type fast, CMM can get your contact management tasks done faster than
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
+### Command Notations
 
 <div markdown="block" class="alert alert-info">
 
@@ -93,14 +115,15 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/I
 **Things to note:**
 * `Name`, `Phone_number` and `Email` fields are mandatory
 * `Name`, `Address` and `Interest` can be in any format.
-* `Phone_number` must contain only digits and be at least 8 digits long
-* `Email` should be in the form of `local-part@domain-name`
+* `Phone_number` must contain exactly 8 digits
+  a. numbers must start with "6", "8" or "9"
+* `Email` should be in the form of `local-part@domain-name` <br>
   a. The local-part should only contain alphanumeric characters and these special characters, `+_.-`. <br>
-  b. The local-part may not start or end with any special characters.
-  c. The domain-name is made up of domain labels separated by periods. (eg. @nus.edu.sg)
-  d. The domain-name must end with a domain label at least 2 characters long
-  e. The domain-name must have each domain label start and end with alphanumeric characters
-  f. The domain-name must have each domain label consist of alphanumeric characters, separated only by hyphens, if any.
+  b. The local-part may not start or end with any special characters.<br>
+  c. The domain-name is made up of domain labels separated by periods. (eg. @nus.edu.sg)<br>
+  d. The domain-name must end with a domain label at least 2 characters long<br>
+  e. The domain-name must have each domain label start and end with alphanumeric characters<br>
+  f. The domain-name must have each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br>
 * `Gender` can only be "m", "f", "n.a" (case-insensitive)
 * `Age` must only contain numbers
 
@@ -127,14 +150,14 @@ Format: `list`
 **Things to note:**
 * `list` shows all contacts in ascending order by name.
 
-### Marking a person as called : `done`
+### Marking a contact as called : `called`
 
-Marks the specified contact from the address book as done (i.e. person has already been called).
+Marks the specified contact from the address book as called (i.e. person has already been called).
 
-Format: `done INDEX`
+Format: `called INDEX`
 
 Example:
-* `done 3` marks the 3rd contact in the displayed list as Called.
+* `called 3` marks the 3rd contact in the displayed list as Called.
 
 **Things to note:**
 
@@ -143,23 +166,23 @@ Example:
 
 **Common issues:**
 * _The index provided is invalid_: <br />
-  a. Displayed list does not contain person at `INDEX`.
+  a. Displayed list does not contain contact at `INDEX`.
 
 ### Editing a contact : `edit`
 
 Edits an existing contact in the CMM database.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(INTERESTSLIST INDEX) INTEREST]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-* Specifying [INTERESTLIST INDEX] is optional as well. <br/>
-* If [INTERESTLIST INDEX] is specified, the interest at that index would be updated. <br/>
-* If it is not, then an interest would be added instead. <br/>
-* You can refer to the examples below for a better understanding.
+* Specifying (INTERESTLIST INDEX) is optional as well. <br/>
+* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated. <br/>
+* If it is not, then an interest would be added to the list instead. <br/>
+* You can refer to the examples below for a better understanding of the edit command functionality.
 </div>
 
 Examples:
-* `edit 1 n/Malan i/[2] Swimming` edits the name of person and the second interest of the first contact in the displayed list
+* `edit 1 n/Malan i/[2] Swimming` edits the name of contact and the second interest of the first contact in the displayed list
 * `edit 1 i/Painting i/[1] Running` adds 'painting' as an interest and edits the first interest of the first contact in the displayed list
 * `edit 2 g/M e/myEmail@email.com age/55` edits the gender, email and age of the second contact in the displayed list
 
@@ -175,14 +198,14 @@ Examples:
 
 **Common issues:**
 * _The index provided is invalid_: <br />
-  a. Displayed list does not contain person at `INDEX`.
+  a. Displayed list does not contain contact at `INDEX`.
 * _The interests list index provided is invalid_: <br />
   a. Displayed interests list does not contain an interest at `INTERESTSLIST INDEX`.
 * _Invalid command format!_: <br />
   a. No fields provided <br />
-  b. Used the wrong prefix. (e.g., 'i/(1)' instead of 'i/[1]') <br />
+  b. Used the wrong prefix. (e.g., 'i/[1]' instead of 'i/(1)') <br />
 * _Invalid command arguments_: <br />
-    a. Duplicate of the edited person already exists on the address book. <br />
+    a. Duplicate of the edited contact already exists on the address book. <br />
 
 ### Deleting a contact : `delete`
 
@@ -198,17 +221,17 @@ please use with caution.
 </div>
 
 **Things to note:**
-* `INDEX` refers to the index number shown in the displayed person list.
+* `INDEX` refers to the index number shown in the displayed contacts list.
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 
 **Common issues:**
 * _The index provided is invalid_: <br />
-  a. Displayed list does not contain person at `INDEX`.
+  a. Displayed list does not contain contact at `INDEX`.
 
-### Finding contacts that matches **ANY** of the keywords specified: `findAny`
+### Finding contacts that match **ANY** of the keywords specified: `findAny`
 
 Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​]
-[d/DONE…​] [i/INTEREST…​]`
+[c/CALLED…​] [i/INTEREST…​]`
 
 **Things to note:**
 * FindAny requires at least one field. But it is optional to include all the fields. <br>
@@ -218,7 +241,7 @@ eg. `findAny n/alex n/david` returns the same results as `findAny n/david`
 * Any number of keywords can be specified within each field <br>
 * The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
   as `n/Bo Hans`<br>
-* Keywords for `Done` are limited to `true`, `false`, `t`, `f`
+* Keywords for `Called` are limited to `true`, `false`, `t`, `f`
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
 
@@ -244,9 +267,9 @@ have the substring 'woodlands' in their address
 a. No fields provided<br>
 b. Used the wrong prefix (eg. '/n' instead of 'n/')
 
-### Finding contacts that matches "ALL" the keywords specified : `findAll`
+### Finding contacts that match **ALL** the keywords specified : `findAll`
 
-Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
+Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [c/CALLED…​] [i/INTEREST…​]`
 
 **Things to note:**
 * `findAll` only returns contacts that matches all the keywords specified in their respective fields
@@ -257,14 +280,14 @@ Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 * Any number of keywords can be specified within each field <br>
 * The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
   as `n/Bo Hans`<br>
-* Keywords for `Done` are limited to `true`, `false`, `t`, `f`
+* Keywords for `Called` are limited to `true`, `false`, `t`, `f`
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-findAll vs findAny<br>
-    * findAll searches for contacts that satisfy **ALL** the fields specified<br>
-    * findAny searches for contacts that satisfy **ANY** of the fields specified<br>
+findAll vs findAny: <br>
+- findAll searches for contacts that satisfy **ALL** the fields specified<br>
+- findAny searches for contacts that satisfy **ANY** of the fields specified<br>
 </div>
 
 Click [here](#finding-contacts-that-matches-any-of-the-keywords-specified-findany) to learn more about findAny
@@ -273,8 +296,7 @@ Examples:
 * `findAll n/alex` finds all the contacts that have the substring 'alex' in their name
 * `findAll n/Malan i/Swimming` finds only the contacts that have **BOTH** the substring 'malan' in the name and the substring 'swimming' as their interests
 * `findAll i/Painting i/ Running` finds only the contacts that have 'running' as a substring as their interests
-* `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name
-**AND both** substrings of 'ho' and 'oh' in the address
+* `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name **AND both** substrings of 'ho' and 'oh' in the address
 
 **Common issues:**
 * _Unknown command_: <br/>
@@ -297,8 +319,8 @@ Example:
 * `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
-* _The person index provided is invalid_: <br />
-  a. Displayed list does not contain person at `INDEX`.
+* _The index provided is invalid_: <br />
+  a. Displayed list does not contain contact at `INDEX`.
 
 ### Filtering contacts : `filter`
 
@@ -306,17 +328,12 @@ Filters the existing contacts in the CMM database. The displayed list will show 
 
 Format: `filter CATEGORY [COUNT]`
 
-Examples:
-* `filter called` filters the displayed list to show uncalled contacts first
-* `filter called 2` filters the displayed list to show uncalled contacts first and to only show the first two contacts
-* `filter gender 3` filters the displayed list to show female contacts first and to only show the first three contacts
-
 **Things to note:**
 * `CATEGORY` field is mandatory
 * `CATEGORY` refers to the category used to filter the contacts
 * `CATEGORY` **must be one of the following:** called, gender
 * `COUNT` refers to the number of contacts to be shown in the displayed list. If `COUNT` is more than the total number
-of contacts, all contacts will be shown
+  of contacts, all contacts will be shown
 * `COUNT` **must be a positive integer less than 2147483648** 1, 2, 3, …​, 2147483647
 * If more arguments are given than what is required, the last two arguments are taken into account
   (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
@@ -327,6 +344,10 @@ of contacts, all contacts will be shown
 * If only one argument is given, it will be interpreted as a `CATEGORY`
   (e.g., `filter 1000` will cause `1000` to be interpreted as a `CATEGORY`)
 
+Examples:
+* `filter called` filters the displayed list to show uncalled contacts first
+* `filter called 2` filters the displayed list to show uncalled contacts first and to only show the first two contacts
+* `filter gender 3` filters the displayed list to show female contacts first and to only show the first three contacts
 
 **Common issues:**
 * _Category can only be either "called" or "gender"_: <br />
@@ -356,10 +377,10 @@ CMM data are saved in the hard disk automatically after any command that changes
 
 ### Importing the data into database
 
-CMM is able to import CSV files into CMM. The import files have to be in an Excel CSV format (semicolon delimited).
+CMM is able to import Excel files into CMM. The import files have to be in an Excel Csv format (semicolon delimited).
 
-**Steps to Import from CSV file**
-1. Ensure that the Excel file is a CSV file with **semicolon delimited**.
+**Steps to Import from Excel file**
+1. Ensure that the Excel file is a Csv file with **semicolon delimited**.
    Instructions on how to import to this file type can be found [here](SettingImportFileType.md)
 2. Ensure that the import file is named import.csv under the "data" folder found in the same directory as the CMM jar file
 3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Imports`, `Start New Using Import`, `Don't Import`
@@ -373,36 +394,43 @@ CMM is able to import CSV files into CMM. The import files have to be in an Exce
 
 `Start New Using Import`
 - Exports and reset the current database. CMM will then populate the reset database with new imports
+- Previous database **before import** can be found in a Csv file under the "data" folder found in the same directory as the CMM jar file. It will have the following file name : `export[Date HH:MM:SS].csv`
 
 `Don't Import`
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Currently, import is **irreversible**. Please double check before importing.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Currently, import is **irreversible**. Please double check before importing. This is especially important when choosing the add on import option.
 </div>
 
 **Things to note**
 * CMM will prompt user for imports upon **every** application startup.
 * CMM will not import data rows with missing details (Compulsory for data to have `name`, `phone`, `email` filled)
+* CMM will treat two people with the exact `name`, `phone`, `email`  as duplicates
 * CMM will update duplicate imports **only when** import status has been called.
-* CMM will abort import if : <br/>
-a. Files has missing/invalid headers <br/>
-b. First row of Excel file is reserved for datatype headers. <br/>
-c. Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `isDone` from the left to right, starting from the cell 'A1' <br/>
-d. Headers are not case-sensitive<br/>
 * Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
+* Unsuccessful file import will result in an empty database. The previous database can be recovered in the latest export file.
 
 **Common Issues**
 
 * `CSV file not found in data\import.csv` message was shown. <br/>
-a. This could either mean that the file does not exist at the specified location or <br/>
-b. The file was incorrectly named
-* Data not imported despite correct import file placement and naming <br/>
-a. File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
+    * This could either mean that the file **does not exist** at the specified location or <br/>
+    * The file was **incorrectly named**. File has to be named `import.csv`
+* `Missing/Extra Headers, Please check file` message was shown<br/>
+   * **Files has invalid headers** <br/>
+        * First row of Excel file is reserved for datatype headers. <br/>
+        * Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1' <br/>
+        * Headers are not case-sensitive<br/>
+    * File may have **incorrect CSV type**. Please refer to this [guide](SettingImportFileType.md)
+   to correctly format your file.
+* `Wrong header detected,please double check file` message was shown. <br/>
+    * **Files has invalid headers**. Please refer to Common issue `Missing/Extra Headers, Please check file` to resolve
+* Data not imported despite **correct import file placement, naming AND headers** <br/>
+    * File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
          to correctly format your file.
-
 * Unable to understand why a specific row was not able to be imported <br/>
-a. Detailed reasons for any import error can be found in the logs of the CMM
+    * Row could either be duplicate or there was an error reading the row
+    * Detailed reasons for any import error can be found in the logs of the CMM
 
 
 ### Exporting state of database
@@ -413,6 +441,10 @@ CMM is able to export the current database as semicolon delimited CSV files. As 
 ![exportPopup](images/exportPopup.png)
 2. The CMM will export the database to the data file location
 3. Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+Csv file can be found under the "data" folder found in the same directory as the CMM jar file.
+</div>
 
 
 ### Editing the data file (JSON)
@@ -438,11 +470,11 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​` <br> e.g. `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com a/my house g/F age/95 i/Sleeping`
 **List** | `list`
-**Done** | `done INDEX` <br> e.g. `done 2`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [d/DONE] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g. `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
+**Called** | `called INDEX` <br> e.g. `called 2`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g. `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
-**FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
-**FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`
+**FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> `findAny n/alex g/m`
+**FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> `findAll n/alex g/m`
 **Display** | `display INDEX` <br> e.g. `display 4`
 **Filter** | `filter CATEGORY [COUNT]` <br> e.g. `filter gender 5`
 **Clear** | `clear`

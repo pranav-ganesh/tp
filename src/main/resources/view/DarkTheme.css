@@ -379,7 +379,7 @@
     -fx-text-fill: white;
 }
 
-#isDone {
+#isCalled {
    -fx-font-size: 15;
    -fx-font-family: "Open Sans Semibold";
    -fx-text-fill: white;

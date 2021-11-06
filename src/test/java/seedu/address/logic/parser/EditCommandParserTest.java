@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.AGE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.CALLED_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
@@ -16,7 +16,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CALLED_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
@@ -99,11 +99,11 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY + NAME_DESC_AMY + AGE_DESC_AMY
-                + ADDRESS_DESC_AMY + DONE_DESC_AMY + GENDER_DESC_AMY + INTEREST_DESC_AMY;
+                + ADDRESS_DESC_AMY + CALLED_DESC_AMY + GENDER_DESC_AMY + INTEREST_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAge(VALID_AGE_AMY)
-                .withGender(VALID_GENDER_AMY).withAddress(VALID_ADDRESS_AMY).withDone(VALID_DONE_AMY)
+                .withGender(VALID_GENDER_AMY).withAddress(VALID_ADDRESS_AMY).withCalled(VALID_CALLED_AMY)
                 .withInterests(VALID_INTEREST_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -156,10 +156,10 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // isDone
-        userInput = targetIndex.getOneBased() + DONE_DESC_AMY;
+        // isCalled
+        userInput = targetIndex.getOneBased() + CALLED_DESC_AMY;
         System.out.println(userInput);
-        descriptor = new EditPersonDescriptorBuilder().withDone(VALID_DONE_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder().withCalled(VALID_CALLED_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTEREST;
@@ -22,7 +23,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
-import seedu.address.model.person.IsDone;
+import seedu.address.model.person.IsCalled;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -44,19 +45,22 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_CALLED + "CALLED]"
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_AGE + "AGE] "
-            + "[" + PREFIX_INTEREST + "[index] INTEREST]...\n"
+            + "[" + PREFIX_INTEREST + "(optional index) INTEREST]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
             + PREFIX_GENDER + "M "
+            + PREFIX_CALLED + "false"
             + PREFIX_INTEREST + "[1] software engineering";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_INVALID_INTERESTS_INDEX = "The specified interestsList index is invalid.";
+    public static final String MESSAGE_DUPLICATE_INTEREST = "The specified interest already exists in the list.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -85,12 +89,19 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
+        if (!personToEdit.getName().equals(editedPerson.getName()) || !personToEdit.getPhone().equals(
+                editedPerson.getPhone()) || !personToEdit.getEmail().equals(editedPerson.getEmail())) {
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            if (model.hasPerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            } else {
+                model.setPerson(personToEdit, editedPerson);
+                model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            }
+        } else {
+            model.setPerson(personToEdit, editedPerson);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        }
 
         DisplayCommand displayCommand = new DisplayCommand(Index.fromOneBased(index.getOneBased()));
         displayCommand.execute(model);
@@ -109,7 +120,7 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        IsDone updatedIsDone = editPersonDescriptor.getIsDone().orElse(personToEdit.getIsDone());
+        IsCalled updatedIsCalled = editPersonDescriptor.getIsCalled().orElse(personToEdit.getIsCalled());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
@@ -120,7 +131,7 @@ public class EditCommand extends Command {
         }
         InterestsList updatedInterests = personToEdit.getInterests();
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsDone, updatedAddress,
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedIsCalled, updatedAddress,
                 updatedGender, updatedAge, updatedInterests);
     }
 
@@ -135,18 +146,28 @@ public class EditCommand extends Command {
     }
 
     private void editSpecifiedInterest(String s, InterestsList currentList) throws CommandException {
-        if (s.substring(0, 1).equals("[")) {
-            String pos = s.substring(s.indexOf("[") + 1, s.indexOf("]"));
+        if (s.substring(0, 1).equals("(")) {
+            String pos = s.substring(s.indexOf("(") + 1, s.indexOf(")"));
             int index = Integer.parseInt(pos) - 1;
 
             if (index < currentList.size()) {
-                currentList.setInterest(new Interest(s.substring(s.indexOf("]") + 2).trim()), index);
+                Interest interest = new Interest(s.substring(s.indexOf(")") + 2).trim());
+                checkDuplicate(currentList, interest);
+                currentList.setInterest(interest, index);
             } else {
                 throw new CommandException(MESSAGE_INVALID_INTERESTS_INDEX);
             }
 
         } else {
-            currentList.addInterest(new Interest(s));
+            Interest interest = new Interest(s);
+            checkDuplicate(currentList, interest);
+            currentList.addInterest(interest);
+        }
+    }
+
+    private void checkDuplicate(InterestsList lst, Interest interest) throws CommandException {
+        if (lst.checkDuplicate(interest)) {
+            throw new CommandException(MESSAGE_DUPLICATE_INTEREST);
         }
     }
 
@@ -176,7 +197,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private IsDone isDone;
+        private IsCalled isCalled;
         private Address address;
         private Gender gender;
         private Age age;
@@ -192,7 +213,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setIsDone(toCopy.isDone);
+            setIsCalled(toCopy.isCalled);
             setAddress(toCopy.address);
             setGender(toCopy.gender);
             setAge(toCopy.age);
@@ -203,7 +224,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, isDone, address,
+            return CollectionUtil.isAnyNonNull(name, phone, email, isCalled, address,
                     gender, age, interests);
         }
 
@@ -231,12 +252,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public Optional<IsDone> getIsDone() {
-            return Optional.ofNullable(isDone);
+        public Optional<IsCalled> getIsCalled() {
+            return Optional.ofNullable(isCalled);
         }
 
-        public void setIsDone(IsDone isDone) {
-            this.isDone = isDone;
+        public void setIsCalled(IsCalled isCalled) {
+            this.isCalled = isCalled;
         }
 
         public void setAddress(Address address) {
@@ -289,7 +310,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getIsDone().equals(e.getIsDone())
+                    && getIsCalled().equals(e.getIsCalled())
                     && getAddress().equals(e.getAddress())
                     && getGender().equals(e.getGender())
                     && getAge().equals(e.getAge());

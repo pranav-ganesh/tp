@@ -7,9 +7,21 @@ title: Developer Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
+## **Introduction**
+
+CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
+CMM provides a solution to quickly catalog people based on who has/yet to be called.
+The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers
+Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
+
+This Developer Guide (DG) aims to help developers better understand the architecture and design choices of CMM.
+
+--------------------------------------------------------------------------------------------------------------------
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* CMM is adapted from AddressBook-Level3 (AB3)
+* For the detailed documentation of AddressBook-Level3 project, see the Address Book Product Website
+* Libraries used: JavaFX, Jackson, JUnit5
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -145,11 +157,12 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+![Storage Class Diagram](images/StorageClassDiagram2.png)
 
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can export and import into address book data in csv format, and read them back into corresponding objects.
+* inherits from both `AddressBookStorage`, `UserPrefStorage` and `ImportExportStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -173,9 +186,18 @@ The add command is facilitated by the LogicManager.
 3. AddressBookParser creates an AddCommand and a new Person with the fields specified by the user
 4. LogicManager executes the AddCommand and the new Person is added into the address book
 
-The Sequence Diagram below illustrates the interactions within the Logic component for the execute("add n/bob e/email@email.com p/999") API call.
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+Due to the length of the arguments, we have decided to replace the line "n/bob e/email@email.com p/999"
+with "..." within the diagram for easier viewing.
+</div>
 
 ![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
+
+The activity diagram below summarises what happens when a user executes an Add Command.
+
+![Add command activity diagram](images/AddActivityDiagram.png)
 
 #### Design considerations:
 
@@ -192,8 +214,8 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
     * Cons: Having to enter every field can be time-consuming for the user.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers to add a contact
-who has already been called into the address book, all new contacts added will have their isDone field set to false by default. Hence there
-is no need for the user to specify the isDone field.
+who has already been called into the address book, all new contacts added will have their Called field set to false by default. Hence there
+is no need for the user to specify the Called field.
 </div>
 
 As the app is catered towards telemarketers, the `Name`, `Email` and `Phone` fields were kept as compulsory as they are important contact information for telemarketers.
@@ -202,6 +224,48 @@ On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complem
 
 The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while
 at the same time, improve user experience by reducing time required for users to type the command.
+
+### FindAll/FindAny feature
+
+The find commands are facilitated by the LogicManager.
+
+**How the find command is executed:**
+
+1. Command entered by user is passed into the LogicManager (ie. `findAny n/alex g/m` or `findAll n/alice g/f`)
+2. AddressBookParser parses the command
+3. AddressBookParser creates a FindAny/FindAll command with the respective predicates depending on the fields specified by the user
+4. LogicManager executes the Find command and the model updates the filtered person list with the new predicates
+
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex")` API call.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+While only the findAny command was used for the examples below, the findAll command works exactly the same way
+</div>
+
+![Interactions Inside the Logic Component for the `findAny' Command](images/FindSequenceDiagram.png)
+
+The activity diagram below summarises what happens when a user executes a `findAny` Command.
+
+![Find command activity diagram](images/FindActivityDiagram.png)
+
+#### Design considerations:
+
+**Aspect: Different types of find commands:**
+
+`findAny`: A contact would be displayed as long as it matches any of the keywords specified by the user in its respective fields <br>
+`findAll`: A contact would be displayed only if it matches **ALL** of the keywords specified by the user in its respective fields
+
+* **Alternative 1 :** only findAny
+    * Pros: Easier implementation
+    * Cons: Users will not have a way to find contacts that fit a precise demographic
+
+* **Alternative 2 (current choice):** Both findAny and findAll
+    * Pros: Improves User Experience by giving users the freedom to decide whether they want find to be lenient or strict
+    * Cons: more complicated implementation.
+
+As telemarketers, having the option to find specific demographics when selling products with very niche target audiences would
+be invaluable. Therefore, although the usage rate of `findAll` may not be high while selling generic products. We cannot overlook
+the event where the need arises.
 
 ### Display feature
 
@@ -355,6 +419,87 @@ The following activity diagram summarizes what happens when a user executes an e
     * Cons: Implementation gets messy, violates the law of abstraction, and more prone to errors.
 
 
+### Import feature
+
+The import export feature primarily facilitated by the Storage Manager
+
+**How the import is executed:**
+1. MainWindow calls logic to import data
+2. Logic calls StorageManager to import the data into a model
+3. StorageManager calls CsvAddressBookImportExport to read and convert all details found in csv file to list of valid people
+4. CsvAddressBookImportExport then either adds or updates valid people into the model.
+5. Logic then saves the database after all imports have been completed
+
+![Interactions Inside the Storage Component when importing](images/ImportCsvSequenceDiagram.png)
+
+**Different Import settings based on User**
+
+- Application will always ask user whether to User has any new imports upon **every** application startup.
+  User will be prompt with 3 options : Add on Imports, Start new with imports, No Imports. CMM react as according to the diagram below, based on which button the user selects.
+  ![CMM behaviour based on user input](images/ImportDecision.png)
+
+Next few sections will go deeper what the CMM does in each case
+
+#### Add On Imports
+- Adds on new valid imports into existing database
+    - Valid people need to have the following attributes : Name, Phone, Email filled
+    - Every attribute of import person has to follow the type requirements. This is handled in CsvUtil and  CsvAdaptedPerson
+- Duplicates found in database
+    - As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for the CMM to handle such cases.  Below is a diagram    to illustrate how CMM will react when encountering a duplicate import  
+      ![CMM behaviour when duplicate encountered](images/DuplicateImportDecision.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+Duplicates are defined to be two person with the exact same name, phone number and email address.
+
+#### Start New Using Imports
+- Exports the current state of the database into a Csv file. Export implementation is covered in detail [here](#export-feature).
+- Resets the current database and populate the now empty database with new valid imports
+
+#### No imports
+- CMM will not import anything and application will startup normally
+- Closing the prompt will also choose this option
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+This import will not work if first row does not have valid headers. Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1'. Headers are not case sensitive
+</div>
+
+### Export feature
+**How the export is executed:**
+1. MainWindow calls logic to Export data
+2. Logic calls StorageManager to export the data found in model
+3. StorageManager calls CsvImportExportStorage to read and convert to Csv file
+4. Logic then saves the database after all export have been completed
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
+</div>
+
+#### Design considerations:
+
+**Aspect: When should import and export be executed:**
+
+* **Alternative 1 (current choice):** Always ask for import and export upon startup and closing of CMM
+    * Pros: Ensures that user will always be using the most updated list. This reduces the likelihood of time wasted working on outdated data.
+    * Cons: May cause user dissatisfaction if user constantly open and close application
+
+* **Alternative 2:** Individual command to import
+  itself.
+    * Pros: Less prompts upon startup. User can import while CMM is running
+    * Cons: User may have forgotten to import the latest excel file and work on a file that was outdated, this will make the user waste a lot of time.
+
+**Aspect: How many types of imports should be available to users:**
+
+* **Alternative 1 (current choice):** 3 types which are `Add on import` , `Start new with import`, `Don't import`
+  * Pros: Provide variety of options of imports. CMM will cater to more tasks
+  * Cons: May cause confusion the functionality of each option (especially for new users)
+
+* **Alternative 2:** Only allow 2 options : `Add on import` and `dont import`
+  itself.
+  * Pros: Straightforward use. No ambiguity 
+  * Cons: Less flexibility for users
+
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -435,13 +580,12 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation, logging, testing, configuration, dev-ops**
+## **Documentation, logging, testing, configuration, dev-ops** 
+
+Here are some guides that you may find useful.
 
 * [Documentation guide](Documentation.md)
 * [Testing guide](Testing.md)
@@ -471,18 +615,17 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | Telemarketer                               | import data from an excel file | work on the list of contacts that was  set for me by my manager        |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | display a person               | display additional details about a particular contact                  |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many contacts in the address book | filter contacts                 | locate contacts who have not been called quickly                                              |
-
-*{More to be added}*
+| Priority | As a …​                                  | I want to …​                | So that I can…​                                                         |
+| -------- | ------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------- |
+| `* * *`  | new user                                    | see usage instructions         | refer to instructions when I forget how to use the App                     |
+| `* * *`  | Telemarketer                                | import data from an excel file | work on the list of contacts that was  set for me by my manager            |
+| `* * *`  | Telemarketer                                | export data to an excel file   | return updated list of called contacts to my manager at the end of the day |
+| `* * *`  | user                                        | add a new person               |                                                                            |
+| `* * *`  | user                                        | delete a person                | remove entries that I no longer need                                       |
+| `* * *`  | user                                        | display a person               | display additional details about a particular contact                      |
+| `* * *`  | user                                        | find a person by name          | locate details of persons without having to go through the entire list     |
+| `* *`    | user                                        | hide private contact details   | minimize chance of someone else seeing them by accident                    |
+| `*`      | user with many contacts in the address book | filter contacts                | locate contacts who have not been called quickly                           |
 
 ### Use cases
 
@@ -490,9 +633,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use Case 1: Add a contact**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC1 - Add a contact </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC1 - Add a contact <br>
+Actor : User <br>
 Guarantees: New contact will be added to the address book
 
 **MSS**
@@ -512,9 +655,9 @@ Guarantees: New contact will be added to the address book
 
 **Use Case 2: List contacts**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC2 - List contacts </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC2 - List contacts <br>
+Actor : User <br>
 Guarantees: Contacts in the address book will be listed
 
 **MSS**
@@ -532,9 +675,9 @@ Guarantees: Contacts in the address book will be listed
 
 **Use Case 3: Delete a contact**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC3 - Delete a contact </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC3 - Delete a contact <br>
+Actor : User <br>
 Guarantees: Selected contact will be deleted from the address book
 
 **MSS**
@@ -557,11 +700,11 @@ Guarantees: Selected contact will be deleted from the address book
 
       Use case resumes at step 2.
 
-**Use Case 4: Mark a contact as done**
+**Use Case 4: Mark a contact as called**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC4 - Mark contact as called </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC4 - Mark contact as called <br>
+Actor : User <br>
 Guarantees: Selected contact will be marked as called
 
 **MSS**
@@ -585,9 +728,9 @@ Guarantees: Selected contact will be marked as called
 
 **Use Case 5: Using an Excel file to import data of users**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC5 - Import Excel File </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC5 - Import Excel File <br>
+Actor : User <br>
 Guarantees: CMM Database will be set
 
 **MSS**
@@ -634,9 +777,9 @@ Guarantees: CMM Database will be set
 
 **Use Case 6: Exporting current database into excel file**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC6 - Export database as Excel File </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC6 - Export database as Excel File <br>
+Actor : User <br>
 Guarantees: Excel file export of current database
 
 MSS:
@@ -646,9 +789,9 @@ MSS:
 
 **Use Case 7: Displaying additional details about a person**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC7 - Display a person </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC7 - Display a person <br>
+Actor : User <br>
 Guarantees: Selected person's additional details will be displayed
 
 **MSS**
@@ -675,9 +818,9 @@ Guarantees: Selected person's additional details will be displayed
 
 **Use Case 8: Filter contacts**
 
-System : CallMeMaybe (CMM) </br>
-Use Case : UC8 - Filter contacts </br>
-Actor : User </br>
+System : CallMeMaybe (CMM) <br>
+Use Case : UC8 - Filter contacts <br>
+Actor : User <br>
 Guarantees: Contacts will be sorted by category specified
 
 **MSS**
@@ -701,16 +844,42 @@ Guarantees: Contacts will be sorted by category specified
 
       Use case resumes at step 1
 
-*{More to be added}*
+**Use Case 9**: Finding specific contacts
+
+System : CallMeMaybe (CMM) <br>
+Use Case : UC9 - Finding specific contacts <br>
+Actor : User <br>
+Guarantees: All contacts that match the specified fields would be displayed
+
+**MSS**
+
+1. User requests to find contacts
+2. Only the contacts the match the keywords specified are displayed
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User enters the command wrongly
+
+    * 1a1. Command box displays error message
+
+      Use case resumes at step 1
+
+* 1b. User enters an invalid field
+
+    * 1b1. Command box displays error message
+
+      Use case resumes at step 1
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  Portability of database is expected as Telemarketers tend to work in a team setting.
-
-*{More to be added}*
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Portability of database is expected as Telemarketers tend to work in a team setting.
+5. A user should be able to retrieve the latest list of contacts in the event the program crashes unexpectedly.
+6. Each command should not take more to 1 second to execute.
 
 ### Glossary
 
@@ -719,6 +888,9 @@ Guarantees: Contacts will be sorted by category specified
 * **GUI**: Graphical User Interface
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **CSV Comma Separated Values**: An excel format
+* **PlantUML**: An open-source tool allowing users to create diagrams from a plain text language
+* **JSON**: JSON is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -728,7 +900,6 @@ Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
-
 </div>
 
 ### Launch and shutdown
@@ -738,16 +909,30 @@ testers are expected to do more *exploratory* testing.
    1. Download the jar file and copy into an empty folder
 
    2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+  
+  
+2. Importing Data
+    1. Test Add on import
+        1. Prerequisites : Data in CMM is currently populated and import.csv in the correct format at the correct file location
+        1. Testcase : click `Add on Import` upon CMM startup <br>
+           Expected : Valid people in import.csv are added on to existing data in CMM
+    1. Test Start using New Import
+        1. Prerequisites : Data in CMM is currently populated and import.csv in the correct format at the correct file location
+        1. Testcase : click `Start using New Import` upon CMM startup <br>
+           Expected : Current data is exported in a csv file. Only valid people in import.csv exists in CMM
+   1. Test Don't Import
+       1. Prerequisites : Data in CMM is currently populated and import.csv in the correct format at the correct file location
+       1. Testcase : click `Don't import` upon CMM startup or close the prompt <br>
+          Expected : Current data will stay in CMM. No new data will be imported
+  
 
-2. Saving window preferences
-
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
-   2. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
-3. _{ more test cases …​ }_
-
+3. Exporting Data
+    1. Test exporting
+        1. Testcase : click `Export` upon CMM shutdown<br>
+          Expected : new csv file with the latest details can be found in the data folder at CMM jar location
+   2. Test Don't exporting
+      1. Testcase : click `Don't export` or close the prompt<br>
+          Expected: No new csv files created.
 ### Deleting a contact
 
 1. Deleting a contact while all contacts are being shown

@@ -189,23 +189,23 @@ public class CsvUtil {
         String[] headerValid = CsvAdaptedPerson.headerOrder();
 
         if (headerCheck.length == 1) {
-            throw new DataConversionException(new Exception("Wrong delimiter, Refer to user guide to use correct "
+            throw new DataConversionException("Wrong delimiter, Refer to user guide to use correct "
                     + "delimiter.\nEach row should have "
-                    + (CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size() - 1) + " ';' "));
+                    + (CsvAdaptedPerson.ATTRIBUTE_ORDERING.keySet().size() - 1) + " ';' ");
         }
 
         if (headerCheck.length != headerValid.length) {
-            throw new DataConversionException(new Exception("Missing/Extra Headers, Please check file"));
+            throw new DataConversionException("Missing/Extra Headers, Please check file");
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < headerValid.length; i++) {
             String upperHeader = headerCheck[i].toUpperCase(Locale.ROOT);
             String upperValidHeader = headerValid[i].toUpperCase(Locale.ROOT);
 
             if (!(upperHeader.contains(upperValidHeader))) {
-                throw new DataConversionException(new Exception("wrong header detected detected,"
-                        + "please double check file\nfirst row of csv must contain valid headers "
-                        + Arrays.toString(headerValid) + " in that order."));
+                throw new DataConversionException("Wrong header detected,"
+                        + "please double check file\nFirst row of csv must contain valid headers "
+                        + Arrays.toString(headerValid) + " in that order.");
             }
         }
     }

@@ -35,6 +35,7 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    /*
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
@@ -48,9 +49,9 @@ public class EditCommandTest {
         expectedModel.setPerson(model.getFilteredPersonList().get(2), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
+    }*/
 
-
+    /*
     @Test
     public void execute_interestsListField_success() {
         Person expectedPerson = new PersonBuilder().withName("Alice Pauline")
@@ -69,8 +70,43 @@ public class EditCommandTest {
         expectedModel.setPerson(model.getFilteredPersonList().get(0), expectedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }*/
+
+    @Test
+    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
+                .withGender("M").withAge("102").withInterest("Blockchain", "Swimming").build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_THIRD_PERSON, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(2), editedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
+    /*
+    @Test
+    public void execute_interestsListField_success() {
+        Person expectedPerson = new PersonBuilder().withName("Alice Pauline")
+                .withEmail("alice@example.com").withPhone("94351253").withCalled("false").withAddress("MY HOUSE")
+                .withGender("F").withAge("22").withInterest("Mining").build();
+
+        Person editedPerson = new PersonBuilder().withName("Alice Pauline")
+                .withEmail("alice@example.com").withPhone("94351253").withCalled("false").withAddress("MY HOUSE")
+                .withGender("F").withAge("22").withInterest("[1] Mining").build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, expectedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), expectedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }*/
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
@@ -121,7 +157,7 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-
+    /*
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Person person = TypicalPersons.DANIEL;
@@ -129,9 +165,9 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(Index.fromOneBased(5), descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
-    }
+    }*/
 
-    /*
+
     @Test
     public void execute_duplicatePersonFilteredList_failure() {
         // showPersonAtIndex(model, INDEX_FIRST_PERSON);
@@ -141,7 +177,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(person).build());
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
-    }*/
+    }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
@@ -152,7 +188,7 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-
+    /*
     @Test
     public void execute_invalidInterestsListIndex_failure() {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withInterests("[4] Music").build();
@@ -160,7 +196,7 @@ public class EditCommandTest {
         String message = "The specified interestsList index is invalid.";
 
         assertCommandFailure(editCommand, model, message);
-    }
+    }*/
 
     /**
      * Edit filtered list where index is larger than size of filtered list,

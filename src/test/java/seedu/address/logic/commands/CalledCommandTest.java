@@ -16,61 +16,61 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.IsDone;
+import seedu.address.model.person.IsCalled;
 import seedu.address.model.person.Person;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for DoneCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for CalledCommand.
  */
-public class DoneCommandTest {
+public class CalledCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_personAcceptedByModel_doneSuccessful() {
+    public void execute_personAcceptedByModel_calledSuccessful() {
         Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person donePerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                new IsDone("TRUE"), person.getAddress(), person.getGender(), person.getAge(), person.getInterests());
-        DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_PERSON);
+        Person calledPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
+                new IsCalled("TRUE"), person.getAddress(), person.getGender(), person.getAge(), person.getInterests());
+        CalledCommand calledCommand = new CalledCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DoneCommand.MESSAGE_DONE_CALL_SUCCESS, donePerson);
+        String expectedMessage = String.format(CalledCommand.MESSAGE_DONE_CALL_SUCCESS, calledPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), donePerson);
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), calledPerson);
 
-        assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(calledCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidPersonIndex_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        DoneCommand doneCommand = new DoneCommand(outOfBoundIndex);
+        CalledCommand calledCommand = new CalledCommand(outOfBoundIndex);
 
-        assertCommandFailure(doneCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(calledCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_personAlreadyMarkedAsDone_showAppropriateMessage() {
+    public void execute_personAlreadyMarkedAsCalled_showAppropriateMessage() {
         Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person donePerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                new IsDone("TRUE"), person.getAddress(), person.getGender(), person.getAge(), person.getInterests());
-        model.setPerson(person, donePerson);
+        Person calledPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
+                new IsCalled("TRUE"), person.getAddress(), person.getGender(), person.getAge(), person.getInterests());
+        model.setPerson(person, calledPerson);
 
-        DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_PERSON);
+        CalledCommand calledCommand = new CalledCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DoneCommand.MESSAGE_ALREADY_DONE_CALL, person);
+        String expectedMessage = String.format(CalledCommand.MESSAGE_ALREADY_DONE_CALL, person);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
-        assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(calledCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
-        final DoneCommand standardCommand = new DoneCommand(INDEX_FIRST_PERSON);
+        final CalledCommand standardCommand = new CalledCommand(INDEX_FIRST_PERSON);
 
         // same values -> returns true
-        DoneCommand commandWithSameValues = new DoneCommand(INDEX_FIRST_PERSON);
+        CalledCommand commandWithSameValues = new CalledCommand(INDEX_FIRST_PERSON);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -83,6 +83,6 @@ public class DoneCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new DoneCommand(INDEX_SECOND_PERSON)));
+        assertFalse(standardCommand.equals(new CalledCommand(INDEX_SECOND_PERSON)));
     }
 }
