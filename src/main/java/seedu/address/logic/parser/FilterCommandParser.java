@@ -68,6 +68,11 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (argList == null) {
             return false;
         }
+        if (argList.size() == 1) {
+            if (argList.get(0).equals("")) {
+                return false;
+            }
+        }
         return argList.size() >= 1;
     }
 
