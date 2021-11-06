@@ -261,7 +261,7 @@ The activity diagram below summarises what happens when a user executes a `findA
 
 * **Alternative 2 (current choice):** Both findAny and findAll
     * Pros: Improves User Experience by giving users the freedom to decide whether they want find to be lenient or strict
-    * Cons: more complicated implementation.
+    * Cons: More difficult to implement
 
 As telemarketers, having the option to find specific demographics when selling products with very niche target audiences would
 be invaluable. Therefore, although the usage rate of `findAll` may not be high while selling generic products. We cannot overlook
@@ -953,9 +953,6 @@ testers are expected to do more *exploratory* testing.
    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-2. _{ more test cases …​ }_
-
-
 ### Displaying a person
 
 1. Displaying a contact while all contacts are being shown
@@ -990,6 +987,57 @@ testers are expected to do more *exploratory* testing.
     5. Other incorrect delete commands to try: `filter`, `filter x` (where x is an invalid category),
        `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
        Expected: Similar to previous.
+
+### Adding contacts
+
+1. Adding valid contacts with only the 3 compulsory fields, `name`, `phone`, `email` specified
+   * Test case: `add n/bob p/98765432 e/test@test.com`<br>
+   Expected: A contact with the specified fields is added into the list with all other fields, `address`, `age`, `gender`, `interests` left as 'N.A'
+   
+2. Adding valid contacts with multiple optional fields specified
+   * Test case: `add n/bob p/98765432 e/test@test.com g/m i/running`
+   Expected: A contact with the specified fields is added into the list with only `address` and `age` left as 'N.A'
+   * Test case: `add n/bob p/98765432 e/test@test.com a/his house age/22`
+   Expected: A contact with the specified fields is added into the list with only `gender` and `interests` left as 'N.A'
+
+3. Adding contacts with invalid fields
+   * Test case: `add n/bob p/18765432 e/test@test.com g/m i/running` (phone is invalid)
+   Expected: Application shows an "Invalid command format message" in the feedback box
+   * Test case: `add n/bob p/98765432 e/test@test.com g/me i/running` (gender is invalid)
+   Expected: Application shows an "Invalid command format message" in the feedback box
+
+4. Adding contacts without anything specified after the prefix
+  * Test case: `add n/bob p/18765432 e/test@test.com g/m i/` ('i/' is left empty)
+    Expected: Application shows an "Invalid command format message" in the feedback box
+  * Test case: `add n/bob p/18765432 e/test@test.com g/ i/running` ('g/' is left empty)
+    Expected: Application shows an "Invalid command format message" in the feedback box
+
+### Finding contacts
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The test cases below only make use of the findAny command. 
+However, the findAll command should be tested roughly the same way. Only difference is when multiple valid fields are supplied at once.
+</div>
+
+1. Finding contacts that have a certain substring in their name
+   * Test case: `findAny n/bob`
+   Expected: Only contacts that have the substring 'bob' in their name are displayed
+
+2. Finding contacts that have a certain interest
+   * Test case `findAny i/run`
+   Expected: Only contacts that have the substring 'run' in any of their interests are displayed
+
+3. Finding contacts with multiple specified fields
+   * Test case `findAny n/bob i/run`
+     Expected: Only contacts that have either the substring 'bob' in their name or 'run' in any of their interests are displayed<br>
+     (For findAll: Only contacts that have both the substring 'bob' in their name and 'run' in any of their interests are displayed )
+
+4. Finding contacts with invalid fields
+   * Test case: `findAny g/helicopter`
+   Expected: Application shows an "Invalid command format message" in the feedback box
+
+5. Finding contacts that do not exist in the database
+   * Test case: `findAny n/[any substring that does not exist]`
+   Expected: No contacts are displayed
 
 ### Saving data
 

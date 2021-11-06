@@ -266,8 +266,10 @@ have the substring 'woodlands' in their address
 * _Unknown command_: <br/>
   a. Using `findany` instead of `findAny` (not capitalising the 'A')
 * _Invalid command format!_: <br>
-a. No fields provided<br>
-b. Used the wrong prefix (eg. '/n' instead of 'n/')
+  a. No fields provided<br>
+  b. Used the wrong prefix (eg. '/n' instead of 'n/')
+  c. Did not specify either 't', 'f', 'true', 'false' after `c/`
+  d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/`
 
 ### Finding contacts that match **ALL** the keywords specified : `findAll`
 
@@ -302,10 +304,12 @@ Examples:
 
 **Common issues:**
 * _Unknown command_: <br/>
-  a. Using `findall` instead of `findAll` (not capitalising the 'A')
+  a. Using `findany` instead of `findAny` (not capitalising the 'A')
 * _Invalid command format!_: <br>
   a. No fields provided<br>
   b. Used the wrong prefix (eg. '/n' instead of 'n/')
+  c. Did not specify either 't', 'f', 'true', 'false' after `c/`
+  d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/`
 
 ### Displaying full contact details : `display`
 
