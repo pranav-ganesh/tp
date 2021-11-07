@@ -9,14 +9,13 @@ if () then ([command is valid])
   :new contact with the specified fields is created;
   :new AddCommand object is created;
   if() then ([contact already exists])
-  :throws CommandException;
+  :outputs error message;
   else ([contact does not exist])
   :contact is added into the address book;
   endif
 else ([command is invalid])
-  :throws ParseException;
+  :outputs error message;
 endif
-
 
 stop
 

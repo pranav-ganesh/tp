@@ -11,9 +11,8 @@ if () then ([command is valid])
   :new FindAnyCommand object is created;
   :filtered list is updated with the new CombinedPredicate;
 else ([command is invalid])
-  :throws ParseException;
+  :outputs error message;
 endif
-
 
 stop
 
