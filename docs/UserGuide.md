@@ -3,9 +3,11 @@ layout: page
 title: User Guide
 ---
 
-CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
-CMM provides a solution to quickly catalog people based on who has/yet to be called.
-The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers.
+## Introducing CallMeMaybe
+
+CallMeMaybe (CMM) is a **desktop app** that helps Telemarketers in customer contact management.
+CMM provides a solution to quickly catalog contacts based on whether they have already been called or not.
+The in-built tracking functionality serves as a reminder for you to reach back on previously unreachable customers.
 Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
 
 
@@ -13,11 +15,6 @@ CMM is optimized for use via a **Command Line Interface** (CLI) while still havi
 
 If you can type fast, CMM can get your contact management tasks done faster than traditional GUI apps.
 
-
-* Table of Contents
-{:toc}
-
---------------------------------------------------------------------------------------------------------------------
 
 ## How to use the User Guide
 
@@ -33,13 +30,23 @@ Each Command section is separated into:<br>
 **:information_source: Note:** Straightforward commands such as 'list' may not have the sections "Things to note", "examples" and "Common issues"
 </div>
 
-To get the most out of this user guide, it is recommended that you familiarise yourself with the [notations](#command-notations) we use.
-However, if this is your first time using CMM, it would be easier for you to go through the [Quick Start](#quick-start) and learn the 
-notations along the way. Hope you have a great time with CMM.
+To get the most out of this user guide, it is recommended that you familiarise yourself with the [notations](#3.-command-notations) we use. <br>
+If you have not yet downloaded the application, head over to [Quick Start](#2.-Quick-start) to get started. <br>
+Feel free to check out the [Features](#4.-Overview-of-Features) to check out detailed descriptions of the features offered in our application! <br>
+If you are already an experienced user, feel free to head over to the [Command Summary](#6-Command-summary) to get a quick refresher
+of the commands. <br>
+If you have any questions about CMM, please refer to the [FAQ](#5.-FAQ)
+Hope you have a great time with CMM.
+
+--------------------------------------------------------------------------------------------------------------------
+## 1. Table of Contents
+* Table of Contents
+   {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## 2. Quick start
+
 1. Ensure you have Java 11 or above installed in your Computer.
 
 2. Download the latest CallMeMaybe.jar from [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases).
@@ -73,9 +80,7 @@ notations along the way. Hope you have a great time with CMM.
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
-## Features
-
-### Command Notations
+## 3. Command Notations
 
 <div markdown="block" class="alert alert-info">
 
@@ -103,7 +108,9 @@ notations along the way. Hope you have a great time with CMM.
 
 <div style="page-break-after: always;"></div>
 
-### Adding a contact: `add`
+## 4. Overview of Features
+
+### 4.1 Adding a contact: `add`
 
 Adds a contact to the CMM database.
 
@@ -139,7 +146,7 @@ Examples:
   a. Omitted one or more of the mandatory fields <br />
   b. Used the wrong prefix (e.g., '/n' instead of 'n/') <br />
 
-### Listing all contacts : `list`
+### 4.2 Listing all contacts : `list`
 
 Shows a list of all contacts in the CMM database.
 
@@ -148,7 +155,7 @@ Format: `list`
 **Things to note:**
 * `list` shows all contacts in ascending order by name.
 
-### Marking a contact as called : `called`
+### 4.3 Marking a contact as called : `called`
 
 Marks the specified contact from the address book as called. (i.e. person has already been called)
 
@@ -168,7 +175,7 @@ Example:
   b. Index specified is larger than 2147483647
   c. Index specified is not a positive integer
 
-### Editing a contact : `edit`
+### 4.4 Editing a contact : `edit`
 
 Edits an existing contact in the CMM database.
 
@@ -207,7 +214,7 @@ Examples:
 * _Invalid command arguments_: <br />
     a. Duplicate of the edited contact already exists on the address book. <br />
 
-### Deleting a contact : `delete`
+### 4.5 Deleting a contact : `delete`
 
 Deletes the specified contact from the CMM database.
 
@@ -230,7 +237,7 @@ please use with caution.
   b. Index specified is larger than 2147483647
   c. Index specified is not a positive integer
 
-### Finding contacts that match **ANY** of the keywords specified: `findAny`
+### 4.6 Finding contacts that match **ANY** of the keywords specified: `findAny`
 
 Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​]
 [c/CALLED…​] [i/INTEREST…​]`
@@ -271,7 +278,7 @@ have the substring 'woodlands' in their address
   c. Did not specify either 't', 'f', 'true', 'false' after `c/`
   d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/`
 
-### Finding contacts that match **ALL** the keywords specified : `findAll`
+### 4.7 Finding contacts that match **ALL** the keywords specified : `findAll`
 
 Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [c/CALLED…​] [i/INTEREST…​]`
 
@@ -311,7 +318,7 @@ Examples:
   c. Did not specify either 't', 'f', 'true', 'false' after `c/`
   d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/`
 
-### Displaying full contact details : `display`
+### 4.8 Displaying full contact details : `display`
 
 Displays additional information of a particular contact stored in the application. These include the
 address, gender, age and their interests.
@@ -330,7 +337,7 @@ Example:
   b. Index specified is larger than 2147483647
   c. Index specified is not a positive integer
 
-### Filtering contacts : `filter`
+### 4.9 Filtering contacts : `filter`
 
 Filters the existing contacts in the CMM database. The displayed list will show contacts sorted by the chosen category.
 
@@ -364,7 +371,7 @@ Examples:
 * _Count is not a non-zero unsigned integer_: <br />
   a. The last argument is not a positive integer
 
-### Clearing all contacts : `clear`
+### 4.10 Clearing all contacts : `clear`
 
 Clears all contacts from the CMM database.
 
@@ -373,7 +380,7 @@ Format: `clear`
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Clearing is irreversible, please use with caution.
 </div>
 
-### Viewing help : `help`
+### 4.11 Viewing help : `help`
 
 Shows a message explaining how to access the User Guide.
 
@@ -381,17 +388,17 @@ Shows a message explaining how to access the User Guide.
 
 Format: `help`
 
-### Exiting the program : `exit`
+### 4.12 Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
+### 4.13 Saving the data
 
 CMM data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Importing the data into database
+### 4.14 Importing the data into database
 
 CMM is able to import Excel files into CMM. The import files have to be in an Excel Csv format (semicolon delimited).
 
@@ -449,7 +456,8 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
     * Detailed reasons for any import error can be found in the logs of the CMM
 
 
-### Exporting state of database
+### 4.15 Exporting state of database
+
 CMM is able to export the current database as semicolon delimited CSV files. As such, there is no need for you to ensure that the formatting is right for furture use.
 
 **Steps to Export data as CSV file**
@@ -463,7 +471,7 @@ Csv file can be found under the "data" folder found in the same directory as the
 </div>
 
 
-### Editing the data file (JSON)
+### 4.16 Editing the data file (JSON)
 
 AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -474,13 +482,13 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## 5. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder. Data found can be found at `[JAR file location]/data/addressbook.json`.
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## 6. Command summary
 
 Action | Format, Examples
 --------|------------------

@@ -9,8 +9,8 @@ title: Developer Guide
 
 ## **Introduction**
 
-CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
-CMM provides a solution to quickly catalog people based on who has/yet to be called.
+CallMeMaybe (CMM) is a **desktop app** that helps Telemarketers in customer contact management.
+CMM provides a solution to quickly catalog contacts based on whether they have already been called or not.
 The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers.
 Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
 
@@ -20,7 +20,7 @@ This Developer Guide (DG) aims to help developers better understand the architec
 ## **Acknowledgements**
 
 * CMM is adapted from AddressBook-Level3 (AB3)
-* For the detailed documentation of AddressBook-Level3 project, see the Address Book Product Website
+* For the detailed documentation of AddressBook-Level3 project, see the [Address Book Product Website](https://se-education.org/addressbook-level3/)
 * Libraries used: JavaFX, Jackson, JUnit5
 
 --------------------------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-T13-4/tp/tree/master/docs/diagrams) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -44,7 +44,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
-Given below is a quick overview of main components and how they interact with each other.
+Given below is a quick overview of the main components and how they interact with each other.
 
 **Main components of the architecture**
 
@@ -223,7 +223,7 @@ As the app is catered towards telemarketers, the `Name`, `Email` and `Phone` fie
 On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complementary fields. Hence, they are non-compulsory.
 
 The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while
-at the same time, improve user experience by reducing time required for users to type the command.
+also improve user experience by reducing time required for users to type the command.
 
 ### FindAll/FindAny feature
 
@@ -270,13 +270,13 @@ the event where the need arises.
 ### Display feature
 
 The display command is facilitated by the LogicManager. The `LogicManager#execute()` executes the DisplayCommand
-that it is passed from `DisplayCommandParser#parse()`. The `DisplayCommandParser#parse()` is used to parse the
+that is passed from `DisplayCommandParser#parse()`. The `DisplayCommandParser#parse()` is used to parse the
 command arguments in the context of DisplayCommand and returns a DisplayCommand object for execution.
 
 This feature allows telemarketers to display additional details about a contact at any point in time
 if they need to.
 
-**Given below is an example usage scenario and how the display mechanism behaves at each step.**
+**Given below is an example usage scenario of how the display mechanism behaves at each step.**
 
 1. The telemarketer opens the application and views the list of contacts. Then they want to view more details
 about a particular contact. They enter the command `display 2`
@@ -291,7 +291,7 @@ about a particular contact. They enter the command `display 2`
 
 6. The UiManager then executes the displaying process by communicating with the MainWindow
 
-   1. The MainWindow, where the relevant JavaFX elements are placed, shows the details of the selected contact
+7. The MainWindow, where the relevant JavaFX elements are placed, shows the details of the selected contact
 
 The following sequence diagram shows how the display operation works when the telemarketer enters `display 2`:
 
@@ -416,7 +416,7 @@ The following activity diagram summarizes what happens when a user executes an e
 
 ### Import feature
 
-The import export feature primarily facilitated by the Storage Manager
+The import and export feature is primarily facilitated by the Storage Manager. 
 
 **How the import is executed:**
 1. MainWindow calls logic to import data
@@ -433,19 +433,19 @@ Application will ask whether the User has any new imports upon **every** applica
 User will be prompted with 3 options : 
 * Add on Imports 
 * Start new with imports
-* No Imports. 
+* No Imports 
 
 The following activity diagram summarizes what happens when a user selects either of the 3 options:
   ![CMM behaviour based on user input](images/ImportDecision.png)
 
-Next few sections will go deeper what CMM does in each case
+The next few sections will go deeper what CMM does in each case
 
 #### Add On Imports
 - Adds on new valid imports into existing database
     - Valid people need to have the following attributes : Name, Phone, Email filled
-    - Every attribute of import person has to follow the type requirements. This is handled in CsvUtil and  CsvAdaptedPerson
+    - Every attribute of import person has to follow the type requirements. This is handled in CsvUtil and CsvAdaptedPerson
 - Duplicates found in database
-    - As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for CMM to handle such cases.  
+    - As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for CMM to handle such cases  
 The following activity diagram summarizes what happens when a duplicate import is encountered:  
       ![CMM behaviour when duplicate encountered](images/DuplicateImportDecision.png)
 
@@ -454,7 +454,7 @@ Duplicates are defined to be two contacts with the exact same name, phone number
 </div>
 
 #### Start New Using Imports
-- Exports the current state of the database into a CSV file. Export implementation is covered in detail [here](#export-feature).
+- Exports the current state of the database into a CSV file. Export implementation is covered in detail [here](#export-feature)
 - Replaces the current database with valid imports from the existing import.csv file
 
 #### No imports
@@ -502,7 +502,6 @@ Export file will have the following file name : `export[Date HH:MM:SS].csv` wher
   itself.
   * Pros: Easier to implement
   * Cons: Less flexibility for users
-
 
 
 ### \[Proposed\] Undo/redo feature
@@ -606,30 +605,32 @@ Here are some guides that you may find useful.
 **Target user profile**:
 
 * Telemarketers
-* has the potential to receive a list of clients through an Excel file
-* prefer desktop apps over other types
+* has the potential to receive a list of contacts through an Excel file
+* prefer desktop apps over other alternatives
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage potentially interested clients faster than a typical mouse/ GUI driven app
+**Value proposition**: manage potentially interested contacts faster than a typical mouse/ GUI driven app
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                  | I want to …​                | So that I can…​                                                         |
-| -------- | ------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------- |
-| `* * *`  | new user                                    | see usage instructions         | refer to instructions when I forget how to use the App                     |
-| `* * *`  | Telemarketer                                | import data from an excel file | work on the list of contacts that was  set for me by my manager            |
-| `* * *`  | Telemarketer                                | export data to an excel file   | return updated list of called contacts to my manager at the end of the day |
-| `* * *`  | user                                        | add a new person               |                                                                            |
-| `* * *`  | user                                        | delete a person                | remove entries that I no longer need                                       |
-| `* * *`  | user                                        | display a person               | display additional details about a particular contact                      |
-| `* * *`  | user                                        | find a person by name          | locate details of persons without having to go through the entire list     |
-| `* *`    | user                                        | hide private contact details   | minimize chance of someone else seeing them by accident                    |
-| `*`      | user with many contacts in the address book | filter contacts                | locate contacts who have not been called quickly                           |
+| Priority | As a …​                                  | I want to …​                  | So that I can…​                                                         |
+| -------- | ------------------------------------------- | ------------------------------   | -------------------------------------------------------------------------- |
+| `* * *`  | new user                                    | see usage instructions           | refer to instructions when I forget how to use the App                     |
+| `* * *`  | Telemarketer                                | import data from an excel file   | work on the list of contacts that was  set for me by my manager            |
+| `* * *`  | Telemarketer                                | export data to an excel file     | return updated list of called contacts to my manager at the end of the day |
+| `* * *`  | user                                        | add a new person                 |                                                                            |
+| `* * *`  | user                                        | delete a person                  | remove entries that I no longer need                                       |
+| `* * *`  | user                                        | edit an existing person          | make corrections when the contacts' details change                         |
+| `* * *`  | user                                        | display a person                 | display additional details about a particular contact                      |
+| `* * *`  | user with many contacts in the address book | find a person by name            | locate details of persons without having to go through the entire list     |
+| `* * *`  | user with many contacts in the address book | find a person by other details   | locate those contacts who are of interest to me based on their details     |
+| `* *`    | user                                        | hide private contact details     | minimize chance of someone else seeing them by accident                    |
+| `* *`    | user with many contacts in the address book | filter contacts by called status | locate contacts who have not been called quickly                           |
 
 ### Use cases
 
@@ -791,18 +792,18 @@ MSS:
 2. CMM exports database into excel file to a CMM-specified location
    Use case ends.
 
-**Use Case 7: Displaying additional details about a person**
+**Use Case 7: Displaying additional details about a contact**
 
 System : CallMeMaybe (CMM) <br>
-Use Case : UC7 - Display a person <br>
+Use Case : UC7 - Display a contact <br>
 Actor : User <br>
-Guarantees: Selected person's additional details will be displayed
+Guarantees: Selected contact's additional details will be displayed
 
 **MSS**
 
-1. User requests to list persons (UC2)
-2. User requests to display a specific person in the list
-3. Application displays the person in a new window
+1. User requests to list contacts (UC2)
+2. User requests to display a specific contact in the list
+3. Application displays the contact details in a new window
 
 * 1a. The list is empty.
 
@@ -811,12 +812,6 @@ Guarantees: Selected person's additional details will be displayed
 * 2a. The given index is invalid.
 
     * 2a1. AddressBook shows an error message.
-
-      Use case resumes at step 2.
-
-* 2b. The selected person is already being displayed
-
-    * 2b1. Application shows a message saying the person is already being displayed
 
       Use case resumes at step 2.
 
@@ -959,15 +954,15 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: List all persons using the `list` command.
 
-    1. Test case: `display 2`<br>
+    2. Test case: `display 2`<br>
         Expected: Second contact is displayed from the list.
 
-    1. Test case: `display 0`<br>
-       Expected: The default contact (i.e, first contact) is displayed. Error details shown in the status message.
+    3. Test case: `display 0`<br>
+       Expected: The default contact (i.e, first contact) continues to be displayed. Error details shown in the status message.
 
-    1. Other incorrect delete commands to try: `display`, `display x` (where x is larger than the list size)<br>
+    4. Other incorrect delete commands to try: `display`, `display goat`, `display x`(where x is larger than the list size)<br>
        Expected: Similar to previous.
-
+    
 ### Filtering contacts
 
 1. Filtering all contacts
