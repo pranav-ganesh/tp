@@ -157,11 +157,11 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-![Storage Class Diagram](images/StorageClassDiagram2.png)
+![Storage Class Diagram](images/StorageClassDiagram.png)
 
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
-* can export and import into address book data in csv format, and read them back into corresponding objects.
+* can export and import into address book data in CSV format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage`, `UserPrefStorage` and `ImportExportStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -416,12 +416,12 @@ The following activity diagram summarizes what happens when a user executes an e
 
 ### Import feature
 
-The import export feature primarily facilitated by the Storage Manager
+The import export feature primarily facilitated by the Storage Manager.
 
 **How the import is executed:**
 1. MainWindow calls logic to import data
 2. Logic calls StorageManager to import the data into a model
-3. StorageManager calls CsvAddressBookImportExport to read and convert all details found in csv file to list of valid people
+3. StorageManager calls CsvAddressBookImportExport to read and convert all details found in CSV file to list of valid people
 4. CsvAddressBookImportExport either adds or updates valid people into the model.
 5. Logic saves the database after all imports have been completed
 
@@ -430,15 +430,15 @@ The import export feature primarily facilitated by the Storage Manager
 **Different Import settings based on User**
 
 Application will ask whether the User has any new imports upon **every** application startup. <br>
-User will be prompted with 3 options : 
-* Add on Imports 
+User will be prompted with 3 options :
+* Add on Imports
 * Start new with imports
-* No Imports. 
+* No Imports
 
 The following activity diagram summarizes what happens when a user selects either of the 3 options:
   ![CMM behaviour based on user input](images/ImportDecision.png)
 
-Next few sections will go deeper what CMM does in each case
+Next few sections will go deeper what CMM does in each case.
 
 #### Add On Imports
 - Adds on new valid imports into existing database
@@ -923,7 +923,7 @@ testers are expected to do more *exploratory* testing.
     1. Test Start using New Import
         1. Prerequisites : Data in CMM is currently populated and import.csv in the correct format at the correct file location
         1. Testcase : click `Start using New Import` upon CMM startup <br>
-           Expected : Current data is exported in a csv file. Only valid people in import.csv exists in CMM
+           Expected : Current data is exported in a CSV file. Only valid people in import.csv exists in CMM
    1. Test Don't Import
        1. Prerequisites : Data in CMM is currently populated and import.csv in the correct format at the correct file location
        1. Testcase : click `Don't import` upon CMM startup or close the prompt <br>
@@ -933,10 +933,10 @@ testers are expected to do more *exploratory* testing.
 3. Exporting Data
     1. Test exporting
         1. Testcase : click `Export` upon CMM shutdown<br>
-          Expected : new csv file with the latest details can be found in the data folder at CMM jar location
+          Expected : new CSV file with the latest details can be found in the data folder at CMM jar location
    2. Test Don't exporting
       1. Testcase : click `Don't export` or close the prompt<br>
-          Expected: No new csv files created.
+          Expected: No new CSV files created.
 
 ### Deleting a contact
 
