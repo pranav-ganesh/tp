@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INDEX_NOT_PARSED;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -27,6 +28,6 @@ public class DisplayCommandParserTest {
     public void parse_tooBigInt_throwsParseException() {
         long l = 23423498233L;
         String input = String.valueOf(l);
-        assertParseFailure(parser, input, String.format(DisplayCommandParser.MESSAGE_INDEX_NOT_PARSED));
+        assertParseFailure(parser, input, String.format(MESSAGE_INDEX_NOT_PARSED));
     }
 }
