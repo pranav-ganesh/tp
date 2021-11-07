@@ -18,6 +18,7 @@ InterestsList -up-> "*" Interest
 Person *--> Name
 Person *--> Phone
 Person *--> Email
+Person *--> isCalled
 Person *--> Address
 Person *--> Gender
 Person *--> Age
