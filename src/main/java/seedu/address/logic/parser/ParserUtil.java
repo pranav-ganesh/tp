@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INDEX_NOT_PARSED;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
@@ -43,7 +44,6 @@ import seedu.address.model.person.predicates.PhoneContainsNumberPredicate;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_COUNT = "Count is not a non-zero unsigned integer. "
             + "It cannot be bigger than 2147483647 (i.e., MAX_VALUE). \n";
     public static final String EMPTY_FIELD_MESSAGE = "Fields provided can be anything but cannot be an empty string \n"
@@ -54,12 +54,22 @@ public class ParserUtil {
      * trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static Index parseIndex(String oneBasedIndex) throws ParseException {
-        String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_INDEX));
+    public static Index parseIndex(String indexString, String exceptionMessage) throws ParseException {
+        Index returnIndex;
+        if (indexString.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, exceptionMessage));
         }
-        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+        if (isPositiveInteger(indexString)) {
+            try {
+                int intIndex = Integer.parseInt(indexString.trim());
+                returnIndex = Index.fromOneBased(intIndex);
+            } catch (NumberFormatException e) {
+                throw new ParseException(MESSAGE_INDEX_NOT_PARSED);
+            }
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, exceptionMessage));
+        }
+        return returnIndex;
     }
 
     /**
@@ -390,5 +400,27 @@ public class ParserUtil {
         return Stream.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_CALLED,
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_AGE, PREFIX_INTEREST)
                 .anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Checks whether the parameter that has been input is a whole number (can also be a whole number greater
+     * than Integer.MAX_VALUE
+     *
+     * @param arg the parameter that has been entered by the user
+     * @return
+     */
+    public static boolean isPositiveInteger(String arg) {
+        boolean isZero = true;
+        try {
+            for (char c : arg.trim().toCharArray()) {
+                Integer.parseInt(String.valueOf(c));
+                if (isZero && c != '0') {
+                    isZero = false;
+                }
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return !isZero;
     }
 }

@@ -1,10 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CalledCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -22,11 +20,8 @@ public class CalledCommandParser implements Parser<CalledCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
         Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalledCommand.MESSAGE_USAGE), ive);
-        }
+
+        index = ParserUtil.parseIndex(argMultimap.getPreamble(), CalledCommand.MESSAGE_USAGE);
 
         return new CalledCommand(index);
     }
