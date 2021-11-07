@@ -19,7 +19,7 @@ Interface AddressBookStorage <<Interface>>
 Class JsonAddressBookStorage
 Class JsonSerializableAddressBook
 Class JsonAdaptedPerson
-Class JsonAdaptedTag
+Class JsonAdaptedInterest
 }
 
 }
@@ -38,6 +38,65 @@ JsonUserPrefsStorage .up.|> UserPrefsStorage
 JsonAddressBookStorage .up.|> AddressBookStorage
 JsonAddressBookStorage ..> JsonSerializableAddressBook
 JsonSerializableAddressBook --> "*" JsonAdaptedPerson
+JsonAdaptedPerson --> "*" JsonAdaptedInterest
+
+@enduml
+
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+package Storage{
+
+package "UserPrefs Storage" #F4F6F6{
+Interface UserPrefsStorage <<Interface>>
+Class JsonUserPrefsStorage
+}
+
+Interface Storage <<Interface>>
+Class StorageManager
+
+package "AddressBook Storage" #F4F6F6{
+Interface AddressBookStorage <<Interface>>
+Class JsonAddressBookStorage
+Class JsonSerializableAddressBook
+Class JsonAdaptedPerson
+Class JsonAdaptedTag
+}
+
+package "ImportExport Storage" #F4F6F6{
+Interface ImportExportStorage <<Interface>>
+Class CsvImportExportStorage
+Class CsvAdaptedPerson
+Class CsvAdaptedInterest
+}
+
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Storage
+
+StorageManager .up.|> Storage
+StorageManager -up-> "1" UserPrefsStorage
+StorageManager -up-> "1" AddressBookStorage
+StorageManager -down-> "1" ImportExportStorage
+
+Storage -down-|> UserPrefsStorage
+Storage -down-|> AddressBookStorage
+Storage -down-|> ImportExportStorage
+
+CsvImportExportStorage .up.|> ImportExportStorage
+CsvImportExportStorage  --> "*" CsvAdaptedPerson
+CsvAdaptedPerson  --> "*" CsvAdaptedInterest
+
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+JsonAddressBookStorage .up.|> AddressBookStorage
+JsonAddressBookStorage ..> JsonSerializableAddressBook
+JsonSerializableAddressBook --> "*" JsonAdaptedPerson
 JsonAdaptedPerson --> "*" JsonAdaptedTag
 
 @enduml
+

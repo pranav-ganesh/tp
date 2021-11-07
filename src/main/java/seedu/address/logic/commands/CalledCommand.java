@@ -30,7 +30,8 @@ public class CalledCommand extends Command {
             + ": Edits the 'Called' field of the address identified "
             + "by the index number of the address listing. "
             + "Existing 'Called' field will change to True.\n"
-            + "Parameter: INDEX (must be a positive integer)";
+            + "Parameter: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 3";
 
     public static final String MESSAGE_DONE_CALL_SUCCESS = "Marked Call as Done: %1$s";
     public static final String MESSAGE_ALREADY_DONE_CALL = "The 'Called' field for the specified address listing is "

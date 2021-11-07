@@ -59,5 +59,9 @@ public class InterestTest {
         Interest differentInterest = new Interest("different interest");
         assertFalse(interest.equals(differentInterest));
 
+        // different capitalisation -> returns true
+        Interest differentCapsInterest = new Interest("mY InTeReSt");
+        assertTrue(interest.equals(differentCapsInterest));
+
     }
 }
