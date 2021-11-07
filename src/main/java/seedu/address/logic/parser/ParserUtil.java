@@ -45,7 +45,6 @@ import seedu.address.model.person.predicates.PhoneContainsNumberPredicate;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_COUNT = "Count is not a non-zero unsigned integer.";
     public static final String EMPTY_FIELD_MESSAGE = "Fields provided can be anything but cannot be an empty string \n"
             + "Found one violation at: ";
