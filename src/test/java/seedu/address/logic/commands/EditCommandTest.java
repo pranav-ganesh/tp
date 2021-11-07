@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.interests.Interest;
 import seedu.address.model.person.interests.InterestsList;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -36,46 +37,9 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    /*
-    @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
-                .withGender("M").withAge("102").withInterest("Blockchain", "Swimming").build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_THIRD_PERSON, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(2), editedPerson);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }*/
-
-    /*
-    @Test
-    public void execute_interestsListField_success() {
-        Person expectedPerson = new PersonBuilder().withName("Alice Pauline")
-                .withEmail("alice@example.com").withPhone("94351253").withDone("false").withAddress("MY HOUSE")
-                .withGender("F").withAge("22").withInterest("Mining").build();
-
-        Person editedPerson = new PersonBuilder().withName("Alice Pauline")
-                .withEmail("alice@example.com").withPhone("94351253").withDone("false").withAddress("MY HOUSE")
-                .withGender("F").withAge("22").withInterest("[1] Mining").build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, expectedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), expectedPerson);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }*/
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        System.out.println(1);
         Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
                 .withGender("M").withAge("102").withInterest("Blockchain", "Swimming").build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
@@ -270,6 +234,24 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, InterestsList.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void execute_emptyInterestArgument_failure() {
+        Person editedPerson = new PersonBuilder().withInterest("(2) ").build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+
+        assertCommandFailure(editCommand, model, Interest.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void execute_invalidInterestsListIndexCharacter_failure() {
+        Person editedPerson = new PersonBuilder().withInterest("(api) astronomy").build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_THIRD_PERSON, descriptor);
+
+        assertCommandFailure(editCommand, model, "The interestslist index provided is invalid.");
     }
 
     /**

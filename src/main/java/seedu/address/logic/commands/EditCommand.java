@@ -50,13 +50,16 @@ public class EditCommand extends Command {
             + "[" + PREFIX_CALLED + "CALLED]"
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_AGE + "AGE] "
-            + "[" + PREFIX_INTEREST + "(optional index) INTEREST]...\n"
+            + "[" + PREFIX_INTEREST + "INTEREST_TO_BE_ADDED]"
+            + "[" + PREFIX_INTEREST + "(INDEX) remove]"
+            + "[" + PREFIX_INTEREST + "(OPTIONAL INDEX) INTEREST]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
             + PREFIX_GENDER + "M "
             + PREFIX_CALLED + "false"
-            + PREFIX_INTEREST + "[1] software engineering";
+            + PREFIX_INTEREST + "[1] software engineering"
+            + PREFIX_INTEREST + "[2] remove";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -101,9 +104,7 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.getName().equals(editedPerson.getName()) || !personToEdit.getPhone().equals(
-                editedPerson.getPhone()) || !personToEdit.getEmail().equals(editedPerson.getEmail())) {
-
+        if (!personToEdit.equals(editedPerson)) {
             if (model.hasPerson(editedPerson)) {
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
             } else {
@@ -168,6 +169,7 @@ public class EditCommand extends Command {
             String pos = s.substring(s.indexOf("(") + 1, s.indexOf(")")).trim();
             String desc = s.substring(s.indexOf(")") + 1).trim();
             int index;
+
             try {
                 index = Integer.parseInt(pos) - 1;
             } catch (NumberFormatException e) {
