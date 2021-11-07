@@ -161,6 +161,7 @@ Example:
 
 * `INDEX` refers to the index number shown in the displayed list
 * `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
+*  If you want to un-call a contact, use the [edit command](#editing-contact-details--edit)
 
 **Common issues:**
 * _The index provided is invalid_: <br />
@@ -172,19 +173,23 @@ Example:
 
 Edits an existing contact in the CMM database.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(INTERESTSLIST INDEX) INTEREST]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(OPTIONAL INTERESTSLIST INDEX) INTEREST]...
+[i/(INTERESTSLIST INDEX) remove]... [i/INTEREST]..`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
 * Specifying (INTERESTLIST INDEX) is optional as well. <br/>
-* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated. <br/>
-* If it is not, then an interest would be added to the list instead. <br/>
+* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated unless the interest
+argument is 'remove', in which case the interest would be removed. <br/>
+* If no interestsList index is specified in the round brackets, then an interest would be added to the list instead. <br/>
 * You can refer to the examples below for a better understanding of the edit command functionality.
 </div>
 
 Examples:
-* `edit 1 n/Malan i/[2] Swimming` edits the name of contact and the second interest of the first contact in the displayed list
-* `edit 1 i/Painting i/[1] Running` adds 'painting' as an interest and edits the first interest of the first contact in the displayed list
+* `edit 1 n/Malan i/(2) Swimming` edits the name of contact and the second interest of the first contact in the displayed list
+* `edit 1 i/Painting i/(1) Running` adds 'painting' as an interest and edits the first interest of the first contact in the displayed list
 * `edit 2 g/M e/myEmail@email.com age/55` edits the gender, email and age of the second contact in the displayed list
+* `edit 3 i/golf i/(1) eat i/(2) remove` removes the second interest in the interests list, edits the first item of the interests list to 'eat' 
+and adds 'golf' to the interests list of the third contact in the displayed list
 
 **Things to note:**
 
@@ -198,14 +203,18 @@ Examples:
 
 **Common issues:**
 * _The index provided is invalid_: <br />
-  a. Displayed list does not contain contact at `INDEX`.
+  a. Displayed list does not contain contact at `INDEX`.<br />
+  b. Index is not a positive integer.
 * _The interests list index provided is invalid_: <br />
-  a. Displayed interests list does not contain an interest at `INTERESTSLIST INDEX`.
+  a. Displayed interests list does not contain an interest at `INTERESTSLIST INDEX`. <br />
+  b. Provided index is not a positive integer.
 * _Invalid command format!_: <br />
   a. No fields provided <br />
   b. Used the wrong prefix. (e.g., 'i/[1]' instead of 'i/(1)') <br />
 * _Invalid command arguments_: <br />
     a. Duplicate of the edited contact already exists on the address book. <br />
+    b. Attempted to add same interest value twice in the same command.<br />
+    c. Used duplicate index values in the same command.
 
 ### Deleting a contact : `delete`
 
@@ -487,7 +496,7 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​` <br> e.g. `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com a/my house g/F age/95 i/Sleeping`
 **List** | `list`
 **Called** | `called INDEX` <br> e.g., `called 2`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g., `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(OPTIONAL INTERESTSLIST INDEX) INTEREST]...[i/(INTERESTSLIST INDEX) remove]... [i/INTEREST]..` <br/> e.g., `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/(2) Swimming`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> e.g., `findAny n/alex g/m`
 **FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> e.g., `findAll n/alex g/m`
