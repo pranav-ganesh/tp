@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INDEX_NOT_PARSED;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
@@ -54,12 +55,22 @@ public class ParserUtil {
      * trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static Index parseIndex(String oneBasedIndex) throws ParseException {
-        String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+    public static Index parseIndex(String indexString, String exceptionMessage) throws ParseException {
+        Index returnIndex;
+        if (indexString.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, exceptionMessage));
         }
-        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+        if (isPositiveInteger(indexString)) {
+            try {
+                int intIndex = Integer.parseInt(indexString.trim());
+                returnIndex = Index.fromOneBased(intIndex);
+            } catch (NumberFormatException e) {
+                throw new ParseException(MESSAGE_INDEX_NOT_PARSED);
+            }
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, exceptionMessage));
+        }
+        return returnIndex;
     }
 
     /**
@@ -390,7 +401,7 @@ public class ParserUtil {
     /**
      * Extracts the last {@code argument} from {@code List<String> argList}.
      */
-    private static String extractLastArgument(List<String> argList) {
+    private static String extractIndex(List<String> argList) {
         String last = argList.get(argList.size() - 1); // category is the first argument
         return last;
     }
@@ -402,15 +413,19 @@ public class ParserUtil {
      * @param arg the parameter that has been entered by the user
      * @return
      */
-    public static boolean isWholeNumber(String arg) {
+    public static boolean isPositiveInteger(String arg) {
+        boolean isZero = true;
         try {
-            for (char c : arg.toCharArray()) {
+            for (char c : arg.trim().toCharArray()) {
                 Integer.parseInt(String.valueOf(c));
+                if (isZero && c != '0') {
+                    isZero = false;
+                }
             }
         } catch (NumberFormatException e) {
             return false;
         }
-        return true;
+        return !isZero;
     }
 
     /**
@@ -425,19 +440,5 @@ public class ParserUtil {
             }
         }
         return false;
-    }
-
-    /**
-     * Tries to parse the input of the user to get the integer index
-     * @param argList List that stores the user input
-     */
-    public static void tryParseIndex(List<String> argList) throws NumberFormatException {
-        if (!hasParameterValue(argList)) {
-            return;
-        }
-        String lastArgument = extractLastArgument(argList);
-        if (isWholeNumber(lastArgument)) {
-            Integer.parseInt(lastArgument);
-        }
     }
 }
