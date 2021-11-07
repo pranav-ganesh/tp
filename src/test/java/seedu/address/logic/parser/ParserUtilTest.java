@@ -3,8 +3,10 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INDEX_NOT_PARSED;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.areAnyPrefixesPresent;
 import static seedu.address.logic.parser.ParserUtil.checkEmptyString;
 import static seedu.address.logic.parser.ParserUtil.checkMaleOrFemale;

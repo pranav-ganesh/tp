@@ -11,7 +11,7 @@ title: Developer Guide
 
 CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them in customer contact management.
 CMM provides a solution to quickly catalog people based on who has/yet to be called.
-The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers
+The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers.
 Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
 
 This Developer Guide (DG) aims to help developers better understand the architecture and design choices of CMM.
@@ -130,7 +130,7 @@ Additionally, here are other classes in `Logic` (omitted from the class diagram 
 <img src="images/ComparatorClasses.png" width="600"/>
 
 How the comparing works:
-* When called upon to compare contacts, the `PersonComparator` class creates an `XYZComparator` (`XYZ` is a placeholder for the specific comparator name e.g., `GenderComparator`) which can be used to compare contacts. The `PersonComparator` returns the `XYZComparator` object as a `Comparator` object.
+* When called upon to compare contacts, the `PersonComparator` class creates an `XYZComparator` (`XYZ` is a placeholder for the specific comparator name e.g., `GenderComparator`). The `PersonComparator` returns the `XYZComparator` object as a `Comparator` object.
 * All `XYZComparator` classes (e.g., `GenderComparator`, `CalledComparator`, ...) inherit from the `Comparator` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -261,7 +261,7 @@ The activity diagram below summarises what happens when a user executes a `findA
 
 * **Alternative 2 (current choice):** Both findAny and findAll
     * Pros: Improves User Experience by giving users the freedom to decide whether they want find to be lenient or strict
-    * Cons: more complicated implementation.
+    * Cons: More difficult to implement
 
 As telemarketers, having the option to find specific demographics when selling products with very niche target audiences would
 be invaluable. Therefore, although the usage rate of `findAll` may not be high while selling generic products. We cannot overlook
@@ -281,11 +281,6 @@ if they need to.
 1. The telemarketer opens the application and views the list of contacts. Then they want to view more details
 about a particular contact. They enter the command `display 2`
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the user enters the command in an
-   incorrect format, then an invalid command format message is displayed along with the correct format to use.
-
-</div>
-
 2. Command entered by user is passed into the LogicManager which directs it to AddressBookParser
 
 3. AddressBookParser parses the command
@@ -296,7 +291,7 @@ about a particular contact. They enter the command `display 2`
 
 6. The UiManager then executes the displaying process by communicating with the MainWindow
 
-7. The MainWindow, where the relevant JavaFX elements are placed, then shows the details of the selected contact
+   1. The MainWindow, where the relevant JavaFX elements are placed, shows the details of the selected contact
 
 The following sequence diagram shows how the display operation works when the telemarketer enters `display 2`:
 
@@ -343,7 +338,7 @@ by categories other than "Gender" and "Called", those are the only categories su
 
 As the key intention is for users to filter by `Category`, it is kept as a compulsory field.
 
-On the other hand, filtering by `Count` is an additional feature. Hence, it is non-compulsory.
+On the other hand, filtering by `Count` is a complementary feature to improve Quality of Life (QOL) for users. Hence, it is non-compulsory.
 
 The current design implementation allows users to filter contacts quickly and gives the flexibility to further filter
 the results if they ever want to.
@@ -391,9 +386,9 @@ The following activity diagram summarizes what happens when a user executes an e
 
 * **Alternative 1 (current choice):** 3 compulsory fields (`Name`, `Email` and `Phone`)
 
-    * Pros: Enhance user experience since they don't need to waste time entering many data field values.
+    * Pros: Enhance user experience since they don't need to waste time entering many data field values
 
-    * Cons: Implementation is convoluted.
+    * Cons: More difficult to implement
 
 
 * **Alternative 2:** All 7 fields compulsory (`Name`, `Email`, `Phone`, `Address`, `Age`, `Gender` and `Interestslist`)
@@ -427,48 +422,58 @@ The import export feature primarily facilitated by the Storage Manager
 1. MainWindow calls logic to import data
 2. Logic calls StorageManager to import the data into a model
 3. StorageManager calls CsvAddressBookImportExport to read and convert all details found in csv file to list of valid people
-4. CsvAddressBookImportExport then either adds or updates valid people into the model.
-5. Logic then saves the database after all imports have been completed
+4. CsvAddressBookImportExport either adds or updates valid people into the model.
+5. Logic saves the database after all imports have been completed
 
 ![Interactions Inside the Storage Component when importing](images/ImportCsvSequenceDiagram.png)
 
 **Different Import settings based on User**
 
-- Application will always ask user whether to User has any new imports upon **every** application startup.
-  User will be prompt with 3 options : Add on Imports, Start new with imports, No Imports. CMM react as according to the diagram below, based on which button the user selects.
+Application will ask whether the User has any new imports upon **every** application startup. <br>
+User will be prompted with 3 options : 
+* Add on Imports 
+* Start new with imports
+* No Imports. 
+
+The following activity diagram summarizes what happens when a user selects either of the 3 options:
   ![CMM behaviour based on user input](images/ImportDecision.png)
 
-Next few sections will go deeper what the CMM does in each case
+Next few sections will go deeper what CMM does in each case
 
 #### Add On Imports
 - Adds on new valid imports into existing database
     - Valid people need to have the following attributes : Name, Phone, Email filled
     - Every attribute of import person has to follow the type requirements. This is handled in CsvUtil and  CsvAdaptedPerson
 - Duplicates found in database
-    - As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for the CMM to handle such cases.  Below is a diagram    to illustrate how CMM will react when encountering a duplicate import  
+    - As duplicates are often found when adding on to an existing database, it is important to have a clearly defined plan for CMM to handle such cases.  
+The following activity diagram summarizes what happens when a duplicate import is encountered:  
       ![CMM behaviour when duplicate encountered](images/DuplicateImportDecision.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
-Duplicates are defined to be two person with the exact same name, phone number and email address.
+Duplicates are defined to be two contacts with the exact same name, phone number and email address.
+</div>
 
 #### Start New Using Imports
-- Exports the current state of the database into a Csv file. Export implementation is covered in detail [here](#export-feature).
-- Resets the current database and populate the now empty database with new valid imports
+- Exports the current state of the database into a CSV file. Export implementation is covered in detail [here](#export-feature).
+- Replaces the current database with valid imports from the existing import.csv file
 
 #### No imports
-- CMM will not import anything and application will startup normally
+- CMM will not import anything and application will start normally
 - Closing the prompt will also choose this option
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-This import will not work if first row does not have valid headers. Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1'. Headers are not case sensitive
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** <br>
+This import will not work if the first row does not have valid headers. <br>
+Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, 
+starting from the cell 'A1'. <br> 
+Headers are not case sensitive
 </div>
 
 ### Export feature
 **How the export is executed:**
-1. MainWindow calls logic to Export data
+1. MainWindow calls Logic to Export data
 2. Logic calls StorageManager to export the data found in model
 3. StorageManager calls CsvImportExportStorage to read and convert to Csv file
-4. Logic then saves the database after all export have been completed
+4. Logic then saves the database after all contacts have been exported
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
 Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
@@ -476,26 +481,26 @@ Export file will have the following file name : `export[Date HH:MM:SS].csv` wher
 
 #### Design considerations:
 
-**Aspect: When should import and export be executed:**
+**Aspect: When import and export should be executed:**
 
-* **Alternative 1 (current choice):** Always ask for import and export upon startup and closing of CMM
+* **Alternative 1 (current choice):** Always ask for import/export upon startup/exit
     * Pros: Ensures that user will always be using the most updated list. This reduces the likelihood of time wasted working on outdated data.
-    * Cons: May cause user dissatisfaction if user constantly open and close application
+    * Cons: Popups may become annoying if user constantly opens and closes application
 
-* **Alternative 2:** Individual command to import
+* **Alternative 2:** Separate command to import
   itself.
     * Pros: Less prompts upon startup. User can import while CMM is running
     * Cons: User may have forgotten to import the latest excel file and work on a file that was outdated, this will make the user waste a lot of time.
 
-**Aspect: How many types of imports should be available to users:**
+**Aspect: Types of imports that should be available to users:**
 
-* **Alternative 1 (current choice):** 3 types which are `Add on import` , `Start new with import`, `Don't import`
+* **Alternative 1 (current choice):** 3 options : `Add on import` , `Start new with import`, `Don't import`
   * Pros: Provide variety of options of imports. CMM will cater to more tasks
-  * Cons: May cause confusion the functionality of each option (especially for new users)
+  * Cons: More difficult to implement
 
 * **Alternative 2:** Only allow 2 options : `Add on import` and `dont import`
   itself.
-  * Pros: Straightforward use. No ambiguity 
+  * Pros: Easier to implement
   * Cons: Less flexibility for users
 
 
@@ -550,7 +555,6 @@ The following sequence diagram shows how the undo operation works:
 The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
 </div>
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
@@ -844,7 +848,7 @@ Guarantees: Contacts will be sorted by category specified
 
       Use case resumes at step 1
 
-**Use Case 9**: Finding specific contacts
+**Use Case 9: Finding specific contacts**
 
 System : CallMeMaybe (CMM) <br>
 Use Case : UC9 - Finding specific contacts <br>
@@ -891,7 +895,7 @@ Guarantees: All contacts that match the specified fields would be displayed
 * **CSV Comma Separated Values**: An excel format
 * **PlantUML**: An open-source tool allowing users to create diagrams from a plain text language
 * **JSON**: JSON is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays.
-
+* **Quality of Life**: The measure of how convenient it is to use an application
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -933,6 +937,7 @@ testers are expected to do more *exploratory* testing.
    2. Test Don't exporting
       1. Testcase : click `Don't export` or close the prompt<br>
           Expected: No new csv files created.
+
 ### Deleting a contact
 
 1. Deleting a contact while all contacts are being shown
@@ -947,9 +952,6 @@ testers are expected to do more *exploratory* testing.
 
    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
-
-2. _{ more test cases …​ }_
-
 
 ### Displaying a person
 
@@ -986,8 +988,56 @@ testers are expected to do more *exploratory* testing.
        `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
        Expected: Similar to previous.
 
-3. _{ more test cases …​ }_
+### Adding contacts
 
+1. Adding valid contacts with only the 3 compulsory fields, `name`, `phone`, `email` specified
+   * Test case: `add n/bob p/98765432 e/test@test.com`<br>
+   Expected: A contact with the specified fields is added into the list with all other fields, `address`, `age`, `gender`, `interests` left as 'N.A'
+   
+2. Adding valid contacts with multiple optional fields specified
+   * Test case: `add n/bob p/98765432 e/test@test.com g/m i/running`
+   Expected: A contact with the specified fields is added into the list with only `address` and `age` left as 'N.A'
+   * Test case: `add n/bob p/98765432 e/test@test.com a/his house age/22`
+   Expected: A contact with the specified fields is added into the list with only `gender` and `interests` left as 'N.A'
+
+3. Adding contacts with invalid fields
+   * Test case: `add n/bob p/18765432 e/test@test.com g/m i/running` (phone is invalid)
+   Expected: Application shows an "Invalid command format message" in the feedback box
+   * Test case: `add n/bob p/98765432 e/test@test.com g/me i/running` (gender is invalid)
+   Expected: Application shows an "Invalid command format message" in the feedback box
+
+4. Adding contacts without anything specified after the prefix
+  * Test case: `add n/bob p/18765432 e/test@test.com g/m i/` ('i/' is left empty)
+    Expected: Application shows an "Invalid command format message" in the feedback box
+  * Test case: `add n/bob p/18765432 e/test@test.com g/ i/running` ('g/' is left empty)
+    Expected: Application shows an "Invalid command format message" in the feedback box
+
+### Finding contacts
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The test cases below only make use of the findAny command. 
+However, the findAll command should be tested roughly the same way. Only difference is when multiple valid fields are supplied at once.
+</div>
+
+1. Finding contacts that have a certain substring in their name
+   * Test case: `findAny n/bob`
+   Expected: Only contacts that have the substring 'bob' in their name are displayed
+
+2. Finding contacts that have a certain interest
+   * Test case `findAny i/run`
+   Expected: Only contacts that have the substring 'run' in any of their interests are displayed
+
+3. Finding contacts with multiple specified fields
+   * Test case `findAny n/bob i/run`
+     Expected: Only contacts that have either the substring 'bob' in their name or 'run' in any of their interests are displayed<br>
+     (For findAll: Only contacts that have both the substring 'bob' in their name and 'run' in any of their interests are displayed )
+
+4. Finding contacts with invalid fields
+   * Test case: `findAny g/helicopter`
+   Expected: Application shows an "Invalid command format message" in the feedback box
+
+5. Finding contacts that do not exist in the database
+   * Test case: `findAny n/[any substring that does not exist]`
+   Expected: No contacts are displayed
 
 ### Saving data
 
