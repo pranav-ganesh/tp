@@ -14,7 +14,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 import java.util.stream.Stream;
 
@@ -403,14 +402,6 @@ public class ParserUtil {
     }
 
     /**
-     * Extracts the last {@code argument} from {@code List<String> argList}.
-     */
-    private static String extractIndex(List<String> argList) {
-        String last = argList.get(argList.size() - 1); // category is the first argument
-        return last;
-    }
-
-    /**
      * Checks whether the parameter that has been input is a whole number (can also be a whole number greater
      * than Integer.MAX_VALUE
      *
@@ -430,19 +421,5 @@ public class ParserUtil {
             return false;
         }
         return !isZero;
-    }
-
-    /**
-     * Checks if there are any parameters input by the user
-     * @param list The list that stores the parameters
-     * @return a boolean indicating whether there is a parameter input or not
-     */
-    public static boolean hasParameterValue(List<String> list) {
-        for (String s: list) {
-            if (!s.equals("")) {
-                return true;
-            }
-        }
-        return false;
     }
 }
