@@ -103,7 +103,36 @@ Hope you have a great time with CMM.
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
-## 3. Command Notations
+## 3. Interface layout
+
+**Command Panel**
+
+![Ui](images/Command Panel.png)
+*Image of CMM's Command Panel*
+
+* User commands are entered in the Command Line (section labeled `Enter command here...`)
+* The Feedback Box (the bottom section) displays the result of the command, which can be an error message if the command is invalid
+
+**Display List**
+
+![Ui](images/Display List.png)
+*Image of CMM's Display List*
+
+* Displays the list of contacts along with their contact details which includes the name, phone number, email address and isCalled attributes
+
+**Person Card**
+
+![Ui](images/Person Card.png)
+*Image of CMM's Person Card*
+
+* Displays additional information of each contact in the list of contacts. This includes the attributes age, gender, address and interests
+* When application is started, the first contact in the list is displayed. If the contact list is empty, then CMM displays an example
+  contact with example attributes. The example is purely visual, and doesn't exist in the actual contact list.
+
+--------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
+
+## 4. Command Notations
 
 <div markdown="block" class="alert alert-info">
 
@@ -131,9 +160,9 @@ Hope you have a great time with CMM.
 
 <div style="page-break-after: always;"></div>
 
-## 4. Overview of Features
+## 5. Overview of Features
 
-### 4.1 Adding a contact: `add`
+### 5.1 Adding a contact: `add`
 
 Adds a contact to the CMM database.
 
@@ -167,6 +196,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/I
 * `Age` must only contain numbers
 
 * `Address` and `Interest` can be in any format
+*  All the fields are case-insensitive  
 
 <div markdown="span" class="alert alert-primary">:bulb: 
 
@@ -207,7 +237,7 @@ Examples:
 
   b. Used the wrong prefix (e.g., '/n' instead of 'n/') <br>
 
-### 4.2 Listing all contacts : `list`
+### 5.2 Listing all contacts : `list`
 
 Shows a list of all contacts in the CMM database.
 
@@ -217,7 +247,7 @@ Format: `list`
 
 * `list` shows all contacts in ascending order by name
 
-### 4.3 Marking a contact as called : `called`
+### 5.3 Marking a contact as called : `called`
 
 Marks the specified contact from the address book as called. (i.e., contact has already been called)
 
@@ -246,7 +276,7 @@ Example:
   c. Index specified is not a positive integer <br>
 
 
-### 4.4 Editing a contact : `edit`
+### 5.4 Editing a contact : `edit`
 
 Edits an existing contact in the CMM database.
 
@@ -265,6 +295,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 
 * The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#48-displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
+
+* All the fields are case-insensitive
 
 <div markdown="block" class="alert alert-primary">
 
@@ -324,7 +356,7 @@ Examples:
 
     a. Duplicate of the edited contact already exists on the address book <br>
 
-### 4.5 Deleting a contact : `delete`
+### 5.5 Deleting a contact : `delete`
 
 Deletes the specified contact from the CMM database.
 
@@ -355,7 +387,7 @@ Example:
 
   c. Index specified is not a positive integer <br>
 
-### 4.6 Finding contacts that match **ANY** of the keywords specified: `findAny`
+### 5.6 Finding contacts that match **ANY** of the keywords specified: `findAny`
 
 Finds all contacts that match any of the fields specified by the user
 
@@ -381,6 +413,8 @@ Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 
+* All the fields are case-insensitive
+
 * You can refer to the examples below for a better understanding
 
 <div markdown="block" class="alert alert-primary"> 
@@ -394,7 +428,6 @@ Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 Click [here](#47-finding-contacts-that-match-all-the-keywords-specified--findall) to learn more about findAll
 
 </div>
-
 
 Examples:
 
@@ -423,7 +456,7 @@ have the substring 'woodlands' in their address
 
   d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/` <br>
 
-### 4.7 Finding contacts that match **ALL** the keywords specified : `findAll`
+### 5.7 Finding contacts that match **ALL** the keywords specified : `findAll`
 
 Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [c/CALLED…​] [i/INTEREST…​]`
 
@@ -447,6 +480,8 @@ Finds only the contacts that match all the keywords specified in their respectiv
 * Keywords for `Called` are limited to `true`, `false`, `t`, `f`
 
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
+
+* All the fields are case-insensitive
 
 * You can refer to the examples below for a better understanding
 
@@ -487,7 +522,7 @@ Examples:
 
   d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/` <br>
 
-### 4.8 Displaying full contact details : `display`
+### 5.8 Displaying full contact details : `display`
 
 Displays additional information of a particular contact stored in the application. These include the
 address, gender, age and their interests.
@@ -512,7 +547,7 @@ Example:
 
   c. Index specified is not a positive integer <br>
 
-### 4.9 Filtering contacts : `filter`
+### 5.9 Filtering contacts : `filter`
 
 Filters the existing contacts in the CMM database. The displayed list will show contacts sorted by the chosen category.
 
@@ -569,7 +604,7 @@ Examples:
 
   b. The last argument is bigger than 2147483647 <br>
 
-### 4.10 Clearing all contacts : `clear`
+### 5.10 Clearing all contacts : `clear`
 
 Clears all contacts from the CMM database.
 
@@ -582,7 +617,7 @@ Clearing is irreversible, please use with caution.
 
 </div>
 
-### 4.11 Viewing help : `help`
+### 5.11 Viewing help : `help`
 
 Shows a message explaining how to access the User Guide.
 
@@ -590,17 +625,17 @@ Shows a message explaining how to access the User Guide.
 
 Format: `help`
 
-### 4.12 Exiting the program : `exit`
+### 5.12 Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
 
-### 4.13 Saving the data
+### 5.13 Saving the data
 
 CMM data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### 4.14 Importing the data into database
+### 5.14 Importing the data into database
 
 CMM is able to import Excel files into CMM. The import files have to be in an Excel Csv format (semicolon delimited).
 
@@ -696,7 +731,7 @@ Currently, import is **irreversible**. Please double check before importing. Thi
 An example file import can be downloaded [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases/tag/Test_Files)
 </div>
     
-### 4.15 Exporting state of database
+### 5.15 Exporting state of database
 
 CMM is able to export the current database as semicolon delimited CSV files. As such, there is no need for you to ensure that the formatting is right for furture use.
 
@@ -716,7 +751,7 @@ CSV file can be found under the "data" folder found in the same directory as the
 </div>
 
 
-### 4.16 Editing the data file (JSON)
+### 5.16 Editing the data file (JSON)
 
 AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -729,13 +764,13 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 5. FAQ
+## 6. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder. Data found can be found at `[JAR file location]/data/addressbook.json`.
 --------------------------------------------------------------------------------------------------------------------
 
-## 6. Command summary
+## 7. Command summary
 
 Action | Format, Examples
 --------|------------------
