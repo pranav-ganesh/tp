@@ -39,7 +39,7 @@ It is highly recommended that you familiarise yourself with the [Command Notatio
 
 For new users, head over to [Quick Start](#2-quick-start) to get started. You can learn the command notations along the way as well. <br>
 
-For more experienced users, feel free to skip over to the [Features section](#5-overview-of-features) to check out detailed descriptions of the features offered in our application. <br>
+For more experienced users, feel free to skip over to the [Features](#5-overview-of-features) section to check out detailed descriptions of the features offered in our application. <br>
 
 If you have any questions about CMM, please refer to the [FAQ](#6-faq). <br>
 
