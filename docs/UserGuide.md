@@ -35,7 +35,7 @@ Each Command section is separated into:<br>
 **:information_source: Note:** Straightforward commands such as 'list' may not have the sections "Things to note", "Examples" and "Common issues"
 </div>
 
-It is highly recommended that you familiarise yourself with the [Command Notation details](#3-command-notations) we use. <br>
+It is highly recommended that you familiarise yourself with the [Command Notations](#3-command-notations) we use. <br>
 
 For new users, head over to [Quick Start](#2-quick-start) to get started. You can learn the command notations along the way as well. <br>
 
@@ -266,17 +266,17 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 * The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#48-displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
 
-<div markdown="span" class="alert alert-primary">:bulb: 
+<div markdown="block" class="alert alert-primary"> :bulb: 
 
 **Tip:** <br>
 
-* Specifying (INTERESTLIST INDEX) is optional as well. <br>
+* Specifying (INTERESTLIST INDEX) is optional as well
 
-* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated. <br>
+* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated
 
-* If it is not, then an interest would be added to the list instead. <br>
+* If it is not, then an interest would be added to the list instead
 
-* You can refer to the examples below for a better understanding of the edit command functionality.
+* You can refer to the examples below for a better understanding of the edit command functionality
 
 </div>
 
@@ -381,14 +381,14 @@ Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 
 * You can refer to the examples below for a better understanding
 
-<div markdown="span" class="alert alert-primary">:bulb: 
+<div markdown="block" class="alert alert-primary"> :bulb: 
 
 **Tip:** <br>
-findAll vs findAny<br>
 
-* `findAll` searches for contacts that satisfy **ALL** the fields specified.<br>
+* `findAll` searches for contacts that satisfy **ALL** the fields specified.
 
 * `findAny` searches for contacts that satisfy **ANY** of the fields specified.<br>
+
 </div>
 
 Click [here](#47-finding-contacts-that-match-all-the-keywords-specified--findall) to learn more about findAll
@@ -447,14 +447,14 @@ Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 
 * You can refer to the examples below for a better understanding
 
-<div markdown="span" class="alert alert-primary">:bulb: 
+<div markdown="block" class="alert alert-primary"> :bulb: 
 
 **Tip:** <br>
-findAll vs findAny: <br>
 
-* `findAll` searches for contacts that satisfy **ALL** the fields specified.<br>
+* `findAll` searches for contacts that satisfy **ALL** the fields specified.
 
 * `findAny` searches for contacts that satisfy **ANY** of the fields specified.<br>
+
 </div>
 
 Click [here](#46-finding-contacts-that-match-any-of-the-keywords-specified-findany) to learn more about findAny
@@ -574,7 +574,7 @@ Format: `clear`
 
 <div markdown="span" class="alert alert-warning">:exclamation: 
 
-**Caution:**<br>
+**Caution:**
 Clearing is irreversible, please use with caution.
 
 </div>
@@ -633,7 +633,7 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
 
 <div markdown="span" class="alert alert-warning">:exclamation:
 
-**Caution:**<br>
+**Caution:**
 Currently, import is **irreversible**. Please double check before importing. This is especially important when choosing the add on import option.
 </div>
 
@@ -689,7 +689,7 @@ Currently, import is **irreversible**. Please double check before importing. Thi
 
 <div markdown="span" class="alert alert-primary">:bulb: 
 
-**Tip:** <br>
+**Tip:**
 An example file import can be downloaded [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases/tag/Test_Files)
 </div>
     
@@ -708,8 +708,8 @@ CMM is able to export the current database as semicolon delimited CSV files. As 
 
 <div markdown="span" class="alert alert-primary">:bulb: 
 
-**Tip:** <br>
-Csv file can be found under the "data" folder found in the same directory as the CMM jar file.
+**Tip:**
+CSV file can be found under the "data" folder found in the same directory as the CMM jar file.
 </div>
 
 
