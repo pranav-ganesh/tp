@@ -216,7 +216,7 @@ public class ParserUtil {
             try {
                 interestsList.addInterest(parseInterest(interest));
             } catch (IllegalArgumentException e) {
-                throw new ParseException(e.getMessage());
+                throw new ParseException("Duplicate arguments are not allowed!");
             }
         }
         return interestsList;
