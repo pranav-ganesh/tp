@@ -32,6 +32,7 @@ Given below are my contributions to the project.
     * Modifying target user profile. (Pull requests [#129](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/129))
     * Modifying use cases for project. (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
     * Editing final documentation (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
+
 * **Enhancements to existing features**:
     * Modified the original `add` command for the v1.2 release. (Pull requests [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/45))
     * Modified the implementation of the `clear` command to change the updated UI of `display`. (Pull requests [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/182))
