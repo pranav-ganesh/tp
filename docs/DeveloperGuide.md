@@ -16,6 +16,11 @@ Importing and exporting of existing customer database is also supported by CMM t
 
 This Developer Guide (DG) aims to help developers better understand the architecture and design choices of CMM.
 
+The screenshot below shows the different components of the Ui. It would be helpful to take note of the different components
+as there will be references to these Ui components throughout this Developer Guide
+
+![Ui](images/Ui.png)
+
 --------------------------------------------------------------------------------------------------------------------
 ## **Acknowledgements**
 
@@ -49,7 +54,9 @@ Given below is a quick overview of the main components and how they interact wit
 **Main components of the architecture**
 
 **`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103T-T13-4/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103T-T13-4/tp/blob/master/src/main/java/seedu/address/MainApp.java). They are responsible for:
+
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
@@ -57,8 +64,11 @@ Given below is a quick overview of the main components and how they interact wit
 The rest of the App consists of four components.
 
 * [**`UI`**](#ui-component): The UI of the App.
+
 * [**`Logic`**](#logic-component): The command executor.
+
 * [**`Model`**](#model-component): Holds the data of the App in memory.
+
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 
@@ -71,6 +81,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
+
 * implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
@@ -92,8 +103,11 @@ The `UI` component uses the JavaFx UI framework. The layout of these UI parts ar
 The `UI` component,
 
 * executes user commands using the `Logic` component.
+
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
+
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
+
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
 
 ### Logic component
@@ -106,9 +120,12 @@ Here's a (partial) class diagram of the `Logic` component:
 
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a contact).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
+
+3. The command can communicate with the `Model` when it is executed (e.g. to add a contact).
+
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -125,7 +142,11 @@ Here are the other classes in `Logic` (omitted from the class diagram of the `Lo
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` 
+(`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command 
+and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 Additionally, here are other classes in `Logic` (omitted from the class diagram of the `Logic` component above) that are used for comparing `Person` objects which are part of the `Model` component:
@@ -133,7 +154,9 @@ Additionally, here are other classes in `Logic` (omitted from the class diagram 
 <img src="images/ComparatorClasses.png" width="600"/>
 
 How the comparing works:
-* When called upon to compare contacts, the `PersonComparator` class creates an `XYZComparator` (`XYZ` is a placeholder for the specific comparator name e.g., `GenderComparator`). The `PersonComparator` returns the `XYZComparator` object as a `Comparator` object.
+* When called upon to compare contacts, the `PersonComparator` class creates an `XYZComparator` 
+(`XYZ` is a placeholder for the specific comparator name e.g., `GenderComparator`). The `PersonComparator` returns the `XYZComparator` object as a `Comparator` object.
+
 * All `XYZComparator` classes (e.g., `GenderComparator`, `CalledComparator`, ...) inherit from the `Comparator` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -145,14 +168,21 @@ How the comparing works:
 The `Model` component,
 
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders 
+as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when 
+the data in the list change.
+
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+
+* does not depend on any of the other three components (as the `Model` represents data entities of the domain, 
+they should make sense on their own without depending on other components)
 
 <div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
-An alternative (arguably, a more OOP) model is given below. It has an `Interest` list in the `AddressBook`, which `InterestsList` references. This allows `AddressBook` to only require one `Interest` object per unique interest, instead of each `InterestsList` needing their own `Interest` objects.<br>
+An alternative (arguably, a more OOP) model is given below. It has an `Interest` list in the `AddressBook`, which `InterestsList` references. 
+This allows `AddressBook` to only require one `Interest` object per unique interest, instead of each `InterestsList` needing their own `Interest` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -166,9 +196,14 @@ An alternative (arguably, a more OOP) model is given below. It has an `Interest`
 ![Storage Class Diagram](images/StorageClassDiagram.png)
 
 The `Storage` component,
+
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
+
 * can export and import into address book data in CSV format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage`, `UserPrefStorage` and `ImportExportStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+
+* inherits from both `AddressBookStorage`, `UserPrefStorage` and `ImportExportStorage`, which means it can be treated as either one 
+(if only the functionality of only one is needed).
+
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -459,28 +494,28 @@ enters the command `edit 1 name/Will age/20`
 
 2. This command is passed on to the `LogicManager` which directs the command to the `AddressBookParser`
 
-3. The `AddressBookParser` parses the command and returns an EditCommand with a new person object containing all the specified edited fields except the interests
+3. The `AddressBookParser` parses the command and returns an EditCommand with a new person object containing all the specified edited fields except the interests (refer to note after step 8)
+
+5. The `LogicManager` then executes the `EditCommand`
+
+6. The `EditCommand#createEditedPerson()` returns a new Person object containing all the updated data fields including
+the updated `InterestsList`.
+
+7. The contact that was requested to be edited is updated to this new Person Object
+
+8. The [`DisplayCommand`](#display-feature) is then used to display the modifications through the person card
 
 <div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
 
-Editing of the `InterestsList` field works differently from the rest of the fields. In the case for other fields, 
+Editing of the `InterestsList` field works differently from the other fields. In the case for other fields,
 the new values specified by the user will completely replace the original values of their respective fields. However, editing of
 the `InterestsList1` allows for adding and removing of `Interest` as well as editing specific `Interests` withing the `InterestsList`.
-Therefore, a reference to the original `InterestsList` of the contact to be edited is required. Hence, the creation of the 
+Therefore, a reference to the original `InterestsList` of the contact to be edited is required. Hence, the creation of the
 updated `InterestsList` is done in the EditCommand where there is access to the `Model` instead of the EditCommandParser.
 
 </div>
-
-4. The `LogicManager` then executes the `EditCommand`
-
-5. The `EditCommand#createEditedPerson()` returns a new Person object containing all the updated data fields including
-the updated `InterestsList`.
-
-6: The contact that was requested to be edited is updated to this new Person Object
-
-7: The [`DisplayCommand`](#display-feature) is then used to display the modifications through the person card
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("edit 1 n/Peter e/peter@email.com g/M age/M")` API call.
 
@@ -701,15 +736,15 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-2. The user executes `delete 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+The user executes `delete 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-3. The user executes `add n/David …​` to add a new contact. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+The user executes `add n/David …​` to add a new contact. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -720,7 +755,7 @@ If a command fails its execution, it will not call `Model#commitAddressBook()`, 
 
 </div>
 
-4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
@@ -750,11 +785,11 @@ The `redo` command does the opposite — it calls `Model#redoAddressBook()`,
 If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 </div>
 
-5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -1241,7 +1276,7 @@ testers are expected to do more *exploratory* testing.
     * Testcase : click `Don't export` or close the prompt<br>
       Expected: No new csv files created
 
-### Deleting a contact
+### Deleting contacts
 
 Prerequisites: Displayed list must not be empty
 
@@ -1263,7 +1298,7 @@ Prerequisites: Displayed list must not be empty
    * Test case: `delete x`
      Expected: No contact is deleted. Error details shown in the status message
    
-### Displaying a contact
+### Displaying contacts
 
 Prerequisites: Displayed list must not be empty
 
@@ -1286,7 +1321,7 @@ Prerequisites: Displayed list must not be empty
    * Test case: `display x`
      Expected: The previously displayed contact continues to be displayed. Error details shown in the feedback box
 
-### Editing a person
+### Editing contacts
 
 Prerequisites: Displayed list must not be empty
 
@@ -1358,45 +1393,49 @@ Prerequisites: Displayed list must not be empty
 <div markdown="span" class="alert alert-info">:information_source: 
 
 **Note:**<br>
+
 A contact is considered valid when all 3 of the compulsory fields `Name`, `Phone` and `Email` are specified
+
 </div>
 
 1. Adding valid contacts with only the 3 compulsory fields, `Name`, `Phone`, `Email` specified
 
    * Test case: `add n/bob p/98765432 e/test@test.com`<br>
-   Expected: A contact with the specified fields is added into the list with all other fields, `address`, `age`, `gender`, `interests` left as 'N.A'
+   Expected: A contact with the specified fields is added into the list with all other fields, `address`, `age`, `gender`, `interests` left as 'N.A' <br>
    
 2. Adding valid contacts with multiple optional fields specified
 
-   * Test case: `add n/bob p/98765432 e/test@test.com g/m i/running`
-   Expected: A contact with the specified fields is added into the list with only `address` and `age` left as 'N.A'
+   * Test case: `add n/bob p/98765432 e/test@test.com g/m i/running` <br>
+   Expected: A contact with the specified fields is added into the list with only `address` and `age` left as 'N.A' <br>
    
-   * Test case: `add n/bob p/98765432 e/test@test.com a/his house age/22`
+   * Test case: `add n/bob p/98765432 e/test@test.com a/his house age/22` <br>
    Expected: A contact with the specified fields is added into the list with only `gender` and `interests` left as 'N.A'
 
 3. Adding contacts with invalid fields
 
-   * Test case: `add n/bob p/18765432 e/test@test.com g/m i/running` (phone is invalid)
+   * Test case: `add n/bob p/18765432 e/test@test.com g/m i/running` (phone is invalid) <br>
    Expected: Error details shown in the feedback box
    
-   * Test case: `add n/bob p/98765432 e/test@test.com g/me i/running` (gender is invalid)
+   * Test case: `add n/bob p/98765432 e/test@test.com g/me i/running` (gender is invalid) <br>
    Expected: Error details shown in the feedback box
 
 4. Adding contacts without anything specified after their respective prefix
 
-  * Test case: `add n/bob p/98765432 e/test@test.com g/m i/` ('i/' is left empty)
-    Expected: Error details shown in the feedback box
+   * Test case: `add n/bob p/98765432 e/test@test.com g/m i/` ('i/' is left empty) <br>
+     Expected: Error details shown in the feedback box
 
-  * Test case: `add n/bob p/98765432 e/test@test.com g/ i/running` ('g/' is left empty)
-    Expected: Error details shown in the feedback box
+   * Test case: `add n/bob p/98765432 e/test@test.com g/ i/running` ('g/' is left empty) <br>
+     Expected: Error details shown in the feedback box
 
 ### Finding contacts
 
 <div markdown="span" class="alert alert-info">:information_source: 
 
 **Note:**<br>
+
 The test cases below only make use of the findAny command. 
 However, the findAll command should be tested roughly the same way. Only difference is when multiple valid fields are supplied at once.
+
 </div>
 
 1. Finding contacts by specifying only 1 field
