@@ -23,7 +23,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/pranav-ganesh.png" width="200px">
 
 [[github](https://github.com/pranav-ganesh)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/pranav-ganesh.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
