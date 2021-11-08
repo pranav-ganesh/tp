@@ -235,7 +235,7 @@ The activity diagram below summarises what happens when a user executes an Add C
 
 **Note:**<br>
 Since there is little reason for telemarketers to add a contact
-who has already been called into the address book, all new contacts added will have their Called field set to false by default. Hence there
+who has already been called into the address book, all new contacts added will have their `Called` field set to false by default. Hence there
 is no need for the user to specify the Called field.
 </div>
 
@@ -265,7 +265,7 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
 <div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
-While only the findAny command was used for the examples below, the findAll command works exactly the same way
+While only the `findAny` command was used for the examples below, the `findAll` command works exactly the same way
 </div>
 
 ![Interactions Inside the Logic Component for the `findAny' Command](images/FindSequenceDiagram.png)
@@ -483,11 +483,10 @@ The import and export feature is primarily facilitated by the Storage Manager.
 **Different Import settings based on User**
 
 Application will ask whether the User has any new imports upon **every** application startup. <br>
-User will be prompted with 3 options :
-* Add on Imports
+User will be prompted with 3 options : 
+* Add on Imports 
 * Start new with imports
 * No Imports
-
 
 The following activity diagram summarizes what happens when a user selects either of the 3 options:
   ![CMM behaviour based on user input](images/ImportDecision.png)
