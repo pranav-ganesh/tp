@@ -293,7 +293,7 @@ command arguments in the context of DisplayCommand and returns a DisplayCommand 
 This feature allows telemarketers to display additional details about a contact at any point in time
 if they need to.
 
-**Given below is an example usage scenario of how the display mechanism behaves at each step.**
+**Given below is an example usage scenario and how the display mechanism behaves at each step.**
 
 1. The telemarketer opens the application and views the list of contacts. Then they want to view more details
 about a particular contact. They enter the command `display 2`
