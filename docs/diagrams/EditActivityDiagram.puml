@@ -1,16 +1,28 @@
 @startuml
+'https://plantuml.com/activity-diagram-beta
+
 start
-:User executes edit command;
-
-'Since the beta syntax does not support placing the condition outside the
-'diamond we place it as the true branch instead.
-
+:User enters edit command;
+:AddressBookParser parses the command;
+:EditCommandParser parses the arguments provided;
 if () then ([command is valid])
-    :AddressBookParser parses the command;
-    :EditCommand replaces the person to be edited
-    with a new person object containing the updated
-    data fields;
-else ([else])
+  :All the arguments are initialized in an EditPersonDescriptor object;
+  :New EditCommand object is created;
+  if() then ([invalid index])
+    :Outputs error message;
+    else ([else])
+    :CreateEditedPerson method in EditCommand creates and returns a new person object containing the updated data fields;
+    if() then ([Throws Command Exception])
+      :Outputs error message;
+      else ([else])
+      :Returned person object is compared with the person to edit;
+      if() then ([the two persons are not equal and the model contains the edited person])
+        :Outputs error message;
+        else ([two persons are equal])
+        :Model sets the person to edit to the edited person;
+        :Edited person is displayed on the user interface;
 endif
+
 stop
+
 @enduml

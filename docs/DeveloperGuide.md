@@ -351,7 +351,7 @@ This feature allows telemarketers to edit data fields at any point in time if th
 
 Given below is an example usage scenario and how the edit mechanism behaves at each step.
 
-Step 1. The user launches the application and realizes that person 1 needs to be edited. He/she executes the command `edit 1 name/Will age/20` in order to edit the first person in the address book.
+Step 1. The user launches the application and realizes that person 1 needs to be edited. He/she executes the command `edit 1 n/Will age/20` in order to edit the first person's name and age in the address book.
 
 ℹ️ **Note:** If the user enters the command in an incorrect format, then an invalid command format message is displayed along with the correct format to use.
 
@@ -361,14 +361,22 @@ experience and accentuate the quality of the application.
 
 Step 2. This command is passed on to the `LogicManager` which directs the command to the `AddressBookParser`.
 
-Step 3. The `AddressBookParser` parses the command to extract all the arguments supplied by the telemarketer. It
-returns an EditCommand along with a new person object (`new Person("Will", 20)`) containing all the data field values entered by the telemarketer.
+Step 3. The `AddressBookParser#parseCommand()` parses the command and calls the `EditCommandParser#parse()`, which extracts all the arguments supplied by the telemarketer. It
+returns an EditCommand containing the index of the person to be edited and an `editPersonDescriptor` that stores all the data field values entered by the telemarketer.
 
-Step 4. The `LogicManager` then executes the `EditCommand` which replaces the person at the specified index (1) with a new person object containing all the updated data fields.
+Step 4. The `LogicManager` then executes the `EditCommand#execute()` which calls the `EditCommand#createEditedPerson()`.
 
-ℹ️ **Note:** Editing of the `InterestsList` data field works slightly different from the rest of the fields. Telemarketers can specify an optional index to indicate which
-item in the list they want to edit. `EditPersonDescriptor#editInterestList(InterestsList newInterestList, InterestsList currentInterestList)` parses
-this index value. The item in that index is replaced with the newly edited item. If user doesn't specify any index, then the specified item is simply added to the `InterestsList`.
+Step 5. The `EditCommand#createEditedPerson()` returns a new Person object containing all the updated data fields.
+
+ℹ️ **Note:** Editing of the `InterestsList` data field works differently from the rest of the fields. Telemarketers can specify an optional index to indicate which
+item in the list they want to edit. They also have the option to add or remove an interest from the interests list. The `EditCommand#editInterestList()` is used to parse the interests list index
+and either edits a copy of the existing interests list at the specified index or removes an element from the existing interests list at the specified index. 
+If user doesn't specify any interests list index, then the specified interest item is simply added to the copy of the current `InterestsList`. Once execution is complete, this copy is then set to the
+variable `updatedInterests` which is then passed inside the Person object defined in step 5.
+
+Step 6: The `model.setPerson(personToEdit, editedPerson)` in the `EditCommand` class is used to update the person in the model
+
+Step 7: The `DisplayCommand` is then used to display the modifications on the application interface
 
 The following sequence diagram shows how the edit operation works when the telemarketer enters `edit 1 n/Peter e/peter@email.com g/M age/M`:
 
@@ -382,29 +390,29 @@ The following activity diagram summarizes what happens when a user executes an e
 
 ### Design considerations:
 
-**Aspect: Compulsory fields:**
+**Aspect: Duplicate detection:**
 
-* **Alternative 1 (current choice):** 3 compulsory fields (`Name`, `Email` and `Phone`)
+* **Alternative 1 (current choice):** 3 fields (`Name`, `Email` and `Phone`) need to exactly match for duplicate to be detected
 
-    * Pros: Enhance user experience since they don't need to waste time entering many data field values
+    * Pros: More logical and emulates real world scenario, It is impossible for non-duplicate contacts to have name, email and phone
 
-    * Cons: More difficult to implement
+    * Cons: More likely that an edited contact might be already present in the address book
 
 
-* **Alternative 2:** All 7 fields compulsory (`Name`, `Email`, `Phone`, `Address`, `Age`, `Gender` and `Interestslist`)
+* **Alternative 2:** All 7 fields (`Name`, `Email`, `Phone`, `Address`, `Age`, `Gender` and `Interestslist`) need to match for duplicate to be detected
 
-    * Pros: Ensures consistency - All data fields of every contact is recorded, relatively simpler implementation.
+    * Pros: Impossible for two non-duplicate contacts to have exact match for all 7 fields, less likely for edited contact to be already present in the address book
 
-    * Cons: Bad user experience as user will need to spend a lot of time filling every data field for all the contacts in the address book.
+    * Cons: This can lead to more than one contact having the same name, phone and email but different other attributes, which is nearly impossible in the real world, Not all 
+      contacts might have data values for all 7 attributes
 
-**Aspect: Edit command functionality:**
+**Aspect: Edit command implementation:**
 
 * **Alternative 1 (current choice):** Person to be edited is replaced by a new person object containing updated data field values
 
     * Pros: Easier to implement, more readable code and less prone to errors.
 
-    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which is not the most efficient mechanism for editing a person,
-      potential overhead.
+    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which potentially leads to some overhead.
 
 
 * **Alternative 2:** Person attributes are edited rather than the entire person object being replaced by a new object
@@ -625,7 +633,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | Telemarketer                                | import data from an excel file | work on the list of contacts that was  set for me by my manager            |
 | `* * *`  | Telemarketer                                | export data to an excel file   | return updated list of called contacts to my manager at the end of the day |
 | `* * *`  | user                                        | add a new person               |                                                                            |
-| `* * *`  | user                                        | delete a person                | remove entries that I no longer need                                       |
+| `* * *`  | user                                        | delete a person                | remove entries that I no longer need
+| `* * *`  | user                                        | edit a person                  | edit attributes that I want to modify                                      |
 | `* * *`  | user                                        | display a person               | display additional details about a particular contact                      |
 | `* * *`  | user                                        | find a person by name          | locate details of persons without having to go through the entire list     |
 | `* *`    | user                                        | hide private contact details   | minimize chance of someone else seeing them by accident                    |
@@ -876,6 +885,51 @@ Guarantees: All contacts that match the specified fields would be displayed
 
       Use case resumes at step 1
 
+**Use Case 10: Edit a contact**
+
+System : CallMeMaybe (CMM) <br>
+Use Case : UC10 - Edit a contact <br>
+Actor : User <br>
+Guarantees: Specified contact in the address book will be edited
+
+**MSS**
+
+1. User requests to list persons (UC2)
+2. User requests to edit a specific person in the list
+3. Contact gets edited in the address book and edited person card is displayed
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. List is empty
+
+  Use case ends
+
+* 2a. The given index is invalid
+
+  * 2a1. Address book shows an error message
+
+    Use case resumes at step 2
+
+* 2b. There are duplicate interests list index values
+
+  * 2b1. Address book shows an error saying there are duplicate interests list index values
+
+    Use case resumes at step 2.
+
+* 2c. There are duplicate interest arguments
+
+  * 2c1. Address book shows an error saying there are duplicate interest arguments
+
+    Use case resumes at step 2
+
+* 2d. There is a duplicate of the edited person already present in the address book
+
+  * 2d1. Address book shows an error saying the person already exists in the address book
+
+    Use case resumes at step 2
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -959,14 +1013,39 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: List all persons using the `list` command.
 
-    1. Test case: `display 2`<br>
+    2. Test case: `display 2`<br>
         Expected: Second contact is displayed from the list.
 
-    1. Test case: `display 0`<br>
+    3. Test case: `display 0`<br>
        Expected: The default contact (i.e, first contact) is displayed. Error details shown in the status message.
 
-    1. Other incorrect delete commands to try: `display`, `display x` (where x is larger than the list size)<br>
+    4. Other incorrect delete commands to try: `display`, `display x` (where x is larger than the list size)<br>
        Expected: Similar to previous.
+
+### Editing a person
+
+1. Editing a contact while all contacts are being shown
+
+2. Editing the name of the contact
+  * Test case: `edit 1 n/bob`
+    Expected: The name of the first contact is edited to 'bob'
+
+3. Editing the age and interests of the contact
+  * Test case `edit 2 age/22 i/(1) shopping`
+    Expected: The age of the second contact as well as the first item in its interests list are edited
+
+4. Editing the interests list of a specific contact
+  * Test case `edit 4 i/(1) remove i/run`
+    Expected: The first item in the interests list of the fourth contact is removed and the interest 'run' is added to its
+    interests list
+
+5. Editing contacts with invalid index
+  * Test case: `edit 2333 i/helicopter`
+    Expected: Application shows an error "The index provided is invalid" in the feedback box
+
+6. Editing contacts to persons who already exist in the list
+  * Test case: `edit 1 n/Peter Smith p/98989898 e/peter@email.com`
+    Expected: Application shows an error "This person already exists in the address book" in the feedback box
 
 ### Filtering contacts
 

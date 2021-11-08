@@ -140,7 +140,7 @@ public class EditCommand extends Command {
 
         InterestsList newInterests = editPersonDescriptor.getInterests().orElse(null);
         InterestsList interestsListCopy = personToEdit.getInterests().copyInterestsList();
-        
+
         if (newInterests != null) {
             this.editInterestList(newInterests, interestsListCopy);
             this.removeSpecifiedInterests(interestsListCopy);
@@ -157,7 +157,7 @@ public class EditCommand extends Command {
      */
     public void editInterestList(InterestsList newList, InterestsList currentList) throws CommandException {
         this.emptyLists();
-        
+
         for (Interest i : newList.getAllInterests()) {
             String s = i.toString();
             this.editSpecifiedInterest(s, currentList);
@@ -179,11 +179,11 @@ public class EditCommand extends Command {
             if (index >= currentList.size()) {
                 throw new CommandException(MESSAGE_INVALID_INTERESTS_INDEX);
             }
-            
+
             if (this.listOfIndexes.contains(index)) {
                 throw new CommandException(MESSAGE_DUPLICATE_INDEX);
             }
-            
+
             if (this.listOfArguments.contains(desc)) {
                 throw new CommandException(MESSAGE_DUPLICATE_INTEREST_ARGUMENT);
             }
@@ -199,16 +199,16 @@ public class EditCommand extends Command {
 
         } else {
             Interest interest = new Interest(s);
-            
+
             if (this.listOfArguments.contains(s)) {
                 throw new CommandException(MESSAGE_DUPLICATE_INTEREST_ARGUMENT);
             }
-            
+
             this.listOfArguments.add(s);
             this.interestsToBeAdded.add(interest);
         }
     }
-    
+
     private void trySetInterest(InterestsList currentList, String desc, int index) throws CommandException {
         try {
             currentList.setInterest(new Interest(desc), index);
@@ -243,7 +243,7 @@ public class EditCommand extends Command {
             this.tryAddInterest(currentList, interestsToBeAdded.get(i));
         }
     }
-    
+
     private void emptyLists() {
         this.listOfIndexes.clear();
         this.listOfArguments.clear();
