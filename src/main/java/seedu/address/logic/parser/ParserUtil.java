@@ -212,7 +212,11 @@ public class ParserUtil {
         requireNonNull(interests);
         final InterestsList interestsList = new InterestsList();
         for (String interest : interests) {
-            interestsList.addInterest(parseInterest(interest));
+            try {
+                interestsList.addInterest(parseInterest(interest));
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(e.getMessage());
+            }
         }
         return interestsList;
     }
