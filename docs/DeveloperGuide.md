@@ -350,19 +350,19 @@ The activity diagram below summarises what happens when a user executes an Filte
 
 * **Alternative 1 (current choice):** 1 compulsory field
 
-    * Compulsory fields: `Category`.
+    * Compulsory fields: `Category`
   
-    * Non-Compulsory fields: `Count`.
+    * Non-Compulsory fields: `Count`
   
-    * Pros: Allows quicker filtering by reducing the number of fields required.
+    * Pros: Allows quicker filtering by reducing the number of fields required
   
-    * Cons: More difficult to implement.
+    * Cons: More difficult to implement
 
 * **Alternative 2:** Both fields are compulsory
 
-    * Pros: Easier to implement.
+    * Pros: Easier to implement
   
-    * Cons: User has to choose how many contacts to be displayed every time.
+    * Cons: User has to choose how many contacts to be displayed every time
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers sort contacts
 by categories other than "Gender" and "Called", those are the only categories supported by the filter command.
