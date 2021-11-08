@@ -305,7 +305,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 
 **:bulb: Tip:** <br>
 
-* The order of specifying interests matters
+* If all 3 operations are specified in the same command, editing the interest is always done first, followed by removing, then adding the interest.
 
 * Specifying (INTERESTLIST INDEX) is optional as well
 
