@@ -28,16 +28,17 @@ Each Command section is separated into:<br>
 
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Note:** Straightforward commands such as 'list' may not have the sections "Things to note", "examples" and "Common issues"
+**:information_source: Note:** Straightforward commands such as 'list' may not have the sections "Things to note", "Examples" and "Common issues"
+
 </div>
 
 Words and phrases mentioned `like this` refer to code that is to be input by the user. 
-It is highly recommended that you familiarise yourself with the [Command Notation details](#3-command-notations) we use . <br>
+It is highly recommended that you familiarise yourself with the [Command Notation details](#3-command-notations) we use. <br>
 If you have not yet downloaded the application, head over to [Quick Start](#2-quick-start) to get started. <br>
 Feel free to check out the [Features](#4-overview-of-features) to check out detailed descriptions of the features offered in our application! <br>
 If you are already an experienced user, feel free to head over to the [Command Summary](#6-command-summary) to get a quick refresher
 on the commands. <br>
-If you have any questions about CMM, please refer to the [FAQ](#5-faq)
+If you have any questions about CMM, please refer to the [FAQ](#5-faq). <br>
 Hope you have a great time with CMM.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -50,38 +51,38 @@ Hope you have a great time with CMM.
 
 ## 2. Quick start
 
-1. Ensure you have Java 11 or above installed in your Computer.
+1. Ensure you have Java 11 or above installed in your computer
 
-2. Download the latest CallMeMaybe.jar from [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases).
+2. Download the latest CallMeMaybe.jar from [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases)
 
-3. Copy the file to the folder you want to use as the home folder for CMM.
+3. Copy the file to the folder you want to use as the home folder for CMM
 
 4. Double-click the file to start the app. A prompt will popup asking whether you want to import any new contacts. The prompt will look like the screenshot below :
    <br>
-   ![importPopUpUi](images/importPopUpMessage.png)
+   ![importPopUpUi](images/importPopUpMessage.png) <br>
    To learn more about what each option does in detail, click [here](#importing-the-data-into-database).
    <br>
-5. After you click any button on the prompt, CMM will execute the selected option, and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data upon first startup.
+5. After you click any button on the prompt, CMM will execute the selected option, and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data upon first startup
    <br>
    ![Ui](images/Ui.png)
    <br>
-6. Type the command in the command box and press Enter to execute it. e.g. typing "help" and pressing `Enter` will open the help window.
+6. Type the command in the command box and press Enter to execute it. e.g., typing "help" and pressing `Enter` will open the help window
    You can find the commands that CallMeMaybe supports below:
-   - `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the CMM database.
-   - `list` : Lists all contacts.
-   - `called 2` : Marks the 2nd contact shown in the current list as called.
-   - `edit 1 n/Bob p/62353535` : Edits the name and phone number of the first contact in the displayed list.
-   - `findAny n/alex g/m` : Finds the contacts that have the substring `alex`in their name **AND/OR** are males.
-   - `findAll n/alex g/m` : Finds the contacts that have both the substring `alex` in their name **AND** are males.
-   - `delete 3` : Deletes the 3rd contact shown in the current list.
-   - `display 4` : Displays the full contact details of the fourth contact in the displayed list.
+   - `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the CMM database
+   - `list` : Lists all contacts
+   - `called 2` : Marks the 2nd contact shown in the current list as called
+   - `edit 1 n/Bob p/62353535` : Edits the name and phone number of the first contact in the displayed list
+   - `findAny n/alex g/m` : Finds the contacts that have the substring `alex`in their name **AND/OR** are males
+   - `findAll n/alex g/m` : Finds the contacts that have both the substring `alex` in their name **AND** are males
+   - `delete 3` : Deletes the 3rd contact shown in the current list
+   - `display 4` : Displays the full contact details of the fourth contact in the displayed list
    - `filter called` : Sorts the list to display uncalled contacts first
-   - `clear` : Deletes all contacts.
-   - `exit` : Exits the app.
+   - `clear` : Deletes all contacts
+   - `exit` : Exits the app
 
-7. Remember to clear the sample data using `clear` command before adding your own data.
+7. Remember to clear the sample data using `clear` command before adding your own data
 
-8. Refer to the [Features](#4-overview-of-features) below for details of each command.
+8. Refer to the [Features](#4-overview-of-features) below for details of each command
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -94,22 +95,22 @@ Hope you have a great time with CMM.
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g., in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [g/GENDER]` can be used as `n/John Doe g/M` or as `n/John Doe`.
+  e.g., `n/NAME [g/GENDER]` can be used as `n/John Doe g/M` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[i/INTEREST]…​` can be used as ` ` (i.e. 0 times), `i/running`, `i/running i/watching tv` etc.
+  e.g., `[i/INTEREST]…​` can be used as ` ` (i.e., 0 times), `i/running`, `i/running i/watching tv` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g., if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * If a parameter is expected only once in the command is specified multiple times, only the last occurrence of the parameter will be taken.<br>
-  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
+  e.g., if you specify `p/99998888 p/66667777`, only `p/66667777` will be taken.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+  e.g., if the command specifies `help 123`, it will be interpreted as `help`.
 
 </div>
 
@@ -154,7 +155,7 @@ Examples:
 **Common issues:**
 * _Invalid command format!_: <br>
   a. Omitted one or more of the mandatory fields <br>
-  b. Used the wrong prefix. (e.g., '/n' instead of 'n/') <br>
+  b. Used the wrong prefix (e.g., '/n' instead of 'n/') <br>
 
 ### 4.2 Listing all contacts : `list`
 
@@ -163,11 +164,11 @@ Shows a list of all contacts in the CMM database.
 Format: `list`
 
 **Things to note:**
-* `list` shows all contacts in ascending order by name.
+* `list` shows all contacts in ascending order by name
 
 ### 4.3 Marking a contact as called : `called`
 
-Marks the specified contact from the address book as called. (i.e. contact has already been called)
+Marks the specified contact from the address book as called. (i.e., contact has already been called)
 
 Format: `called INDEX`
 
@@ -178,7 +179,7 @@ Example:
 
 * `INDEX` refers to the index number shown in the displayed list
 * `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
-*  If you want to un-call a contact, use the [edit command](#editing-contact-details--edit)
+*  If you want to un-call a contact, use the [edit command](#44-editing-a-contact--edit)
 
 **Common issues:**
 
@@ -219,7 +220,7 @@ and adds the interest 'golf' to the displayed list
 * `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 * `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact.
 * `INTERESTSLIST INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
-*  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#displaying-full-contact-details--display)
+*  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#48-displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
 
 **Common issues:**
@@ -240,7 +241,7 @@ Deletes the specified contact from the CMM database.
 Format: `delete INDEX`
 
 Example:
-* `delete 2` deletes the 2nd contact in the displayed list.
+* `delete 2` deletes the 2nd contact in the displayed list
 
 <div markdown="span" class="alert alert-warning">:exclamation: 
 
@@ -249,16 +250,16 @@ Example:
 </div>
 
 **Things to note:**
-* `INDEX` refers to the index number shown in the displayed contacts list.
+* `INDEX` refers to the index number shown in the displayed contacts list
 * `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 
 **Common issues:**
 
 * _The index provided is invalid_: <br>
 
-  a. Displayed list does not contain contact at `INDEX`
-  b. Index specified is larger than 2147483647
-  c. Index specified is not a positive integer
+  a. Displayed list does not contain contact at `INDEX` <br>
+  b. Index specified is larger than 2147483647 <br>
+  c. Index specified is not a positive integer <br>
 
 ### 4.6 Finding contacts that match **ANY** of the keywords specified: `findAny`
 
@@ -271,7 +272,7 @@ Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 eg. `findAny n/alex n/david` returns the same results as `findAny n/david`
 * The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
 * Any number of keywords can be specified within each field <br>
-* The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
+* The order of the keywords within each field does not matter. e.g., `n/Hans Bo` will return the same result
   as `n/Bo Hans`<br>
 * Keywords for `Called` are limited to `true`, `false`, `t`, `f`
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
@@ -300,9 +301,9 @@ have the substring 'woodlands' in their address
   a. Using `findany` instead of `findAny` (not capitalising the 'A')
 * _Invalid command format!_: <br>
   a. No fields provided<br>
-  b. Used the wrong prefix (eg. '/n' instead of 'n/')
-  c. Did not specify either 't', 'f', 'true', 'false' after `c/`
-  d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/`
+  b. Used the wrong prefix (eg. '/n' instead of 'n/') <br>
+  c. Did not specify either 't', 'f', 'true', 'false' after `c/` <br>
+  d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/` <br>
 
 ### 4.7 Finding contacts that match **ALL** the keywords specified : `findAll`
 
@@ -312,10 +313,10 @@ Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 * `findAll` only returns contacts that matches all the keywords specified in their respective fields
 * `findAll` requires at least one field. But it is optional to include all the fields. <br>
 * If there are duplicate fields, CMM will only take the right-most field <br>
-  e.g. `findAll n/alex n/david` returns the same results as `findAny n/david`
-* The search is case-insensitive. e.g. `n/hans` will return the same result `n/Hans` <br>
+  e.g., `findAll n/alex n/david` returns the same results as `findAny n/david`
+* The search is case-insensitive. e.g., `n/hans` will return the same result `n/Hans` <br>
 * Any number of keywords can be specified within each field <br>
-* The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
+* The order of the keywords within each field does not matter. e.g., `n/Hans Bo` will return the same result
   as `n/Bo Hans`<br>
 * Keywords for `Called` are limited to `true`, `false`, `t`, `f`
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
@@ -343,9 +344,9 @@ Examples:
   a. Using `findany` instead of `findAny` (not capitalising the 'A')
 * _Invalid command format!_: <br>
   a. No fields provided<br>
-  b. Used the wrong prefix (e.g. '/n' instead of 'n/')
-  c. Did not specify either 't', 'f', 'true', 'false' after `c/`
-  d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/`
+  b. Used the wrong prefix (e.g., '/n' instead of 'n/') <br>
+  c. Did not specify either 't', 'f', 'true', 'false' after `c/` <br>
+  d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/` <br>
 
 ### 4.8 Displaying full contact details : `display`
 
@@ -362,9 +363,9 @@ Example:
 
 **Common issues:**
 * _The index provided is invalid_: <br>
-  a. Displayed list does not contain contact at `INDEX`
-  b. Index specified is larger than 2147483647
-  c. Index specified is not a positive integer
+  a. Displayed list does not contain contact at `INDEX` <br>
+  b. Index specified is larger than 2147483647 <br>
+  c. Index specified is not a positive integer <br>
 
 ### 4.9 Filtering contacts : `filter`
 
@@ -538,7 +539,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​` <br> e.g. `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com a/my house g/F age/95 i/Sleeping`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​` <br> e.g., `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com a/my house g/F age/95 i/Sleeping`
 **List** | `list`
 **Called** | `called INDEX` <br> e.g., `called 2`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(OPTIONAL INTERESTSLIST INDEX) INTEREST]... [i/(INTERESTSLIST INDEX) remove]... [i/INTEREST]...` <br/> e.g., `edit 1 n/Bob p/68889444 e/email@email.com a/his house g/M age/33 i/Eating i/(2) Swimming`
