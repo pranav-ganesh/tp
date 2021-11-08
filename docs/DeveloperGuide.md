@@ -104,7 +104,9 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. 
+For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103T-T13-4/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) 
+is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103T-T13-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -225,7 +227,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -252,6 +254,8 @@ They enters the command `add n/bob e/email@email.com p/999`
 4. AddressBookParser creates an AddCommand and a new Person with the fields specified by the user
 
 5. LogicManager executes the AddCommand and the new Person is added into the address book
+
+<div style="page-break-after: always;"></div>
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
 
@@ -942,7 +946,7 @@ Guarantees: Selected contact will be deleted from the address book
 
 2. User requests to delete a specific contact in the list
 
-3. AddressBook deletes the contact
+3. CMM deletes the contact
 
     Use case ends.
 
@@ -954,7 +958,7 @@ Guarantees: Selected contact will be deleted from the address book
 
 * 2a. The given index is invalid.
 
-    * 2a1. AddressBook shows an error message.
+    * 2a1. CMM shows an error message.
 
       Use case resumes at step 2.
 
@@ -971,7 +975,7 @@ Guarantees: Selected contact will be marked as called
 
 2. User requests to mark a contact as called
 
-3. Address book marks the selected contact as called
+3. CMM marks the selected contact as called
 
 **Extensions**
 
@@ -981,7 +985,7 @@ Guarantees: Selected contact will be marked as called
 
 * 2a. The given index is invalid
 
-  * 2a1. Address book shows an error message
+  * 2a1. CMM shows an error message
 
     Use case resumes at step 2
   
@@ -1000,7 +1004,7 @@ Guarantees: CMM Database will be set
 
 3. CMM imports the file accordingly
 
-   Use case ends.
+   Use case ends
 
 **Extensions**
 
@@ -1016,29 +1020,29 @@ Guarantees: CMM Database will be set
 
 * 2b. User request to create a new Database when CMM has existing database
 
-    * 2b1 CMM exports the current database (UC6)
+    * 2b1. CMM exports the current database (UC6)
   
-    * 2b2 CMM clears the current database
+    * 2b2. CMM clears the current database
   
-    * 2b3 CMM will convert the Excel file to the correct datatype to be stored inside CMM
+    * 2b3. CMM will convert the Excel file to the correct datatype to be stored inside CMM
 
   Use case resumes from step 3
 
 * 2c. User request to add on to current Database when CMM has existing database
 
-    * 2c1 CMM will convert the Excel file to the correct datatype to be stored inside CMM
+    * 2c1. CMM will convert the Excel file to the correct datatype to be stored inside CMM
   
-    * 2c2 CMM adds on to current database
+    * 2c2. CMM adds on to current database
 
   Use case resumes from step 3
 
 * 2d. User request to add on to current Database when CMM has no existing database
 
-    * 2d1 CMM will convert the Excel file to the correct datatype to be stored inside CMM
+    * 2d1. CMM will convert the Excel file to the correct datatype to be stored inside CMM
   
-    * 2d2 CMM creates new database
+    * 2d2. CMM creates new database
   
-    * 2d3 CMM adds on to current database
+    * 2d3. CMM adds on to current database
 
   Use case resumes from step 3
 
@@ -1071,7 +1075,7 @@ Guarantees: Export of current database into an Excel file
 
 2. CMM exports database into a new Excel file
 
-   Use case ends.
+   Use case ends
 
 **Use Case 7: Displaying additional details about a contact**
 
@@ -1086,7 +1090,7 @@ Guarantees: Selected contact's additional details will be displayed
 
 2. Application displays the contact details in the person card
 
-  Use case ends
+   Use case ends
 
 **Extensions**
 
@@ -1096,9 +1100,9 @@ Guarantees: Selected contact's additional details will be displayed
 
 * 1b. The given index is invalid.
 
-    * 1b1. Command box displays an error message.
+    * 1b1. Command box displays an error message
 
-      Use case ends.
+      Use case ends
     
 **Use Case 8: Filter contacts**
 
@@ -1113,7 +1117,7 @@ Guarantees: Contacts will be sorted by the category specified
 
 2. Contacts be filtered based on the fields specified by the user.
 
-   Use case ends.
+   Use case ends
 
 **Extensions**
 
@@ -1142,7 +1146,7 @@ Guarantees: All contacts that match the specified fields would be displayed
 
 2. Only the contacts the match the keywords specified are displayed
 
-   Use case ends.
+   Use case ends
 
 **Extensions**
 
@@ -1163,15 +1167,15 @@ Guarantees: All contacts that match the specified fields would be displayed
 System : CallMeMaybe (CMM) <br>
 Use Case : UC10 - Edit a contact <br>
 Actor : User <br>
-Guarantees: Specified contact in the address book will be edited
+Guarantees: Specified contact in the CMM database will be edited
 
 **MSS**
 
 1. User requests to edit a specific person in the list
 
-2. Contact gets edited in the address book and edited person card is displayed
+2. Contact gets edited in the CMM database and edited person card is displayed
 
-Use case ends.
+  Use case ends
 
 **Extensions**
 
@@ -1193,7 +1197,7 @@ Use case ends.
 
     Use case ends
 
-* 1d. There is a duplicate of the edited person already present in the address book
+* 1d. There is a duplicate of the edited person already present in the CMM database
 
   * 1d1. Command box displays an error message
 
@@ -1219,6 +1223,8 @@ should be able to accomplish most of the tasks faster using commands than using 
 * **CLI**: Command Line Interface
 
 * **CMM**: CallMeMaybe, the name of the application
+
+* **Address Book**: Used interchangeably with 'CMM database'
 
 * **GUI**: Graphical User Interface
 
