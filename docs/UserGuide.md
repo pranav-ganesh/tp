@@ -44,7 +44,7 @@ Hope you have a great time with CMM.
 
 ## 1. Table of Contents
 * Table of Contents
-   {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
