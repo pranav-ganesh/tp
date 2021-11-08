@@ -86,6 +86,10 @@ public class InterestsList {
         return this.list;
     }
 
+    public InterestsList copyInterestsList() {
+        return new InterestsList(new ArrayList<>(this.list));
+    }
+
     /**
      * Checks if there is a proper value.
      * @return True if the list is empty, false otherwise.
