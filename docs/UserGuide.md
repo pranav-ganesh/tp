@@ -56,7 +56,7 @@ Hope you have a great time with CMM.
 
 3. Copy the file to the folder you want to use as the home folder for CMM.
 
-4. Double-click the file to start the app. A prompt will popup asking whether you want to import any new contacts. The prompt will look like the image below :
+4. Double-click the file to start the app. A prompt will popup asking whether you want to import any new contacts. The prompt will look like the screenshot below :
    <br>
    ![importPopUpUi](images/importPopUpMessage.png)
    To learn more about what each option does in detail, click [here](#importing-the-data-into-database).
@@ -250,7 +250,7 @@ Example:
 * `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 
 **Common issues:**
-* _The index provided is invalid: <br>
+* _The index provided is invalid:_ <br>
   a. Displayed list does not contain contact at `INDEX`
   b. Index specified is larger than 2147483647
   c. Index specified is not a positive integer

@@ -19,7 +19,7 @@ Given below are my contributions to the project.
   * Justification: Based on the user story, a telemarketer receives his/her daily call list in an Excel sheet. This
     function is an integral part in  ensuring a smooth transition between the manager and the telemarketer. This
     function allows user to import multiple people at once, as compared to adding in contacts individually
-    (previously the two options were to either learn json or to manually input  all the data using the add function)
+    (previously the two options were to either learn json or to manually input all the data using the add function)
   * Highlights: This enhancement affects existing commands to will be added in the future. The type of data
     imported will affect how the commands interact with the data found in CMM. This enhancement will also be
     relevant and often updated as long as CMM uses a local storage, and the company processes continues with using Excel

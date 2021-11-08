@@ -886,7 +886,7 @@ Guarantees: CMM Database will be set
 
     * 3a1. CMM will cancel the transfer
   
-    * 6a2. CMM informs the user of the cancellation
+    * 3a2. CMM informs the user of the cancellation
 
 * *a. At any time before import confirmation, User chooses to cancel the transfer.
 
@@ -941,7 +941,7 @@ Guarantees: Selected contact's additional details will be displayed
 System : CallMeMaybe (CMM) <br>
 Use Case : UC8 - Filter contacts <br>
 Actor : User <br>
-Guarantees: Contacts will be sorted by a category specified
+Guarantees: Contacts will be sorted by the category specified
 
 **MSS**
 
