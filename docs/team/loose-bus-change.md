@@ -34,20 +34,20 @@ Given below are my contributions to the project.
 
 
 * **Team-based tasks**: Updating user/developer docs that are not specific to a feature
-    * Modifying target user profile. (Pull requests [#129](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/129))
-    * Modifying use cases for project. (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
-    * Editing final documentation (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
+    * Modifying target user profile. (Pull request [#129](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/129))
+    * Modifying use cases for project. (Pull request [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
+    * Editing final documentation (Pull request [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
 
 
 * **Enhancements to existing features**:
-    * Modified the original `add` command for the v1.2 release. (Pull requests [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/45))
-    * Modified the implementation of the `clear` command to change the updated UI of `display`. (Pull requests [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/182))
-    * Modified error messages of existing functions to provide more clarity. (Pull requests [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
-    * Changed the way in which an input index is parsed. (Pull requests [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
+    * Modified the original `add` command for the v1.2 release. (Pull request [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/45))
+    * Modified the implementation of the `clear` command to change the updated UI of `display`. (Pull request [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/182))
+    * Modified error messages of existing functions to provide more clarity. (Pull request [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
+    * Changed the way in which an input index is parsed. (Pull request [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
 
 
 * **Community:** 
-    * Sample of PR reviewed (with non-trivial comments): (Pull requests [#194](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/194))
+    * Sample of PR reviewed (with non-trivial comments): (Pull request [#194](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/194))
     * Reported bugs for other teams: [Bugs found in PE-D](https://github.com/loose-bus-change/ped/issues)
 
 
@@ -56,9 +56,9 @@ Given below are my contributions to the project.
         * Added documentation for the features `add`, `display`, `list`, `done`, `exit`
           (Pull requests [#13](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/13), [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/45),
           [#107](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/107))
-        * Contributed to the 'navigating user guide' section and restructured the UG (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
+        * Contributed to the 'navigating user guide' section and restructured the UG (Pull request [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
     * Developer Guide:
-        * Added implementation details of the `display` feature. [#129](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/129)
-        * Edited the use cases, testing information (Pull requests [#129](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/129))
-        * Edited the target user profile, user stories (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
+        * Added implementation details of the `display` feature. (Pull request [#129](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/129))
+        * Edited the use cases, testing information (Pull request [#129](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/129))
+        * Edited the target user profile, user stories (Pull request [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
         * Diagrams drawn: Display Activity Diagram  and Display Sequence Diagram
