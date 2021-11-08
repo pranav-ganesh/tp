@@ -391,9 +391,10 @@ Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 
 * `findAll` searches for contacts that satisfy **ALL** the fields specified
 
+Click [here](#47-finding-contacts-that-match-all-the-keywords-specified--findall) to learn more about findAll
+
 </div>
 
-Click [here](#47-finding-contacts-that-match-all-the-keywords-specified--findall) to learn more about findAll
 
 Examples:
 
@@ -457,9 +458,9 @@ Finds only the contacts that match all the keywords specified in their respectiv
 
 * `findAny` searches for contacts that satisfy **ANY** of the fields specified.<br>
 
-</div>
-
 Click [here](#46-finding-contacts-that-match-any-of-the-keywords-specified-findany) to learn more about findAny
+
+</div>
 
 Examples:
 * `findAll n/alex` finds all the contacts that have the substring 'alex' in their name
