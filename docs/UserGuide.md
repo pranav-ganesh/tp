@@ -679,11 +679,13 @@ Currently, import is **irreversible**. Please double check before importing. Thi
 
 * CMM will prompt user for imports upon **every** application startup
 
-* CMM will not import data rows with missing details (Compulsory for data to have `name`, `phone`, `email` filled)
+* CMM will not import data rows with missing details (Compulsory for data to have `Name`, `Phone`, `Email` filled)
 
-* CMM will treat two people with the exact `name`, `phone`, `email`  as duplicates
+* CMM will treat two people with the exact `Name`, `Phone`, `Email`  as duplicates
 
-* CMM will update duplicate imports **only when** import status has been called
+* CMM will update duplicate imports **only when** `Called` status is true
+
+* `Interest` column in the csv should be seperated using a comma **within the same cell**
 
 * Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
 
