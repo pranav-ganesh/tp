@@ -27,6 +27,7 @@ Each Command section is separated into:<br>
 * Common issues
 
 <div markdown="block" class="alert alert-info">
+
 **:information_source: Note:** Straightforward commands such as 'list' may not have the sections "Things to note", "examples" and "Common issues"
 </div>
 
@@ -55,13 +56,16 @@ Hope you have a great time with CMM.
 
 3. Copy the file to the folder you want to use as the home folder for CMM.
 
-4. Double-click the file to start the app. Initially, a popup asking to import CSV data would appear.
-   ![importPopUpUi](images/importPopUpMessage.png) <br>
-   To learn more about importing CSV data, click [here](#414-importing-the-data-into-database). Otherwise, to quickly get started, simply click any button
-   on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
+4. Double-click the file to start the app. A prompt will popup asking whether you want to import any new contacts. The prompt will look like the screenshot below :
+   <br>
+   ![importPopUpUi](images/importPopUpMessage.png)
+   To learn more about what each option does in detail, click [here](#importing-the-data-into-database).
+   <br>
+5. After you click any button on the prompt, CMM will execute the selected option, and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data upon first startup.
+   <br>
    ![Ui](images/Ui.png)
-
-5. Type the command in the command box and press Enter to execute it. e.g. typing "help" and pressing `Enter` will open the help window.
+   <br>
+6. Type the command in the command box and press Enter to execute it. e.g. typing "help" and pressing `Enter` will open the help window.
    You can find the commands that CallMeMaybe supports below:
    - `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the CMM database.
    - `list` : Lists all contacts.
@@ -75,9 +79,10 @@ Hope you have a great time with CMM.
    - `clear` : Deletes all contacts.
    - `exit` : Exits the app.
 
-6. Remember to clear the sample data using `clear` command before adding your own data.
+7. Remember to clear the sample data using `clear` command before adding your own data.
 
-7. Refer to the [Features](#4-overview-of-features) below for details of each command.
+8. Refer to the [Features](#4-overview-of-features) below for details of each command.
+
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -134,9 +139,12 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/I
 * `Age` must only contain numbers
 * `Address` and `Interest` can be in any format
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:** <br>
 `Address`, `Gender`, `Age`, `Interest` fields are optional<br>
 A contact can have multiple interests
+
 </div>
 
 Examples:
@@ -185,11 +193,15 @@ Edits an existing contact in the CMM database.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(INTERESTSLIST INDEX) INTEREST]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:** <br>
 * Specifying (INTERESTLIST INDEX) is optional as well. <br>
 * If (INTERESTLIST INDEX) is specified, the interest at that index would be updated. <br>
 * If it is not, then an interest would be added to the list instead. <br>
 * You can refer to the examples below for a better understanding of the edit command functionality.
+
 </div>
 
 Examples:
@@ -227,8 +239,10 @@ Format: `delete INDEX`
 Example:
 * `delete 2` deletes the 2nd contact in the displayed list.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Deleting is irreversible,
-please use with caution.
+<div markdown="span" class="alert alert-warning">:exclamation: 
+
+**Caution:**<br>Deleting is irreversible, please use with caution.
+
 </div>
 
 **Things to note:**
@@ -236,7 +250,7 @@ please use with caution.
 * `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 
 **Common issues:**
-* _The index provided is invalid_: <br />
+* _The index provided is invalid:_ <br>
   a. Displayed list does not contain contact at `INDEX`
   b. Index specified is larger than 2147483647
   c. Index specified is not a positive integer
@@ -258,10 +272,13 @@ eg. `findAny n/alex n/david` returns the same results as `findAny n/david`
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:** <br>
 findAll vs findAny<br>
     * findAll searches for contacts that satisfy **ALL** the fields specified<br>
     * findAny searches for contacts that satisfy **ANY** of the fields specified<br>
+
 </div>
 
 Click [here](#47-finding-contacts-that-match-all-the-keywords-specified--findall) to learn more about findAll
@@ -299,10 +316,13 @@ Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:** <br>
 findAll vs findAny: <br>
 - findAll searches for contacts that satisfy **ALL** the fields specified<br>
 - findAny searches for contacts that satisfy **ANY** of the fields specified<br>
+
 </div>
 
 Click [here](#46-finding-contacts-that-match-any-of-the-keywords-specified-findany) to learn more about findAny
@@ -336,7 +356,7 @@ Example:
 * `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
-* _The index provided is invalid_: <br />
+* _The index provided is invalid_: <br>
   a. Displayed list does not contain contact at `INDEX`
   b. Index specified is larger than 2147483647
   c. Index specified is not a positive integer
@@ -384,7 +404,11 @@ Clears all contacts from the CMM database.
 
 Format: `clear`
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Clearing is irreversible, please use with caution.
+<div markdown="span" class="alert alert-warning">:exclamation: 
+
+**Caution:**<br>
+Clearing is irreversible, please use with caution.
+
 </div>
 
 ### 4.11 Viewing help : `help`
@@ -410,10 +434,10 @@ CMM data are saved in the hard disk automatically after any command that changes
 CMM is able to import Excel files into CMM. The import files have to be in an Excel Csv format (semicolon delimited).
 
 **Steps to Import from Excel file**
-1. Ensure that the Excel file is a Csv file with **semicolon delimited**.
+1. Ensure that the Excel file is a CSV file type that is **semicolon delimited**
    Instructions on how to import to this file type can be found [here](SettingImportFileType.md)
 2. Ensure that the import file is named import.csv under the "data" folder found in the same directory as the CMM jar file
-3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Imports`, `Start New Using Import`, `Don't Import`
+3. Upon CMM application startup, a prompt will popup with 3 options : `Add On Imports`, `Start New Using Import`, `Don't Import`. The popup will look like the image below:
 
 ![importPopUpUi](images/importPopUpMessage.png)
 
@@ -424,22 +448,26 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
 
 `Start New Using Import`
 - Exports and reset the current database. CMM will then populate the reset database with new imports
-- Previous database **before import** can be found in a Csv file under the "data" folder found in the same directory as the CMM jar file. It will have the following file name : `export[Date HH:MM:SS].csv`
+- Previous database **before import** can be found in a CSV file under the "data" folder found in the same directory as the CMM jar file. It will have the following file name : `export[Date HH:MM:SS].csv`
 
 `Don't Import`
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Currently, import is **irreversible**. Please double check before importing. This is especially important when choosing the add on import option.
+<div markdown="span" class="alert alert-warning">:exclamation:
+
+**Caution:**<br>
+Currently, import is **irreversible**. Please double check before importing. This is especially important when choosing the add on import option.
+
 </div>
 
 **Things to note**
-* CMM will prompt user for imports upon **every** application startup.
+* CMM will prompt user for imports upon **every** application startup
 * CMM will not import data rows with missing details (Compulsory for data to have `name`, `phone`, `email` filled)
 * CMM will treat two people with the exact `name`, `phone`, `email`  as duplicates
-* CMM will update duplicate imports **only when** import status has been called.
+* CMM will update duplicate imports **only when** import status has been called
 * Import is only allowed during application startup. To import after the startup, simply reopen application to get the import prompt
-* Unsuccessful file import will result in an empty database. The previous database can be recovered in the latest export file.
+* Unsuccessful file import will result in an empty database. The previous database can be recovered in the latest export file
 
 **Common Issues**
 
@@ -462,7 +490,7 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
     * Row could either be duplicate or there was an error reading the row
     * Detailed reasons for any import error can be found in the logs of the CMM
 
-
+    
 ### 4.15 Exporting state of database
 
 CMM is able to export the current database as semicolon delimited CSV files. As such, there is no need for you to ensure that the formatting is right for furture use.
@@ -473,8 +501,11 @@ CMM is able to export the current database as semicolon delimited CSV files. As 
 2. The CMM will export the database to the data file location
 3. Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:** <br>
 Csv file can be found under the "data" folder found in the same directory as the CMM jar file.
+
 </div>
 
 
@@ -482,8 +513,11 @@ Csv file can be found under the "data" folder found in the same directory as the
 
 AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning">:exclamation: 
+
+**Caution:**<br>
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
+
 </div>
 
 

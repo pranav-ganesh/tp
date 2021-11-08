@@ -15,22 +15,22 @@ taught during the Software Engineering Module CS2103T.
 Given below are my contributions to the project.
 
 * **New Feature**: Added Importing functionality
-  * What it does: Allows users to import contacts CMM's database quickly. CMM currently imports from Excel Files only
-  * Justification: Based on the user story, a telemarketer receives his/her daily call list in an Excel sheet. Function
-    implementation required an in-depth analysis of design alternatives. This function is an integral part in  ensuring
-    a smooth transition between the manager and the telemarketer. This process reduces learning curve, as well as overall
-    time of adding in contacts (previously the two options were to either learn json or to manually input  all the data) 
-  * Highlights: This enhancement affects existing commands and commands to be added in the future. The type of data
-    imported will affect what and how the commands interact with the data found in CMM. This enhancement will also be
-    relevant and often updated as long as CMM uses a local storage, and the company  processes  include  Excel
-    sheets  in storing customer data. The implementation was challenging as it required constant updating and tweaking
+  * What it does: Allows users to import contacts into CMM's database quickly. CMM currently imports from Excel Files only
+  * Justification: Based on the user story, a telemarketer receives his/her daily call list in an Excel sheet. This
+    function is an integral part in  ensuring a smooth transition between the manager and the telemarketer. This
+    function allows user to import multiple people at once, as compared to adding in contacts individually
+    (previously the two options were to either learn json or to manually input all the data using the add function)
+  * Highlights: This enhancement affects existing commands to will be added in the future. The type of data
+    imported will affect how the commands interact with the data found in CMM. This enhancement will also be
+    relevant and often updated as long as CMM uses a local storage, and the company processes continues with using Excel
+    sheets for storing customer data. The implementation was challenging as it required constant updating and tweaking
     as the team's definition of a valid person to be imported constantly changed throughout the project
   * Credits: *The previous iteration CallMeMaybe (AddressBookLevel3) 's JSONstorage helped me structure my ImportExport
     feature. This taught me how to follow an existing architectural style while implementing a new feature. It also
     helped me rethink the way I approach code abstractions way before the CS2103T's lecture of code architecture*
 
 * **New Feature**: Added Exporting functionality
-  * What it does: Allows users to export contacts CMM's database quickly. CMM currently export to Excel Files only
+  * What it does: Allows users to export contacts found in CMM's database quickly. CMM currently export to Excel Files only
   * Justification: Based on the user story, a telemarketer returns the daily call list in an Excel sheet to the manager.
     This function is an integral part in ensuring a smooth transition between telemarketers back to managers. This
     is achieved by the seamless data conversion between Excel and CMM. This is important as managers will accept Excel
@@ -46,7 +46,7 @@ Given below are my contributions to the project.
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=idgrr)
 
 * **Project management**:
-  * Managed releases `v1.3` - `v1.4` (3 releases) on GitHub
+  * Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 
 * **Enhancements to existing features**:
   * Updated the GUI resizing functionality to ensure that features can always be displayed
