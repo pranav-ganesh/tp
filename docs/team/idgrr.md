@@ -32,28 +32,32 @@ Given below are my contributions to the project.
       * The implementation was challenging as it required constant updating and tweaking as the team's definition of a 
         valid person to be imported constantly changed throughout the project
   * **Credits:**<br>
-    * The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture helped me structure
-    my Import feature. This taught me how to follow an existing architectural style while implementing a new
-    feature. It also helped me rethink the way I approach code abstractions.
-      
+      * The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture helped me structure
+        my Import feature. This taught me how to follow an existing architectural style while implementing a new
+        feature. It also helped me rethink the way I approach code abstractions.
+<br>
+<br>
+
 * **New Major Feature**: Added Exporting functionality
-  * What it does: <br>
+  * **What it does:** <br>
       * Allows users to export contacts found in CMM's database quickly. CMM currently export to Excel Files only
-  * Justification: <br>
+  * **Justification:** <br>
       * Based on the user story, a telemarketer returns the daily call list in an Excel sheet to the manager. This means
         that there is a need to convert the JSON data used in CMM back to an Excel sheet
       * This is allows seamless data conversion between Excel and CMM.
       * The Export function also acts as a safety net should telemarketers wish to start a new database with imported
         contacts. CMM will immediately export the current database in an Excel file before wiping and introducing new
         contacts into the database.
-  * Highlights:<br>
+  * **Highlights:**<br>
       * This enhancement required understanding how importing works
       * This enhancement required understanding of how `Person` details are handled within CMM
       * This enhancement required understanding of file writing components, primarily `FileUtil`
-  * Credits: The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture  helped me structure
-    my Export feature. This taught me how to follow an existing architectural style while implementing a new 
-    feature. It also helped me rethink the way I approach code abstractions.
+  * **Credits:**<br>
+      * The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture  helped me structure
+        my Export feature. This taught me how to follow an existing architectural style while implementing a new 
+        feature. It also helped me rethink the way I approach code abstractions.
 
+<div style="page-break-after: always;"></div>
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&zFR=false&tabAuthor=idgrr&tabRepo=AY2122S1-CS2103T-T13-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
 
