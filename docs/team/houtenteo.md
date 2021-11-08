@@ -30,7 +30,6 @@ all contacts that match all the descriptions of their target demographic.
     * Updated the original `find` command to allow users to search for contacts thought more than 1 field.
 Originally, contacts could only be searched by name. Now they can be searched using `name`, `phone`, `email`, `gender`, `age`, `address`
 `isDone`, `interest`. (Pull requests [#128](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/128))
-    * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
 
 * **Documentation**:
     * User Guide:
@@ -47,4 +46,3 @@ Originally, contacts could only be searched by name. Now they can be searched us
 * **Community**:
     * PRs reviewed (with non-trivial review comments): [#67](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/67), [\#107](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/107), [\#122](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/122),
 
-* _{you can add/remove categories in the list above}
