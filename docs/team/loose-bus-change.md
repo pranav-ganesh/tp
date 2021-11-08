@@ -27,7 +27,11 @@ Given below are my contributions to the project.
 
 * **Project management**:
     * Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
-  
+
+
+<div style="page-break-after: always;"></div>
+
+
 * **Team-based tasks**: Updating user/developer docs that are not specific to a feature
     * Modifying target user profile. (Pull requests [#129](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/129))
     * Modifying use cases for project. (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
@@ -39,8 +43,9 @@ Given below are my contributions to the project.
     * Modified error messages of existing functions to provide more clarity. (Pull requests [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
     * Changed the way in which an input index is parsed. (Pull requests [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
 
-* **Community:** Sample of PR reviewed (with non-trivial comments)
-    * (Pull requests [#194](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/194))
+* **Community:** 
+    * Sample of PR reviewed (with non-trivial comments): (Pull requests [#194](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/194))
+    * Reported bugs for other teams: [Bugs found in PE-D](https://github.com/loose-bus-change/ped/issues)
 
 * **Documentation**:
     * User Guide:
