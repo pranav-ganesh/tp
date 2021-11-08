@@ -17,6 +17,9 @@ import seedu.address.model.category.Category;
  * Parses input arguments and creates a new {@code FilterCommand} object
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
+    private Category category;
+    private Integer count;
+
     /**
      * Parses the given {@code String} of arguments in the context of the {@code FilterCommand}
      * and returns a {@code FilterCommand} object for execution.
@@ -27,14 +30,29 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         String trimmedArgs = args.trim();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(trimmedArgs, EMPTY_PREFIX);
 
-        Category category;
-        Integer count;
         List<String> argList = argMultimap.getAllValues(EMPTY_PREFIX);
 
         if (!areArgumentsPresent(argList)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
+        try {
+            processArguments(argList);
+        } catch (ParseException e) {
+            // for formatting of error output
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT,
+                    e.getMessage() + FilterCommand.MESSAGE_USAGE));
+        }
+
+        return new FilterCommand(category, count);
+    }
+
+    /**
+     * Parses the arguments in the given {@code List<String>} for filter.
+     * @throws ParseException if the category or count is invalid.
+     */
+    private void processArguments(List<String> argList) throws ParseException {
         if (moreThanOneArgumentPresent(argList)) {
             // category and count arguments are specified
             String lastArgument = extractLastArgument(argList);
@@ -56,17 +74,20 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             category = checkAndParseCategory(lastArgument);
             count = Integer.MAX_VALUE;
         }
-
-        return new FilterCommand(category, count);
     }
 
     /**
      * Returns true if arguments are present in the given
      * {@code List<String>}.
      */
-    private static boolean areArgumentsPresent(List<String> argList) {
+    private boolean areArgumentsPresent(List<String> argList) {
         if (argList == null) {
             return false;
+        }
+        if (argList.size() == 1) {
+            if (argList.get(0).equals("")) {
+                return false;
+            }
         }
         return argList.size() >= 1;
     }
@@ -75,7 +96,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * Returns true if there are more than one argument present in the given
      * {@code List<String>}.
      */
-    private static boolean moreThanOneArgumentPresent(List<String> argList) {
+    private boolean moreThanOneArgumentPresent(List<String> argList) {
         if (argList == null) {
             return false;
         }

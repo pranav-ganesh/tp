@@ -143,9 +143,9 @@ Examples:
 * `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com a/her house i/running i/swimming i/eating`
 
 **Common issues:**
-* _Invalid command format!_: <br />
-  a. Omitted one or more of the mandatory fields <br />
-  b. Used the wrong prefix (e.g., '/n' instead of 'n/') <br />
+* _Invalid command format!_: <br>
+  a. Omitted one or more of the mandatory fields <br>
+  b. Used the wrong prefix. (e.g., '/n' instead of 'n/') <br>
 
 ### Listing all contacts : `list`
 
@@ -171,10 +171,12 @@ Example:
 * `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 
 **Common issues:**
-* _The index provided is invalid_: <br />
-  a. Displayed list does not contain contact at `INDEX`
-  b. Index specified is larger than 2147483647
-  c. Index specified is not a positive integer
+
+* _The index provided is invalid_: <br>
+  a. Displayed list does not contain contact at `INDEX` <br>
+  b. Index specified is larger than 2147483647 <br>
+  c. Index specified is not a positive integer <br>
+
 
 ### Editing a contact : `edit`
 
@@ -182,12 +184,13 @@ Edits an existing contact in the CMM database.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(INTERESTSLIST INDEX) INTEREST]`
 
-<div markdown="span" class="alert alert-primary">:bulb:
+
+<div markdown="span" class="alert alert-primary">:bulb: 
 
 **Tip:** <br>
-* Specifying (INTERESTLIST INDEX) is optional as well. <br/>
-* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated. <br/>
-* If it is not, then an interest would be added to the list instead. <br/>
+* Specifying (INTERESTLIST INDEX) is optional as well. <br>
+* If (INTERESTLIST INDEX) is specified, the interest at that index would be updated. <br>
+* If it is not, then an interest would be added to the list instead. <br>
 * You can refer to the examples below for a better understanding of the edit command functionality.
 
 </div>
@@ -200,9 +203,9 @@ Examples:
 **Things to note:**
 
 * `INDEX` refers to the index number shown in the displayed list.
-* `INDEX` **must be a positive integer** 1, 2, 3, …​
+* `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 * `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact.
-* `INTERESTSLIST INDEX` **must be a positive integer** 1, 2, 3, …​
+* `INTERESTSLIST INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 *  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
 
@@ -214,8 +217,8 @@ Examples:
   a. Displayed interests list does not contain an interest at `INTERESTSLIST INDEX`.
 * _Invalid command format!_: <br>
   a. No fields provided <br>
-  b. Used the wrong prefix. (e.g., 'i/[1]' instead of 'i/(1)') <br />
-* _Invalid command arguments_: <br />
+  b. Used the wrong prefix. (e.g., 'i/[1]' instead of 'i/(1)') <br>
+* _Invalid command arguments_: <br>
     a. Duplicate of the edited contact already exists on the address book. <br>
 
 ### Deleting a contact : `delete`
@@ -227,16 +230,18 @@ Format: `delete INDEX`
 Example:
 * `delete 2` deletes the 2nd contact in the displayed list.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Deleting is irreversible,
-please use with caution.
+<div markdown="span" class="alert alert-warning">:exclamation: 
+
+**Caution:**<br>Deleting is irreversible, please use with caution.
+
 </div>
 
 **Things to note:**
 * `INDEX` refers to the index number shown in the displayed contacts list.
-* `INDEX` **must be a positive integer** 1, 2, 3, …​
+* `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 
 **Common issues:**
-* _The index provided is invalid_: <br />
+* _The index provided is invalid: <br>
   a. Displayed list does not contain contact at `INDEX`
   b. Index specified is larger than 2147483647
   c. Index specified is not a positive integer
@@ -258,10 +263,13 @@ eg. `findAny n/alex n/david` returns the same results as `findAny n/david`
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:** <br>
 findAll vs findAny<br>
     * findAll searches for contacts that satisfy **ALL** the fields specified<br>
     * findAny searches for contacts that satisfy **ANY** of the fields specified<br>
+
 </div>
 
 Click [here](#finding-contacts-that-matches-all-the-keywords-specified--findall) to learn more about findAll
@@ -274,7 +282,7 @@ have the substring 'woodlands' in their address
 * `findAny n/alex n/david` only finds all contacts that have the substring 'david' in their name
 
 **Common issues:**
-* _Unknown command_: <br/>
+* _Unknown command_: <br>
   a. Using `findany` instead of `findAny` (not capitalising the 'A')
 * _Invalid command format!_: <br>
   a. No fields provided<br>
@@ -299,10 +307,13 @@ Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 * Keywords for `Gender` are limited to `male`, `female`, `m`, `f`
 * You can refer to the examples below for a better understanding
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:** <br>
 findAll vs findAny: <br>
 - findAll searches for contacts that satisfy **ALL** the fields specified<br>
 - findAny searches for contacts that satisfy **ANY** of the fields specified<br>
+
 </div>
 
 Click [here](#finding-contacts-that-matches-any-of-the-keywords-specified-findany) to learn more about findAny
@@ -314,7 +325,7 @@ Examples:
 * `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name **AND both** substrings of 'ho' and 'oh' in the address
 
 **Common issues:**
-* _Unknown command_: <br/>
+* _Unknown command_: <br>
   a. Using `findany` instead of `findAny` (not capitalising the 'A')
 * _Invalid command format!_: <br>
   a. No fields provided<br>
@@ -336,7 +347,7 @@ Example:
 * `display 3` displays full contact details of the 3rd contact in the displayed list
 
 **Common issues:**
-* _The index provided is invalid_: <br />
+* _The index provided is invalid_: <br>
   a. Displayed list does not contain contact at `INDEX`
   b. Index specified is larger than 2147483647
   c. Index specified is not a positive integer
@@ -353,7 +364,7 @@ Format: `filter CATEGORY [COUNT]`
 * `CATEGORY` **must be one of the following:** called, gender
 * `COUNT` refers to the number of contacts to be shown in the displayed list. If `COUNT` is more than the total number
   of contacts, all contacts will be shown
-* `COUNT` **must be a positive integer less than 2147483648** 1, 2, 3, …​, 2147483647
+* `COUNT` **must be a positive integer less than 2147483648** (e.g., 1, 2, 3, …, 2147483647 ​)
 * If more arguments are given than what is required, the last two arguments are taken into account
   (e.g., `filter gender called 2` will be interpreted as `filter called 2`)
 * If the last argument is not an integer, it will be interpreted as a `CATEGORY`
@@ -369,11 +380,14 @@ Examples:
 * `filter gender 3` filters the displayed list to show female contacts first and to only show the first three contacts
 
 **Common issues:**
-* _Category can only be either "called" or "gender"_: <br />
-  a. The category specified is not `called` or `gender` <br />
+* _Invalid command format!_: <br>
+  a. No fields provided <br>
+* _Category can only be either "called" or "gender"_: <br>
+  a. The category specified is not `called` or `gender` <br>
   b. Category not specified
-* _Count is not a non-zero unsigned integer_: <br />
-  a. The last argument is not a positive integer
+* _Count is not a non-zero unsigned integer. It cannot be bigger than 2147483647 (i.e., MAX_VALUE)_: <br>
+  a. The last argument is not a positive integer <br>
+  b. The last argument is bigger than 2147483647 <br>
 
 ### Clearing all contacts : `clear`
 
@@ -381,7 +395,11 @@ Clears all contacts from the CMM database.
 
 Format: `clear`
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Clearing is irreversible, please use with caution.
+<div markdown="span" class="alert alert-warning">:exclamation: 
+
+**Caution:**<br>
+Clearing is irreversible, please use with caution.
+
 </div>
 
 ### Viewing help : `help`
@@ -427,7 +445,11 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
 - CMM will not import anything and application will startup normally
 - Closing the prompt will also choose this option
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** Currently, import is **irreversible**. Please double check before importing. This is especially important when choosing the add on import option.
+<div markdown="span" class="alert alert-warning">:exclamation:
+
+**Caution:**<br>
+Currently, import is **irreversible**. Please double check before importing. This is especially important when choosing the add on import option.
+
 </div>
 
 **Things to note**
@@ -443,18 +465,18 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
 * `CSV file not found in data\import.csv` message was shown. <br>
     * This could either mean that the file **does not exist** at the specified location or <br>
     * The file was **incorrectly named**. File has to be named `import.csv`
-* `Missing/Extra Headers, Please check file` message was shown<br>
+* `Missing/Extra Headers, Please check file` message was shown <br>
    * **Files has invalid headers** <br>
         * First row of Excel file is reserved for datatype headers. <br>
         * Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, starting from the cell 'A1' <br>
         * Headers are not case-sensitive<br>
     * File may have **incorrect CSV type**. Please refer to this [guide](SettingImportFileType.md)
-   to correctly format your file
-* `Wrong header detected,please double check file` message was shown <br>
+   to correctly format your file.
+* `Wrong header detected,please double check file` message was shown. <br>
     * **Files has invalid headers**. Please refer to Common issue `Missing/Extra Headers, Please check file` to resolve
 * Data not imported despite **correct import file placement, naming AND headers** <br>
     * File may not be in the correct CSV type. Please refer to this [guide](SettingImportFileType.md)
-         to correctly format your file
+         to correctly format your file.
 * Unable to understand why a specific row was not able to be imported <br>
     * Row could either be duplicate or there was an error reading the row
     * Detailed reasons for any import error can be found in the logs of the CMM
@@ -469,8 +491,11 @@ CMM is able to export the current database as semicolon delimited CSV files. As 
 2. The CMM will export the database to the data file location
 3. Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:** <br>
 Csv file can be found under the "data" folder found in the same directory as the CMM jar file.
+
 </div>
 
 
@@ -478,8 +503,11 @@ Csv file can be found under the "data" folder found in the same directory as the
 
 AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning">:exclamation: 
+
+**Caution:**<br>
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
+
 </div>
 
 
@@ -498,7 +526,7 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​` <br> e.g. `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com a/my house g/F age/95 i/Sleeping`
 **List** | `list`
 **Called** | `called INDEX` <br> e.g., `called 2`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/[INTERESTSLIST INDEX] INTEREST]` <br/> e.g., `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/[INTERESTSLIST INDEX] INTEREST]` <br> e.g., `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> e.g., `findAny n/alex g/m`
 **FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> e.g., `findAll n/alex g/m`
