@@ -20,7 +20,7 @@ This Developer Guide (DG) aims to help developers better understand the architec
 ## **Acknowledgements**
 
 * CMM is adapted from AddressBook-Level3 (AB3)
-* For the detailed documentation of AddressBook-Level3 project, see the Address Book Product Website
+* For the detailed documentation of AddressBook-Level3 project, see the [!Address Book Product Website](https://se-education.org/addressbook-level3/)
 * Libraries used: JavaFX, Jackson, JUnit5
 
 --------------------------------------------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ Each of the four main components (also shown in the diagram above),
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-<img src="images/ComponentManagers.png" width="300" />
+<img src="images/ComponentManagers.png" width="300" align="center"/>
 
 The sections below give more details of each component.
 
@@ -102,7 +102,7 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<img src="images/LogicClassDiagram.png" width="550"/>
+<img src="images/LogicClassDiagram.png" width="550" align="center"/>
 
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
@@ -111,10 +111,15 @@ How the `Logic` component works:
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
+<p align="center">
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+<p/>
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
+The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 Here are the other classes in `Logic` (omitted from the class diagram of the `Logic` component above) that are used for parsing a user command:
@@ -146,7 +151,10 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has an `Interest` list in the `AddressBook`, which `InterestsList` references. This allows `AddressBook` to only require one `Interest` object per unique interest, instead of each `InterestsList` needing their own `Interest` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
+An alternative (arguably, a more OOP) model is given below. It has an `Interest` list in the `AddressBook`, which `InterestsList` references. This allows `AddressBook` to only require one `Interest` object per unique interest, instead of each `InterestsList` needing their own `Interest` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -157,8 +165,10 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-![Storage Class Diagram](images/StorageClassDiagram.png)
+<p align="center">
 
+![Storage Class Diagram](images/StorageClassDiagram.png)
+<p/>
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
 * can export and import into address book data in CSV format, and read them back into corresponding objects.
@@ -188,16 +198,24 @@ The add command is facilitated by the LogicManager.
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
 Due to the length of the arguments, we have decided to replace the line "n/bob e/email@email.com p/999"
 with "..." within the diagram for easier viewing.
 </div>
 
+<p align="center">
+
 ![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
+<p/>
 
 The activity diagram below summarises what happens when a user executes an Add Command.
 
+<p align="center">
+
 ![Add command activity diagram](images/AddActivityDiagram.png)
+<p/>
 
 #### Design considerations:
 
@@ -213,7 +231,10 @@ The activity diagram below summarises what happens when a user executes an Add C
     * Pros: Easier to implement.
     * Cons: Having to enter every field can be time-consuming for the user.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers to add a contact
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
+Since there is little reason for telemarketers to add a contact
 who has already been called into the address book, all new contacts added will have their Called field set to false by default. Hence there
 is no need for the user to specify the Called field.
 </div>
@@ -238,11 +259,16 @@ The find commands are facilitated by the LogicManager.
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex")` API call.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
 While only the findAny command was used for the examples below, the findAll command works exactly the same way
 </div>
 
+<p align="center">
+
 ![Interactions Inside the Logic Component for the `findAny' Command](images/FindSequenceDiagram.png)
+<p/>
 
 The activity diagram below summarises what happens when a user executes a `findAny` Command.
 
@@ -336,8 +362,12 @@ The activity diagram below summarises what happens when a user executes an Filte
     * Pros: Easier to implement.
     * Cons: User has to choose how many contacts to be displayed every time.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Since there is little reason for telemarketers sort contacts
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
+Since there is little reason for telemarketers sort contacts
 by categories other than "Gender" and "Called", those are the only categories supported by the filter command.
+
 </div>
 
 As the key intention is for users to filter by `Category`, it is kept as a compulsory field.
@@ -453,8 +483,11 @@ Next few sections will go deeper what CMM does in each case.
 The following activity diagram summarizes what happens when a duplicate import is encountered:  
       ![CMM behaviour when duplicate encountered](images/DuplicateImportDecision.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
+<div markdown="span" class="alert alert-info">:information_source: *
+
+*Note:**<br>
 Duplicates are defined to be two contacts with the exact same name, phone number and email address.
+
 </div>
 
 #### Start New Using Imports
