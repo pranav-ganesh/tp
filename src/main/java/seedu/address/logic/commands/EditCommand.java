@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX (must be a positive integer in the displayed list) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -49,19 +50,21 @@ public class EditCommand extends Command {
             + "[" + PREFIX_CALLED + "CALLED]"
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_AGE + "AGE] "
-            + "[" + PREFIX_INTEREST + "(optional index) INTEREST]...\n"
+            + "[" + PREFIX_INTEREST + "INTEREST_TO_BE_ADDED]…\u200B"
+            + "[" + PREFIX_INTEREST + "(INDEX) remove]…\u200B"
+            + "[" + PREFIX_INTEREST + "(INDEX) INTEREST]…\u200B\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
             + PREFIX_GENDER + "M "
-            + PREFIX_CALLED + "false"
-            + PREFIX_INTEREST + "[1] software engineering";
+            + PREFIX_CALLED + "false "
+            + PREFIX_INTEREST + "(1) software engineering "
+            + PREFIX_INTEREST + "(2) remove";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_INVALID_INTERESTS_INDEX = "The specified interestsList index is invalid.";
-    public static final String MESSAGE_DUPLICATE_INTEREST = "The specified interest already exists in the list.";
     public static final String MESSAGE_DUPLICATE_INDEX = "You have specified the same index more than once.";
     public static final String MESSAGE_DUPLICATE_INTEREST_ARGUMENT = "You have duplicate interest arguments in "
             + "your command.";
@@ -101,9 +104,7 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.getName().equals(editedPerson.getName()) || !personToEdit.getPhone().equals(
-                editedPerson.getPhone()) || !personToEdit.getEmail().equals(editedPerson.getEmail())) {
-
+        if (!personToEdit.equals(editedPerson)) {
             if (model.hasPerson(editedPerson)) {
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
             } else {
@@ -138,12 +139,14 @@ public class EditCommand extends Command {
         Age updatedAge = editPersonDescriptor.getAge().orElse(personToEdit.getAge());
 
         InterestsList newInterests = editPersonDescriptor.getInterests().orElse(null);
+        InterestsList interestsListCopy = personToEdit.getInterests().copyInterestsList();
+
         if (newInterests != null) {
-            this.editInterestList(newInterests, personToEdit.getInterests());
-            this.removeSpecifiedInterests(personToEdit.getInterests());
-            this.addSpecifiedInterests(personToEdit.getInterests());
+            editInterestList(newInterests, interestsListCopy);
+            removeSpecifiedInterests(interestsListCopy);
+            addSpecifiedInterests(interestsListCopy);
         }
-        InterestsList updatedInterests = personToEdit.getInterests();
+        InterestsList updatedInterests = interestsListCopy;
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedIsCalled, updatedAddress,
                 updatedGender, updatedAge, updatedInterests);
@@ -153,19 +156,25 @@ public class EditCommand extends Command {
      * Edits the {@code InterestsList} attribute of {@code personToEdit} based on user input command.
      */
     public void editInterestList(InterestsList newList, InterestsList currentList) throws CommandException {
+        emptyLists();
+
         for (Interest i : newList.getAllInterests()) {
             String s = i.toString();
-            this.editSpecifiedInterest(s, currentList);
+            editSpecifiedInterest(s, currentList);
         }
-        this.listOfIndexes.clear();
-        this.listOfArguments.clear();
     }
 
     private void editSpecifiedInterest(String s, InterestsList currentList) throws CommandException {
         if (s.substring(0, 1).equals("(")) {
-            String pos = s.substring(s.indexOf("(") + 1, s.indexOf(")"));
-            String desc = s.substring(s.indexOf(")") + 2).trim();
-            int index = Integer.parseInt(pos) - 1;
+            String pos = s.substring(s.indexOf("(") + 1, s.indexOf(")")).trim();
+            String desc = s.substring(s.indexOf(")") + 1).trim();
+            int index;
+
+            try {
+                index = Integer.parseInt(pos) - 1;
+            } catch (NumberFormatException e) {
+                throw new CommandException("The interestslist index provided is invalid.");
+            }
 
             if (index >= currentList.size()) {
                 throw new CommandException(MESSAGE_INVALID_INTERESTS_INDEX);
@@ -180,12 +189,12 @@ public class EditCommand extends Command {
             }
 
             this.listOfIndexes.add(index);
-            this.listOfArguments.add(desc);
 
             if (desc.equals("remove")) {
                 this.indexesToBeRemoved.add(index);
             } else {
-                modifyCurrentList(currentList, index, desc);
+                trySetInterest(currentList, desc, index);
+                this.listOfArguments.add(desc);
             }
 
         } else {
@@ -200,38 +209,45 @@ public class EditCommand extends Command {
         }
     }
 
-    private void modifyCurrentList(InterestsList currentList, int index, String desc) throws CommandException {
-        Interest interest = new Interest(desc);
-        System.out.println(desc);
-        if (currentList.checkDuplicate(interest)) {
-            throw new CommandException(MESSAGE_DUPLICATE_INTEREST);
+    private void trySetInterest(InterestsList currentList, String desc, int index) throws CommandException {
+        try {
+            currentList.setInterest(new Interest(desc), index);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
         }
+    }
 
-        currentList.setInterest(interest, index);
+    private void tryAddInterest(InterestsList currentList, Interest interest) throws CommandException {
+        try {
+            currentList.addInterest(interest);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     private void removeSpecifiedInterests(InterestsList currentList) {
         int count = 0;
         int len = this.indexesToBeRemoved.size();
+        Collections.sort(this.indexesToBeRemoved);
 
         if (len > 0) {
             for (int i = 0; i < len; i++) {
                 currentList.removeInterest(indexesToBeRemoved.get(i) - count);
                 count++;
             }
-
-            this.indexesToBeRemoved.clear();
         }
     }
 
     private void addSpecifiedInterests(InterestsList currentList) throws CommandException {
         for (int i = 0; i < interestsToBeAdded.size(); i++) {
-            if (currentList.checkDuplicate(interestsToBeAdded.get(i))) {
-                throw new CommandException(MESSAGE_DUPLICATE_INTEREST);
-            }
-            currentList.addInterest(interestsToBeAdded.get(i));
+            this.tryAddInterest(currentList, interestsToBeAdded.get(i));
         }
+    }
 
+    private void emptyLists() {
+        this.listOfIndexes.clear();
+        this.listOfArguments.clear();
+        this.indexesToBeRemoved.clear();
         this.interestsToBeAdded.clear();
     }
 

@@ -178,6 +178,7 @@ Example:
 
 * `INDEX` refers to the index number shown in the displayed list
 * `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
+*  If you want to un-call a contact, use the [edit command](#editing-contact-details--edit)
 
 **Common issues:**
 
@@ -191,7 +192,8 @@ Example:
 
 Edits an existing contact in the CMM database.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(INTERESTSLIST INDEX) INTEREST]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(OPTIONAL INTERESTSLIST INDEX) INTEREST]...
+[i/(INTERESTSLIST INDEX) remove]... [i/INTEREST]..`
 
 
 <div markdown="span" class="alert alert-primary">:bulb: 
@@ -205,9 +207,11 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 </div>
 
 Examples:
-* `edit 1 n/Malan i/[2] Swimming` edits the name of contact and the second interest of the first contact in the displayed list
-* `edit 1 i/Painting i/[1] Running` adds 'painting' as an interest and edits the first interest of the first contact in the displayed list
+* `edit 1 n/Malan i/(2) Swimming` edits the name of contact to 'Malan' and the second interest of the first contact to 'Swimming' in the displayed list
+* `edit 1 i/Painting i/(1) Running` adds 'painting' as an interest and edits the first interest of the first contact in the displayed list
 * `edit 2 g/M e/myEmail@email.com age/55` edits the gender, email and age of the second contact in the displayed list
+* `edit 3 i/golf i/(1) eat i/(2) remove` edits the first interest of the third contact's interests list to 'eat', removes the second interest
+and adds the interest 'golf' to the displayed list
 
 **Things to note:**
 
@@ -217,7 +221,6 @@ Examples:
 * `INTERESTSLIST INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 *  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
-
 
 **Common issues:**
 * _The index provided is invalid_: <br>
@@ -250,7 +253,9 @@ Example:
 * `INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 
 **Common issues:**
-* _The index provided is invalid:_ <br>
+
+* _The index provided is invalid_: <br>
+
   a. Displayed list does not contain contact at `INDEX`
   b. Index specified is larger than 2147483647
   c. Index specified is not a positive integer
@@ -536,7 +541,7 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [g/GENDER] [age/AGE] [i/INTEREST]…​` <br> e.g. `add n/Labuschagne Ho p/22224444 e/labuschagne@example.com a/my house g/F age/95 i/Sleeping`
 **List** | `list`
 **Called** | `called INDEX` <br> e.g., `called 2`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/[INTERESTSLIST INDEX] INTEREST]` <br> e.g., `edit 1 n/Bob p/68889444 e/email@email.com a/his house  g/M age/33 i/Eating i/[2] Swimming`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE] [c/CALLED] [i/(OPTIONAL INTERESTSLIST INDEX) INTEREST]... [i/(INTERESTSLIST INDEX) remove]... [i/INTEREST]...` <br/> e.g., `edit 1 n/Bob p/68889444 e/email@email.com a/his house g/M age/33 i/Eating i/(2) Swimming`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **FindAny** | `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> e.g., `findAny n/alex g/m`
 **FindAll** | `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [d/DONE…​] [i/INTEREST…​]`<br> e.g., `findAll n/alex g/m`
