@@ -6,7 +6,7 @@ start
 -Import person created based \non  Csv file row detail
 
 -Import person to be\nadded in  model
-if () then ([ **No duplicates** of import person \nin  database ])
+if () then ([ **No duplicates of import person** \nin  database ])
     :Import Person is added into\ndatabase;
 else ([ **Found duplicates of import person** \nin  database ])
       if () then  ( [ Import has been  called  ])
