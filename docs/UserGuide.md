@@ -282,7 +282,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 
 Examples:
 
-* `edit 1 n/Malan i/Painting i/(2) Swimming`Edits the following fields of the **first contact in the displayed list** :<br>
+* `edit 1 n/Malan i/Painting i/(2) Swimming` Edits the following fields of the **first contact in the displayed list** :<br>
 
     * Edit `Name` to 'Malan'
   
