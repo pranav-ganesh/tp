@@ -407,7 +407,7 @@ The following activity diagram summarizes what happens when a user executes an e
 
     * Pros: Easier to implement, more readable code and less prone to errors.
 
-    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which is not the most efficient mechanism for editing a person,
+    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which is not the most efficient mechanism for editing a contact,
       potential overhead.
 
 
@@ -628,10 +628,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | new user                                    | see usage instructions         | refer to instructions when I forget how to use the App                     |
 | `* * *`  | Telemarketer                                | import data from an excel file | work on the list of contacts that was  set for me by my manager            |
 | `* * *`  | Telemarketer                                | export data to an excel file   | return updated list of called contacts to my manager at the end of the day |
-| `* * *`  | user                                        | add a new person               |                                                                            |
-| `* * *`  | user                                        | delete a person                | remove entries that I no longer need                                       |
-| `* * *`  | user                                        | display a person               | display additional details about a particular contact                      |
-| `* * *`  | user                                        | find a person by name          | locate details of persons without having to go through the entire list     |
+| `* * *`  | user                                        | add a new contact              |                                                                            |
+| `* * *`  | user                                        | delete a contact               | remove entries that I no longer need                                       |
+| `* * *`  | user                                        | display a contact              | display additional details about a particular contact                      |
+| `* * *`  | user                                        | find a contact by name         | locate details of contacts without having to go through the entire list     |
 | `* *`    | user                                        | hide private contact details   | minimize chance of someone else seeing them by accident                    |
 | `*`      | user with many contacts in the address book | filter contacts                | locate contacts who have not been called quickly                           |
 
@@ -795,18 +795,18 @@ MSS:
 2. CMM exports database into excel file to a CMM-specified location
    Use case ends.
 
-**Use Case 7: Displaying additional details about a person**
+**Use Case 7: Displaying additional details about a contact**
 
 System : CallMeMaybe (CMM) <br>
-Use Case : UC7 - Display a person <br>
+Use Case : UC7 - Display a contact <br>
 Actor : User <br>
-Guarantees: Selected person's additional details will be displayed
+Guarantees: Selected contact's additional details will be displayed
 
 **MSS**
 
-1. User requests to list persons (UC2)
-2. User requests to display a specific person in the list
-3. Application displays the person in a new window
+1. User requests to list contacts (UC2)
+2. User requests to display a specific contact in the list
+3. Application displays the contact in a new window
 
 * 1a. The list is empty.
 
@@ -818,9 +818,9 @@ Guarantees: Selected person's additional details will be displayed
 
       Use case resumes at step 2.
 
-* 2b. The selected person is already being displayed
+* 2b. The selected contact is already being displayed
 
-    * 2b1. Application shows a message saying the person is already being displayed
+    * 2b1. Application shows a message saying the contact is already being displayed
 
       Use case resumes at step 2.
 
@@ -957,11 +957,11 @@ testers are expected to do more *exploratory* testing.
    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-### Displaying a person
+### Displaying a contact
 
 1. Displaying a contact while all contacts are being shown
 
-    1. Prerequisites: List all persons using the `list` command.
+    1. Prerequisites: List all contacts using the `list` command.
 
     1. Test case: `display 2`<br>
         Expected: Second contact is displayed from the list.
