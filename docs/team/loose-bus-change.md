@@ -34,8 +34,9 @@ Given below are my contributions to the project.
     * Editing final documentation (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
 * **Enhancements to existing features**:
     * Modified the original `add` command for the v1.2 release. (Pull requests [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/45))
-    * Modified the implementation of the `clear` command to change the updated UI of `display`. (Pull requests [#182](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/182))
-    * Modified error messages of existing functions to provide more clarity.
+    * Modified the implementation of the `clear` command to change the updated UI of `display`. (Pull requests [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/182))
+    * Modified error messages of existing functions to provide more clarity. (Pull requests [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
+    * Changed the way in which an input index is parsed. (Pull requests [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
 
 * **Community:** Sample of PR reviewed (with non-trivial comments)
     * (Pull requests [#194](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/194))
