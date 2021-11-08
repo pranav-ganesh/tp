@@ -107,27 +107,30 @@ Hope you have a great time with CMM.
 
 **Command Panel**
 
-![Ui](images/Command Panel.png)
+![Ui](images/Command Panel.png)<br>
 *Image of CMM's Command Panel*
 
-* User commands are entered in the Command Line (section labeled `Enter command here...`)
+* Commands are entered in the Command Line (section labeled `Enter command here...`)
+
 * The Feedback Box (the bottom section) displays the result of the command, which can be an error message if the command is invalid
 
 **Display List**
 
-![Ui](images/Display List.png)
+![Ui](images/Display List.png) <br>
 *Image of CMM's Display List*
 
 * Displays the list of contacts along with their contact details which includes the name, phone number, email address and isCalled attributes
 
 **Person Card**
 
-![Ui](images/Person Card.png)
+![Ui](images/PersonCard.png) <br>
 *Image of CMM's Person Card*
 
-* Displays additional information of each contact in the list of contacts. This includes the attributes age, gender, address and interests
-* When application is started, the first contact in the list is displayed. If the contact list is empty, then CMM displays an example
-  contact with example attributes. The example is purely visual, and doesn't exist in the actual contact list.
+* Displays additional information of each contact in the list of contacts. 
+This includes the attributes age, gender, address and interests
+
+* When application is started, the first contact in the list is displayed. If the contact list is empty,
+CMM displays an 'empty contact' with all the fields set to 'N.A'
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -354,7 +357,9 @@ Examples:
 
 * _Invalid command arguments_: <br>
 
-    a. Duplicate of the edited contact already exists on the address book <br>
+  a. Duplicate of the edited contact already exists on the address book <br>
+  (e.g., editing name from 'Bob' to 'bob' is not allowed. Since names are case-insensitive, both 'Bob' and 'bob' are recognised
+  as the same name)
 
 ### 5.5 Deleting a contact : `delete`
 
