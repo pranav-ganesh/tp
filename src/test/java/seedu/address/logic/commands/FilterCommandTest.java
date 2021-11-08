@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COUNT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_CALLED;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GENDER;
@@ -58,7 +59,9 @@ public class FilterCommandTest {
     @Test
     public void execute_invalidCategoryValidCount_throwsComparatorException() {
         FilterCommand filterCommand = new FilterCommand(new Category("Phone"), validCountThree);
-        assertThrows(ComparatorException.class, MESSAGE_INVALID_CATEGORY, () -> filterCommand.execute(model));
+        assertThrows(ComparatorException.class,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_INVALID_CATEGORY + FilterCommand.MESSAGE_USAGE), () -> filterCommand.execute(model));
     }
 
     @Test
