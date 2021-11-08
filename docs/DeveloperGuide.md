@@ -969,28 +969,30 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `display 0`<br>
        Expected: The default contact (i.e, first contact) is displayed. Error details shown in the status message.
 
-    1. Other incorrect delete commands to try: `display`, `display x` (where x is larger than the list size)<br>
+    1. Other incorrect display commands to try: `display`, `display x` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
 ### Filtering contacts
 
-1. Filtering all contacts
+1. Filtering by a valid category (i.e., `called`, `gender`)
+   * Test case: `filter gender`<br>
+   Expected: All contacts are displayed, sorted by gender.
 
-    1. Test case: `filter gender`<br>
-       Expected: All contacts are displayed, sorted by gender.
+2. Filtering by a valid category and limit number of contacts shown
+   * Test case: `filter called 1`<br>
+   Expected: Sort contacts based on whether they are called. Only the first contact is displayed.
 
-    2. Test case: `filter called 1`<br>
-       Expected: Sort contacts based on whether they are called. Only the first contact is displayed.
+3. Filtering by an invalid count
+   * Test case: `filter called 0`<br>
+   Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
 
-    3. Test case: `filter called 0`<br>
-       Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
+4. Filtering by an invalid category
+   * Test case: `filter address 0`<br>
+   Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
 
-    4. Test case: `filter address 0`<br>
-       Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
-
-    5. Other incorrect delete commands to try: `filter`, `filter x` (where x is an invalid category),
-       `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
-       Expected: Similar to previous.
+5. Other incorrect filter commands to try: `filter`, `filter x` (where x is an invalid category),
+   `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
+   Expected: Similar to previous.
 
 ### Adding contacts
 
