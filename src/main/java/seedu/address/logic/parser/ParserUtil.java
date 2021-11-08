@@ -52,8 +52,8 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
-     * @throws ParseException if the specified index is invalid (i.e., if it is not a number, or it is more than the MAX_VALUE).
-     * Different error messages will be displayed based on whether input is an integer or not.
+     * @throws ParseException if the specified index is invalid (i.e., if it is not a number, or it is more than
+     * the MAX_VALUE). Different error messages will be displayed based on whether input is an integer or not.
      */
     public static Index parseIndex(String indexString, String exceptionMessage) throws ParseException {
         Index returnIndex;
