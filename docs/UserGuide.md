@@ -44,7 +44,7 @@ Hope you have a great time with CMM.
 
 ## 1. Table of Contents
 * Table of Contents
-   {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -60,6 +60,7 @@ Hope you have a great time with CMM.
 
    ![importPopUpUi](images/importPopUpMessage.png) <br>
    To learn more about what each option does in detail, click [here](#414-importing-the-data-into-database).
+   An example file import can be downloaded [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases/tag/Test_Files)
 
 5. After you click any button on the prompt, CMM will execute the selected option, and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data upon first startup
 
@@ -509,6 +510,11 @@ Currently, import is **irreversible**. Please double check before importing. Thi
     * Row could either be duplicate or there was an error reading the row
     * Detailed reasons for any import error can be found in the logs of the CMM
 
+<div markdown="span" class="alert alert-primary">:bulb: 
+
+**Tip:** <br>
+An example file import can be downloaded [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases/tag/Test_Files)
+</div>
     
 ### 4.15 Exporting state of database
 
