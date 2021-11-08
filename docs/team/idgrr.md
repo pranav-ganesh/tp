@@ -9,7 +9,7 @@ CallMeMaybe (CMM) is a **desktop app** centered for Telemarketers in aiding them
 The in-built tracking functionality serves as a reminder to reach back on previously unreachable customers.
 Importing and exporting of existing customer database is also supported by CMM to facilitate team-based environments.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. This is written in Java, and has about
-16 kLoC. The development of this software was used as a medium for students to apply Software Engineering principles
+10 kLoC. The development of this software was used as a medium for students to apply Software Engineering principles
 taught during the Software Engineering Module CS2103T.
 
 Given below are my contributions to the project.
