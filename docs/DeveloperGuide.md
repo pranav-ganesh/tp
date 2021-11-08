@@ -20,7 +20,7 @@ This Developer Guide (DG) aims to help developers better understand the architec
 ## **Acknowledgements**
 
 * CMM is adapted from AddressBook-Level3 (AB3)
-* For the detailed documentation of AddressBook-Level3 project, see the [!Address Book Product Website](https://se-education.org/addressbook-level3/)
+* For the detailed documentation of AddressBook-Level3 project, see the Address Book Product Website
 * Libraries used: JavaFX, Jackson, JUnit5
 
 --------------------------------------------------------------------------------------------------------------------
@@ -33,9 +33,9 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ## **Design**
 
-<div markdown="span" class="alert alert-primary">
+<div markdown="span" class="alert alert-primary">:bulb:
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+**Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -111,12 +111,10 @@ How the `Logic` component works:
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
-<p align="center">
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
-<p/>
 
-<div markdown="span" class="alert alert-info">:information_source: 
+<div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
 The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -151,7 +149,7 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: 
+<div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
 An alternative (arguably, a more OOP) model is given below. It has an `Interest` list in the `AddressBook`, which `InterestsList` references. This allows `AddressBook` to only require one `Interest` object per unique interest, instead of each `InterestsList` needing their own `Interest` objects.<br>
@@ -165,10 +163,8 @@ An alternative (arguably, a more OOP) model is given below. It has an `Interest`
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<p align="center">
-
 ![Storage Class Diagram](images/StorageClassDiagram.png)
-<p/>
+
 The `Storage` component,
 * can save both address book data and user preference data in json format, and read them back into corresponding objects.
 * can export and import into address book data in CSV format, and read them back into corresponding objects.
@@ -198,24 +194,18 @@ The add command is facilitated by the LogicManager.
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
 
-<div markdown="span" class="alert alert-info">:information_source: 
+<div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
 Due to the length of the arguments, we have decided to replace the line "n/bob e/email@email.com p/999"
 with "..." within the diagram for easier viewing.
 </div>
 
-<p align="center">
-
 ![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
-<p/>
 
 The activity diagram below summarises what happens when a user executes an Add Command.
 
-<p align="center">
-
 ![Add command activity diagram](images/AddActivityDiagram.png)
-<p/>
 
 #### Design considerations:
 
@@ -231,7 +221,7 @@ The activity diagram below summarises what happens when a user executes an Add C
     * Pros: Easier to implement.
     * Cons: Having to enter every field can be time-consuming for the user.
 
-<div markdown="span" class="alert alert-info">:information_source: 
+<div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
 Since there is little reason for telemarketers to add a contact
@@ -259,16 +249,13 @@ The find commands are facilitated by the LogicManager.
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex")` API call.
 
-<div markdown="span" class="alert alert-info">:information_source: 
+<div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
 While only the findAny command was used for the examples below, the findAll command works exactly the same way
 </div>
 
-<p align="center">
-
 ![Interactions Inside the Logic Component for the `findAny' Command](images/FindSequenceDiagram.png)
-<p/>
 
 The activity diagram below summarises what happens when a user executes a `findAny` Command.
 
@@ -362,7 +349,7 @@ The activity diagram below summarises what happens when a user executes an Filte
     * Pros: Easier to implement.
     * Cons: User has to choose how many contacts to be displayed every time.
 
-<div markdown="span" class="alert alert-info">:information_source: 
+<div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
 Since there is little reason for telemarketers sort contacts
@@ -483,9 +470,9 @@ Next few sections will go deeper what CMM does in each case.
 The following activity diagram summarizes what happens when a duplicate import is encountered:  
       ![CMM behaviour when duplicate encountered](images/DuplicateImportDecision.png)
 
-<div markdown="span" class="alert alert-info">:information_source: *
+<div markdown="span" class="alert alert-info">:information_source:
 
-*Note:**<br>
+**Note:**<br>
 Duplicates are defined to be two contacts with the exact same name, phone number and email address.
 
 </div>
@@ -498,7 +485,9 @@ Duplicates are defined to be two contacts with the exact same name, phone number
 - CMM will not import anything and application will start normally
 - Closing the prompt will also choose this option
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:** <br>
+<div markdown="span" class="alert alert-warning">:exclamation:
+
+**Caution:** <br>
 This import will not work if the first row does not have valid headers. <br>
 Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, 
 starting from the cell 'A1'. <br> 
@@ -512,7 +501,9 @@ Headers are not case sensitive
 3. StorageManager calls CsvImportExportStorage to read and convert to Csv file
 4. Logic then saves the database after all contacts have been exported
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
+<div markdown="span" class="alert alert-primary">:bulb:
+
+**Tip:** <br>
 Export file will have the following file name : `export[Date HH:MM:SS].csv` where date and time will follow your system settings
 </div>
 
@@ -568,7 +559,10 @@ Step 3. The user executes `add n/David …​` to add a new contact. The `add` c
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source:
+
+**Note:**<br>
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
 </div>
 
@@ -576,7 +570,10 @@ Step 4. The user now decides that adding the contact was a mistake, and decides 
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+<div markdown="span" class="alert alert-info">:information_source:
+
+**Note:**<br>
+If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </div>
@@ -585,13 +582,18 @@ The following sequence diagram shows how the undo operation works:
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: 
 
+**Note:**<br>
+The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 </div>
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
@@ -779,6 +781,7 @@ Guarantees: CMM Database will be set
 1. CMM ask whether to start creation new Database using import data or insert into existing database, upon startup
 2. User determines import setting
 3. CMM imports the file
+4. CMM starts as per normal
    Use case ends.
 
 **Extensions**
@@ -787,21 +790,21 @@ Guarantees: CMM Database will be set
     * 1a1. CMM runs as per normal
 
 * 2a. User request to create a new Database when CMM has no existing database
-    * 2a1 CMM will convert the excel file to the correct datatype to be stored inside CMM
+    * 2a1. CMM will convert the excel file to the correct datatype to be stored inside CMM
 
 * 2b. User request to create a new Database when CMM has existing database
-    * 2b1 CMM exports the current database (UC6)
-    * 2c2 CMM clears the current database
-    * 2c3 CMM will convert the excel file to the correct datatype to be stored inside CMM
+    * 2b1. CMM exports the current database (UC6)
+    * 2c2. CMM clears the current database
+    * 2c3. CMM will convert the excel file to the correct datatype to be stored inside CMM
 
 * 2c. User request to add on to current Database when CMM has existing database
-    * 2c1 CMM will convert the excel file to the correct datatype to be stored inside CMM
-    * 2c2 CMM adds on to current database
+    * 2c1. CMM will convert the excel file to the correct datatype to be stored inside CMM
+    * 2c2. CMM adds on to current database
 
 * 2d. User request to add on to current Database when CMM has no existing database
-    * 2d1 CMM will convert the excel file to the correct datatype to be stored inside CMM
-    * 2d2 CMM creates new database
-    * 2d3 CMM adds on to current database
+    * 2d1. CMM will convert the excel file to the correct datatype to be stored inside CMM
+    * 2d2. CMM creates new database
+    * 2d3. CMM adds on to current database
 
 * 3a. During import, User uses a file that does not exist
     * 3a1. CMM will cancel the transfer
@@ -862,7 +865,7 @@ Guarantees: Selected person's additional details will be displayed
 System : CallMeMaybe (CMM) <br>
 Use Case : UC8 - Filter contacts <br>
 Actor : User <br>
-Guarantees: Contacts will be sorted by category specified
+Guarantees: Contacts will be sorted by a category specified
 
 **MSS**
 
@@ -939,7 +942,10 @@ Guarantees: All contacts that match the specified fields would be displayed
 
 Given below are instructions to test the app manually.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
+These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
 </div>
 
@@ -1051,7 +1057,10 @@ testers are expected to do more *exploratory* testing.
 
 ### Finding contacts
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The test cases below only make use of the findAny command. 
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
+The test cases below only make use of the findAny command. 
 However, the findAll command should be tested roughly the same way. Only difference is when multiple valid fields are supplied at once.
 </div>
 
