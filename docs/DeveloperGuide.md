@@ -1393,45 +1393,49 @@ Prerequisites: Displayed list must not be empty
 <div markdown="span" class="alert alert-info">:information_source: 
 
 **Note:**<br>
+
 A contact is considered valid when all 3 of the compulsory fields `Name`, `Phone` and `Email` are specified
+
 </div>
 
 1. Adding valid contacts with only the 3 compulsory fields, `Name`, `Phone`, `Email` specified
 
    * Test case: `add n/bob p/98765432 e/test@test.com`<br>
-   Expected: A contact with the specified fields is added into the list with all other fields, `address`, `age`, `gender`, `interests` left as 'N.A'
+   Expected: A contact with the specified fields is added into the list with all other fields, `address`, `age`, `gender`, `interests` left as 'N.A' <br>
    
 2. Adding valid contacts with multiple optional fields specified
 
-   * Test case: `add n/bob p/98765432 e/test@test.com g/m i/running`
-   Expected: A contact with the specified fields is added into the list with only `address` and `age` left as 'N.A'
+   * Test case: `add n/bob p/98765432 e/test@test.com g/m i/running` <br>
+   Expected: A contact with the specified fields is added into the list with only `address` and `age` left as 'N.A' <br>
    
-   * Test case: `add n/bob p/98765432 e/test@test.com a/his house age/22`
+   * Test case: `add n/bob p/98765432 e/test@test.com a/his house age/22` <br>
    Expected: A contact with the specified fields is added into the list with only `gender` and `interests` left as 'N.A'
 
 3. Adding contacts with invalid fields
 
-   * Test case: `add n/bob p/18765432 e/test@test.com g/m i/running` (phone is invalid)
+   * Test case: `add n/bob p/18765432 e/test@test.com g/m i/running` (phone is invalid) <br>
    Expected: Error details shown in the feedback box
    
-   * Test case: `add n/bob p/98765432 e/test@test.com g/me i/running` (gender is invalid)
+   * Test case: `add n/bob p/98765432 e/test@test.com g/me i/running` (gender is invalid) <br>
    Expected: Error details shown in the feedback box
 
 4. Adding contacts without anything specified after their respective prefix
 
-  * Test case: `add n/bob p/98765432 e/test@test.com g/m i/` ('i/' is left empty)
-    Expected: Error details shown in the feedback box
+   * Test case: `add n/bob p/98765432 e/test@test.com g/m i/` ('i/' is left empty) <br>
+     Expected: Error details shown in the feedback box
 
-  * Test case: `add n/bob p/98765432 e/test@test.com g/ i/running` ('g/' is left empty)
-    Expected: Error details shown in the feedback box
+   * Test case: `add n/bob p/98765432 e/test@test.com g/ i/running` ('g/' is left empty) <br>
+     Expected: Error details shown in the feedback box
 
 ### Finding contacts
 
 <div markdown="span" class="alert alert-info">:information_source: 
 
 **Note:**<br>
+
 The test cases below only make use of the findAny command. 
 However, the findAll command should be tested roughly the same way. Only difference is when multiple valid fields are supplied at once.
+
 </div>
 
 1. Finding contacts by specifying only 1 field
