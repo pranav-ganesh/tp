@@ -898,7 +898,7 @@ Guarantees: All contacts that match the specified fields would be displayed
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **CSV Comma Separated Values**: An excel format
 * **PlantUML**: An open-source tool allowing users to create diagrams from a plain text language
-* **JSON**: JSON is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays.
+* **JSON**: JSON is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays
 * **Quality of Life**: The measure of how convenient it is to use an application
 --------------------------------------------------------------------------------------------------------------------
 
