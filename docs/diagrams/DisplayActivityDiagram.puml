@@ -9,9 +9,10 @@ start
 :DisplayCommandParser creates a new DisplayCommand;
 if () then ([command is valid])
     : LogicManager executes the DisplayCommand and
-                  obtains contact to be displayed;
+                  obtains index of contact to be displayed;
     : UiManager communicates with MainWindow;
-        : MainWindow displays the details of the selected contact;
+        : MainWindow displays the details of the selected
+        contact in the PersonCard;
 else ([else])
     : Outputs an error message;
 endif

@@ -16,7 +16,7 @@ CMM is optimized for use via a **Command Line Interface** (CLI) while still havi
 If you can type fast, CMM can get your contact management tasks done faster than traditional GUI apps.
 
 
-## How to use the User Guide
+## Navigating the User Guide
 
 This user guide aims to help you easily find the information you desire for any command. <br>
 Each Command section is separated into:<br>
@@ -30,15 +30,17 @@ Each Command section is separated into:<br>
 **:information_source: Note:** Straightforward commands such as 'list' may not have the sections "Things to note", "examples" and "Common issues"
 </div>
 
-To get the most out of this user guide, it is recommended that you familiarise yourself with the [notations](#3.-command-notations) we use. <br>
-If you have not yet downloaded the application, head over to [Quick Start](#2.-Quick-start) to get started. <br>
-Feel free to check out the [Features](#4.-Overview-of-Features) to check out detailed descriptions of the features offered in our application! <br>
-If you are already an experienced user, feel free to head over to the [Command Summary](#6-Command-summary) to get a quick refresher
-of the commands. <br>
-If you have any questions about CMM, please refer to the [FAQ](#5.-FAQ)
+Words and phrases mentioned `like this` refer to code that is to be input by the user. 
+It is highly recommended that you familiarise yourself with the [Command Notation details](#3-command-notations) we use . <br>
+If you have not yet downloaded the application, head over to [Quick Start](#2-quick-start) to get started. <br>
+Feel free to check out the [Features](#4-overview-of-features) to check out detailed descriptions of the features offered in our application! <br>
+If you are already an experienced user, feel free to head over to the [Command Summary](#6-command-summary) to get a quick refresher
+on the commands. <br>
+If you have any questions about CMM, please refer to the [FAQ](#5-faq)
 Hope you have a great time with CMM.
 
 --------------------------------------------------------------------------------------------------------------------
+
 ## 1. Table of Contents
 * Table of Contents
    {:toc}
@@ -55,7 +57,7 @@ Hope you have a great time with CMM.
 
 4. Double-click the file to start the app. Initially, a popup asking to import CSV data would appear.
    ![importPopUpUi](images/importPopUpMessage.png) <br>
-   To learn more about importing CSV data, click [here](#importing-the-data-into-database). Otherwise, to quickly get started, simply click any button
+   To learn more about importing CSV data, click [here](#414-importing-the-data-into-database). Otherwise, to quickly get started, simply click any button
    on the popup and a GUI similar to the screenshot below should appear in a few seconds. Note how the app contains some sample data.
    ![Ui](images/Ui.png)
 
@@ -64,7 +66,7 @@ Hope you have a great time with CMM.
    - `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the CMM database.
    - `list` : Lists all contacts.
    - `called 2` : Marks the 2nd contact shown in the current list as called.
-   - `edit 1 n/Bob p/62353535` : Edits the name and phone number of the first person in the displayed list.
+   - `edit 1 n/Bob p/62353535` : Edits the name and phone number of the first contact in the displayed list.
    - `findAny n/alex g/m` : Finds the contacts that have the substring `alex`in their name **AND/OR** are males.
    - `findAll n/alex g/m` : Finds the contacts that have both the substring `alex` in their name **AND** are males.
    - `delete 3` : Deletes the 3rd contact shown in the current list.
@@ -75,7 +77,7 @@ Hope you have a great time with CMM.
 
 6. Remember to clear the sample data using `clear` command before adding your own data.
 
-7. Refer to the [Features](#features) below for details of each command.
+7. Refer to the [Features](#4-overview-of-features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -157,7 +159,7 @@ Format: `list`
 
 ### 4.3 Marking a contact as called : `called`
 
-Marks the specified contact from the address book as called. (i.e. person has already been called)
+Marks the specified contact from the address book as called. (i.e. contact has already been called)
 
 Format: `called INDEX`
 
@@ -199,7 +201,7 @@ Examples:
 * `INDEX` **must be a positive integer** 1, 2, 3, …​
 * `INTERESTSLIST INDEX` refers to the index number shown in the displayed interests list of the contact.
 * `INTERESTSLIST INDEX` **must be a positive integer** 1, 2, 3, …​
-*  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#displaying-full-contact-details--display)
+*  The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#4.8-Displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
 
 
@@ -260,7 +262,7 @@ findAll vs findAny<br>
     * findAny searches for contacts that satisfy **ANY** of the fields specified<br>
 </div>
 
-Click [here](#finding-contacts-that-matches-all-the-keywords-specified--findall) to learn more about findAll
+Click [here](#47-finding-contacts-that-match-all-the-keywords-specified--findall) to learn more about findAll
 
 Examples:
 * `findAny n/John` finds all contacts that have the substring `john` in their name
@@ -286,8 +288,8 @@ Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 * `findAll` only returns contacts that matches all the keywords specified in their respective fields
 * `findAll` requires at least one field. But it is optional to include all the fields. <br>
 * If there are duplicate fields, CMM will only take the right-most field <br>
-  eg. `findAll n/alex n/david` returns the same results as `findAny n/david`
-* The search is case-insensitive. e.g `n/hans` will return the same result `n/Hans` <br>
+  e.g. `findAll n/alex n/david` returns the same results as `findAny n/david`
+* The search is case-insensitive. e.g. `n/hans` will return the same result `n/Hans` <br>
 * Any number of keywords can be specified within each field <br>
 * The order of the keywords within each field does not matter. e.g. `n/Hans Bo` will return the same result
   as `n/Bo Hans`<br>
@@ -301,11 +303,11 @@ findAll vs findAny: <br>
 - findAny searches for contacts that satisfy **ANY** of the fields specified<br>
 </div>
 
-Click [here](#finding-contacts-that-matches-any-of-the-keywords-specified-findany) to learn more about findAny
+Click [here](#46-finding-contacts-that-match-any-of-the-keywords-specified-findany) to learn more about findAny
 
 Examples:
 * `findAll n/alex` finds all the contacts that have the substring 'alex' in their name
-* `findAll n/Malan i/Swimming` finds only the contacts that have **BOTH** the substring 'malan' in the name and the substring 'swimming' as their interests
+* `findAll n/Malan i/Swimming` finds only the contacts that have **BOTH** the substring 'Malan' in the name and the substring 'swimming' as their interests
 * `findAll i/Painting i/ Running` finds only the contacts that have 'running' as a substring as their interests
 * `findAll n/al da vi a/ho oh` finds only the contacts that have **ALL 3** substrings of 'al', 'da' and 'vi' in their name **AND both** substrings of 'ho' and 'oh' in the address
 
@@ -314,7 +316,7 @@ Examples:
   a. Using `findany` instead of `findAny` (not capitalising the 'A')
 * _Invalid command format!_: <br>
   a. No fields provided<br>
-  b. Used the wrong prefix (eg. '/n' instead of 'n/')
+  b. Used the wrong prefix (e.g. '/n' instead of 'n/')
   c. Did not specify either 't', 'f', 'true', 'false' after `c/`
   d. Did not specify either 'm', 'f', 'male', 'female', 'n.a' after `g/`
 
