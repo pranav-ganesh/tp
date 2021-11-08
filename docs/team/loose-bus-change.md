@@ -23,6 +23,7 @@ Given below are my contributions to the project.
         but had to be modified such that it updated the details when other functions were called. It was quite difficult to write tests for it, and 
         catch errors in an appropriate manner. 
 
+
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=totalCommits&sortWithin=totalCommits%20dsc&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=loose-bus-change&tabRepo=AY2122S1-CS2103T-T13-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
 
 * **Project management**:
@@ -37,15 +38,18 @@ Given below are my contributions to the project.
     * Modifying use cases for project. (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
     * Editing final documentation (Pull requests [#196](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/196))
 
+
 * **Enhancements to existing features**:
     * Modified the original `add` command for the v1.2 release. (Pull requests [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/45))
     * Modified the implementation of the `clear` command to change the updated UI of `display`. (Pull requests [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/182))
     * Modified error messages of existing functions to provide more clarity. (Pull requests [#45](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
     * Changed the way in which an input index is parsed. (Pull requests [#192](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/192))
 
+
 * **Community:** 
     * Sample of PR reviewed (with non-trivial comments): (Pull requests [#194](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/194))
     * Reported bugs for other teams: [Bugs found in PE-D](https://github.com/loose-bus-change/ped/issues)
+
 
 * **Documentation**:
     * User Guide:
