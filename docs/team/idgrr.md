@@ -26,8 +26,8 @@ Given below are my contributions to the project.
     sheets for storing customer data. The implementation was challenging as it required constant updating and tweaking
     as the team's definition of a valid person to be imported constantly changed throughout the project
   * Credits: The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture helped me structure
-    my ImportExport feature. This taught me how to follow an existing architectural style while implementing a new
-    feature. It also helped me rethink the way I approach code abstractions
+    my Import feature. This taught me how to follow an existing architectural style while implementing a new
+    feature. It also helped me rethink the way I approach code abstractions.
 
 * **New Feature**: Added Exporting functionality
   * What it does: Allows users to export contacts found in CMM's database quickly. CMM currently export to Excel Files only
@@ -39,9 +39,9 @@ Given below are my contributions to the project.
     contacts into the database.
   * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth 
     analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: *The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture  helped me structure
-    my ImportExport feature. This taught me how to follow an existing architectural style while implementing a new 
-    feature. It also helped me rethink the way I approach code abstractions
+  * Credits: The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture  helped me structure
+    my Export feature. This taught me how to follow an existing architectural style while implementing a new 
+    feature. It also helped me rethink the way I approach code abstractions.
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=idgrr)
 
@@ -67,7 +67,7 @@ Given below are my contributions to the project.
 
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): <br>
+  * Examples of PRs reviewed (with non-trivial review comments): <br>
     [Reviewing find command](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/175) <br>
     [Reviewing Add command](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/89) <br>
     [Reviewing DG](https://github.com/AY2122S1-CS2103T-T13-4/tp/pull/93) <br>
