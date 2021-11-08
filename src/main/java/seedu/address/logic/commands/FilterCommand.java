@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.comparators.PersonComparator;
 import seedu.address.logic.comparators.exceptions.ComparatorException;
 import seedu.address.model.Model;
@@ -22,7 +25,7 @@ public class FilterCommand extends Command {
             + "by the category given by the user. "
             + "List will be shown in ascending alphabetical order.\n"
             + "Parameters: CATEGORY "
-            + "INDEX (must be a positive integer)\n"
+            + "COUNT (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " Called 5";
 
     public static final String MESSAGE_SUCCESS = "Filtered by: %1$s";
@@ -42,15 +45,25 @@ public class FilterCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws ComparatorException {
+    public CommandResult execute(Model model) throws ComparatorException, CommandException {
         requireNonNull(model);
 
         // Get Comparator based on category
-        Comparator<Person> comparator = PersonComparator.getComparator(category);
+        Comparator<Person> comparator;
+        try {
+            comparator = PersonComparator.getComparator(category);
+        } catch (ComparatorException e) {
+            throw new ComparatorException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, e.getMessage() + FilterCommand.MESSAGE_USAGE));
+        }
+        assert(comparator != null);
         model.sortFilteredPersonList(comparator);
 
         // Limit displayed Persons using count
         model.limitFilteredPersonList(count);
+
+        DisplayCommand displayCommand = new DisplayCommand(Index.fromOneBased(1));
+        displayCommand.execute(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, category));
     }
