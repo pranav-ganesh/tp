@@ -65,8 +65,8 @@ public class EditCommandTest {
         assertEditCommandSuccess(expectedPerson, expectedPerson, 3);
 
         // editing the interest
-        Person expectedPerson2 = new PersonBuilder().withName("Eric").withInterest("Mining", "Reading").build();
-        Person editedPerson = new PersonBuilder().withName("Eric").withInterest("(1) Mining").build();
+        Person expectedPerson2 = new PersonBuilder().withName("LMAO").withInterest("Mining", "Reading").build();
+        Person editedPerson = new PersonBuilder().withName("LMAO").withInterest("(1) Mining").build();
 
         assertEditCommandSuccess(expectedPerson2, editedPerson, 3);
     }
