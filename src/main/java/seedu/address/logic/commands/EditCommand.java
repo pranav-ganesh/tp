@@ -99,14 +99,13 @@ public class EditCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        
+
         assert index.getZeroBased() < lastShownList.size();
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         if (!personToEdit.equals(editedPerson)) {
-            System.out.println("HELLO1");
             if (model.hasPerson(editedPerson)) {
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
             } else {
@@ -166,7 +165,7 @@ public class EditCommand extends Command {
      */
     public void editInterestList(InterestsList newList, InterestsList currentList) throws CommandException {
         emptyLists();
-        
+
         assert this.listOfArguments.isEmpty();
         assert this.listOfIndexes.isEmpty();
         assert this.interestsToBeAdded.isEmpty();

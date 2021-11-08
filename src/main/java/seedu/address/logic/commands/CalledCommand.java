@@ -57,7 +57,7 @@ public class CalledCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        
+
         assert index.getZeroBased() < lastShownList.size();
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
