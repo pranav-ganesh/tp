@@ -25,11 +25,9 @@ Given below are my contributions to the project.
     relevant and often updated as long as CMM uses a local storage, and the company processes continues with using Excel
     sheets for storing customer data. The implementation was challenging as it required constant updating and tweaking
     as the team's definition of a valid person to be imported constantly changed throughout the project
-  * Credits: *The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture helped me structure
+  * Credits: The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture helped me structure
     my ImportExport feature. This taught me how to follow an existing architectural style while implementing a new
-    feature. It also helped me rethink the way I approach code abstractions way before the CS2103T's lecture of code
-    architecture*
-
+    feature. It also helped me rethink the way I approach code abstractions
 
 * **New Feature**: Added Exporting functionality
   * What it does: Allows users to export contacts found in CMM's database quickly. CMM currently export to Excel Files only
@@ -43,16 +41,12 @@ Given below are my contributions to the project.
     analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
   * Credits: *The previous iteration CallMeMaybe (AddressBookLevel3) 's JSON storage architecture  helped me structure
     my ImportExport feature. This taught me how to follow an existing architectural style while implementing a new 
-    feature. It also helped me rethink the way I approach code abstractions way before the CS2103T's lecture of code 
-    architecture*
-    
+    feature. It also helped me rethink the way I approach code abstractions
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=idgrr)
 
-
 * **Project management**:
   * Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
-
 
 * **Enhancements to existing features**:
   * Updated the GUI resizing functionality to ensure that features can always be displayed
