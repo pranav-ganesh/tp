@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.comparators.PersonComparator.MESSAGE_INVALID_CATEGORY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -51,10 +52,12 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = MESSAGE_INVALID_CATEGORY;
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_INVALID_CATEGORY + FilterCommand.MESSAGE_USAGE);
 
         // no parameters
-        assertParseFailure(parser, "", expectedMessage);
+        assertParseFailure(parser, "",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
 
         // null input
         assertThrows(NullPointerException.class, () -> parser.parse(null));
@@ -69,14 +72,16 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_invalidCount_failure() {
-        String expectedMessage = MESSAGE_INVALID_COUNT;
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_INVALID_COUNT + FilterCommand.MESSAGE_USAGE);
         String userInput = NON_EMPTY_CATEGORY + " " + INVALID_COUNT;
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
     @Test
     public void parse_invalidCategory_failure() {
-        String expectedMessage = MESSAGE_INVALID_CATEGORY;
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_INVALID_CATEGORY + FilterCommand.MESSAGE_USAGE);
         String userInput = INVALID_CATEGORY + " " + NON_ZERO_COUNT;
         assertParseFailure(parser, userInput, expectedMessage);
     }
