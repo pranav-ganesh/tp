@@ -233,7 +233,7 @@ As the app is catered towards telemarketers, the `Name`, `Email` and `Phone` fie
 On the other hand, `Address`, `Gender`, `Age` and `Interest` are seen as complementary fields. Hence, they are non-compulsory.
 
 The current split of compulsory and non-compulsory fields allows us to maintain the minimal amount of information required by telemarketers while
-also improve user experience by reducing time required for users to type the command.
+also improving user experience by reducing time required for users to type the command.
 
 ### FindAll/FindAny feature
 
