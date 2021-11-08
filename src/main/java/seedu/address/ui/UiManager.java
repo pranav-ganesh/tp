@@ -53,7 +53,7 @@ public class UiManager implements Ui {
 
     /**
      * Displays the full person card (additional details) of the chosen person if the MainWindow is
-     * initialised. If not, then an exception is thrown.
+     * initialised.
      */
     public static void displayFunction() {
         if (mainWindow != null) {

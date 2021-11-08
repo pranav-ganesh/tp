@@ -1306,13 +1306,13 @@ Prerequisites: Displayed list must not be empty
    * Test case: `delete 0`<br>
       Expected: No contact is deleted. Error details shown in the status message
 
-   * Test case: `delete 100` <br> (List contains only 50 contacts)
+   * Test case: `delete 100` (List contains only 50 contacts) <br>
      Expected: No contact is deleted. Error details shown in the status message
 
-   * Test case: `delete 9999999999999` (Index larger than 2147483647)    
+   * Test case: `delete 9999999999999` (Index larger than 2147483647) <br>
      Expected: No contact is deleted. Error details shown in the status message
    
-   * Test case: `delete x`
+   * Test case: `delete x` <br>
      Expected: No contact is deleted. Error details shown in the status message
    
 ### Displaying contacts
@@ -1329,13 +1329,13 @@ Prerequisites: Displayed list must not be empty
    * Test case: `display 0`<br>
      Expected: The previously displayed contact continues to be displayed. Error details shown in the feedback box
 
-   * Test case: `display 100` <br> (List contains only 50 contacts)
+   * Test case: `display 100` (List contains only 50 contacts) <br>
      Expected: The previously displayed contact continues to be displayed. Error details shown in the feedback box
 
-   * Test case: `display 9999999999999` (Index larger than 2147483647)    
+   * Test case: `display 9999999999999` (Index larger than 2147483647) <br>
      Expected: The previously displayed contact continues to be displayed. Error details shown in the feedback box
 
-   * Test case: `display x`
+   * Test case: `display x` <br>
      Expected: The previously displayed contact continues to be displayed. Error details shown in the feedback box
 
 ### Editing contacts
@@ -1344,43 +1344,43 @@ Prerequisites: Displayed list must not be empty
 
 1. Editing the name of the contact
 
-   * Test case: `edit 1 n/bob`
+   * Test case: `edit 1 n/bob` <br>
      Expected: The name of the first contact is edited to 'bob'
 
-3. Editing multiple fields at once (age, gender and address)
+2. Editing multiple fields at once (age, gender and address)
 
-   * Test case `edit 2 age/22 g/F a/new_address`
+   * Test case `edit 2 age/22 g/F a/new_address` <br>
      Expected: The age, gender and address of the second contact are edited
 
-4. Adding an interest to the interests list of a specific contact
+3. Adding an interest to the interests list of a specific contact
    
-   * Test case `edit 4 i/hockey`
+   * Test case `edit 4 i/hockey` <br>
      Expected: The interest 'hockey' is added to the interests list of the fourth contact
 
-5. Editing the interests list of a specific contact
+4. Editing the interests list of a specific contact
    
-   * Test case `edit 4 i/(1) reading`
+   * Test case `edit 4 i/(1) reading` <br>
      Expected: The first interest in the interests list of the fourth contact is edited and updated to 'reading'
 
-6. Removing an interest in the interests list of a specific contact
+5. Removing an interest in the interests list of a specific contact
    
-   * Test case `edit 2 i/(1) remove`
+   * Test case `edit 2 i/(1) remove` <br>
      Expected: The first item in the interests list of the fourth contact is removed
 
-7. Editing, adding and removing interests of a specific contact
+6. Editing, adding and removing interests of a specific contact
    
-   * Test case `edit 3 i/(2) remove i/jogging i/(3) cooking`
+   * Test case `edit 3 i/(2) remove i/jogging i/(3) cooking` <br>
      Expected: The third item in the interests list of the third contact is edited and updated to 'cooking', the second item 
      in the interests list is removed and the interest 'jogging' is added to the interests list
 
-8. Editing contacts with invalid index
+7. Editing contacts with invalid index
    
-   * Test case: `edit 2333 i/helicopter`
+   * Test case: `edit 2333 i/helicopter` <br>
      Expected: Error details shown in the feedback box
 
-9. Editing contacts to persons who already exist in the list
+8. Editing contacts to persons who already exist in the list
    
-   * Test case: `edit 1 n/Peter Smith p/98989898 e/peter@email.com`
+   * Test case: `edit 1 n/Peter Smith p/98989898 e/peter@email.com` <br>
      Expected: Error details shown in the feedback box
 
 ### Filtering contacts
@@ -1457,28 +1457,28 @@ However, the findAll command should be tested roughly the same way. Only differe
 
 1. Finding contacts by specifying only 1 field
 
-   * Test case: `findAny n/bob`
+   * Test case: `findAny n/bob` <br>
    Expected: Only contacts that have the substring 'bob' in their name are displayed
    
-   * Test case `findAny i/run`
+   * Test case `findAny i/run` <br>
    Expected: Only contacts that have the substring 'run' in any of their interests are displayed
 
 3. Finding contacts with multiple specified fields
 
-   * Test case `findAny n/bob i/run`
+   * Test case `findAny n/bob i/run` <br>
      Expected: Only contacts that have either the substring 'bob' in their name or 'run' in any of their interests are displayed<br>
      (For findAll: Only contacts that have both the substring 'bob' in their name and 'run' in any of their interests are displayed )
 
 4. Finding contacts with invalid fields
 
-   * Test case: `findAny g/helicopter` ('helicopter' is not a valid gender)
-   Expected: Error details shown in the feedback box
+   * Test case: `findAny g/helicopter` ('helicopter' is not a valid gender) <br>
+     Expected: Error details shown in the feedback box
 
-   * Test case `findAny c/HAHA g/M` ('HAHA' is not a valid called status)
+   * Test case `findAny c/HAHA g/M` ('HAHA' is not a valid called status) <br>
      Expected: Error details shown in the feedback box
 
 5. Finding contacts that do not exist in the database
 
-   * Test case: `findAny n/[any substring that does not exist in the database]`
-   Expected: No contacts are displayed
+   * Test case: `findAny n/[any substring that does not exist in the database]` <br>
+     Expected: No contacts are displayed
 

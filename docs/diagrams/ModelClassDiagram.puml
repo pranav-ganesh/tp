@@ -49,7 +49,7 @@ Person *--> Email
 Person *---> isCalled
 Person *--> Address
 Person *---> Gender
-Person *--> Age
+Person *---> Age
 Person *--> InterestsList
 InterestsList *--> "*" Interest
 
