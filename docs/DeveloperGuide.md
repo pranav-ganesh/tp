@@ -183,25 +183,33 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Add feature
 
-The add command is facilitated by the LogicManager.
+The add feature is facilitated by the LogicManager. The `AddCommandParser#parse()` is used to parse the
+command arguments and returns a FindCommand object.The `LogicManager#execute()` then executes the AddCommand.
 
-**How the add command is executed:**
+This feature allows the user to add a contact into the CMM database.
 
-1. Command entered by user is passed into the LogicManager
+**Given below is an example usage scenario and how the add mechanism behaves at each step.**
 
-2. AddressBookParser parses the command
+1. The user opens the application and views the list of contacts. He wants to add more another contact into the list.
+They enters the command `add n/bob e/email@email.com p/999`
 
-3. AddressBookParser creates an AddCommand and a new Person with the fields specified by the user
+2. Command entered by user is passed into the LogicManager
 
-4. LogicManager executes the AddCommand and the new Person is added into the address book
+3. AddressBookParser parses the command
+
+4. AddressBookParser creates an AddCommand and a new Person with the fields specified by the user
+
+5. LogicManager executes the AddCommand and the new Person is added into the address book
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("add n/bob e/email@email.com p/999")` API call.
 
 <div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
+
 Due to the length of the arguments, we have decided to replace the line "n/bob e/email@email.com p/999"
-with "..." within the diagram for easier viewing.
+with `...` within the diagram for easier viewing.
+
 </div>
 
 ![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
@@ -248,19 +256,25 @@ also improving user experience by reducing time required for users to type the c
 
 ### FindAll/FindAny feature
 
-The find commands are facilitated by the LogicManager.
+The find feature is facilitated by the LogicManager. The `Find(Any/All)CommandParser#parse()` is used to parse the
+command arguments and returns a DisplayCommand object.The `LogicManager#execute()` then executes the Find(All/Any)Command.
 
-**How the find command is executed:**
+This feature finds any contact that matches the fields specified by the user.
 
-1. Command entered by user is passed into the LogicManager (i.e. `findAny n/alex g/m` or `findAll n/alice g/f`)
+**Given below is an example usage scenario and how the find mechanism behaves at each step.**
 
-2. AddressBookParser parses the command
+1. The user opens the application and views the list of contacts. He wants to find a specific contact in the list and 
+enters the command `findAny n/alex`
 
-3. AddressBookParser creates a FindAny/FindAll command with the respective predicates depending on the fields specified by the user
+2. Command entered by user is passed into the LogicManager (i.e. `findAny n/alex g/m` or `findAll n/alice g/f`)
 
-4. LogicManager executes the Find command and the model updates the filtered list of contacts with the new predicates
+3. AddressBookParser parses the command
 
-The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("n/alex")` API call.
+4. AddressBookParser creates a FindAny/FindAll command with the respective predicates depending on the fields specified by the user
+
+5. LogicManager executes the Find command and the model updates the filtered list of contacts with the new predicates
+
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("findAny n/alex")` API call.
 
 <div markdown="span" class="alert alert-info">:information_source:
 
@@ -299,17 +313,17 @@ the event where the need arises.
 
 ### Display feature
 
-The display command is facilitated by the LogicManager. The `LogicManager#execute()` executes the DisplayCommand
-that is passed from `DisplayCommandParser#parse()`. The `DisplayCommandParser#parse()` is used to parse the
-command arguments in the context of DisplayCommand and returns a DisplayCommand object for execution.
+The display command is facilitated by the LogicManager. The `DisplayCommandParser#parse()` is used to parse the
+command arguments and returns a DisplayCommand object.The `LogicManager#execute()` then executes the DisplayCommand
+that is created by the `DisplayCommandParser#parse()`. 
 
 This feature allows telemarketers to display additional details about a contact at any point in time
 if they need to.
 
 **Given below is an example usage scenario and how the display mechanism behaves at each step.**
 
-1. The telemarketer opens the application and views the list of contacts. Then they want to view more details
-about a particular contact. They enter the command `display 2`
+1. The user opens the application and views the list of contacts. He wants to view more details
+about a particular contact and enters the command `display 2`
 
 2. Command entered by user is passed into the LogicManager which directs it to AddressBookParser
 
@@ -323,7 +337,7 @@ about a particular contact. They enter the command `display 2`
 
 7. The MainWindow, where the relevant JavaFX elements are placed, shows the details of the selected contact
 
-The following sequence diagram shows how the display operation works when the telemarketer enters `display 2`:
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("display 2")` API call.
 
 ![Interactions Inside the Logic Component for the `display' Command](images/DisplaySequenceDiagram.png)
 
@@ -333,27 +347,33 @@ The following activity diagram summarizes what happens when a user executes a di
 
 ### Filter feature
 
-The filter command is facilitated by the LogicManager.
+The Filter feature is facilitated by the LogicManager. The `FilterCommandParser#parse()` is used to parse the
+command arguments and returns a FilterCommand object. The `LogicManager#execute()` then executes the FilterCommand.
 
-**How the filter command is executed:**
+This feature allows the user to filter the contacts based on `Called` and `Gender`
 
-1. Command entered by user is passed into the LogicManager
+**Given below is an example usage scenario and how the filter mechanism behaves at each step.**
 
-2. AddressBookParser parses the command
+1. The user opens the application and views the list of contacts. He wants to filter the contacts according to `Gender`
+and enters the command `filter gender 3`
 
-3. AddressBookParser creates a FilterCommand
+3. Command entered by user is passed into the LogicManager
 
-4. LogicManager executes the FilterCommand and creates a Comparator with the category field specified by the user
+4. AddressBookParser parses the command
 
-5. The Comparator is used to sort the FilteredList of contacts in Model
+5. AddressBookParser creates a FilterCommand
 
-6. The count field specified by the user is used to limit the number of contacts displayed in the GUI
+6. LogicManager executes the FilterCommand and creates a Comparator with the category field specified by the user
+
+7. The Comparator is used to sort the FilteredList of contacts in Model
+
+8. The count field specified by the user is used to limit the number of contacts displayed in the GUI
 
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("filter gender 3")` API call.
 
 ![Interactions Inside the Logic Component for the `filter' Command](images/FilterSequenceDiagram.png)
 
-The activity diagram below summarises what happens when a user executes an Filter Command.
+The activity diagram below summarises what happens when a user executes a Filter Command.
 
 ![Filter command activity diagram](images/FilterActivityDiagram.png)
 
@@ -380,8 +400,9 @@ The activity diagram below summarises what happens when a user executes an Filte
 <div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
-Since there is little reason for telemarketers sort contacts
-by categories other than "Gender" and "Called", those are the only categories supported by the filter command.
+
+Since sorting by "Gender" and "Called" is the most used by telemarketers, these are the only 2 categories supported by the filter command as of now. <br>
+However, we have plans to implement sorting by other categories in the future.
 
 </div>
 
@@ -389,34 +410,28 @@ As the key intention is for users to filter by `Category`, it is kept as a compu
 
 On the other hand, filtering by `Count` is a complementary feature to improve Quality of Life (QOL) for users. Hence, it is non-compulsory.
 
-The current design implementation allows users to filter contacts quickly and gives the flexibility to further filter
-the results if they ever want to.
+The current design implementation allows users to filter contacts quickly and gives them the flexibility of limiting the size of the filtered
+list. This can come in handy when there too many contacts in the list.
 
 ### Edit feature
 
-The edit mechanism is facilitated by `LogicManager` and `EditCommandParser`. `LogicManager#execute()` is used to execute the edit command
-while the `EditCommandParser#parse()` is used to parse the command arguments in the context of EditCommand and returns an EditCommand object for execution.
-This feature allows telemarketers to edit data fields at any point in time if they need to.
+The Edit feature is facilitated by the LogicManager. The `EditCommandParser#parse()` is used to parse the
+command arguments and returns an EditCommand object.The `LogicManager#execute()` then executes the EditCommand.
 
-Given below is an example usage scenario and how the edit mechanism behaves at each step.
+This feature allows the user to easily edit any specific component of a contact.
 
-1. The user launches the application and realizes that person 1 needs to be edited. He/she executes the command `edit 1 name/Will age/20` in order to edit the first person in the address book.
+**Given below is an example usage scenario and how the edit mechanism behaves at each step.**
 
-ℹ️ **Note:** If the user enters the command in an incorrect format, then an invalid command format message is displayed along with the correct format to use.
-
-ℹ️ **Note:** Since the application strives to enhance a telemarketer's daily job, the `Name`, `Email` and `Phone` attributes are designed to be compulsory fields. These data
-fields are essential contact information required by the telemarketers. The additional fields `Age`, `Gender`, `Address` and `InterestsList` are complimentary fields which enhance user
-experience and accentuate the quality of the application.
+1. The user opens the application and views the list of contacts. He wants to edit the first contact and 
+enters the command `edit 1 name/Will age/20`
 
 2. This command is passed on to the `LogicManager` which directs the command to the `AddressBookParser`.
 
-3. The `AddressBookParser` parses the command to extract all the arguments supplied by the telemarketer. It
-returns an EditCommand along with a new person object (`new Person("Will", 20)`) containing all the data field values entered by the telemarketer.
+3. The `AddressBookParser` parses the command and returns an EditCommand with a new person object containing all the specified edited fields
 
-4. The `LogicManager` then executes the `EditCommand` which replaces the person at the specified index (1) with a new person object containing all the updated data fields.
+4. The `LogicManager` then executes the `EditCommand` which replaces the contact at the specified index (1) with a new person object containing all the updated data fields.
 
-
-Step 5. The `EditCommand#createEditedPerson()` returns a new Person object containing all the updated data fields.
+5. The `EditCommand#createEditedPerson()` returns a new Person object containing all the updated data fields.
 
 ℹ️ **Note:** Editing of the `InterestsList` data field works differently from the rest of the fields. Telemarketers can specify an optional index to indicate which
 item in the list they want to edit. They also have the option to add or remove an interest from the interests list. The `EditCommand#editInterestList()` is used to parse the interests list index
@@ -426,7 +441,7 @@ variable `updatedInterests` which is then passed inside the Person object define
 
 Step 6: The `model.setPerson(personToEdit, editedPerson)` in the `EditCommand` class is used to update the person in the model
 
-Step 7: The `DisplayCommand` is then used to display the modifications on the application interface
+Step 7: The [`DisplayCommand`](#display-feature) is then used to display the modifications on the application interface
 
 The following sequence diagram shows how the edit operation works when the telemarketer enters `edit 1 n/Peter e/peter@email.com g/M age/M`:
 
@@ -476,6 +491,7 @@ The following activity diagram summarizes what happens when a user executes an e
 The import and export feature is primarily facilitated by the Storage Manager. 
 
 **How the import is executed:**
+
 1. MainWindow calls logic to import data
 
 2. Logic calls StorageManager to import the data into a model
