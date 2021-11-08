@@ -2,17 +2,17 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":FilterCommandParser" as FilterCommandParser LOGIC_COLOR
+participant ": LogicManager" as LogicManager LOGIC_COLOR
+participant ": AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ": FilterCommandParser" as FilterCommandParser LOGIC_COLOR
 participant "a:FilterCommand" as FilterCommand LOGIC_COLOR
-participant ":PersonComparator" as PersonComparator LOGIC_COLOR
+participant ": PersonComparator" as PersonComparator LOGIC_COLOR
 participant "c:Comparator" as Comparator LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ": CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant ": Model" as Model MODEL_COLOR
 end box
 
 -> LogicManager : execute("filter gender 3")

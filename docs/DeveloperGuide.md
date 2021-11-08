@@ -214,6 +214,14 @@ with `...` within the diagram for easier viewing.
 
 ![Interactions Inside the Logic Component for the `add' Command](images/AddSequenceDiagram.png)
 
+<div markdown="span" class="alert alert-info">:information_source:
+
+**Note:**<br>
+
+The lifeline for `AddCommandParser` should end at the destroy marker (X). But due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
 The activity diagram below summarises what happens when a user executes an Add Command.
 
 ![Add command activity diagram](images/AddActivityDiagram.png)
@@ -284,6 +292,14 @@ While only the `findAny` command was used for the examples below, the `findAll` 
 
 ![Interactions Inside the Logic Component for the `findAny' Command](images/FindSequenceDiagram.png)
 
+<div markdown="span" class="alert alert-info">:information_source:
+
+**Note:**<br>
+
+The lifeline for `FindAnyCommandParser` should end at the destroy marker (X). But due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
 The activity diagram below summarises what happens when a user executes a `findAny` Command.
 
 ![Find command activity diagram](images/FindActivityDiagram.png)
@@ -341,6 +357,14 @@ The Sequence Diagram below illustrates the interactions within the Logic compone
 
 ![Interactions Inside the Logic Component for the `display' Command](images/DisplaySequenceDiagram.png)
 
+<div markdown="span" class="alert alert-info">:information_source:
+
+**Note:**<br>
+
+The lifeline for `DisplayCommandParser` should end at the destroy marker (X). But due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
+
 The following activity diagram summarizes what happens when a user executes a display command:
 
 ![DisplayActivityDiagram](images/DisplayActivityDiagram.png)
@@ -372,6 +396,14 @@ and enters the command `filter gender 3`
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("filter gender 3")` API call.
 
 ![Interactions Inside the Logic Component for the `filter' Command](images/FilterSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source:
+
+**Note:**<br>
+
+The lifeline for `FilterCommandParser` should end at the destroy marker (X). But due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The activity diagram below summarises what happens when a user executes a Filter Command.
 
@@ -425,29 +457,51 @@ This feature allows the user to easily edit any specific component of a contact.
 1. The user opens the application and views the list of contacts. He wants to edit the first contact and 
 enters the command `edit 1 name/Will age/20`
 
-2. This command is passed on to the `LogicManager` which directs the command to the `AddressBookParser`.
+2. This command is passed on to the `LogicManager` which directs the command to the `AddressBookParser`
 
-3. The `AddressBookParser` parses the command and returns an EditCommand with a new person object containing all the specified edited fields
+3. The `AddressBookParser` parses the command and returns an EditCommand with a new person object containing all the specified edited fields except the interests
 
-4. The `LogicManager` then executes the `EditCommand` which replaces the contact at the specified index (1) with a new person object containing all the updated data fields.
+<div markdown="span" class="alert alert-info">:information_source:
 
-5. The `EditCommand#createEditedPerson()` returns a new Person object containing all the updated data fields.
+**Note:**<br>
 
-ℹ️ **Note:** Editing of the `InterestsList` data field works differently from the rest of the fields. Telemarketers can specify an optional index to indicate which
-item in the list they want to edit. They also have the option to add or remove an interest from the interests list. The `EditCommand#editInterestList()` is used to parse the interests list index
-and either edits a copy of the existing interests list at the specified index or removes an element from the existing interests list at the specified index. 
-If user doesn't specify any interests list index, then the specified interest item is simply added to the copy of the current `InterestsList`. Once execution is complete, this copy is then set to the
-variable `updatedInterests` which is then passed inside the Person object defined in step 5.
+Editing of the `InterestsList` field works differently from the rest of the fields. In the case for other fields, 
+the new values specified by the user will completely replace the original values of their respective fields. However, editing of
+the `InterestsList1` allows for adding and removing of `Interest` as well as editing specific `Interests` withing the `InterestsList`.
+Therefore, a reference to the original `InterestsList` of the contact to be edited is required. Hence, the creation of the 
+updated `InterestsList` is done in the EditCommand where there is access to the `Model` instead of the EditCommandParser.
 
-Step 6: The `model.setPerson(personToEdit, editedPerson)` in the `EditCommand` class is used to update the person in the model
+</div>
 
-Step 7: The [`DisplayCommand`](#display-feature) is then used to display the modifications on the application interface
+4. The `LogicManager` then executes the `EditCommand`
 
-The following sequence diagram shows how the edit operation works when the telemarketer enters `edit 1 n/Peter e/peter@email.com g/M age/M`:
+5. The `EditCommand#createEditedPerson()` returns a new Person object containing all the updated data fields including
+the updated `InterestsList`.
+
+6: The contact that was requested to be edited is updated to this new Person Object
+
+7: The [`DisplayCommand`](#display-feature) is then used to display the modifications through the person card
+
+The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("edit 1 n/Peter e/peter@email.com g/M age/M")` API call.
+
+<div markdown="span" class="alert alert-info">:information_source:
+
+**Note:**<br>
+
+Due to the length of the arguments, we have decided to replace the line "1 n/Peter e/peter@email.com g/M age/M"
+with `...` within the diagram for easier viewing.
+
+</div>
 
 ![Interactions Inside the Logic Component for the `edit' Command](images/EditSequenceDiagram.png)
 
-ℹ️ **Note:** The lifeline for `EditCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source:
+
+**Note:**<br>
+
+The lifeline for `EditCommandParser` should end at the destroy marker (X). But due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+</div>
 
 The following activity diagram summarizes what happens when a user executes an edit command:
 
@@ -459,14 +513,14 @@ The following activity diagram summarizes what happens when a user executes an e
 
 * **Alternative 1 (current choice):** 3 fields (`Name`, `Email` and `Phone`) need to exactly match for duplicate to be detected
 
-    * Pros: More logical and emulates real world scenario, impossible for non-duplicate contacts to have the same name, email and phone
+    * Pros: More logical and emulates real world scenario where it is unlikely for non-duplicate contacts to have the same name, email and phone
 
     * Cons: More likely that an edited contact might be already present in the address book
 
 
 * **Alternative 2:** All 7 fields (`Name`, `Email`, `Phone`, `Address`, `Age`, `Gender` and `Interestslist`) need to match for duplicate to be detected
 
-    * Pros: Impossible for two non-duplicate contacts to have exact match for all 7 fields, less likely for edited contact to be already present in the address book
+    * Pros: Less likely for edited contact to be already present in the address book
 
     * Cons: This can lead to more than one contact having the same name, phone and email but different other attributes, which is nearly impossible in the real world
 
@@ -488,19 +542,23 @@ The following activity diagram summarizes what happens when a user executes an e
 
 ### Import feature
 
-The import and export feature is primarily facilitated by the Storage Manager. 
+The import feature is primarily facilitated by the Storage Manager. 
 
-**How the import is executed:**
+This feature allows the user to easily import external data into the CMM database.
 
-1. MainWindow calls logic to import data
+**Given below is an example usage scenario and how the import mechanism behaves at each step.**
 
-2. Logic calls StorageManager to import the data into a model
+1. User wants to import additional data from a separate CSV file and clicks on the `Add on Imports button`
 
-3. StorageManager calls CsvAddressBookImportExport to read and convert all details found in CSV file to list of valid people
+2. MainWindow calls logic to import data
 
-4. CsvAddressBookImportExport either adds or updates valid people into the model.
+3. Logic calls StorageManager to import the data into a model
 
-5. Logic saves the database after all imports have been completed
+4. StorageManager calls CsvAddressBookImportExport to read and convert all details found in CSV file to list of valid people
+
+5. CsvAddressBookImportExport either adds or updates valid people into the model.
+
+6. Logic saves the database after all imports have been completed
 
 ![Interactions Inside the Storage Component when importing](images/ImportCsvSequenceDiagram.png)
 
@@ -508,14 +566,17 @@ The import and export feature is primarily facilitated by the Storage Manager.
 
 Application will ask whether the User has any new imports upon **every** application startup. <br>
 User will be prompted with 3 options : 
+
 * Add on Imports 
+
 * Start new with imports
+
 * No Imports
 
 The following activity diagram summarizes what happens when a user selects either of the 3 options:
   ![CMM behaviour based on user input](images/ImportDecision.png)
 
-The next few sections will go deeper what CMM does in each case
+The next few sections will go deeper into what CMM does in each case
 
 #### Add On Imports
 - Adds on new valid imports into existing database
@@ -552,19 +613,57 @@ Duplicates are defined to be two contacts with the exact same name, phone number
 This import will not work if the first row does not have valid headers. <br>
 Headers must include `Name`, `Phone`, `Email`, `Address`, `Gender`, `Age`, `Interest` and `Called` from the left to right, 
 starting from the cell 'A1'. <br> 
-Headers are not case sensitive
+Headers are case-insensitive
 </div>
 
+#### Design considerations:
+
+**Aspect: When import should be executed:**
+
+* **Alternative 1 (current choice):** Always ask for import upon startup
+
+  * Pros: Ensures that user will always be using the most updated list. This reduces the likelihood of time wasted working on outdated data.
+
+  * Cons: Popups may become annoying if user constantly opens and closes application
+
+* **Alternative 2:** Separate command to import.
+
+  * Pros: Fewer prompts upon startup. User can import while CMM is running
+
+  * Cons: User may forget to import the latest Excel file and work on an outdated file
+
+**Aspect: Types of imports that should be available to users:**
+
+* **Alternative 1 (current choice):** 3 options : `Add on import` , `Start new with import`, `Don't import`
+
+  * Pros: Increased flexibility to cater to different needs of the user
+
+  * Cons: More difficult to implement
+
+* **Alternative 2:** Only allow 2 options : `Add on import` and `dont import`.
+
+  * Pros: Easier to implement
+
+  * Cons: Less flexibility for users
+
+
 ### Export feature
-**How the export is executed:**
 
-1. MainWindow calls Logic to Export data
+The export feature is primarily facilitated by the StorageManager.
 
-2. Logic calls StorageManager to export the data found in model
+This feature allows the user to easily transfer data from one device over to another.
 
-3. StorageManager calls CsvImportExportStorage to read and convert to Csv file
+**Given below is an example usage scenario and how the export mechanism behaves at each step.**
 
-4. Logic then saves the database after all contacts have been exported
+1. User wants to transfer the data over to another device and exports the data from the CMM database.
+
+2. MainWindow calls Logic to Export data
+
+3. Logic calls StorageManager to export the data found in model
+
+4. StorageManager calls CsvImportExportStorage to read and convert to Csv file
+
+5. Logic then saves the database after all contacts have been exported
 
 <div markdown="span" class="alert alert-primary">:bulb:
 
@@ -574,34 +673,19 @@ Export file will have the following file name : `export[Date HH:MM:SS].csv` wher
 
 #### Design considerations:
 
-**Aspect: When import and export should be executed:**
+**Aspect: When export should be executed:**
 
-* **Alternative 1 (current choice):** Always ask for import/export upon startup/exit
+* **Alternative 1 (current choice):** Always ask for export upon exit
 
-    * Pros: Ensures that user will always be using the most updated list. This reduces the likelihood of time wasted working on outdated data.
+    * Pros: User will always be reminded to export the most updated list. This reduces the likelihood transferring outdated data across devices
   
     * Cons: Popups may become annoying if user constantly opens and closes application
 
-* **Alternative 2:** Separate command to import.
+* **Alternative 2:** Separate command to export.
 
-    * Pros: Fewer prompts upon startup. User can import while CMM is running
+    * Pros: Fewer prompts upon exit. User can export while CMM is running
   
-    * Cons: User may have forgotten to import the latest Excel file and work on a file that was outdated, this will make the user waste a lot of time.
-
-**Aspect: Types of imports that should be available to users:**
-
-* **Alternative 1 (current choice):** 3 options : `Add on import` , `Start new with import`, `Don't import`
-
-  * Pros: Provide variety of options of imports. CMM will cater to more tasks
-  
-  * Cons: More difficult to implement
-
-* **Alternative 2:** Only allow 2 options : `Add on import` and `dont import`.
-
-  * Pros: Easier to implement
-  
-  * Cons: Less flexibility for users
-
+    * Cons: User may forget to export the latest Excel file and transfer an outdated file to another device.
 
 ### \[Proposed\] Undo/redo feature
 
@@ -858,13 +942,11 @@ Guarantees: CMM Database will be set
 
 **MSS**
 
-1. CMM ask whether to start creation new Database using import data or insert into existing database, upon startup
+1. Upon startup, CMM prompts user whether to start importing with a new Database, or to import into the existing database
 
 2. User determines import setting
 
-3. CMM imports the file
-
-4. CMM starts as per normal
+3. CMM imports the file accordingly
 
    Use case ends.
 
@@ -872,11 +954,13 @@ Guarantees: CMM Database will be set
 
 * 1a. User does not want to import any new data
 
-    * 1a1. CMM runs as per normal
+    Use case ends
 
 * 2a. User request to create a new Database when CMM has no existing database
 
-    * 2a1. CMM will convert the excel file to the correct datatype to be stored inside CMM
+    * 2a1. CMM will convert the Excel file to the correct datatype to be stored inside CMM
+
+  Use case resumes from step 3
 
 * 2b. User request to create a new Database when CMM has existing database
 
@@ -884,21 +968,27 @@ Guarantees: CMM Database will be set
   
     * 2b2 CMM clears the current database
   
-    * 2b3 CMM will convert the excel file to the correct datatype to be stored inside CMM
+    * 2b3 CMM will convert the Excel file to the correct datatype to be stored inside CMM
+
+  Use case resumes from step 3
 
 * 2c. User request to add on to current Database when CMM has existing database
 
-    * 2c1 CMM will convert the excel file to the correct datatype to be stored inside CMM
+    * 2c1 CMM will convert the Excel file to the correct datatype to be stored inside CMM
   
     * 2c2 CMM adds on to current database
 
+  Use case resumes from step 3
+
 * 2d. User request to add on to current Database when CMM has no existing database
 
-    * 2d1 CMM will convert the excel file to the correct datatype to be stored inside CMM
+    * 2d1 CMM will convert the Excel file to the correct datatype to be stored inside CMM
   
     * 2d2 CMM creates new database
   
     * 2d3 CMM adds on to current database
+
+  Use case resumes from step 3
 
 * 3a. During import, User uses a file that does not exist
 
@@ -906,32 +996,28 @@ Guarantees: CMM Database will be set
   
     * 3a2. CMM informs the user of the cancellation
 
+  Use case ends
+
 * 3a. During import, User uses a file that does not follow the set format
 
     * 3a1. CMM will cancel the transfer
   
     * 3a2. CMM informs the user of the cancellation
 
-* *a. At any time before import confirmation, User chooses to cancel the transfer.
-
-    * *a1. CMM will stop all import operation
-  
-    * *a3. No changes are made in CMM Database
-  
-    * *a4. CMM starts as per normal
+  Use case ends
 
 **Use Case 6: Exporting current database into Excel file**
 
 System : CallMeMaybe (CMM) <br>
 Use Case : UC6 - Export database as Excel File <br>
 Actor : User <br>
-Guarantees: Excel file export of current database
+Guarantees: Export of current database into an Excel file
 
 **MSS**
 
-1. User request CMM to export database into excel file
+1. User request CMM to export database into Excel file
 
-2. CMM exports database into excel file to a CMM-specified location
+2. CMM exports database into a new Excel file
 
    Use case ends.
 
@@ -944,21 +1030,23 @@ Guarantees: Selected contact's additional details will be displayed
 
 **MSS**
 
-1. User requests to list contacts (UC2)
+1. User requests to display a specific contact in the list
 
-2. User requests to display a specific contact in the list
+2. Application displays the contact details in the person card
 
-3. Application displays the contact details in a new window
+  Use case ends
+
+**Extensions**
 
 * 1a. The list is empty.
 
-  Use case ends.
+  Use case ends
 
-* 2a. The given index is invalid.
+* 1b. The given index is invalid.
 
-    * 2a1. AddressBook shows an error message.
+    * 1b1. Command box displays an error message.
 
-      Use case resumes at step 2.
+      Use case ends.
     
 **Use Case 8: Filter contacts**
 
@@ -981,13 +1069,13 @@ Guarantees: Contacts will be sorted by the category specified
 
     * 1a1. Command box displays error message
 
-      Use case resumes at step 1
+      Use case ends
 
 * 1b. User enters an invalid field
 
     * 1b1. Command box displays error message
 
-      Use case resumes at step 1
+      Use case ends
 
 **Use Case 9: Finding specific contacts**
 
@@ -1010,13 +1098,13 @@ Guarantees: All contacts that match the specified fields would be displayed
 
     * 1a1. Command box displays error message
 
-      Use case resumes at step 1
+      Use case ends
 
 * 1b. User enters an invalid field
 
     * 1b1. Command box displays error message
 
-      Use case resumes at step 1
+      Use case ends
 
 **Use Case 10: Edit a contact**
 
@@ -1028,6 +1116,7 @@ Guarantees: Specified contact in the address book will be edited
 **MSS**
 
 1. User requests to edit a specific person in the list
+
 2. Contact gets edited in the address book and edited person card is displayed
 
 Use case ends.
@@ -1036,41 +1125,42 @@ Use case ends.
 
 * 1a. The given index is invalid
 
-  * 1a1. Address book shows an error message
+  * 1a1. Command box displays an error message
 
-    Use case resumes at step 1
+    Use case ends
 
 * 1b. There are duplicate interests list index values
 
-  * 1b1. Address book shows an error saying there are duplicate interests list index values
+  * 1b1. Command box displays an error message
 
-    Use case resumes at step 1.
+    Use case ends
 
 * 1c. There are duplicate interest arguments
 
-  * 1c1. Address book shows an error saying there are duplicate interest arguments
+  * 1c1. Command box displays an error message
 
-    Use case resumes at step 1
+    Use case ends
 
 * 1d. There is a duplicate of the edited person already present in the address book
 
-  * 1d1. Address book shows an error saying the person already exists in the address book
+  * 1d1. Command box displays an error message
 
-    Use case resumes at step 1
+    Use case ends
 
 ### Non-Functional Requirements
 
-1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed
 
-2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
+2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage
 
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) 
+should be able to accomplish most of the tasks faster using commands than using the mouse
 
-4. Portability of database is expected as Telemarketers tend to work in a team setting.
+4. Portability of database is expected as Telemarketers tend to work in a team setting
 
-5. A user should be able to retrieve the latest list of contacts in the event the program crashes unexpectedly.
+5. A user should be able to retrieve the latest list of contacts in the event the program crashes unexpectedly
 
-6. Each command should not take more to 1 second to execute.
+6. Each command should not take more to 1 second to execute
 
 ### Glossary
 
@@ -1149,97 +1239,129 @@ testers are expected to do more *exploratory* testing.
     3.2. Test Don't export
    
     * Testcase : click `Don't export` or close the prompt<br>
-      Expected: No new csv files created.
+      Expected: No new csv files created
 
 ### Deleting a contact
 
-1. Deleting a contact while all contacts are being shown
+Prerequisites: Displayed list must not be empty
 
-   1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
+1. Specifying a valid index to be deleted
 
-   2. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   * Test case: `delete 1`<br>
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+  
+2. Specifying an invalid index to be deleted
+   * Test case: `delete 0`<br>
+      Expected: No contact is deleted. Error details shown in the status message
 
-   3. Test case: `delete 0`<br>
-      Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
+   * Test case: `delete 100` <br> (List contains only 50 contacts)
+     Expected: No contact is deleted. Error details shown in the status message
 
-   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
-
+   * Test case: `delete 9999999999999` (Index larger than 2147483647)    
+     Expected: No contact is deleted. Error details shown in the status message
+   
+   * Test case: `delete x`
+     Expected: No contact is deleted. Error details shown in the status message
+   
 ### Displaying a contact
 
-1. Displaying additional details about a particular contact while a list of contacts are being shown
+Prerequisites: Displayed list must not be empty
 
+1. Specifying a valid index to be displayed
 
-    1. Test case: `display 2`<br>
-      Expected: Second contact is displayed from the list.
+   * Test case: `display 2`<br>
+     Expected: Second contact is displayed from the list
+
+2. Specifying an invalid index to be deleted   
    
-   2. Test case: `display 0`<br>
-      Expected: The previously displayed contact continues to be displayed. Error details shown in the status message.
+   * Test case: `display 0`<br>
+     Expected: The previously displayed contact continues to be displayed. Error details shown in the feedback box
 
-   3. Other incorrect display commands to try: `display`, `display goat`, `display x`(where x is larger than the list size)<br>
-      Expected: Similar to previous.
+   * Test case: `display 100` <br> (List contains only 50 contacts)
+     Expected: The previously displayed contact continues to be displayed. Error details shown in the feedback box
+
+   * Test case: `display 9999999999999` (Index larger than 2147483647)    
+     Expected: The previously displayed contact continues to be displayed. Error details shown in the feedback box
+
+   * Test case: `display x`
+     Expected: The previously displayed contact continues to be displayed. Error details shown in the feedback box
 
 ### Editing a person
 
+Prerequisites: Displayed list must not be empty
+
 1. Editing the name of the contact
+
    * Test case: `edit 1 n/bob`
      Expected: The name of the first contact is edited to 'bob'
 
-2. Editing multiple fields at once (age, gender and address)
+3. Editing multiple fields at once (age, gender and address)
+
    * Test case `edit 2 age/22 g/F a/new_address`
      Expected: The age, gender and address of the second contact are edited
 
-3. Adding an interest to the interests list of a specific contact
+4. Adding an interest to the interests list of a specific contact
+   
    * Test case `edit 4 i/hockey`
      Expected: The interest 'hockey' is added to the interests list of the fourth contact
 
-4. Editing the interests list of a specific contact
+5. Editing the interests list of a specific contact
+   
    * Test case `edit 4 i/(1) reading`
-     Expected: The first item in the interests list of the fourth contact is edited and updated to 'reading'
+     Expected: The first interest in the interests list of the fourth contact is edited and updated to 'reading'
 
-5. Removing an interest in the interests list of a specific contact
+6. Removing an interest in the interests list of a specific contact
+   
    * Test case `edit 2 i/(1) remove`
      Expected: The first item in the interests list of the fourth contact is removed
 
-6. Editing, adding and removing interests of a specific contact
+7. Editing, adding and removing interests of a specific contact
+   
    * Test case `edit 3 i/(2) remove i/jogging i/(3) cooking`
      Expected: The third item in the interests list of the third contact is edited and updated to 'cooking', the second item 
      in the interests list is removed and the interest 'jogging' is added to the interests list
 
-7. Editing contacts with invalid index
+8. Editing contacts with invalid index
+   
    * Test case: `edit 2333 i/helicopter`
-     Expected: Application shows an error "The index provided is invalid" in the feedback box
+     Expected: Error details shown in the feedback box
 
-8. Editing contacts to persons who already exist in the list
+9. Editing contacts to persons who already exist in the list
+   
    * Test case: `edit 1 n/Peter Smith p/98989898 e/peter@email.com`
-     Expected: Application shows an error "This person already exists in the address book" in the feedback box
+     Expected: Error details shown in the feedback box
 
 ### Filtering contacts
 
 1. Filtering by a valid category (i.e., `called`, `gender`)
+   
    * Test case: `filter gender`<br>
-   Expected: All contacts are displayed, sorted by gender.
+   Expected: All contacts are displayed, sorted by gender
 
-2. Filtering by a valid category and limit number of contacts shown
-   * Test case: `filter called 1`<br>
-   Expected: Sort contacts based on whether they are called. Only the first contact is displayed.
+2. Filtering by a valid category and limiting the number of contacts shown
+   
+   * Test case: `filter called 3`<br>
+   Expected: Sort contacts based on whether they are called. Only the first 3 contacts are displayed
 
 3. Filtering by an invalid count
+   
    * Test case: `filter called 0`<br>
-   Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
+   Expected: Contacts are not filtered. Error details shown in the feedback box
 
 4. Filtering by an invalid category
-   * Test case: `filter address 0`<br>
-   Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
-
-5. Other incorrect filter commands to try: `filter`, `filter x` (where x is an invalid category),
-   `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
-   Expected: Similar to previous.
+   
+   * Test case: `filter address 1`<br>
+   Expected: Contacts are not filtered. Error details shown in the feedback box
 
 ### Adding contacts
 
-1. Adding valid contacts with only the 3 compulsory fields, `name`, `phone`, `email` specified
+<div markdown="span" class="alert alert-info">:information_source: 
+
+**Note:**<br>
+A contact is considered valid when all 3 of the compulsory fields `Name`, `Phone` and `Email` are specified
+</div>
+
+1. Adding valid contacts with only the 3 compulsory fields, `Name`, `Phone`, `Email` specified
 
    * Test case: `add n/bob p/98765432 e/test@test.com`<br>
    Expected: A contact with the specified fields is added into the list with all other fields, `address`, `age`, `gender`, `interests` left as 'N.A'
@@ -1255,18 +1377,18 @@ testers are expected to do more *exploratory* testing.
 3. Adding contacts with invalid fields
 
    * Test case: `add n/bob p/18765432 e/test@test.com g/m i/running` (phone is invalid)
-   Expected: Application shows an "Invalid command format message" in the feedback box
+   Expected: Error details shown in the feedback box
    
    * Test case: `add n/bob p/98765432 e/test@test.com g/me i/running` (gender is invalid)
-   Expected: Application shows an "Invalid command format message" in the feedback box
+   Expected: Error details shown in the feedback box
 
-4. Adding contacts without anything specified after the prefix
+4. Adding contacts without anything specified after their respective prefix
 
-  * Test case: `add n/bob p/18765432 e/test@test.com g/m i/` ('i/' is left empty)
-    Expected: Application shows an "Invalid command format message" in the feedback box
+  * Test case: `add n/bob p/98765432 e/test@test.com g/m i/` ('i/' is left empty)
+    Expected: Error details shown in the feedback box
 
-  * Test case: `add n/bob p/18765432 e/test@test.com g/ i/running` ('g/' is left empty)
-    Expected: Application shows an "Invalid command format message" in the feedback box
+  * Test case: `add n/bob p/98765432 e/test@test.com g/ i/running` ('g/' is left empty)
+    Expected: Error details shown in the feedback box
 
 ### Finding contacts
 
@@ -1277,13 +1399,11 @@ The test cases below only make use of the findAny command.
 However, the findAll command should be tested roughly the same way. Only difference is when multiple valid fields are supplied at once.
 </div>
 
-1. Finding contacts that have a certain substring in their name
+1. Finding contacts by specifying only 1 field
 
    * Test case: `findAny n/bob`
    Expected: Only contacts that have the substring 'bob' in their name are displayed
-
-2. Finding contacts that have a certain interest
-
+   
    * Test case `findAny i/run`
    Expected: Only contacts that have the substring 'run' in any of their interests are displayed
 
@@ -1295,18 +1415,14 @@ However, the findAll command should be tested roughly the same way. Only differe
 
 4. Finding contacts with invalid fields
 
-   * Test case: `findAny g/helicopter`
-   Expected: Application shows an "Invalid command format message" in the feedback box
+   * Test case: `findAny g/helicopter` ('helicopter' is not a valid gender)
+   Expected: Error details shown in the feedback box
+
+   * Test case `findAny c/HAHA g/M` ('HAHA' is not a valid called status)
+     Expected: Error details shown in the feedback box
 
 5. Finding contacts that do not exist in the database
 
-   * Test case: `findAny n/[any substring that does not exist]`
+   * Test case: `findAny n/[any substring that does not exist in the database]`
    Expected: No contacts are displayed
 
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
