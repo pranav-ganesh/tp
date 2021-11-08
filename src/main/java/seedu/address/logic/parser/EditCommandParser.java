@@ -21,9 +21,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
-    // public static String MESSAGE_INDEX_NOT_PARSED = "The index entered is not within the allowed range. "
-    //        + "The index cannot be bigger than 2147483647 (i.e., MAX_VALUE).";
-
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.

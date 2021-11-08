@@ -50,16 +50,16 @@ public class EditCommand extends Command {
             + "[" + PREFIX_CALLED + "CALLED]"
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_AGE + "AGE] "
-            + "[" + PREFIX_INTEREST + "INTEREST_TO_BE_ADDED]"
-            + "[" + PREFIX_INTEREST + "(INDEX) remove]"
-            + "[" + PREFIX_INTEREST + "(OPTIONAL INDEX) INTEREST]...\n"
+            + "[" + PREFIX_INTEREST + "INTEREST_TO_BE_ADDED]…\u200B"
+            + "[" + PREFIX_INTEREST + "(INDEX) remove]…\u200B"
+            + "[" + PREFIX_INTEREST + "(INDEX) INTEREST]…\u200B\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
             + PREFIX_GENDER + "M "
-            + PREFIX_CALLED + "false"
-            + PREFIX_INTEREST + "[1] software engineering"
-            + PREFIX_INTEREST + "[2] remove";
+            + PREFIX_CALLED + "false "
+            + PREFIX_INTEREST + "(1) software engineering "
+            + PREFIX_INTEREST + "(2) remove";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -142,9 +142,9 @@ public class EditCommand extends Command {
         InterestsList interestsListCopy = personToEdit.getInterests().copyInterestsList();
 
         if (newInterests != null) {
-            this.editInterestList(newInterests, interestsListCopy);
-            this.removeSpecifiedInterests(interestsListCopy);
-            this.addSpecifiedInterests(interestsListCopy);
+            editInterestList(newInterests, interestsListCopy);
+            removeSpecifiedInterests(interestsListCopy);
+            addSpecifiedInterests(interestsListCopy);
         }
         InterestsList updatedInterests = interestsListCopy;
 
@@ -156,11 +156,11 @@ public class EditCommand extends Command {
      * Edits the {@code InterestsList} attribute of {@code personToEdit} based on user input command.
      */
     public void editInterestList(InterestsList newList, InterestsList currentList) throws CommandException {
-        this.emptyLists();
+        emptyLists();
 
         for (Interest i : newList.getAllInterests()) {
             String s = i.toString();
-            this.editSpecifiedInterest(s, currentList);
+            editSpecifiedInterest(s, currentList);
         }
     }
 

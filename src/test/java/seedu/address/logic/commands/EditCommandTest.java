@@ -37,7 +37,72 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    public void assertEditCommandSuccess(Person p, Person p2, Index index, int pos) {
+        Person expectedPerson = p;
 
+        Person editedPerson = p2;
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(index, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, expectedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(pos), expectedPerson);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
+                .withGender("M").withAge("102").withInterest("Blockchain", "Swimming").build();
+        assertEditCommandSuccess(editedPerson, editedPerson, INDEX_THIRD_PERSON, 2);
+    }
+
+    @Test
+    public void execute_addAndEditInterestToInterestsListSeparately_success() {
+        // adding
+        Person expectedPerson = new PersonBuilder().withName("Eric Simmons")
+                .withEmail("eric@example.com").withInterest("Golf", "Airplane spotting").build();
+
+        assertEditCommandSuccess(expectedPerson, expectedPerson, Index.fromOneBased(4), 3);
+
+        // editing
+        Person expectedPerson2 = new PersonBuilder().withName("Eric Simmons")
+                .withEmail("eric@example.com").withGender("M").withAge("31").withInterest("Mining", "Airplane spotting")
+                .build();
+
+        Person editedPerson = new PersonBuilder().withName("Eric Simmons")
+                .withEmail("eric@example.com").withGender("M").withAge("31").withInterest("(1) Mining").build();
+
+        assertEditCommandSuccess(expectedPerson2, editedPerson, Index.fromOneBased(4), 3);
+    }
+
+    @Test
+    public void execute_removeInterestFromInterestsList_success() {
+        Person expectedPerson = new PersonBuilder().withName("Madrid Zimmerman")
+                .withEmail("maddy@example.com").withGender("M").withAge("73").build();
+
+        Person editedPerson = new PersonBuilder().withName("Madrid Zimmerman")
+                .withEmail("maddy@example.com").withGender("M").withAge("73").withInterest("(1) remove").build();
+
+        assertEditCommandSuccess(expectedPerson, editedPerson, INDEX_FIRST_PERSON, 0);
+    }
+
+    @Test
+    public void execute_performManyOperationsInOneCommandOnInterestsList_success() {
+        Person expectedPerson = new PersonBuilder().withName("Luke Skywalker").withEmail("luke@example.com")
+                .withPhone("96561828").withCalled("false").withAddress("HOUSE").withGender("M").withAge("17")
+                .withInterest("Reading", "football", "music", "jogging").build();
+
+        Person editedPerson = new PersonBuilder().withName("Luke Skywalker").withEmail("luke@example.com")
+                .withPhone("96561828").withCalled("false").withAddress("HOUSE").withGender("M").withAge("17")
+                .withInterest("(1) remove", "football", "music", "(2) Reading", "jogging").build();
+
+        assertEditCommandSuccess(expectedPerson, editedPerson, INDEX_SECOND_PERSON, 1);
+    }
+
+    /*
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Person editedPerson = new PersonBuilder().withAddress("THIS IS MY HOME")
@@ -51,11 +116,12 @@ public class EditCommandTest {
         expectedModel.setPerson(model.getFilteredPersonList().get(2), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
+    }*/
 
+    /*
     @Test
     public void execute_addAndEditInterestToInterestsListSeparately_success() {
-        System.out.println(3);
+        // adding
         Person expectedPerson = new PersonBuilder().withName("Eric Simmons")
                 .withEmail("eric@example.com").withPhone("95351252").withCalled("false").withAddress("HOUSE")
                 .withGender("M").withAge("31").withInterest("Golf", "Airplane spotting").build();
@@ -70,6 +136,7 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
 
+        // editing
         Person expectedPerson2 = new PersonBuilder().withName("Eric Simmons")
                 .withEmail("eric@example.com").withPhone("95351252").withCalled("false").withAddress("HOUSE")
                 .withGender("M").withAge("31").withInterest("Mining", "Airplane spotting").build();
@@ -87,11 +154,11 @@ public class EditCommandTest {
         expectedModel.setPerson(model.getFilteredPersonList().get(3), expectedPerson2);
 
         assertCommandSuccess(editCommand2, model, expectedMessage2, expectedModel2);
-    }
+    }*/
 
+    /*
     @Test
     public void execute_removeInterestFromInterestsList_success() {
-        System.out.println(4);
         Person expectedPerson = new PersonBuilder().withName("Madrid Zimmerman")
                 .withEmail("maddy@example.com").withPhone("95351888").withCalled("false").withAddress("HOUSE")
                 .withGender("M").withAge("73").build();
@@ -108,11 +175,11 @@ public class EditCommandTest {
         expectedModel.setPerson(model.getFilteredPersonList().get(0), expectedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
+    }*/
 
+    /*
     @Test
     public void execute_performManyOperationsInOneCommandOnInterestsList_success() {
-        System.out.println(5);
         Person expectedPerson = new PersonBuilder().withName("Luke Skywalker").withEmail("luke@example.com")
                 .withPhone("96561828").withCalled("false").withAddress("HOUSE").withGender("M").withAge("17")
                 .withInterest("Reading", "football", "music", "jogging").build();
@@ -129,7 +196,7 @@ public class EditCommandTest {
         expectedModel.setPerson(model.getFilteredPersonList().get(1), expectedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
+    }*/
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {

@@ -355,7 +355,7 @@ This feature allows telemarketers to edit data fields at any point in time if th
 
 Given below is an example usage scenario and how the edit mechanism behaves at each step.
 
-Step 1. The user launches the application and realizes that person 1 needs to be edited. He/she executes the command `edit 1 n/Will age/20` in order to edit the first person's name and age in the address book.
+Step 1. The user launches the application and realizes that the details of the first contact need to be edited. He/she executes the command `edit 1 n/Will age/20` in order to edit the first person's name and age in the address book.
 
 ℹ️ **Note:** If the user enters the command in an incorrect format, then an invalid command format message is displayed along with the correct format to use.
 
@@ -398,7 +398,7 @@ The following activity diagram summarizes what happens when a user executes an e
 
 * **Alternative 1 (current choice):** 3 fields (`Name`, `Email` and `Phone`) need to exactly match for duplicate to be detected
 
-    * Pros: More logical and emulates real world scenario, It is impossible for non-duplicate contacts to have name, email and phone
+    * Pros: More logical and emulates real world scenario, impossible for non-duplicate contacts to have the same name, email and phone
 
     * Cons: More likely that an edited contact might be already present in the address book
 
@@ -407,8 +407,7 @@ The following activity diagram summarizes what happens when a user executes an e
 
     * Pros: Impossible for two non-duplicate contacts to have exact match for all 7 fields, less likely for edited contact to be already present in the address book
 
-    * Cons: This can lead to more than one contact having the same name, phone and email but different other attributes, which is nearly impossible in the real world, Not all 
-      contacts might have data values for all 7 attributes
+    * Cons: This can lead to more than one contact having the same name, phone and email but different other attributes, which is nearly impossible in the real world
 
 **Aspect: Edit command implementation:**
 
@@ -416,14 +415,14 @@ The following activity diagram summarizes what happens when a user executes an e
 
     * Pros: Easier to implement, more readable code and less prone to errors.
 
-    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which potentially leads to some overhead.
+    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which could potentially lead to overhead.
 
 
 * **Alternative 2:** Person attributes are edited rather than the entire person object being replaced by a new object
 
     * Pros: Logically more apt and intuitive.
 
-    * Cons: Implementation gets messy, violates the law of abstraction, and more prone to errors.
+    * Cons: Implementation gets messy, and more prone to errors.
 
 
 ### Import feature
@@ -898,41 +897,36 @@ Guarantees: Specified contact in the address book will be edited
 
 **MSS**
 
-1. User requests to list persons (UC2)
-2. User requests to edit a specific person in the list
-3. Contact gets edited in the address book and edited person card is displayed
+1. User requests to edit a specific person in the list
+2. Contact gets edited in the address book and edited person card is displayed
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
-* 1a. List is empty
+* 1a. The given index is invalid
 
-  Use case ends
+  * 1a1. Address book shows an error message
 
-* 2a. The given index is invalid
+    Use case resumes at step 1
 
-  * 2a1. Address book shows an error message
+* 1b. There are duplicate interests list index values
 
-    Use case resumes at step 2
+  * 1b1. Address book shows an error saying there are duplicate interests list index values
 
-* 2b. There are duplicate interests list index values
+    Use case resumes at step 1.
 
-  * 2b1. Address book shows an error saying there are duplicate interests list index values
+* 1c. There are duplicate interest arguments
 
-    Use case resumes at step 2.
+  * 1c1. Address book shows an error saying there are duplicate interest arguments
 
-* 2c. There are duplicate interest arguments
+    Use case resumes at step 1
 
-  * 2c1. Address book shows an error saying there are duplicate interest arguments
+* 1d. There is a duplicate of the edited person already present in the address book
 
-    Use case resumes at step 2
+  * 1d1. Address book shows an error saying the person already exists in the address book
 
-* 2d. There is a duplicate of the edited person already present in the address book
-
-  * 2d1. Address book shows an error saying the person already exists in the address book
-
-    Use case resumes at step 2
+    Use case resumes at step 1
 
 ### Non-Functional Requirements
 
@@ -1028,28 +1022,38 @@ testers are expected to do more *exploratory* testing.
 
 ### Editing a person
 
-1. Editing a contact while all contacts are being shown
+1. Editing the name of the contact
+   * Test case: `edit 1 n/bob`
+     Expected: The name of the first contact is edited to 'bob'
 
-2. Editing the name of the contact
-  * Test case: `edit 1 n/bob`
-    Expected: The name of the first contact is edited to 'bob'
+2. Editing multiple fields at once (age, gender and address)
+   * Test case `edit 2 age/22 g/F a/new_address`
+     Expected: The age, gender and address of the second contact are edited
 
-3. Editing the age and interests of the contact
-  * Test case `edit 2 age/22 i/(1) shopping`
-    Expected: The age of the second contact as well as the first item in its interests list are edited
+3. Adding an interest to the interests list of a specific contact
+   * Test case `edit 4 i/hockey`
+     Expected: The interest 'hockey' is added to the interests list of the fourth contact
 
 4. Editing the interests list of a specific contact
-  * Test case `edit 4 i/(1) remove i/run`
-    Expected: The first item in the interests list of the fourth contact is removed and the interest 'run' is added to its
-    interests list
+   * Test case `edit 4 i/(1) reading`
+     Expected: The first item in the interests list of the fourth contact is edited and updated to 'reading'
 
-5. Editing contacts with invalid index
-  * Test case: `edit 2333 i/helicopter`
-    Expected: Application shows an error "The index provided is invalid" in the feedback box
+5. Removing an interest in the interests list of a specific contact
+   * Test case `edit 2 i/(1) remove`
+     Expected: The first item in the interests list of the fourth contact is removed
 
-6. Editing contacts to persons who already exist in the list
-  * Test case: `edit 1 n/Peter Smith p/98989898 e/peter@email.com`
-    Expected: Application shows an error "This person already exists in the address book" in the feedback box
+6. Editing, adding and removing interests of a specific contact
+   * Test case `edit 3 i/(2) remove i/jogging i/(3) cooking`
+     Expected: The third item in the interests list of the third contact is edited and updated to 'cooking', the second item 
+     in the interests list is removed and the interest 'jogging' is added to the interests list
+
+7. Editing contacts with invalid index
+   * Test case: `edit 2333 i/helicopter`
+     Expected: Application shows an error "The index provided is invalid" in the feedback box
+
+8. Editing contacts to persons who already exist in the list
+   * Test case: `edit 1 n/Peter Smith p/98989898 e/peter@email.com`
+     Expected: Application shows an error "This person already exists in the address book" in the feedback box
 
 ### Filtering contacts
 
