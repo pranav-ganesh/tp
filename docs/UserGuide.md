@@ -296,7 +296,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 
 * `INTERESTSLIST INDEX` **must be a positive integer** (e.g., 1, 2, 3, …​)
 
-* The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#48-displaying-full-contact-details--display)
+* The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#58-displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
 
 * All the fields are case-insensitive
@@ -304,6 +304,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 <div markdown="block" class="alert alert-primary">
 
 **:bulb: Tip:** <br>
+
+* The order of specifying interests matters
 
 * Specifying (INTERESTLIST INDEX) is optional as well
 
@@ -373,7 +375,7 @@ Example:
 
 <div markdown="span" class="alert alert-warning">:exclamation: 
 
-**Caution:**<br>Deleting is irreversible, please use with caution.
+**Caution:** Deleting is irreversible, please use with caution.
 </div>
 
 **Things to note:**
@@ -677,7 +679,7 @@ CMM is able to import Excel files into CMM. The import files have to be in an Ex
 <div markdown="span" class="alert alert-warning">:exclamation:
 
 **Caution:**
-Currently, import is **irreversible**. Please double check before importing. This is especially important when choosing the add on import option.
+Currently, import is **irreversible**. Please double-check before importing. This is especially important when choosing the add-on import option.
 </div>
 
 **Things to note**

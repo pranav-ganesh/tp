@@ -21,7 +21,8 @@ Now save the file in the .CSV format and it will be saved in the semicolon delim
 
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:** <br>
-Alternatively, a sample Excel file in this data format can be found in the download page of CMM jar
+
+Alternatively, a sample Excel file in this data format can be found [here](https://github.com/AY2122S1-CS2103T-T13-4/tp/releases/tag/Test_Files)
 </div>
 
 
