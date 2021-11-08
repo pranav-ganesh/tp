@@ -2,11 +2,11 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBook \n Parser" as AddressBookParser LOGIC_COLOR
-participant ":FindAny \n CommandParser" as FindAnyCommandParser LOGIC_COLOR
+participant ": LogicManager" as LogicManager LOGIC_COLOR
+participant ": AddressBook \n Parser" as AddressBookParser LOGIC_COLOR
+participant ": FindAny \n CommandParser" as FindAnyCommandParser LOGIC_COLOR
 participant "f:FindAny \n Command" as FindAnyCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ": CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
