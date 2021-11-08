@@ -57,7 +57,7 @@ notations along the way. Hope you have a great time with CMM.
    <br>
    ![Ui](images/Ui.png)
    <br>
-5. Type the command in the command box and press Enter to execute it. e.g. typing "help" and pressing `Enter` will open the help window.
+6. Type the command in the command box and press Enter to execute it. e.g. typing "help" and pressing `Enter` will open the help window.
    You can find the commands that CallMeMaybe supports below:
    - `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the CMM database.
    - `list` : Lists all contacts.
@@ -71,9 +71,9 @@ notations along the way. Hope you have a great time with CMM.
    - `clear` : Deletes all contacts.
    - `exit` : Exits the app.
 
-6. Remember to clear the sample data using `clear` command before adding your own data.
+7. Remember to clear the sample data using `clear` command before adding your own data.
 
-7. Refer to the [Features](#features) below for details of each command.
+8. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
