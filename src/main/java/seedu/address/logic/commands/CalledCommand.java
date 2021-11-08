@@ -58,6 +58,8 @@ public class CalledCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        assert index.getZeroBased() < lastShownList.size();
+
         Person personToEdit = lastShownList.get(index.getZeroBased());
         if (personToEdit.getIsCalled().value) {
             return new CommandResult(MESSAGE_ALREADY_DONE_CALL);

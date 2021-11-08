@@ -100,11 +100,12 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        assert index.getZeroBased() < lastShownList.size();
+
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         if (!personToEdit.equals(editedPerson)) {
-            System.out.println("HELLO1");
             if (model.hasPerson(editedPerson)) {
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
             } else {
@@ -165,6 +166,11 @@ public class EditCommand extends Command {
     public void editInterestList(InterestsList newList, InterestsList currentList) throws CommandException {
         emptyLists();
 
+        assert this.listOfArguments.isEmpty();
+        assert this.listOfIndexes.isEmpty();
+        assert this.interestsToBeAdded.isEmpty();
+        assert this.indexesToBeRemoved.isEmpty();
+
         for (Interest i : newList.getAllInterests()) {
             String s = i.toString();
             editSpecifiedInterest(s, currentList);
@@ -195,6 +201,7 @@ public class EditCommand extends Command {
                 throw new CommandException(MESSAGE_DUPLICATE_INTEREST_ARGUMENT);
             }
 
+            assert index < currentList.size();
             this.listOfIndexes.add(index);
 
             if (desc.equals("remove")) {
@@ -218,6 +225,7 @@ public class EditCommand extends Command {
 
     private void trySetInterest(InterestsList currentList, String desc, int index) throws CommandException {
         try {
+            assert index >= 0;
             currentList.setInterest(new Interest(desc), index);
         } catch (IllegalArgumentException e) {
             throw new CommandException(e.getMessage());
