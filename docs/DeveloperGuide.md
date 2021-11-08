@@ -452,7 +452,7 @@ The following activity diagram summarizes what happens when a user executes an e
 
     * Pros: Easier to implement, more readable code and less prone to errors.
 
-    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which is not the most efficient mechanism for editing a person,
+    * Cons: Every single time even if there is a minor edit, a new person object needs to be created which is not the most efficient mechanism for editing a contact,
       potential overhead.
 
 
@@ -935,7 +935,7 @@ Guarantees: Selected contact's additional details will be displayed
     * 2a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
-
+    
 **Use Case 8: Filter contacts**
 
 System : CallMeMaybe (CMM) <br>
@@ -1024,7 +1024,7 @@ Guarantees: All contacts that match the specified fields would be displayed
 
 * **PlantUML**: An open-source tool allowing users to create diagrams from a plain text language
 
-* **JSON**: JSON is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays.
+* **JSON**: JSON is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays
 
 * **Quality of Life**: The measure of how convenient it is to use an application
 
@@ -1107,8 +1107,8 @@ testers are expected to do more *exploratory* testing.
 1. Displaying additional details about a particular contact while a list of contacts are being shown
 
    1. Test case: `display 2`<br>
-        Expected: Second contact is displayed from the list.
-
+      Expected: Second contact is displayed from the list.
+   
    2. Test case: `display 0`<br>
       Expected: The previously displayed contact continues to be displayed. Error details shown in the status message.
 
@@ -1117,23 +1117,25 @@ testers are expected to do more *exploratory* testing.
     
 ### Filtering contacts
 
-1. Filtering all contacts
+1. Filtering by a valid category (i.e., `called`, `gender`)
+   * Test case: `filter gender`<br>
+   Expected: All contacts are displayed, sorted by gender.
 
-    1. Test case: `filter gender`<br>
-       Expected: All contacts are displayed, sorted by gender.
+2. Filtering by a valid category and limit number of contacts shown
+   * Test case: `filter called 1`<br>
+   Expected: Sort contacts based on whether they are called. Only the first contact is displayed.
 
-    2. Test case: `filter called 1`<br>
-       Expected: Sort contacts based on whether they are called. Only the first contact is displayed.
+3. Filtering by an invalid count
+   * Test case: `filter called 0`<br>
+   Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
 
-    3. Test case: `filter called 0`<br>
-       Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
+4. Filtering by an invalid category
+   * Test case: `filter address 0`<br>
+   Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
 
-    4. Test case: `filter address 0`<br>
-       Expected: Contacts are not filtered. Error details shown in the status message. Status bar remains the same.
-
-    5. Other incorrect delete commands to try: `filter`, `filter x` (where x is an invalid category),
-       `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
-       Expected: Similar to previous.
+5. Other incorrect filter commands to try: `filter`, `filter x` (where x is an invalid category),
+   `filter y z`,`...` (where y is a valid category but z is less than or equal to zero)<br>
+   Expected: Similar to previous.
 
 ### Adding contacts
 
