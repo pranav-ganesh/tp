@@ -278,6 +278,8 @@ The lifeline for `AddCommandParser` should end at the destroy marker (X). But du
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 The activity diagram below summarises what happens when a user executes an Add Command.
 
 ![Add command activity diagram](images/AddActivityDiagram.png)
@@ -356,6 +358,8 @@ The lifeline for `FindAnyCommandParser` should end at the destroy marker (X). Bu
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 The activity diagram below summarises what happens when a user executes a `findAny` Command.
 
 ![Find command activity diagram](images/FindActivityDiagram.png)
@@ -408,7 +412,7 @@ about a particular contact and enters the command `display 2`
 6. The UiManager then executes the displaying process by communicating with the MainWindow
 
 7. The MainWindow, where the relevant JavaFX elements are placed, shows the details of the selected contact
-
+  
 The Sequence Diagram below illustrates the interactions within the Logic component for the `execute("display 2")` API call.
 
 ![Interactions Inside the Logic Component for the `display' Command](images/DisplaySequenceDiagram.png)
@@ -551,6 +555,8 @@ with `...` within the diagram for easier viewing.
 
 ![Interactions Inside the Logic Component for the `edit' Command](images/EditSequenceDiagram.png)
 
+<div style="page-break-after: always;"></div>
+
 <div markdown="span" class="alert alert-info">:information_source:
 
 **Note:**<br>
@@ -562,6 +568,8 @@ The lifeline for `EditCommandParser` should end at the destroy marker (X). But d
 The following activity diagram summarizes what happens when a user executes an edit command:
 
 ![EditActivityDiagram](images/EditActivityDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Design considerations:
 
