@@ -13,7 +13,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/kangxun.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/kangxun)]
 [[portfolio](team/kangxun.md)]
 
@@ -33,7 +32,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/houtenteo.png" width="200px">
 
-[[github](https://github.com/houtenteo)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/houtenteo)] 
+[[portfolio](team/houtenteo.md)]
 
 * Role: Developer
 * Responsibilities: Data
@@ -43,7 +43,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/idgrr.png" width="200px">
 
 [[github](http://github.com/idgrr)]
-[[portfolio](team/irfan.md)]
+[[portfolio](team/idgrr.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
@@ -53,7 +53,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/loose-bus-change.png" width="200px">
 
 [[github](http://github.com/loose-bus-change)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/loose-bus-change.md)]
 
 * Role: Developer
 * Responsibilities: UI/Add function

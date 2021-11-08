@@ -52,7 +52,8 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * @throws ParseException if the specified index is invalid (i.e., if it is not a number, or it is more than
+     * the MAX_VALUE). Different error messages will be displayed based on whether input is an integer or not.
      */
     public static Index parseIndex(String indexString, String exceptionMessage) throws ParseException {
         Index returnIndex;
@@ -212,7 +213,11 @@ public class ParserUtil {
         requireNonNull(interests);
         final InterestsList interestsList = new InterestsList();
         for (String interest : interests) {
-            interestsList.addInterest(parseInterest(interest));
+            try {
+                interestsList.addInterest(parseInterest(interest));
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(e.getMessage());
+            }
         }
         return interestsList;
     }
@@ -404,10 +409,10 @@ public class ParserUtil {
 
     /**
      * Checks whether the parameter that has been input is a whole number (can also be a whole number greater
-     * than Integer.MAX_VALUE
+     * than Integer.MAX_VALUE)
      *
-     * @param arg the parameter that has been entered by the user
-     * @return
+     * @param arg the index parameter that has been entered by the user
+     * @return a boolean representing whether the index is a positive integer or not
      */
     public static boolean isPositiveInteger(String arg) {
         boolean isZero = true;
