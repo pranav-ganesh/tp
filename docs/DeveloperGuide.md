@@ -1047,45 +1047,45 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file. <br>
+      Expected: An import prompt will appear. After clicking `Don't import`, it will show the GUI with a set of sample contacts. The window size will be fullscreen.
   
   
-2. Importing Data
+2. Importing Data during launch
 
     2.1. Test Add on import
    
     * Prerequisites : Data in CMM is currently populated and import.csv in the correct format at the correct file location
        
     * Testcase : click `Add on Import` upon CMM startup <br>
-           
-    * Expected : Valid people in import.csv are added on to existing data in CMM
+      Expected : Valid people in import.csv are added on to existing data in CMM
        
     2.2. Test Start using New Import
    
     * Prerequisites : Data in CMM is currently populated and import.csv in the correct format at the correct file location
     
     * Testcase : click `Start using New Import` upon CMM startup <br>
-    * Expected : Current data is exported in a csv file. Only valid people in import.csv exists in CMM
+      Expected : Current data is exported in a csv file. Only valid people in import.csv exists in CMM
        
     2.3 Test Don't Import
    
     * Prerequisites : Data in CMM is currently populated and import.csv in the correct format at the correct file location
        
     * Testcase : click `Don't import` upon CMM startup or close the prompt <br>
-    * Expected : Current data will stay in CMM. No new data will be imported
+      Expected : Current data will stay in CMM. No new data will be imported
   
 
-3. Exporting Data
+3. Exporting Data during shutdown
 
     3.1. Test exporting
    
     * Testcase : click `Export` upon CMM shutdown<br>
-    * Expected : new csv file with the latest details can be found in the data folder at CMM jar location
+      Expected : new csv file with the latest details can be found in the data folder at CMM jar location
        
     3.2. Test Don't export
    
     * Testcase : click `Don't export` or close the prompt<br>
-    * Expected: No new csv files created.
+      Expected: No new csv files created.
 
 ### Deleting a contact
 
