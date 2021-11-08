@@ -266,9 +266,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 * The Interests list of a contact can be found here (refer to the screenshot below) and can be displayed by using the [display command](#48-displaying-full-contact-details--display)
    ![interestsList](images/interestsList.png)
 
-<div markdown="block" class="alert alert-primary"> :bulb: 
+<div markdown="block" class="alert alert-primary">
 
-**Tip:** <br>
+**:bulb: Tip:** <br>
 
 * Specifying (INTERESTLIST INDEX) is optional as well
 
@@ -282,7 +282,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [age/AGE
 
 Examples:
 
-* `edit 1 n/Malan i/Painting i/(2) Swimming`Edits the following fields of the **first contact in the displayed list** :<br>
+* `edit 1 n/Malan i/Painting i/(2) Swimming` Edits the following fields of the **first contact in the displayed list** :<br>
 
     * Edit `Name` to 'Malan'
   
@@ -357,6 +357,8 @@ Example:
 
 ### 4.6 Finding contacts that match **ANY** of the keywords specified: `findAny`
 
+Finds all contacts that match any of the fields specified by the user
+
 Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​]
 [c/CALLED…​] [i/INTEREST…​]`
 
@@ -381,13 +383,13 @@ Format: `findAny [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 
 * You can refer to the examples below for a better understanding
 
-<div markdown="block" class="alert alert-primary"> :bulb: 
+<div markdown="block" class="alert alert-primary"> 
 
-**Tip:** <br>
+**:bulb: Tip: FindAny vs FindAll**
 
-* `findAll` searches for contacts that satisfy **ALL** the fields specified.
+* `findAny` searches for contacts that satisfy **ANY** of the fields specified
 
-* `findAny` searches for contacts that satisfy **ANY** of the fields specified.<br>
+* `findAll` searches for contacts that satisfy **ALL** the fields specified
 
 </div>
 
@@ -424,9 +426,9 @@ have the substring 'woodlands' in their address
 
 Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​] [g/GENDER…​] [age/AGE…​] [c/CALLED…​] [i/INTEREST…​]`
 
-**Things to note:**
+Finds only the contacts that match all the keywords specified in their respective fields
 
-* `findAll` only returns contacts that matches all the keywords specified in their respective fields
+**Things to note:**
 
 * `findAll` requires at least one field. But it is optional to include all the fields. <br>
 
@@ -447,9 +449,9 @@ Format: `findAll [n/NAME…​] [p/PHONE…​] [e/EMAIL…​] [a/ADDRESS…​
 
 * You can refer to the examples below for a better understanding
 
-<div markdown="block" class="alert alert-primary"> :bulb: 
+<div markdown="block" class="alert alert-primary"> 
 
-**Tip:** <br>
+:bulb: **Tip: FindAll vs FindAny** <br>
 
 * `findAll` searches for contacts that satisfy **ALL** the fields specified.
 
